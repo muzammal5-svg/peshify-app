@@ -41,7 +41,7 @@ export default function SplashPage() {
       <div className="min-h-dvh bg-navy-header flex flex-col items-center justify-center px-4 py-8 gap-6">
         <div className="text-center flex flex-col items-center">
           <Logo size="lg" variant="mark" className="mb-4 shadow-xl" />
-          <h1 className="text-2xl font-heading font-bold text-white">MZM &amp; Associates</h1>
+          <h1 className="text-2xl font-heading font-bold text-white">Peshify</h1>
           <p className="text-sm text-white/70 mt-2">Welcome — choose how to continue</p>
         </div>
         <div className="w-full max-w-sm space-y-3">

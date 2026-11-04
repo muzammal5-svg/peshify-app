@@ -1,5 +1,5 @@
 export const SITE = {
-  name: "MZM Case Management",
+  name: "Peshify",
   tagline: "Run your law practice with clarity",
   whatsapp: "+92 300 5421753",
   phone: "+92 300 5421753",

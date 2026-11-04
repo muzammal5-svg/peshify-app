@@ -28,7 +28,7 @@ export function SplashScreen({ onDone, minDuration = 1400 }: SplashScreenProps) 
   return (
     <div
       aria-live="polite"
-      aria-label={t("common.loading") + " MZM & Associates"}
+      aria-label={t("common.loading") + " Peshify"}
       className={`
         fixed inset-0 z-[100] flex flex-col items-center justify-center
         bg-navy transition-opacity duration-300

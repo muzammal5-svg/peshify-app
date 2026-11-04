@@ -38,7 +38,7 @@ export async function exportCauseListPdf(opts: PdfExportOptions): Promise<void> 
 
   // Use the firm upload when present and the real brand mark as the fallback.
   try {
-    const response = await fetch(firmLogoUrl || "/logo/logoadv.jpeg");
+    const response = await fetch(firmLogoUrl || "/logo/peshify-logo.png");
     if (response.ok) {
       const logo = await response.blob();
       const dataUrl = await new Promise<string>((resolve, reject) => {
