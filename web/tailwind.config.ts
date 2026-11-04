@@ -1,0 +1,216 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // Kontrora Editorial Luxury Palette
+        black:    "#050505",
+        dark:     "#0A0A0A",
+        surface:  {
+          DEFAULT:   "#111111",
+          card:      "#111111",
+          hover:     "#171717",
+          secondary: "#171717",
+          tertiary:  "#1E1E1E",
+        },
+        elevated: "#171717",
+        bone: {
+          DEFAULT: "#EDE8E0",
+          hover:   "#FFFFFF",
+          dim:     "rgba(237, 232, 224, 0.08)",
+        },
+        offwhite: "#050505",
+        canvas:   "#050505",
+        obsidian: "#050505",
+        border:   {
+          DEFAULT: "rgba(237, 232, 224, 0.12)",
+          strong:  "rgba(237, 232, 224, 0.22)",
+          subtle:  "rgba(237, 232, 224, 0.06)",
+        },
+        kontrora: {
+          bg:     "#050505",
+          card:   "#111111",
+          hover:  "#171717",
+          border: "rgba(237, 232, 224, 0.12)",
+          accent: "#EDE8E0",
+        },
+        accent: {
+          DEFAULT: "#EDE8E0",
+          hover:   "#FFFFFF",
+        },
+        // Rich metallic gold / bone mapping
+        gold: {
+          DEFAULT: "#EDE8E0",
+          50:  "#FAF8F5",
+          100: "#F5F1EA",
+          200: "#EDE8E0",
+          300: "#D8D2C6",
+          400: "#EDE8E0",
+          500: "#EDE8E0",
+          600: "#C4A574",
+          700: "#A88B58",
+          800: "#5C5852",
+          900: "#050505",
+        },
+        navy: {
+          DEFAULT: "#EDE8E0",
+          50:  "#0A0A0A",
+          100: "#111111",
+          200: "#171717",
+          300: "#5C5852",
+          400: "#9A958C",
+          500: "#EDE8E0",
+          600: "#EDE8E0",
+          700: "#0A0A0A",
+          800: "#070707",
+          900: "#050505",
+        },
+        success:  "#6B8F71",
+        danger:   "#C45C5C",
+        warning:  "#C4A574",
+        info:     "#EDE8E0",
+        muted:    "#9A958C",
+      },
+
+      fontFamily: {
+        heading:   ["Syne", "var(--font-display)", "sans-serif"],
+        display:   ["Syne", "sans-serif"],
+        body:      ["DM Sans", "var(--font-sans)", "system-ui", "sans-serif"],
+        sans:      ["DM Sans", "system-ui", "sans-serif"],
+        cormorant: ["Syne", "sans-serif"],
+        jakarta:   ["DM Sans", "sans-serif"],
+        inter:     ["DM Sans", "sans-serif"],
+        urdu:      ["Noto Nastaliq Urdu", "Noto Sans Arabic", "serif"],
+        mono:      ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+      },
+
+      fontSize: {
+        xs:   ["12px", { lineHeight: "1.5" }],
+        sm:   ["14px", { lineHeight: "1.5" }],
+        base: ["16px", { lineHeight: "1.6" }],
+        lg:   ["18px", { lineHeight: "1.5" }],
+        xl:   ["22px", { lineHeight: "1.35" }],
+        "2xl":["28px", { lineHeight: "1.25" }],
+        "3xl":["34px", { lineHeight: "1.15" }],
+      },
+
+      borderRadius: {
+        none: "0px",
+        xs:   "1px",
+        sm:   "2px",
+        DEFAULT: "2px",
+        md:   "2px",
+        lg:   "2px",
+        xl:   "2px",
+        "2xl":"4px",
+        "3xl":"4px",
+        full: "9999px",
+      },
+
+      boxShadow: {
+        xs:          "0 1px 2px rgba(15,23,42,.06)",
+        sm:          "0 1px 3px rgba(15,23,42,.08), 0 1px 2px rgba(15,23,42,.04)",
+        md:          "0 4px 12px rgba(15,23,42,.08), 0 2px 4px rgba(15,23,42,.04)",
+        lg:          "0 12px 28px rgba(15,23,42,.12), 0 4px 8px rgba(15,23,42,.05)",
+        xl:          "0 24px 56px rgba(15,23,42,.16), 0 8px 16px rgba(15,23,42,.06)",
+        gold:        "0 6px 18px rgba(184,134,11,.28)",
+        "gold-lg":   "0 14px 34px rgba(184,134,11,.34)",
+        // Kontrora electric glow
+        "glow-indigo": "0 0 20px rgba(99,102,241,0.25)",
+        "glow-indigo-lg": "0 0 35px rgba(99,102,241,0.4)",
+        "kontrora-card": "0 4px 20px -2px rgba(0, 0, 0, 0.5)",
+        "kontrora-modal": "0 0 50px rgba(0, 0, 0, 0.8)",
+        // Premium gold glow used on hover states and "most popular" cards.
+        "glow-gold": "0 0 15px rgba(212,175,55,.3)",
+        "glow-gold-lg": "0 0 0 1px rgba(212,175,55,.45), 0 18px 46px rgba(212,175,55,.22)",
+        "glow-navy": "0 0 0 1px rgba(15,23,42,.10), 0 18px 46px rgba(15,23,42,.16)",
+        "inner-top": "0 -4px 16px rgba(15,23,42,.08)",
+        // legacy aliases (point to scale)
+        card:        "0 1px 3px rgba(15,23,42,.08), 0 1px 2px rgba(15,23,42,.04)",
+        "card-hover":"0 4px 12px rgba(15,23,42,.08), 0 2px 4px rgba(15,23,42,.04)",
+        modal:       "0 12px 28px rgba(15,23,42,.12), 0 4px 8px rgba(15,23,42,.05)",
+        navbar:      "0 -4px 16px rgba(15,23,42,.08)",
+        sidebar:     "1px 0 0 0 rgba(15,23,42,.08)",
+        input:       "0 0 0 3px rgba(184,134,11,.15)",
+      },
+
+      backgroundImage: {
+        "navy-header": "linear-gradient(180deg, rgba(5,5,5,0.95) 0%, rgba(10,10,10,0.95) 100%)",
+        "gold-cta":    "#EDE8E0",
+        "gold-soft":   "#EDE8E0",
+        "mesh-surface":"linear-gradient(180deg, #050505 0%, #0A0A0A 100%)",
+        "mesh-dark":   "linear-gradient(180deg, #050505 0%, #080808 100%)",
+        "text-gold-gradient": "#EDE8E0",
+        "text-navy-gradient": "#EDE8E0",
+        "glass-sheen": "linear-gradient(135deg, rgba(237,232,224,.15) 0%, rgba(237,232,224,.02) 100%)",
+      },
+
+      screens: {
+        xs:   "375px",
+        sm:   "640px",
+        md:   "768px",
+        lg:   "1024px",
+        xl:   "1280px",
+        "2xl":"1440px",
+      },
+
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "in-out-soft": "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
+
+      keyframes: {
+        "slide-up": { "0%": { transform: "translateY(100%)", opacity: "0" }, "100%": { transform: "translateY(0)", opacity: "1" } },
+        "slide-down": { "0%": { transform: "translateY(-8px)", opacity: "0" }, "100%": { transform: "translateY(0)", opacity: "1" } },
+        "fade-in": { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
+        shimmer: { "0%": { backgroundPosition: "-200% 0" }, "100%": { backgroundPosition: "200% 0" } },
+        press: { "0%": { transform: "scale(1)" }, "50%": { transform: "scale(.98)" }, "100%": { transform: "scale(1)" } },
+        "count-up": { "0%": { opacity: "0", transform: "translateY(4px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        "bell-shake": { "0%,100%": { transform: "rotate(0)" }, "25%": { transform: "rotate(-12deg)" }, "75%": { transform: "rotate(12deg)" } },
+        "glow-pulse": { "0%,100%": { boxShadow: "0 0 0 0 rgba(184,134,11,.4)" }, "50%": { boxShadow: "0 0 0 8px rgba(184,134,11,0)" } },
+        "check-draw": { "0%": { strokeDashoffset: "100" }, "100%": { strokeDashoffset: "0" } },
+        "gradient-pan": { "0%,100%": { backgroundPosition: "0% 50%" }, "50%": { backgroundPosition: "100% 50%" } },
+        "pulse-dot": { "0%,100%": { transform: "scale(1)", opacity: ".65" }, "50%": { transform: "scale(2.1)", opacity: "0" } },
+        "scale-sway": { "0%,100%": { transform: "rotate(-5deg)" }, "50%": { transform: "rotate(5deg)" } },
+        "float-slow": { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
+        "drawer-in": { "0%": { transform: "translateX(-28px)", opacity: "0" }, "100%": { transform: "translateX(0)", opacity: "1" } },
+        "sheen": { "0%": { transform: "translateX(-120%)" }, "100%": { transform: "translateX(120%)" } },
+      },
+      animation: {
+        "slide-up":   "slide-up 0.25s ease-out",
+        "slide-down": "slide-down 0.2s ease-out",
+        "fade-in":    "fade-in 0.15s ease-out",
+        shimmer:      "shimmer 1.6s linear infinite",
+        press:        "press .15s ease-out",
+        "count-up":   "count-up .6s ease-out",
+        "bell-shake": "bell-shake .5s ease-out",
+        "glow-pulse": "glow-pulse 1.8s ease-in-out infinite",
+        "check-draw": "check-draw .4s ease-out forwards",
+        "gradient-pan": "gradient-pan 6s ease infinite",
+        "pulse-dot": "pulse-dot 1.8s ease-out infinite",
+        "scale-sway": "scale-sway 3.2s ease-in-out infinite",
+        "float-slow": "float-slow 6s ease-in-out infinite",
+        "drawer-in": "drawer-in 0.28s cubic-bezier(0.16,1,0.3,1)",
+        sheen:        "sheen 2.4s ease-in-out infinite",
+      },
+
+      zIndex: {
+        60: "60",
+        70: "70",
+        80: "80",
+        90: "90",
+      },
+    },
+  },
+  plugins: [
+    require("@tailwindcss/typography"),
+  ],
+};
+
+export default config;

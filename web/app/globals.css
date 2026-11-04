@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Kontrora Editorial Luxury Dark Tokens ───────────────────────────────── */
+:root {
+  --font-display:    'Syne', sans-serif;
+  --font-sans:       'DM Sans', system-ui, sans-serif;
+  --font-inter:      'DM Sans', system-ui, sans-serif;
+  --font-jakarta:    'DM Sans', system-ui, sans-serif;
+  --font-playfair:   'Syne', sans-serif;
+  --font-cormorant:  'Syne', sans-serif;
+  --font-noto-urdu:  'Noto Nastaliq Urdu', serif;
+
+  /* True Black Canvas & Editorial Dark Tones */
+  --black:           #050505;
+  --dark:            #0A0A0A;
+  --surface:         #111111;
+  --elevated:        #171717;
+
+  /* Hairlines */
+  --border:          rgba(237, 232, 224, 0.12);
+  --border-strong:   rgba(237, 232, 224, 0.22);
+  --border-subtle:   rgba(237, 232, 224, 0.06);
+
+  /* Bone Accent */
+  --bone:            #EDE8E0;
+  --bone-hover:      #FFFFFF;
+  --bone-dim:        rgba(237, 232, 224, 0.08);
+
+  /* Text */
+  --text-primary:    #EDE8E0;
+  --text-secondary:  #9A958C;
+  --text-muted:      #5C5852;
+
+  /* Mapped Legacy Variables */
+  --color-canvas:        #050505;
+  --color-surface:       #111111;
+  --color-surface-hover: #171717;
+  --color-surface-2:     #171717;
+  --color-surface-3:     #1E1E1E;
+  --color-border:        rgba(237, 232, 224, 0.12);
+  --color-border-subtle: rgba(237, 232, 224, 0.06);
+
+  --color-accent:        #EDE8E0;
+  --color-accent-hover:  #FFFFFF;
+  --color-accent-glow:   transparent;
+
+  --color-gold:          #EDE8E0;
+  --color-gold-light:    #FFFFFF;
+  --color-navy:          #EDE8E0;
+  --color-navy-deep:     #050505;
+  --color-offwhite:      #050505;
+
+  --color-success:       #6B8F71;
+  --color-danger:        #C45C5C;
+  --color-warning:       #C4A574;
+  --color-info:          #EDE8E0;
+  --color-muted:         #9A958C;
+
+  /* Sharp rectangular geometry (Kontrora) */
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-full: 9999px;
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.5);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.6);
+  --shadow-md: 0 4px 14px rgba(0,0,0,.7);
+  --shadow-lg: 0 12px 28px rgba(0,0,0,.8);
+  --shadow-xl: 0 24px 56px rgba(0,0,0,.9);
+  --shadow-gold: none;
+  --shadow-glow-gold: none;
+  --shadow-inner-top: none;
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: #050505;
+  color: #EDE8E0;
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background-color: #050505;
+  color: #EDE8E0;
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  letter-spacing: normal;
+}
+
+::selection {
+  background: rgba(237, 232, 224, 0.25);
+  color: #FFFFFF;
+}
+
+/* ─── Typography ────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #EDE8E0;
+}
+
+h1 { font-size: clamp(2.1rem, 5.5vw, 4.25rem); font-weight: 700; }
+h2 { font-size: clamp(1.75rem, 3.8vw, 2.75rem); font-weight: 700; }
+h3 { font-size: clamp(1.2rem, 2vw, 1.45rem); font-weight: 700; letter-spacing: -0.02em; }
+p  { color: #C8C2B8; line-height: 1.7; }
+
+/* Section eyebrow / kicker */
+.section-label, .kicker {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9A958C;
+  display: block;
+}
+
+/* ─── Urdu text helper ──────────────────────────────────────────────────────── */
+.urdu {
+  font-family: var(--font-noto-urdu), 'Noto Sans Arabic', Tahoma, serif;
+  direction: rtl;
+  text-align: right;
+  line-height: 2.1;
+}
+
+/* ─── RTL support & Urdu Harmony ────────────────────────────────────────────── */
+[dir="rtl"] body {
+  font-family: var(--font-noto-urdu), 'Noto Sans Arabic', Tahoma, serif;
+  line-height: 1.95;
+  letter-spacing: normal;
+}
+
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4 {
+  font-family: var(--font-noto-urdu), 'Noto Sans Arabic', Tahoma, serif;
+  line-height: 1.75;
+}
+
+[dir="rtl"] .btn-primary, [dir="rtl"] .btn-secondary, [dir="rtl"] .btn-outline {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  line-height: 1.7;
+}
+
+[dir="rtl"] input, [dir="rtl"] select, [dir="rtl"] textarea {
+  line-height: 1.8;
+  font-family: var(--font-noto-urdu), 'Noto Sans Arabic', Tahoma, sans-serif;
+}
+
+/* ─── Scrollbar (desktop) ───────────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar       { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: #050505; }
+  ::-webkit-scrollbar-thumb { background: rgba(237, 232, 224, 0.2); border-radius: 0; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(237, 232, 224, 0.4); }
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ─── Focus ring ────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 1px solid rgba(237, 232, 224, 0.5);
+  outline-offset: 2px;
+}
+
+/* ─── Touch targets ─────────────────────────────────────────────────────────── */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ─── Kontrora Buttons & Primitives ─────────────────────────────────────────── */
+@layer components {
+  .card {
+    @apply bg-[#111111] rounded-none border border-[rgba(237,232,224,0.12)] p-4 text-[#EDE8E0];
+  }
+  .card-header {
+    @apply text-[11px] font-bold text-[#9A958C] uppercase tracking-[0.12em] mb-3;
+  }
+
+  /* Kontrora Sharp Primary Button (Bone / Black) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 rounded-none h-12
+           bg-[#EDE8E0] text-[#050505] font-bold text-[11.5px] uppercase tracking-[0.12em]
+           hover:bg-white active:bg-[#D8D2C6] border border-[#EDE8E0]
+           transition-all duration-200 ease-out active:scale-[0.99]
+           disabled:opacity-40 disabled:cursor-not-allowed shadow-none;
+  }
+
+  /* Kontrora Sharp Outline Button */
+  .btn-secondary, .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 rounded-none h-12
+           bg-transparent text-[#EDE8E0] font-semibold text-[11.5px] uppercase tracking-[0.12em]
+           border border-[rgba(237,232,224,0.3)]
+           hover:bg-[#EDE8E0] hover:text-[#050505] hover:border-[#EDE8E0]
+           transition-all duration-200 ease-out active:scale-[0.99]
+           disabled:opacity-40 disabled:cursor-not-allowed shadow-none;
+  }
+
+  .btn-ghost-gold, .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-none
+           bg-transparent text-[#9A958C] hover:text-[#EDE8E0] font-medium text-[12px] uppercase tracking-[0.08em]
+           transition-colors duration-200;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-none
+           bg-[#C45C5C]/15 text-[#C45C5C] border border-[#C45C5C]/30 font-semibold text-[12px] uppercase tracking-[0.08em]
+           hover:bg-[#C45C5C]/25 transition-all duration-200 active:scale-[0.99];
+  }
+
+  /* Underline form input (Kontrora Footer & Contact) */
+  .input-underline {
+    @apply w-full bg-transparent border-0 border-b border-[rgba(237,232,224,0.18)] py-3 px-0
+           text-sm text-[#EDE8E0] placeholder:text-[#5C5852] rounded-none
+           focus:outline-none focus:border-[#EDE8E0] transition-colors duration-200;
+  }
+
+  /* Boxed input */
+  .input, .input-dark {
+    @apply w-full rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] px-4 py-3
+           text-sm text-[#EDE8E0] placeholder:text-[#5C5852]
+           focus:outline-none focus:border-[rgba(237,232,224,0.4)]
+           disabled:bg-white/[0.02] disabled:text-[#5C5852] disabled:cursor-not-allowed
+           transition-colors duration-200;
+  }
+
+  .label, .label-dark {
+    @apply block text-[11px] font-bold text-[#9A958C] uppercase tracking-[0.12em] mb-1.5;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-none text-[11px] font-bold uppercase tracking-[0.08em] border;
+  }
+
+  .glass-card {
+    @apply bg-[#111111] border border-[rgba(237,232,224,0.12)] rounded-none shadow-md;
+    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+  }
+  .glass-card:hover {
+    @apply border-[rgba(237,232,224,0.25)] bg-[#171717];
+  }
+
+  .glass-dark {
+    @apply bg-[#0A0A0A] border border-[rgba(237,232,224,0.12)] rounded-none;
+  }
+
+  /* Kontrora minimal sharp badge */
+  .pill-badge {
+    @apply inline-flex items-center gap-1.5 rounded-none px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.1em]
+           bg-white/[0.04] border border-[rgba(237,232,224,0.15)] text-[#EDE8E0];
+  }
+  .pulse-dot {
+    @apply relative inline-flex h-1.5 w-1.5 rounded-full;
+  }
+  .pulse-dot::before {
+    content: "";
+    @apply absolute inset-0 rounded-full bg-current animate-pulse-dot;
+  }
+  .pulse-dot::after {
+    content: "";
+    @apply absolute inset-0 rounded-full bg-current;
+  }
+}
+
+/* ─── Text helpers (Solid Bone luxury text) ─────────────────────────────────── */
+.text-gold-gradient {
+  color: #EDE8E0;
+}
+.text-navy-gradient {
+  color: #EDE8E0;
+}
+
+/* ─── Slide-over drawer ─────────────────────────────────────────────────────── */
+.drawer-panel {
+  animation: drawer-in .28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes drawer-in {
+  from { transform: translateX(-28px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+[dir="rtl"] .drawer-panel {
+  animation-name: drawer-in-rtl;
+}
+@keyframes drawer-in-rtl {
+  from { transform: translateX(28px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ─── Floating label field ─────────────────────────────────────────────────── */
+.field-float {
+  @apply w-full min-h-[52px] rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] pb-2 pt-5 text-sm text-[#EDE8E0]
+         placeholder:text-transparent
+         focus:outline-none focus:border-[rgba(237,232,224,0.4)]
+         transition-all duration-200 ease-in-out;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.field-float--with-left-icon {
+  padding-inline-start: 2.75rem !important;
+  padding-left: 2.75rem !important;
+}
+[dir="rtl"] .field-float--with-left-icon {
+  padding-inline-start: 2.75rem !important;
+  padding-right: 2.75rem !important;
+  padding-left: 1rem !important;
+}
+.field-float--with-right-slot {
+  padding-inline-end: 2.75rem !important;
+  padding-right: 2.75rem !important;
+}
+[dir="rtl"] .field-float--with-right-slot {
+  padding-inline-end: 2.75rem !important;
+  padding-left: 2.75rem !important;
+  padding-right: 1rem !important;
+}
+.field-float-label {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  line-height: 1.2;
+  color: #9A958C;
+  pointer-events: none;
+  transition: top .2s ease-in-out, transform .2s ease-in-out, font-size .2s ease-in-out, color .2s ease-in-out;
+}
+.field-float-label--inset {
+  inset-inline-start: 2.75rem;
+}
+[dir="ltr"] .field-float-label--inset {
+  left: 2.75rem;
+}
+[dir="rtl"] .field-float-label--inset {
+  right: 2.75rem;
+}
+.field-float:focus ~ .field-float-label,
+.field-float:not(:placeholder-shown) ~ .field-float-label,
+.field-float:-webkit-autofill ~ .field-float-label {
+  top: 0.4rem;
+  transform: translateY(0);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #EDE8E0;
+}
+.field-float:focus ~ .field-float-label.field-float-label--error,
+.field-float:not(:placeholder-shown) ~ .field-float-label.field-float-label--error {
+  color: #C45C5C;
+}
+
+/* ─── Directional navigation glyphs mirror with the document direction ──────── */
+[dir="rtl"] .lucide-chevron-right,
+[dir="rtl"] .lucide-chevron-left,
+[dir="rtl"] .lucide-arrow-right,
+[dir="rtl"] .lucide-arrow-left {
+  transform: rotate(180deg);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Shimmer */
+.shimmer { background: linear-gradient(90deg, #111111 25%, #171717 50%, #111111 75%); background-size: 200% 100%; animation: shimmer 1.6s linear infinite; }
+
+/* Staggered fade-in for list children */
+.stagger-children > * { animation: fade-in .2s ease-out both; }
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 40ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 80ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 160ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 280ms; }
+
+/* float */
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.animate-float { animation: float 4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .animate-float { animation: none; } }

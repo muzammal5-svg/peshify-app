@@ -1,0 +1,252 @@
+"use client";
+
+import { useEffect, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
+import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "./Button";
+
+// ─── Shared overlay ───────────────────────────────────────────────────────────
+function Overlay({ onClick }: { onClick?: () => void }) {
+  return (
+    <div
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 animate-fade-in"
+      aria-hidden="true"
+      onClick={onClick}
+    />
+  );
+}
+
+// =============================================================================
+// MODAL (desktop-style centred dialog)
+// =============================================================================
+interface ModalProps {
+  open:       boolean;
+  onClose:    () => void;
+  title?:     string;
+  children:   ReactNode;
+  footer?:    ReactNode;
+  size?:      "sm" | "md" | "lg" | "xl";
+  className?: string;
+}
+
+const MODAL_SIZES = {
+  sm: "max-w-sm",
+  md: "max-w-md",
+  lg: "max-w-lg",
+  xl: "max-w-2xl",
+};
+
+export function Modal({
+  open,
+  onClose,
+  title,
+  children,
+  footer,
+  size      = "md",
+  className,
+}: ModalProps) {
+  const { t } = useTranslation();
+  // Lock body scroll
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && open) onClose();
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <>
+      <Overlay onClick={onClose} />
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={title ? "modal-title" : undefined}
+          className={cn(
+            "relative w-full bg-[#0F1117] rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/[0.08] text-zinc-100",
+            "pointer-events-auto animate-slide-down",
+            "flex flex-col max-h-[90dvh]",
+            MODAL_SIZES[size],
+            className
+          )}
+        >
+          {/* Header */}
+          {title && (
+            <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-white/[0.08] flex-shrink-0">
+              <h2 id="modal-title" className="text-lg font-semibold tracking-tight text-zinc-50">
+                {title}
+              </h2>
+              <button
+                onClick={onClose}
+                aria-label={t("common.close")}
+                className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          {/* Body */}
+          <div className="flex-1 overflow-y-auto px-5 py-4">
+            {children}
+          </div>
+
+          {/* Footer */}
+          {footer && (
+            <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-white/[0.08] flex-shrink-0">
+              {footer}
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// =============================================================================
+// BOTTOM SHEET (mobile-style slide-up sheet)
+// =============================================================================
+interface BottomSheetProps {
+  open:       boolean;
+  onClose:    () => void;
+  title?:     string;
+  children:   ReactNode;
+  footer?:    ReactNode;
+  snapPoints?: "auto" | "half" | "full";
+  className?: string;
+}
+
+export function BottomSheet({
+  open,
+  onClose,
+  title,
+  children,
+  footer,
+  snapPoints = "auto",
+  className,
+}: BottomSheetProps) {
+  const { t } = useTranslation();
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+    else       document.body.style.overflow = "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  if (!open) return null;
+
+  const heightClass =
+    snapPoints === "full" ? "h-[95dvh]" :
+    snapPoints === "half" ? "h-[50dvh]" :
+    "max-h-[92dvh]";
+
+  return (
+    <>
+      <Overlay onClick={onClose} />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={title ? "sheet-title" : undefined}
+        style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+        className={cn(
+          "fixed bottom-0 start-0 end-0 z-50",
+          "bg-[#0F1117] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.8)] border-t border-white/[0.08] text-zinc-100",
+          "flex flex-col animate-slide-up",
+          heightClass,
+          className
+        )}
+      >
+        {/* Drag handle */}
+        <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
+          <div className="w-10 h-1 rounded-full bg-zinc-700" aria-hidden="true" />
+        </div>
+
+        {/* Header */}
+        {title && (
+          <div className="flex items-center justify-between px-5 pt-2 pb-4 flex-shrink-0 border-b border-white/[0.08]">
+            <h2 id="sheet-title" className="text-base font-semibold tracking-tight text-zinc-50">
+              {title}
+            </h2>
+            <button
+              onClick={onClose}
+              aria-label={t("common.close")}
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto px-5 py-2">
+          {children}
+        </div>
+
+        {/* Footer */}
+        {footer && (
+          <div className="px-5 py-4 border-t border-white/[0.08] flex-shrink-0 flex gap-2">
+            {footer}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+// =============================================================================
+// CONFIRM DIALOG (convenience wrapper)
+// =============================================================================
+interface ConfirmDialogProps {
+  open:         boolean;
+  onClose:      () => void;
+  onConfirm:    () => void;
+  title?:       string;
+  message:      string;
+  confirmLabel?: string;
+  confirmVariant?: "primary" | "danger";
+  loading?:     boolean;
+}
+
+export function ConfirmDialog({
+  open,
+  onClose,
+  onConfirm,
+  title,
+  message,
+  confirmLabel,
+  confirmVariant = "primary",
+  loading,
+}: ConfirmDialogProps) {
+  const { t } = useTranslation();
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      title={title ?? t("common.confirmTitle")}
+      size="sm"
+      footer={
+        <>
+          <Button variant="secondary" size="sm" onClick={onClose}>{t("common.cancel")}</Button>
+          <Button variant={confirmVariant} size="sm" onClick={onConfirm} loading={loading}>
+            {confirmLabel ?? t("common.confirmAction")}
+          </Button>
+        </>
+      }
+    >
+      <p className="text-sm text-zinc-400">{message}</p>
+    </Modal>
+  );
+}
