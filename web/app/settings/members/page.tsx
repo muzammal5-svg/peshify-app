@@ -171,50 +171,40 @@ function MembersView() {
   if (!isOwner) {
     return (
       <div className="max-w-2xl mx-auto py-8">
-        <Card className="p-8 text-center bg-white space-y-3">
+        <Card className="p-8 text-center bg-[#111111] space-y-3">
           <Lock className="w-8 h-8 text-muted mx-auto" />
-          <h2 className="text-lg font-heading font-bold text-navy">{t("members.title")}</h2>
+          <h2 className="text-lg font-heading font-bold text-[#EDE8E0]">{t("members.title")}</h2>
           <p className="text-sm text-muted">{t("members.ownerOnly")}</p>
         </Card>
       </div>
     );
   }
 
-  const seatsUsed = state?.seats_used ?? members.length;
-  const seatsMax = state?.seats_max ?? 5;
-  const seatsPct = Math.min(Math.round((seatsUsed / seatsMax) * 100), 100);
-
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      {/* Seat Utilization Bar */}
+      {/* Chamber Members Summary */}
       <Card className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Users className="w-5 h-5 text-gold" />
-            <h3 className="font-heading font-bold text-navy text-base">
-              {t("members.seatsUsed", { used: seatsUsed, max: seatsMax })}
-            </h3>
+            <div>
+              <h3 className="font-heading font-bold text-[#EDE8E0] text-base">
+                {t("members.title")} ({members.length})
+              </h3>
+              <p className="text-xs text-muted">Active chamber advocates, associates, and staff</p>
+            </div>
           </div>
-          <Badge variant={seatsUsed >= seatsMax ? "danger" : "gold"} size="sm">
-            {seatsMax - seatsUsed} remaining
+          <Badge variant="gold" size="sm">
+            Unlimited Free Access
           </Badge>
-        </div>
-
-        <div className="w-full bg-navy-50 rounded-full h-2.5 mt-4 overflow-hidden">
-          <div
-            className={`h-2.5 rounded-full transition-all duration-300 ${
-              seatsUsed >= seatsMax ? "bg-danger" : "bg-gold"
-            }`}
-            style={{ width: `${seatsPct}%` }}
-          />
         </div>
       </Card>
 
       {/* Add New Member Form */}
       <Card className="p-6 space-y-4">
         <div className="flex items-center gap-2">
-          <UserPlus className="w-4 h-4 text-navy" />
-          <h3 className="font-heading font-bold text-navy text-base">{t("members.addMember")}</h3>
+          <UserPlus className="w-4 h-4 text-[#EDE8E0]" />
+          <h3 className="font-heading font-bold text-[#EDE8E0] text-base">{t("members.addMember")}</h3>
         </div>
 
         <form onSubmit={handleAddMember} className="space-y-4">
@@ -237,11 +227,11 @@ function MembersView() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-navy">{t("members.role")}</label>
+            <label className="text-xs font-semibold text-[#EDE8E0]">{t("members.role")}</label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value as "lawyer" | "clerk")}
-              className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:outline-none focus:ring-2 focus:ring-gold/30"
+              className="w-full text-xs p-2.5 rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] text-[#EDE8E0] focus:outline-none focus:border-[#EDE8E0]"
             >
               <option value="lawyer">{t("members.lawyer")}</option>
               <option value="clerk">{t("members.clerk")}</option>
@@ -251,7 +241,7 @@ function MembersView() {
           <Button
             type="submit"
             variant="primary"
-            disabled={submitting || seatsUsed >= seatsMax || !canMutate}
+            disabled={submitting || !canMutate}
             {...lock}
             className="w-full"
           >
@@ -271,13 +261,13 @@ function MembersView() {
                 variant="ghost"
                 size="xs"
                 onClick={handleCopyPassword}
-                className="text-xs text-navy"
+                className="text-xs text-[#EDE8E0]"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-success me-1" /> : <Copy className="w-3.5 h-3.5 me-1" />}
                 {copied ? t("members.copied") : t("members.copyPassword")}
               </Button>
             </div>
-            <p className="font-mono text-sm font-bold text-navy bg-white p-2.5 rounded-lg border border-border tracking-wider select-all">
+            <p className="font-mono text-sm font-bold text-[#EDE8E0] bg-[#111111] p-2.5 rounded-none border border-[rgba(237,232,224,0.14)] tracking-wider select-all">
               {tempPassword}
             </p>
             <p className="text-[11px] text-muted">
@@ -295,7 +285,7 @@ function MembersView() {
 
       {/* Firm Members List */}
       <Card className="p-6 space-y-4">
-        <h3 className="font-heading font-bold text-navy text-base">{t("members.teamList")}</h3>
+        <h3 className="font-heading font-bold text-[#EDE8E0] text-base">{t("members.teamList")}</h3>
         {loading ? (
           <div className="space-y-2">
             {[1, 2].map((i) => (
@@ -311,12 +301,12 @@ function MembersView() {
               return (
                 <div key={m.id} className="py-3 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-9 h-9 rounded-full bg-navy/10 text-navy font-bold text-xs flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-white/[0.06] text-[#EDE8E0] font-bold text-xs flex items-center justify-center shrink-0">
                       {m.full_name.charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-medium text-sm text-navy truncate">{m.full_name}</span>
+                        <span className="font-medium text-sm text-[#EDE8E0] truncate">{m.full_name}</span>
                         {m.is_owner && (
                           <Badge variant="gold" size="sm">Owner</Badge>
                         )}
@@ -350,8 +340,8 @@ function MembersView() {
       {/* Authorized Devices */}
       <Card className="p-6 space-y-4">
         <div className="flex items-center gap-2">
-          <Smartphone className="w-4 h-4 text-navy" />
-          <h3 className="font-heading font-bold text-navy text-base">{t("members.devices")}</h3>
+          <Smartphone className="w-4 h-4 text-[#EDE8E0]" />
+          <h3 className="font-heading font-bold text-[#EDE8E0] text-base">{t("members.devices")}</h3>
         </div>
 
         {devices.length === 0 ? (
@@ -365,7 +355,7 @@ function MembersView() {
                 <div key={d.id} className="py-3 flex items-center justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className={`text-xs font-semibold ${isRevoked ? "text-muted line-through" : "text-navy"}`}>
+                      <span className={`text-xs font-semibold ${isRevoked ? "text-muted line-through" : "text-[#EDE8E0]"}`}>
                         {label}
                       </span>
                       {isRevoked ? (

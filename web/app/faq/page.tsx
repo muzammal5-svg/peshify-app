@@ -29,16 +29,16 @@ export default function FAQPage() {
       category: "General",
       questions: [
         {
-          q: t("faq.q1") || "What is MZM?",
-          a: t("faq.a1") || "MZM is a comprehensive law practice management platform designed specifically for Pakistani law firms."
+          q: t("faq.q1") || "What is Peshify?",
+          a: t("faq.a1") || "Peshify is a comprehensive law practice management platform designed specifically for Pakistani law firms."
         },
         {
-          q: t("faq.q2") || "Who can use MZM?",
-          a: t("faq.a2") || "MZM is perfect for solo practitioners, small law firms, and large enterprises managing multiple cases and clients."
+          q: t("faq.q2") || "Who can use Peshify?",
+          a: t("faq.a2") || "Peshify is perfect for solo practitioners, small law firms, and large chambers managing multiple cases and clients."
         },
         {
-          q: t("faq.q3") || "Is there a free trial?",
-          a: t("faq.a3") || "Yes! We offer a 7-day free trial with full access to all features. After 7 days, subscribe to a plan to continue managing your firm. No credit card required to start."
+          q: t("faq.q3") || "Is Peshify free?",
+          a: t("faq.a3") || "Yes! Peshify is 100% free with full access to all features. No payment, fees, or credit card is required."
         },
       ]
     },
@@ -47,11 +47,11 @@ export default function FAQPage() {
       questions: [
         {
           q: t("faq.q4") || "What is case management?",
-          a: t("faq.a4") || "Case management in MZM lets you organize all case details, documents, and deadlines in one secure location."
+          a: t("faq.a4") || "Case management in Peshify lets you organize all case details, documents, and deadlines in one secure location."
         },
         {
           q: t("faq.q5") || "How do reminders work?",
-          a: t("faq.a5") || "MZM sends automated reminders via push notifications, email, and SMS for important dates and deadlines."
+          a: t("faq.a5") || "Peshify sends automated reminders via push notifications, email, and SMS for important dates and deadlines."
         },
         {
           q: t("faq.q6") || "Can clients see their cases?",
@@ -59,28 +59,28 @@ export default function FAQPage() {
         },
         {
           q: t("faq.q7") || "Does it support Urdu?",
-          a: t("faq.a7") || "Yes! MZM has full Urdu language support with proper RTL formatting and culturally adapted features."
+          a: t("faq.a7") || "Yes! Peshify has full Urdu language support with proper RTL formatting and culturally adapted features."
         },
       ]
     },
     {
-      category: "Pricing",
+      category: "Pricing & Plans",
       questions: [
         {
-          q: t("faq.q8") || "How is pricing calculated?",
-          a: t("faq.a8") || "Our pricing is simple: you pay per month based on the plan you choose. No hidden fees or surprise charges."
+          q: t("faq.q8") || "Are there any hidden costs or limits?",
+          a: t("faq.a8") || "None. You get unlimited cases, cause lists, hearings, documents, and client records completely free."
         },
         {
-          q: t("faq.q9") || "Can I change plans?",
-          a: t("faq.a9") || "Absolutely. Upgrade or downgrade your plan anytime. Changes take effect immediately."
+          q: t("faq.q9") || "Can my entire chamber use Peshify?",
+          a: t("faq.a9") || "Yes! You can invite partners, associates, and chamber staff with zero seat restrictions."
         },
         {
-          q: t("faq.q10") || "What payment methods do you accept?",
-          a: t("faq.a10") || "We accept bank transfers, JazzCash, Easypaisa, and other major payment methods in Pakistan."
+          q: t("faq.q10") || "Do I need to submit payment slips or receipts?",
+          a: t("faq.a10") || "No. There are no payment requirements or paywalls. Simply register and start managing your cases immediately."
         },
         {
-          q: t("faq.q11") || "Is there a money-back guarantee?",
-          a: t("faq.a11") || "We offer a full refund within 7 days if you're not satisfied with our service."
+          q: t("faq.q11") || "Will my data stay private and secure?",
+          a: t("faq.a11") || "Yes! All case files, notes, and records are isolated and encrypted with strict role-based access control."
         },
       ]
     },
@@ -93,7 +93,7 @@ export default function FAQPage() {
         },
         {
           q: t("faq.q13") || "What support do you offer?",
-          a: t("faq.a13") || "We provide 24/7 support via WhatsApp, email, and our help center. Premium plans include priority support."
+          a: t("faq.a13") || "We provide 24/7 support via WhatsApp, email, and our help center for all chambers."
         },
         {
           q: t("faq.q14") || "Can I export my data?",
@@ -223,7 +223,7 @@ export default function FAQPage() {
                 href="/register"
                 className="btn-secondary"
               >
-                Start Free Trial
+                Get Started Free
               </Link>
             </div>
           </div>

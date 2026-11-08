@@ -285,21 +285,15 @@ export default function FeaturesPage() {
               {t("features.ctaTitle", "Ready to transform your practice?")}
             </h2>
             <p className="text-sm text-[#C8C2B8]">
-              {t("features.ctaDesc", "Join hundreds of advocates and chambers already using MZM.")}
+              {t("features.ctaDesc", "Join hundreds of advocates and chambers already using Peshify.")}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
               <Link
                 href="/register"
                 className="btn-primary"
               >
-                <span>{t("marketing.startTrial", "Start 7-Day Free Trial")}</span>
+                <span>{t("marketing.getStarted", "Get Started Free")}</span>
                 <ArrowRight className="w-3.5 h-3.5 ms-2 rtl:rotate-180" />
-              </Link>
-              <Link
-                href="/pricing"
-                className="btn-secondary"
-              >
-                <span>{t("marketing.viewPlans", "View Plans")}</span>
               </Link>
             </div>
           </div>

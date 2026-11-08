@@ -30,10 +30,10 @@ export function Card({
       role={clickable ? "button" : undefined}
       tabIndex={clickable ? 0 : undefined}
       className={cn(
-        "bg-[#111111] rounded-none border border-[rgba(237,232,224,0.12)] shadow-none text-[#EDE8E0]",
+        "bg-card rounded-xl border border-border/80 shadow-xs text-foreground transition-all duration-200",
         paddingMap[padding],
-        hover     && "hover:border-[rgba(237,232,224,0.25)] hover:bg-[#171717] transition-all duration-200",
-        clickable && "cursor-pointer active:scale-[.99] transition-transform focus-visible:ring-1 focus-visible:ring-[#EDE8E0] focus-visible:ring-offset-[#050505]",
+        hover     && "hover:border-primary/40 hover:shadow-md hover:bg-card/90",
+        clickable && "cursor-pointer active:scale-[.99] transition-transform focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-1",
         className
       )}
       {...props}
@@ -55,7 +55,7 @@ export function CardHeader({ children, className, ...props }: HTMLAttributes<HTM
 
 export function CardTitle({ children, className, ...props }: HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h3 className={cn("text-base font-semibold tracking-tight text-zinc-50", className)} {...props}>
+    <h3 className={cn("text-base font-semibold tracking-tight text-foreground", className)} {...props}>
       {children}
     </h3>
   );
@@ -63,7 +63,7 @@ export function CardTitle({ children, className, ...props }: HTMLAttributes<HTML
 
 export function CardBody({ children, className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("text-sm text-zinc-400", className)} {...props}>
+    <div className={cn("text-sm text-muted-foreground", className)} {...props}>
       {children}
     </div>
   );
@@ -71,7 +71,7 @@ export function CardBody({ children, className, ...props }: HTMLAttributes<HTMLD
 
 export function CardFooter({ children, className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("mt-4 pt-3 border-t border-white/[0.08] flex items-center gap-2 text-zinc-400", className)} {...props}>
+    <div className={cn("mt-4 pt-3 border-t border-border/80 flex items-center gap-2 text-muted-foreground", className)} {...props}>
       {children}
     </div>
   );

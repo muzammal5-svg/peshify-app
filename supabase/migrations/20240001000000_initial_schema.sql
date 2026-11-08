@@ -1,5 +1,5 @@
 -- =============================================================================
--- MZM & Associates — Case Management System
+-- Peshify — Case Management System
 -- Phase 1 Revised: Complete Multi-Tenant Schema
 -- Timezone: Asia/Karachi
 -- =============================================================================

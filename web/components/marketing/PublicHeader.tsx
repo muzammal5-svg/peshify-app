@@ -41,7 +41,6 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
   const NAV = [
     { href: "/",         label: t("nav.home") },
     { href: "/features", label: t("marketing.navFeatures") },
-    { href: "/pricing",  label: t("marketing.navPricing") },
     { href: "/faq",      label: t("marketing.navFaq") },
     { href: "/contact",  label: t("marketing.navContact") },
   ];

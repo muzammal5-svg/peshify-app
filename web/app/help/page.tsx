@@ -18,7 +18,7 @@ export default function HelpPage() {
               <p className="font-semibold text-navy text-lg">{t("more.helpTitle")}</p>
               <p className="text-sm text-navy-500 mt-1">{t("more.helpText")}</p>
             </div>
-            <a href="mailto:support@mzm.pk" className="btn-primary px-6">
+            <a href="mailto:support@peshify.com" className="btn-primary px-6">
               {t("more.emailSupport")}
             </a>
           </Card>

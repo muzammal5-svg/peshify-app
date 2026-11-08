@@ -4,8 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Kontrora Editorial Luxury Dark Tokens ───────────────────────────────── */
-:root {
+/* ─── Modern B2B SaaS Design System Tokens ───────────────────────────────── */
+:root, [data-theme="dark"], .dark {
   --font-display:    'Syne', sans-serif;
   --font-sans:       'DM Sans', system-ui, sans-serif;
   --font-inter:      'DM Sans', system-ui, sans-serif;
@@ -14,57 +14,75 @@
   --font-cormorant:  'Syne', sans-serif;
   --font-noto-urdu:  'Noto Nastaliq Urdu', serif;
 
+  /* Dark Canvas & Surfaces (Obsidian Matte) */
+  --background:      240 10% 4%;       /* #090A0F */
+  --foreground:      210 40% 98%;      /* #F8FAFC */
+
+  --card:            225 15% 7%;       /* #0F1117 */
+  --card-foreground: 210 40% 98%;
+
+  --popover:         225 14% 9%;       /* #12151E */
+  --popover-foreground: 210 40% 98%;
+
+  --secondary:       225 14% 11%;      /* #161922 */
+  --secondary-foreground: 210 40% 98%;
+
+  --muted:           225 14% 11%;      /* #161922 */
+  --muted-foreground:215 20% 65%;      /* #94A3B8 */
+
+  --border:          220 13% 14%;      /* rgba(255, 255, 255, 0.08) */
+  --border-subtle:   220 13% 10%;
+  --border-strong:   220 13% 22%;
+
+  --surface:         #0F1117;
+  --surface-card:    #0F1117;
+  --surface-hover:   #161922;
+  --surface-elevated:#161922;
+
+  --text-primary:    #F8FAFC;
+  --text-secondary:  #94A3B8;
+  --text-muted:      #64748B;
+
   /* True Black Canvas & Editorial Dark Tones */
   --black:           #050505;
   --dark:            #0A0A0A;
-  --surface:         #111111;
-  --elevated:        #171717;
-
-  /* Hairlines */
-  --border:          rgba(237, 232, 224, 0.12);
-  --border-strong:   rgba(237, 232, 224, 0.22);
-  --border-subtle:   rgba(237, 232, 224, 0.06);
+  --elevated:        #161922;
 
   /* Bone Accent */
   --bone:            #EDE8E0;
   --bone-hover:      #FFFFFF;
   --bone-dim:        rgba(237, 232, 224, 0.08);
 
-  /* Text */
-  --text-primary:    #EDE8E0;
-  --text-secondary:  #9A958C;
-  --text-muted:      #5C5852;
-
   /* Mapped Legacy Variables */
-  --color-canvas:        #050505;
-  --color-surface:       #111111;
-  --color-surface-hover: #171717;
-  --color-surface-2:     #171717;
-  --color-surface-3:     #1E1E1E;
-  --color-border:        rgba(237, 232, 224, 0.12);
-  --color-border-subtle: rgba(237, 232, 224, 0.06);
+  --color-canvas:        #090A0F;
+  --color-surface:       #0F1117;
+  --color-surface-hover: #161922;
+  --color-surface-2:     #161922;
+  --color-surface-3:     #1E2230;
+  --color-border:        rgba(255, 255, 255, 0.08);
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
 
-  --color-accent:        #EDE8E0;
-  --color-accent-hover:  #FFFFFF;
-  --color-accent-glow:   transparent;
+  --color-accent:        #6366F1;
+  --color-accent-hover:  #4F46E5;
+  --color-accent-glow:   rgba(99, 102, 241, 0.25);
 
   --color-gold:          #EDE8E0;
   --color-gold-light:    #FFFFFF;
   --color-navy:          #EDE8E0;
   --color-navy-deep:     #050505;
-  --color-offwhite:      #050505;
+  --color-offwhite:      #090A0F;
 
-  --color-success:       #6B8F71;
-  --color-danger:        #C45C5C;
-  --color-warning:       #C4A574;
-  --color-info:          #EDE8E0;
-  --color-muted:         #9A958C;
+  --color-success:       #10B981;
+  --color-danger:        #EF4444;
+  --color-warning:       #F59E0B;
+  --color-info:          #0EA5E9;
+  --color-muted:         #94A3B8;
 
-  /* Sharp rectangular geometry (Kontrora) */
-  --radius-sm: 0px;
-  --radius-md: 2px;
-  --radius-lg: 2px;
-  --radius-xl: 2px;
+  /* Modern SaaS geometry */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-full: 9999px;
 
   --shadow-xs: 0 1px 2px rgba(0,0,0,.5);
@@ -77,6 +95,97 @@
   --shadow-inner-top: none;
 }
 
+/* Light Theme Variables */
+[data-theme="light"], .light {
+  --background:      210 40% 98%;      /* #F8FAFC - crisp slate off-white */
+  --foreground:      222 47% 11%;      /* #0F172A - deep slate */
+
+  --card:            0 0% 100%;        /* #FFFFFF */
+  --card-foreground: 222 47% 11%;
+
+  --popover:         0 0% 100%;        /* #FFFFFF */
+  --popover-foreground: 222 47% 11%;
+
+  --secondary:       210 40% 96%;      /* #F1F5F9 */
+  --secondary-foreground: 222 47% 11%;
+
+  --muted:           210 40% 96%;
+  --muted-foreground:215 16% 47%;      /* #64748B */
+
+  --border:          214 32% 91%;      /* #E2E8F0 */
+  --border-subtle:   210 40% 94%;
+  --border-strong:   215 25% 82%;      /* #CBD5E1 */
+
+  --surface:         #FFFFFF;
+  --surface-card:    #FFFFFF;
+  --surface-hover:   #F1F5F9;
+  --surface-elevated:#FFFFFF;
+
+  --text-primary:    #0F172A;
+  --text-secondary:  #475569;
+  --text-muted:      #94A3B8;
+
+  /* Legacy mappings in light mode */
+  --black:           #FFFFFF;
+  --dark:            #F8FAFC;
+  --bone:            #0F172A;
+  --bone-hover:      #020617;
+  --bone-dim:        rgba(15, 23, 42, 0.05);
+
+  --color-canvas:    #F8FAFC;
+  --color-surface:   #FFFFFF;
+  --color-surface-hover: #F1F5F9;
+  --color-border:    #E2E8F0;
+
+  --color-success:   #059669;
+  --color-danger:    #DC2626;
+  --color-warning:   #D97706;
+  --color-info:      #0284C7;
+  --color-muted:     #64748B;
+  --color-offwhite:  #F8FAFC;
+  --color-navy:      #0F172A;
+}
+
+/* Accent Preset: Indigo (Default Linear) */
+:root, [data-accent="indigo"] {
+  --primary:            239 84% 67%;    /* #6366F1 */
+  --primary-hover:      243 75% 59%;    /* #4F46E5 */
+  --primary-muted:      239 84% 67%;
+  --primary-foreground: 0 0% 100%;      /* #FFFFFF */
+  --ring:               239 84% 67%;
+  --accent-glow:        rgba(99, 102, 241, 0.35);
+}
+
+/* Accent Preset: Emerald (Legal / Trust) */
+[data-accent="emerald"] {
+  --primary:            160 84% 39%;    /* #10B981 */
+  --primary-hover:      161 94% 30%;    /* #059669 */
+  --primary-muted:      160 84% 39%;
+  --primary-foreground: 0 0% 100%;
+  --ring:               160 84% 39%;
+  --accent-glow:        rgba(16, 185, 129, 0.35);
+}
+
+/* Accent Preset: Sky (Classic SaaS) */
+[data-accent="sky"] {
+  --primary:            199 89% 48%;    /* #0EA5E9 */
+  --primary-hover:      201 96% 41%;    /* #0284C7 */
+  --primary-muted:      199 89% 48%;
+  --primary-foreground: 0 0% 100%;
+  --ring:               199 89% 48%;
+  --accent-glow:        rgba(14, 165, 233, 0.35);
+}
+
+/* Accent Preset: Amber / Bronze (Executive Legal) */
+[data-accent="amber"] {
+  --primary:            38 92% 50%;     /* #F59E0B */
+  --primary-hover:      36 96% 44%;     /* #D97706 */
+  --primary-muted:      38 92% 50%;
+  --primary-foreground: 0 0% 100%;
+  --ring:               38 92% 50%;
+  --accent-glow:        rgba(245, 158, 11, 0.35);
+}
+
 /* ─── Base ──────────────────────────────────────────────────────────────────── */
 * {
   box-sizing: border-box;
@@ -85,26 +194,33 @@
 
 html {
   font-family: var(--font-sans);
-  background-color: #050505;
-  color: #EDE8E0;
-  color-scheme: dark;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
 }
 
 body {
   min-height: 100dvh;
   overflow-x: hidden;
-  background-color: #050505;
-  color: #EDE8E0;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: var(--font-sans);
   line-height: 1.65;
   letter-spacing: normal;
 }
 
 ::selection {
-  background: rgba(237, 232, 224, 0.25);
-  color: #FFFFFF;
+  background: hsl(var(--primary) / 0.25);
+  color: hsl(var(--foreground));
 }
 
 /* ─── Typography ────────────────────────────────────────────────────────────── */
@@ -113,13 +229,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.025em;
-  color: #EDE8E0;
+  color: hsl(var(--foreground));
 }
 
 h1 { font-size: clamp(2.1rem, 5.5vw, 4.25rem); font-weight: 700; }
 h2 { font-size: clamp(1.75rem, 3.8vw, 2.75rem); font-weight: 700; }
 h3 { font-size: clamp(1.2rem, 2vw, 1.45rem); font-weight: 700; letter-spacing: -0.02em; }
-p  { color: #C8C2B8; line-height: 1.7; }
+p  { color: hsl(var(--muted-foreground)); line-height: 1.7; }
 
 /* Section eyebrow / kicker */
 .section-label, .kicker {
@@ -128,7 +244,7 @@ p  { color: #C8C2B8; line-height: 1.7; }
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #9A958C;
+  color: hsl(var(--muted-foreground));
   display: block;
 }
 
@@ -165,10 +281,10 @@ p  { color: #C8C2B8; line-height: 1.7; }
 
 /* ─── Scrollbar (desktop) ───────────────────────────────────────────────────── */
 @media (min-width: 768px) {
-  ::-webkit-scrollbar       { width: 4px; height: 4px; }
-  ::-webkit-scrollbar-track { background: #050505; }
-  ::-webkit-scrollbar-thumb { background: rgba(237, 232, 224, 0.2); border-radius: 0; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(237, 232, 224, 0.4); }
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.5); }
 }
 
 .scrollbar-hide {
@@ -179,7 +295,7 @@ p  { color: #C8C2B8; line-height: 1.7; }
 
 /* ─── Focus ring ────────────────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 1px solid rgba(237, 232, 224, 0.5);
+  outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
 }
 
@@ -189,64 +305,65 @@ button, a, [role="button"] {
   min-width: 44px;
 }
 
-/* ─── Kontrora Buttons & Primitives ─────────────────────────────────────────── */
+/* ─── Modern SaaS Components ─────────────────────────────────────────── */
 @layer components {
   .card {
-    @apply bg-[#111111] rounded-none border border-[rgba(237,232,224,0.12)] p-4 text-[#EDE8E0];
+    @apply bg-card rounded-xl border border-border/80 p-5 text-foreground shadow-xs transition-all duration-200;
   }
   .card-header {
-    @apply text-[11px] font-bold text-[#9A958C] uppercase tracking-[0.12em] mb-3;
+    @apply text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.12em] mb-3;
   }
 
-  /* Kontrora Sharp Primary Button (Bone / Black) */
+  /* Modern SaaS Primary Button with Active Accent Glow */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3 rounded-none h-12
-           bg-[#EDE8E0] text-[#050505] font-bold text-[11.5px] uppercase tracking-[0.12em]
-           hover:bg-white active:bg-[#D8D2C6] border border-[#EDE8E0]
-           transition-all duration-200 ease-out active:scale-[0.99]
-           disabled:opacity-40 disabled:cursor-not-allowed shadow-none;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg h-10
+           bg-primary text-primary-foreground font-semibold text-xs tracking-wide
+           hover:opacity-90 active:scale-[0.98] shadow-xs
+           border border-white/10
+           transition-all duration-200 ease-out
+           disabled:opacity-40 disabled:cursor-not-allowed;
   }
 
-  /* Kontrora Sharp Outline Button */
+  /* Modern SaaS Outline / Secondary Button */
   .btn-secondary, .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3 rounded-none h-12
-           bg-transparent text-[#EDE8E0] font-semibold text-[11.5px] uppercase tracking-[0.12em]
-           border border-[rgba(237,232,224,0.3)]
-           hover:bg-[#EDE8E0] hover:text-[#050505] hover:border-[#EDE8E0]
-           transition-all duration-200 ease-out active:scale-[0.99]
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg h-10
+           bg-secondary text-foreground font-medium text-xs tracking-wide
+           border border-border/80
+           hover:bg-muted hover:border-border-strong
+           transition-all duration-200 ease-out active:scale-[0.98]
            disabled:opacity-40 disabled:cursor-not-allowed shadow-none;
   }
 
   .btn-ghost-gold, .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-none
-           bg-transparent text-[#9A958C] hover:text-[#EDE8E0] font-medium text-[12px] uppercase tracking-[0.08em]
+    @apply inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg
+           bg-transparent text-muted-foreground hover:text-foreground hover:bg-secondary font-medium text-xs
            transition-colors duration-200;
   }
 
   .btn-danger {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-none
-           bg-[#C45C5C]/15 text-[#C45C5C] border border-[#C45C5C]/30 font-semibold text-[12px] uppercase tracking-[0.08em]
-           hover:bg-[#C45C5C]/25 transition-all duration-200 active:scale-[0.99];
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg
+           bg-red-500/10 text-red-500 border border-red-500/20 font-semibold text-xs
+           hover:bg-red-500/20 transition-all duration-200 active:scale-[0.98];
   }
 
-  /* Underline form input (Kontrora Footer & Contact) */
+  /* Underline form input */
   .input-underline {
-    @apply w-full bg-transparent border-0 border-b border-[rgba(237,232,224,0.18)] py-3 px-0
-           text-sm text-[#EDE8E0] placeholder:text-[#5C5852] rounded-none
-           focus:outline-none focus:border-[#EDE8E0] transition-colors duration-200;
+    @apply w-full bg-transparent border-0 border-b border-border py-2.5 px-0
+           text-sm text-foreground placeholder:text-muted-foreground rounded-none
+           focus:outline-none focus:border-primary transition-colors duration-200;
   }
 
   /* Boxed input */
   .input, .input-dark {
-    @apply w-full rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] px-4 py-3
-           text-sm text-[#EDE8E0] placeholder:text-[#5C5852]
-           focus:outline-none focus:border-[rgba(237,232,224,0.4)]
-           disabled:bg-white/[0.02] disabled:text-[#5C5852] disabled:cursor-not-allowed
-           transition-colors duration-200;
+    @apply w-full rounded-lg border border-border bg-card px-3.5 py-2.5
+           text-sm text-foreground placeholder:text-muted-foreground
+           focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/40
+           disabled:opacity-50 disabled:cursor-not-allowed
+           transition-all duration-200;
   }
 
   .label, .label-dark {
-    @apply block text-[11px] font-bold text-[#9A958C] uppercase tracking-[0.12em] mb-1.5;
+    @apply block text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.1em] mb-1.5;
   }
 
   .badge {

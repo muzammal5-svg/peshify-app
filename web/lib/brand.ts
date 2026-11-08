@@ -1,5 +1,5 @@
 /**
- * Brand constants for MZM & Associates.
+ * Brand constants for Peshify.
  * All colours reference the Tailwind tokens — import from here, never hardcode.
  */
 

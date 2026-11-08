@@ -122,10 +122,10 @@ function NotificationsPage() {
                 key={item.value}
                 aria-pressed={filter === item.value}
                 onClick={() => setFilter(item.value)}
-                className={`rounded-full border px-3 py-1.5 text-xs font-semibold whitespace-nowrap ${
+                className={`rounded-none border px-3 py-1.5 text-xs font-semibold whitespace-nowrap uppercase tracking-[0.08em] transition-all duration-200 ${
                   filter === item.value
-                    ? "border-navy bg-navy text-white"
-                    : "border-navy-100 bg-white text-navy-400"
+                    ? "border-[#EDE8E0] bg-[#EDE8E0] text-[#050505] shadow-xs"
+                    : "border-[rgba(237,232,224,0.14)] bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717]"
                 }`}
               >{t(item.label)}</button>
             ))}
@@ -151,16 +151,18 @@ function NotificationsPage() {
               <button
                 key={item.id}
                 onClick={() => void openNotification(item)}
-                className={`block w-full rounded-xl border text-start transition-colors ${
-                  item.is_read ? "border-border bg-white hover:bg-navy-50/50 shadow-xs" : "border-gold-300 bg-gold-50/60 hover:bg-gold-50 shadow-xs"
+                className={`block w-full rounded-none border text-start transition-colors ${
+                  item.is_read
+                    ? "border-[rgba(237,232,224,0.10)] bg-[#111111] hover:bg-[#171717]"
+                    : "border-[rgba(237,232,224,0.25)] bg-[#171717] hover:bg-[#1E1E1E]"
                 }`}
               >
                 <div className="flex items-start gap-3 p-4">
-                  <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${item.is_read ? "bg-transparent" : "bg-gold"}`} aria-label={item.is_read ? "Read" : "Unread"} />
+                  <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${item.is_read ? "bg-transparent" : "bg-[#EDE8E0]"}`} aria-label={item.is_read ? "Read" : "Unread"} />
                   <span className="min-w-0 flex-1">
-                    <span className={`block text-sm font-semibold ${item.is_read ? "text-navy-500 font-medium" : "text-navy font-bold"}`}>{item.title}</span>
-                    <span className={`mt-0.5 block text-xs ${item.is_read ? "text-navy-400" : "text-navy-600 font-medium"}`}>{item.body}</span>
-                    <span className="mt-1 block text-[10px] text-navy-400 font-medium">{fmtDate(item.created_at)} · {t(`notifications.type.${item.type}`, { defaultValue: item.type.replace(/_/g, " ") })}</span>
+                    <span className={`block text-sm font-semibold ${item.is_read ? "text-[#C8C2B8] font-normal" : "text-[#EDE8E0] font-bold"}`}>{item.title}</span>
+                    <span className={`mt-0.5 block text-xs ${item.is_read ? "text-[#9A958C]" : "text-[#C8C2B8]"}`}>{item.body}</span>
+                    <span className="mt-1 block text-[10px] text-[#5C5852] font-medium">{fmtDate(item.created_at)} · {t(`notifications.type.${item.type}`, { defaultValue: item.type.replace(/_/g, " ") })}</span>
                   </span>
                 </div>
               </button>

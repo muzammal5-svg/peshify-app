@@ -106,7 +106,7 @@ export function LegalDrawer({ open, doc, onClose }: LegalDrawerProps) {
             <Icon className="h-5 w-5" aria-hidden="true" />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A958C]">MZM &amp; Associates</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A958C]">Peshify</p>
             <h2 id="legal-drawer-title" className="mt-1 font-heading text-xl font-bold text-[#EDE8E0] sm:text-2xl">
               {t(definition.titleKey)}
             </h2>

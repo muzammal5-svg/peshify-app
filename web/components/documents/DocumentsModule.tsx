@@ -39,7 +39,7 @@ export function DocumentsModule({ clientId, caseId, className, firmWide = false,
   return (
     <div className={className}>
       {firmWide && (
-        <div className="mb-4 space-y-3 rounded-xl border border-border bg-white p-4 shadow-xs">
+        <div className="mb-4 space-y-3 rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] p-4 shadow-sm">
           <div className={cn("grid gap-3", isImportantForms ? "sm:grid-cols-3" : "grid-cols-1")}>
             <div className={isImportantForms ? "sm:col-span-2" : ""}>
               <Input

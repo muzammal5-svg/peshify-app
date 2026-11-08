@@ -8,14 +8,14 @@ export type BadgeVariant =
   | "neutral" | "purple";
 
 const VARIANT_STYLES: Record<BadgeVariant, string> = {
-  gold:    "bg-white/[0.06] text-[#EDE8E0] border border-[rgba(237,232,224,0.18)]",
-  navy:    "bg-white/[0.04] text-[#9A958C] border border-[rgba(237,232,224,0.12)]",
-  success: "bg-[#6B8F71]/15 text-[#6B8F71] border border-[#6B8F71]/30",
-  danger:  "bg-[#C45C5C]/15 text-[#C45C5C] border border-[#C45C5C]/30",
-  warning: "bg-[#C4A574]/15 text-[#C4A574] border border-[#C4A574]/30",
-  info:    "bg-white/[0.06] text-[#EDE8E0] border border-[rgba(237,232,224,0.18)]",
-  neutral: "bg-white/[0.03] text-[#9A958C] border border-[rgba(237,232,224,0.10)]",
-  purple:  "bg-white/[0.06] text-[#EDE8E0] border border-[rgba(237,232,224,0.18)]",
+  gold:    "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
+  navy:    "bg-secondary text-foreground border border-border/80",
+  success: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
+  danger:  "bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20",
+  warning: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
+  info:    "bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20",
+  neutral: "bg-secondary text-muted-foreground border border-border/80",
+  purple:  "bg-primary/10 text-primary border border-primary/20",
 };
 
 interface BadgeProps {
@@ -36,8 +36,8 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 font-bold uppercase tracking-[0.1em] rounded-none transition-colors",
-        size === "sm" ? "px-2 py-0.5 text-[10px]" : "px-2.5 py-1 text-[11px]",
+        "inline-flex items-center gap-1.5 font-medium rounded-full transition-colors",
+        size === "sm" ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-1 text-xs",
         VARIANT_STYLES[variant],
         className
       )}

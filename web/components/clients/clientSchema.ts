@@ -30,4 +30,4 @@ export const clientStep1Schema = z.object({
 export type ClientStep1Data = z.infer<typeof clientStep1Schema>;
 
 /** Stored draft key in localStorage */
-export const CLIENT_DRAFT_KEY = "mzm_client_draft";
+export const CLIENT_DRAFT_KEY = "peshify_client_draft";

@@ -106,7 +106,7 @@ export default function DesignSystemPage() {
         {/* ── Typography ───────────────────────────────────────────── */}
         <Section title="Typography">
           <h1 className="font-heading text-3xl font-bold text-navy">Playfair Display H1 — Case Management</h1>
-          <h2 className="font-heading text-2xl font-semibold text-navy">H2 — MZM & Associates</h2>
+          <h2 className="font-heading text-2xl font-semibold text-navy">H2 — Peshify</h2>
           <h3 className="font-cormorant text-xl font-semibold text-navy">Cormorant Garamond — Legal Documents</h3>
           <p className="font-body text-base text-navy">Inter body text — Muhammad Aslam Khan vs Province of Punjab. Civil case filed on 15 March 2024.</p>
           <p className="font-body text-sm text-navy-400">Small body / labels — Next hearing date: 15 Jan 2025</p>

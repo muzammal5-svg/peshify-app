@@ -43,7 +43,7 @@ const admin = createClient(supabaseUrl, serviceRoleKey, {
 
 const { error: firmError } = await admin.from("firms").upsert({
   id: firmId,
-  name: "MZM & Associates",
+  name: "Peshify",
   subscription_status: "active",
   subscription_valid_till: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
 }, { onConflict: "id" });

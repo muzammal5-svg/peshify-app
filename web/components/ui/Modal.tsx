@@ -77,7 +77,7 @@ export function Modal({
           aria-modal="true"
           aria-labelledby={title ? "modal-title" : undefined}
           className={cn(
-            "relative w-full bg-[#0F1117] rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/[0.08] text-zinc-100",
+            "relative w-full bg-card rounded-2xl shadow-xl border border-border text-foreground",
             "pointer-events-auto animate-slide-down",
             "flex flex-col max-h-[90dvh]",
             MODAL_SIZES[size],
@@ -86,14 +86,14 @@ export function Modal({
         >
           {/* Header */}
           {title && (
-            <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-white/[0.08] flex-shrink-0">
-              <h2 id="modal-title" className="text-lg font-semibold tracking-tight text-zinc-50">
+            <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-border flex-shrink-0">
+              <h2 id="modal-title" className="text-lg font-semibold tracking-tight text-foreground">
                 {title}
               </h2>
               <button
                 onClick={onClose}
                 aria-label={t("common.close")}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100 transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -107,7 +107,7 @@ export function Modal({
 
           {/* Footer */}
           {footer && (
-            <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-white/[0.08] flex-shrink-0">
+            <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-border flex-shrink-0">
               {footer}
             </div>
           )}
@@ -163,7 +163,7 @@ export function BottomSheet({
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
         className={cn(
           "fixed bottom-0 start-0 end-0 z-50",
-          "bg-[#0F1117] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.8)] border-t border-white/[0.08] text-zinc-100",
+          "bg-card rounded-t-3xl shadow-2xl border-t border-border text-foreground",
           "flex flex-col animate-slide-up",
           heightClass,
           className
@@ -171,19 +171,19 @@ export function BottomSheet({
       >
         {/* Drag handle */}
         <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
-          <div className="w-10 h-1 rounded-full bg-zinc-700" aria-hidden="true" />
+          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" aria-hidden="true" />
         </div>
 
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between px-5 pt-2 pb-4 flex-shrink-0 border-b border-white/[0.08]">
-            <h2 id="sheet-title" className="text-base font-semibold tracking-tight text-zinc-50">
+          <div className="flex items-center justify-between px-5 pt-2 pb-4 flex-shrink-0 border-b border-border">
+            <h2 id="sheet-title" className="text-base font-semibold tracking-tight text-foreground">
               {title}
             </h2>
             <button
               onClick={onClose}
               aria-label={t("common.close")}
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100 transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -197,7 +197,7 @@ export function BottomSheet({
 
         {/* Footer */}
         {footer && (
-          <div className="px-5 py-4 border-t border-white/[0.08] flex-shrink-0 flex gap-2">
+          <div className="px-5 py-4 border-t border-border flex-shrink-0 flex gap-2">
             {footer}
           </div>
         )}
@@ -246,7 +246,7 @@ export function ConfirmDialog({
         </>
       }
     >
-      <p className="text-sm text-zinc-400">{message}</p>
+      <p className="text-sm text-muted-foreground">{message}</p>
     </Modal>
   );
 }

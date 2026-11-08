@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { ThemeProvider }  from "@/providers/ThemeProvider";
 import { QueryProvider }  from "@/providers/QueryProvider";
 import { I18nProvider }   from "@/providers/I18nProvider";
 import { AuthProvider }   from "@/providers/AuthProvider";
@@ -15,6 +16,9 @@ export const metadata: Metadata = {
   description: `${BRAND.name} — ${BRAND.tagline}`,
   manifest:    "/manifest.json",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: BRAND.shortName },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -42,23 +46,49 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     // lang + dir are set dynamically by LangProvider on the client via useEffect
     <html lang="en" dir="ltr" suppressHydrationWarning>
-      <head />
-      <body className="font-body bg-offwhite text-navy antialiased">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var mode = localStorage.getItem('peshify_theme_mode') || 'dark';
+                  var resolved = mode;
+                  if (mode === 'system') {
+                    resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  var html = document.documentElement;
+                  html.classList.remove('light', 'dark');
+                  html.classList.add(resolved);
+                  html.setAttribute('data-theme', resolved);
+
+                  var accent = localStorage.getItem('peshify_theme_accent') || 'indigo';
+                  html.setAttribute('data-accent', accent);
+                  html.style.colorScheme = resolved;
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="font-body bg-background text-foreground antialiased" suppressHydrationWarning>
         <ErrorBoundary>
-          <I18nProvider>
-            <QueryProvider>
-              <AuthProvider>
-                <SubscriptionProvider>
-                  <LangProvider>
-                    <ToastProvider>
-                      {children}
-                      <OfflineBanner />
-                    </ToastProvider>
-                  </LangProvider>
-                </SubscriptionProvider>
-              </AuthProvider>
-            </QueryProvider>
-          </I18nProvider>
+          <ThemeProvider>
+            <I18nProvider>
+              <QueryProvider>
+                <AuthProvider>
+                  <SubscriptionProvider>
+                    <LangProvider>
+                      <ToastProvider>
+                        {children}
+                        <OfflineBanner />
+                      </ToastProvider>
+                    </LangProvider>
+                  </SubscriptionProvider>
+                </AuthProvider>
+              </QueryProvider>
+            </I18nProvider>
+          </ThemeProvider>
         </ErrorBoundary>
       </body>
     </html>

@@ -1,4 +1,4 @@
-# MZM & Associates — Phase 1 Audit Findings
+# Peshify — Phase 1 Audit Findings
 
 **Date**: October 27, 2026  
 **Audit Phase**: Initial Code Review & Build Validation  

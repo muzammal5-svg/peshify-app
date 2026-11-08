@@ -39,7 +39,7 @@ function Pagination({ page, totalPages, onChange }: {
       >
         {t("common.previousPage")}
       </Button>
-      <span className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-[#161922] text-zinc-300 border border-white/[0.08]">
+      <span className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-secondary text-foreground border border-border">
         {page} / {totalPages}
       </span>
       <Button
@@ -96,7 +96,7 @@ export function CasesList({ status, title }: CasesListProps) {
 
       {/* Count */}
       {!isLoading && data && (
-        <p className="text-xs text-zinc-400">
+        <p className="text-xs text-muted-foreground">
           {data.total} {data.total === 1 ? "case" : "cases"}
           {search && ` matching "${search}"`}
         </p>
@@ -131,16 +131,16 @@ export function CasesList({ status, title }: CasesListProps) {
                 {
                   key: "ref",
                   header: t("cases.caseNo"),
-                  render: c => <span className="font-mono text-xs font-semibold text-indigo-400">{c.case_ref_no || "—"}</span>,
+                  render: c => <span className="font-mono text-xs font-semibold text-primary">{c.case_ref_no || "—"}</span>,
                   width: "140px",
                 },
                 {
                   key: "parties",
                   header: t("common.parties"),
                   render: c => (
-                    <span className="text-sm font-medium text-zinc-100"
+                    <span className="text-sm font-medium text-foreground"
                       dir={isUrdu(c.plaintiff_name) ? "rtl" : "ltr"}>
-                      {c.plaintiff_name} <span className="text-zinc-500 font-normal mx-1 text-xs">{t("cases.vs")}</span> {c.defendant_name}
+                      {c.plaintiff_name} <span className="text-muted-foreground font-normal mx-1 text-xs">{t("cases.vs")}</span> {c.defendant_name}
                     </span>
                   ),
                 },
@@ -154,7 +154,7 @@ export function CasesList({ status, title }: CasesListProps) {
                   key: "client",
                   header: t("clients.title"),
                   render: c => (
-                    <span className="text-xs text-zinc-300 font-medium"
+                    <span className="text-xs text-foreground/90 font-medium"
                       dir={textDir(c.client?.full_name ?? "")}>
                       {c.client?.full_name ?? "—"}
                     </span>
@@ -164,7 +164,7 @@ export function CasesList({ status, title }: CasesListProps) {
                   ? {
                       key: "outcome",
                       header: t("cases.outcome"),
-                      render: c => c.outcome ? <OutcomeBadge outcome={c.outcome} /> : <span className="text-zinc-500 text-xs">—</span>,
+                      render: c => c.outcome ? <OutcomeBadge outcome={c.outcome} /> : <span className="text-muted-foreground text-xs">—</span>,
                       width: "110px",
                     }
                   : {

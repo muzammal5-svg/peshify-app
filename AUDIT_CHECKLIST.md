@@ -1,7 +1,7 @@
-# MZM & Associates — SaaS Audit & Production Readiness Checklist
+# Peshify — SaaS Audit & Production Readiness Checklist
 
 ## Executive Summary
-MZM & Associates is a multi-tenant legal case management SaaS platform built on Next.js 14 (static export), Supabase PostgreSQL, and Capacitor mobile wrappers. This document outlines a comprehensive audit covering authentication, security, functionality, UI/UX, testing, and production readiness.
+Peshify is a multi-tenant legal case management SaaS platform built on Next.js 14 (static export), Supabase PostgreSQL, and Capacitor mobile wrappers. This document outlines a comprehensive audit covering authentication, security, functionality, UI/UX, testing, and production readiness.
 
 **Current Phase**: Pre-production validation  
 **Scope**: Web (Next.js), Android (Capacitor), iOS (Capacitor), Backend (Supabase)  

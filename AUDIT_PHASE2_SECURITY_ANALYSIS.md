@@ -1,4 +1,4 @@
-# MZM & Associates — Phase 2: Security & Architecture Analysis
+# Peshify — Phase 2: Security & Architecture Analysis
 
 **Date**: October 27, 2026  
 **Audit Phase**: Code-Level Security & Architecture Validation  
@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-MZM & Associates has a well-structured SaaS application with comprehensive security measures in place:
+Peshify has a well-structured SaaS application with comprehensive security measures in place:
 
 - ✅ **Row-Level Security (RLS)** enabled on all 14 database tables
 - ✅ **Multi-tenant isolation** via firm_id in RLS policies  

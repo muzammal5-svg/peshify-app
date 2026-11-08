@@ -279,14 +279,14 @@ export function DocumentUploader({
             <div
               key={entry.id}
               className={cn(
-                "flex items-start gap-3 p-3 rounded-xl border transition-colors",
-                entry.status === "error" ? "border-danger bg-red-50" :
-                entry.status === "done"  ? "border-success/30 bg-green-50/30" :
-                "border-border bg-white"
+                "flex items-start gap-3 p-3 rounded-none border transition-colors",
+                entry.status === "error" ? "border-[#C45C5C]/50 bg-[#C45C5C]/10" :
+                entry.status === "done"  ? "border-[#6B8F71]/40 bg-[#6B8F71]/10" :
+                "border-[rgba(237,232,224,0.12)] bg-[#111111]"
               )}
             >
               {/* Thumbnail / icon */}
-              <div className="w-10 h-10 rounded-lg bg-navy-50 flex items-center justify-center flex-shrink-0 overflow-hidden">
+              <div className="w-10 h-10 rounded-none bg-white/[0.04] border border-[rgba(237,232,224,0.10)] flex items-center justify-center flex-shrink-0 overflow-hidden">
                 {entry.preview ? (
                   <Image
                     src={entry.preview}
@@ -297,7 +297,7 @@ export function DocumentUploader({
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <FileIcon className="w-5 h-5 text-navy-400" />
+                  <FileIcon className="w-5 h-5 text-[#9A958C]" />
                 )}
               </div>
 
@@ -312,7 +312,7 @@ export function DocumentUploader({
                     className="input text-xs py-1 px-2 h-7 mb-1"
                   />
                 ) : (
-                  <p className="text-xs font-medium text-navy truncate">{entry.name}</p>
+                  <p className="text-xs font-medium text-[#EDE8E0] truncate">{entry.name}</p>
                 )}
 
                 {/* Progress bar */}

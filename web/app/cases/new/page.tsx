@@ -151,7 +151,7 @@ function NewCasePage() {
 
         {/* ── Client ── */}
         <Card>
-          <h2 className="text-sm font-semibold text-navy-400 uppercase tracking-wider mb-3">{t("clients.title")}</h2>
+          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t("clients.title")}</h2>
           <div className="space-y-1.5">
             <label className="label">{t("clients.title")} <span className="text-danger ms-0.5">*</span></label>
             <Controller
@@ -170,7 +170,7 @@ function NewCasePage() {
 
         {/* ── Case Details ── */}
         <Card>
-          <h2 className="text-sm font-semibold text-navy-400 uppercase tracking-wider mb-3">{t("cases.caseDetails")}</h2>
+          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t("cases.caseDetails")}</h2>
           <div className="space-y-4">
 
             <Input
@@ -183,9 +183,9 @@ function NewCasePage() {
             />
 
             {dupWarning && (
-              <div className="flex items-start gap-2 bg-yellow-50 border border-yellow-200 rounded-xl p-3">
+              <div className="flex items-start gap-2 bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-3">
                 <AlertTriangle className="w-4 h-4 text-warning flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-yellow-800">{dupWarning}</p>
+                <p className="text-xs text-yellow-600 dark:text-yellow-400">{dupWarning}</p>
               </div>
             )}
 
@@ -199,9 +199,9 @@ function NewCasePage() {
 
             {/* Custom columns rendered above the "+ Add column" button */}
             {customCols.map((v, i) => (
-              <div key={i} className="p-3 rounded-xl bg-navy-50 border border-navy-100">
+              <div key={i} className="p-3 rounded-xl bg-muted/40 border border-border">
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-semibold text-navy-700 uppercase tracking-wider">
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider">
                     Write Down the Colum {customCols.length > 1 ? `#${i + 1}` : ""}
                   </label>
                   <button
@@ -223,7 +223,7 @@ function NewCasePage() {
               <button
                 type="button"
                 onClick={() => setCustomCols((c) => [...c, ""])}
-                className="px-3 py-1.5 rounded-lg bg-gold/10 border border-gold text-gold text-xs font-medium hover:bg-gold/20"
+                className="px-3 py-1.5 rounded-lg bg-secondary text-foreground border border-border text-xs font-medium hover:bg-muted transition-colors inline-flex items-center gap-1.5"
               >
                 + Add column
               </button>
@@ -242,7 +242,7 @@ function NewCasePage() {
             {/* From toggle */}
             <div className="space-y-1.5">
               <label className="label">{t("cases.From")} <span className="text-danger ms-0.5">*</span></label>
-              <div className="flex rounded-xl overflow-hidden border border-border">
+              <div className="flex p-1 rounded-lg border border-border bg-muted/40 gap-1">
                 {(["plaintiff", "defendant"] as const).map(r => {
                   const active = watch("From") === r;
                   return (
@@ -250,8 +250,10 @@ function NewCasePage() {
                       key={r}
                       type="button"
                       onClick={() => setValue("From", r, { shouldValidate: true })}
-                      className={`flex-1 py-2.5 text-sm font-semibold transition-colors ${
-                        active ? "bg-navy text-white shadow-xs" : "bg-white text-navy-600 hover:bg-navy-50"
+                      className={`flex-1 py-2 text-xs font-semibold rounded-md transition-all duration-200 ${
+                        active
+                          ? "bg-primary text-primary-foreground shadow-sm"
+                          : "text-muted-foreground hover:text-foreground hover:bg-card"
                       }`}
                     >
                       {r === "plaintiff" ? t("cases.plaintiff") : t("cases.defendant")}

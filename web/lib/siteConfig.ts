@@ -1,10 +1,10 @@
 export const SITE = {
   name: "Peshify",
   tagline: "Run your law practice with clarity",
-  whatsapp: "+92 300 5421753",
-  phone: "+92 300 5421753",
-  email: "support@mzm.pk",
-  trialDays: 7,
+  whatsapp: "+92 341 7359571",
+  phone: "+92 341 7359571",
+  email: "support@peshify.com",
+  trialDays: 0,
   social: { twitter: "", linkedin: "" },
   /** Set to true only after real reviews are added (see docs/landing-content.md). */
   SHOW_REVIEWS: false,

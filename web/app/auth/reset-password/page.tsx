@@ -42,55 +42,56 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-navy flex flex-col items-center justify-center px-4 py-8">
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-modal overflow-hidden animate-fade-in">
-        <div className="h-1 bg-gold" />
-        <div className="p-7 space-y-6">
-          <div className="flex flex-col items-center gap-2">
-            <Logo size="md" variant="mark" />
-            <h1 className="text-lg font-heading font-semibold text-navy">{t("auth.resetPassword")}</h1>
-          </div>
-
-          {done ? (
-            <div className="flex flex-col items-center gap-3 py-4 text-center">
-              <CheckCircle className="w-12 h-12 text-success" />
-              <p className="text-sm font-semibold text-navy">{t("profile.passwordChanged")}</p>
-              <p className="text-xs text-navy-500">{t("common.loading")}</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-              <div className="space-y-1.5">
-                <label htmlFor="new-password" className="label text-navy-700">{t("profile.newPassword")}</label>
-                <div className="relative">
-                  <input
-                    id="new-password" type={showPwd ? "text" : "password"}
-                    autoComplete="new-password" required minLength={8}
-                    value={newPwd} onChange={e => setNewPwd(e.target.value)}
-                    className="input pe-10" disabled={loading}
-                  />
-                  <button type="button" onClick={() => setShowPwd(v => !v)}
-                    className="absolute end-3 top-1/2 -translate-y-1/2 text-navy-400 hover:text-navy p-0.5"
-                    aria-label={showPwd ? t("auth.hidePassword") : t("auth.showPassword")}
-                  >
-                    {showPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                <label htmlFor="confirm-password" className="label text-navy-700">{t("profile.confirmPassword")}</label>
-                <input
-                  id="confirm-password" type="password" autoComplete="new-password" required
-                  value={confirmPwd} onChange={e => setConfirmPwd(e.target.value)}
-                  className="input" disabled={loading}
-                />
-              </div>
-              {error && <p role="alert" className="text-danger text-xs font-medium">{error}</p>}
-              <button type="submit" disabled={loading || !newPwd || !confirmPwd} className="btn-primary w-full">
-                {loading ? t("common.loading") : t("common.save")}
-              </button>
-            </form>
-          )}
+    <div className="min-h-dvh bg-[#050505] text-[#EDE8E0] flex flex-col items-center justify-center px-4 py-8 relative selection:bg-white/20">
+      <div className="w-full max-w-sm bg-[#111111] border border-[rgba(237,232,224,0.14)] p-7 space-y-6 animate-fade-in shadow-[0_16px_40px_rgba(0,0,0,0.85)]">
+        <div className="flex flex-col items-center gap-2">
+          <Logo size="md" variant="mark" />
+          <h1 className="text-lg font-heading font-semibold text-[#EDE8E0]">{t("auth.resetPassword")}</h1>
         </div>
+
+        {done ? (
+          <div className="flex flex-col items-center gap-3 py-4 text-center">
+            <CheckCircle className="w-12 h-12 text-[#6B8F71]" />
+            <p className="text-sm font-semibold text-[#EDE8E0]">{t("profile.passwordChanged")}</p>
+            <p className="text-xs text-[#9A958C]">{t("common.loading")}</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+            <div className="space-y-1.5">
+              <label htmlFor="new-password" className="block text-[11px] font-bold uppercase tracking-[0.12em] text-[#9A958C]">{t("profile.newPassword")}</label>
+              <div className="relative">
+                <input
+                  id="new-password" type={showPwd ? "text" : "password"}
+                  autoComplete="new-password" required minLength={8}
+                  value={newPwd} onChange={e => setNewPwd(e.target.value)}
+                  className="input pe-10" disabled={loading}
+                />
+                <button type="button" onClick={() => setShowPwd(v => !v)}
+                  className="absolute end-3 top-1/2 -translate-y-1/2 text-[#9A958C] hover:text-[#EDE8E0] transition-colors p-0.5"
+                  aria-label={showPwd ? t("auth.hidePassword") : t("auth.showPassword")}
+                >
+                  {showPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <label htmlFor="confirm-password" className="block text-[11px] font-bold uppercase tracking-[0.12em] text-[#9A958C]">{t("profile.confirmPassword")}</label>
+              <input
+                id="confirm-password" type="password" autoComplete="new-password" required
+                value={confirmPwd} onChange={e => setConfirmPwd(e.target.value)}
+                className="input" disabled={loading}
+              />
+            </div>
+            {error && (
+              <div role="alert" className="flex items-start gap-2 bg-[#C45C5C]/10 border border-[#C45C5C]/30 p-2.5">
+                <p className="text-xs text-[#E58080] font-medium">{error}</p>
+              </div>
+            )}
+            <button type="submit" disabled={loading || !newPwd || !confirmPwd} className="btn-primary w-full">
+              {loading ? t("common.loading") : t("common.save")}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

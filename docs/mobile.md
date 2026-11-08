@@ -1,4 +1,4 @@
-# Mobile Release Guide (MZM & Associates)
+# Mobile Release Guide (Peshify)
 
 This document covers the Android release workflow: Firebase/FCM setup, signing a
 release AAB, Play Console submission, and required policy items (privacy policy
@@ -16,7 +16,7 @@ to FCM device tokens stored in `public.device_tokens`.
 2. Add project → name it "mzm-cms" → continue (Google Analytics optional).
 3. Once created, click the **Android** icon (🤖) to register an Android app.
 4. Package name: `com.mzmassociates.cms`
-   App nickname: `MZM & Associates`
+   App nickname: `Peshify`
    Debug signing certificate SHA-1: obtain from your keystore (optional for
    debug; required for production).
 5. Click **Register app**.
@@ -57,7 +57,7 @@ account. Generate a service account key:
 ```bash
 keytool -genkeypair -v -keystore mzm-upload.keystore -alias mzm-key \
   -keyalg RSA -keysize 2048 -validity 10000 -storepass <store-password> \
-  -keypass <key-password> -dname "CN=MZM & Associates, O=MZM, C=PK"
+  -keypass <key-password> -dname "CN=Peshify, O=Peshify, C=PK"
 ```
 
 - Store `mzm-upload.keystore` securely (never commit it).

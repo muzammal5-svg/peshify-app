@@ -3,7 +3,9 @@ import { useSubscriptionGate, type SubState } from "@/providers/SubscriptionProv
 
 export type { SubState };
 
-/** Reads the shared subscription state (see SubscriptionProvider). */
+/**
+ * 100% Free Full Access — all users have active, unblocked access to all features.
+ */
 export function useSubscriptionAccess() {
   return useSubscriptionGate();
 }

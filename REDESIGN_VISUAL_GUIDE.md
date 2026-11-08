@@ -72,7 +72,7 @@ Basic styling
 ### AFTER - EXPANDED (280px)
 ```
 ┌─ Sidebar ────────────────┐
-│ 🏢 MZM & Associates      │ ← Logo + firm name
+│ 🏢 Peshify               │ ← Logo + firm name
 │                          │
 │ 🔍 Search...            │ ← Search box
 │                          │

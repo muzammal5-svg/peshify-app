@@ -438,12 +438,12 @@ function AdminDashboard() {
             </span>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-heading text-lg font-bold text-white">MZM Admin</span>
+                <span className="font-heading text-lg font-bold text-white">Peshify Admin</span>
                 <Badge variant="gold" size="sm" className="font-semibold uppercase text-[10px]">
                   Super Admin
                 </Badge>
               </div>
-              <p className="hidden text-xs text-white/60 sm:block">Subscription SaaS Control Center</p>
+              <p className="hidden text-xs text-white/60 sm:block">Chamber Management Control Center</p>
             </div>
           </div>
 
@@ -501,7 +501,7 @@ function AdminDashboard() {
           <Card className="glass-card p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted">Trialing Firms</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted">New Firms</p>
                 <p className="mt-1 font-heading text-2xl font-bold text-navy">{metrics.trialingFirmsCount}</p>
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-sky-600">
@@ -587,10 +587,10 @@ function AdminDashboard() {
                   <button
                     key={st}
                     onClick={() => { setPaymentFilter(st); setPaymentPage(1); }}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all ${
+                    className={`px-3 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider transition-all ${
                       paymentFilter === st
-                        ? "bg-gold text-white shadow-xs"
-                        : "bg-white text-muted hover:text-navy border border-border"
+                        ? "bg-[#EDE8E0] text-[#050505] shadow-xs"
+                        : "bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717] border border-[rgba(237,232,224,0.14)]"
                     }`}
                   >
                     {st}
@@ -606,7 +606,7 @@ function AdminDashboard() {
                   placeholder="Search firm or ref no..."
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setPaymentPage(1); }}
-                  className="w-full ps-9 pe-3 py-1.5 text-xs text-navy rounded-lg border border-border bg-white placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-gold/30"
+                  className="w-full ps-9 pe-3 py-1.5 text-xs text-[#EDE8E0] rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] placeholder:text-[#5C5852] focus:outline-none focus:border-[#EDE8E0]"
                 />
               </div>
             </div>
@@ -771,10 +771,10 @@ function AdminDashboard() {
                   <button
                     key={st}
                     onClick={() => { setFirmFilter(st); setFirmPage(1); }}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all ${
+                    className={`px-3 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider transition-all ${
                       firmFilter === st
-                        ? "bg-gold text-white shadow-xs"
-                        : "bg-white text-muted hover:text-navy border border-border"
+                        ? "bg-[#EDE8E0] text-[#050505] shadow-xs"
+                        : "bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717] border border-[rgba(237,232,224,0.14)]"
                     }`}
                   >
                     {st}
@@ -789,7 +789,7 @@ function AdminDashboard() {
                   placeholder="Search firm, email, phone..."
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setFirmPage(1); }}
-                  className="w-full ps-9 pe-3 py-1.5 text-xs text-navy rounded-lg border border-border bg-white placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-gold/30"
+                  className="w-full ps-9 pe-3 py-1.5 text-xs text-[#EDE8E0] rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] placeholder:text-[#5C5852] focus:outline-none focus:border-[#EDE8E0]"
                 />
               </div>
             </div>
@@ -1357,15 +1357,15 @@ function AdminDashboard() {
               required
             />
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-navy">Instructions for Subscribers</label>
+              <label className="text-xs font-semibold text-[#EDE8E0]">Instructions for Subscribers</label>
               <textarea
                 value={editAccount.instructions || ""}
                 onChange={(e) => setEditAccount({ ...editAccount, instructions: e.target.value })}
                 rows={3}
-                className="w-full text-xs text-navy p-2.5 rounded-lg border border-border bg-white placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-gold/30"
+                className="w-full text-xs text-[#EDE8E0] p-2.5 rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] placeholder:text-[#5C5852] focus:outline-none focus:border-[#EDE8E0]"
               />
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-navy">
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-[#EDE8E0]">
               <input
                 type="checkbox"
                 checked={editAccount.is_active}

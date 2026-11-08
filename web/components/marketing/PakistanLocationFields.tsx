@@ -229,14 +229,14 @@ export function PakistanLocationFields({
           <div
             id="pakistan-cities-listbox"
             role="listbox"
-            className="absolute z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-2xl border border-slate-200 bg-white p-1.5 shadow-2xl backdrop-blur-lg animate-in fade-in slide-in-from-top-2 duration-150"
+            className="absolute z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-none border border-[rgba(237,232,224,0.18)] bg-[#111111] p-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.85)] animate-in fade-in slide-in-from-top-2 duration-150"
           >
-            <div className="px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-navy-400 flex items-center justify-between border-b border-slate-100 mb-1">
+            <div className="px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#9A958C] flex items-center justify-between border-b border-[rgba(237,232,224,0.10)] mb-1">
               <span className="flex items-center gap-1">
                 <Search className="h-3 w-3" />
                 {searchQuery ? t("common.searchResults") : t("marketing.regAllCities")}
               </span>
-              <span className="text-[10px] text-navy-300">
+              <span className="text-[10px] text-[#5C5852]">
                 {searchResults.length} {t("common.results")}
               </span>
             </div>
@@ -250,7 +250,7 @@ export function PakistanLocationFields({
                     onChange({ ...values, city: searchQuery });
                     setIsOpen(false);
                   }}
-                  className="mt-2 text-xs font-semibold text-gold-700 underline hover:text-gold-800"
+                  className="mt-2 text-xs font-semibold text-[#EDE8E0] underline hover:text-white"
                 >
                   Use &quot;{searchQuery}&quot; as City
                 </button>
@@ -269,20 +269,20 @@ export function PakistanLocationFields({
                     aria-selected={isSelected}
                     onClick={() => handleSelectCity(item)}
                     className={cn(
-                      "flex w-full items-center justify-between rounded-xl px-3 py-2 text-start text-xs transition-colors",
+                      "flex w-full items-center justify-between rounded-none px-3 py-2.5 text-start text-xs transition-colors",
                       isSelected
-                        ? "bg-gold-50 text-gold-900 font-semibold"
-                        : "text-navy hover:bg-navy-50/70"
+                        ? "bg-[#EDE8E0] text-[#050505] font-semibold"
+                        : "text-[#EDE8E0] hover:bg-[#1A1A1A]"
                     )}
                   >
                     <div className="flex flex-col gap-0.5">
-                      <span className="font-semibold text-sm text-navy-900">{item.name}</span>
-                      <span className="text-[11px] text-navy-400">
+                      <span className={cn("font-semibold text-sm", isSelected ? "text-[#050505]" : "text-[#EDE8E0]")}>{item.name}</span>
+                      <span className={cn("text-[11px]", isSelected ? "text-[#050505]/70" : "text-[#9A958C]")}>
                         {item.district} · {item.province}
                       </span>
                     </div>
                     {isSelected && (
-                      <Check className="h-4 w-4 text-gold-600 shrink-0" aria-hidden="true" />
+                      <Check className="h-4 w-4 text-[#050505] shrink-0" aria-hidden="true" />
                     )}
                   </button>
                 );
@@ -309,20 +309,20 @@ export function PakistanLocationFields({
               value={values.district}
               onChange={(e) => handleDistrictChange(e.target.value)}
               className={cn(
-                "field-float field-float--with-left-icon !ps-11 !pe-9 appearance-none cursor-pointer bg-white",
+                "field-float field-float--with-left-icon !ps-11 !pe-9 appearance-none cursor-pointer bg-[#111111] text-[#EDE8E0]",
                 touched && !districtValid && "border-rose-300 focus:border-rose-400 focus:ring-rose-400/15"
               )}
             >
-              <option value="" disabled>
+              <option value="" disabled className="bg-[#111111] text-[#9A958C]">
                 -- {t("marketing.regDistrictSelect")} --
               </option>
               {PAKISTAN_PROVINCES.map((prov) => {
                 const dists = PAKISTAN_DISTRICTS_DATA.filter((d) => d.province === prov);
                 if (dists.length === 0) return null;
                 return (
-                  <optgroup key={prov} label={prov}>
+                  <optgroup key={prov} label={prov} className="bg-[#0A0A0A] text-[#EDE8E0] font-semibold">
                     {dists.map((d) => (
-                      <option key={d.name} value={d.name}>
+                      <option key={d.name} value={d.name} className="bg-[#111111] text-[#EDE8E0]">
                         {d.name}
                       </option>
                     ))}
@@ -370,17 +370,17 @@ export function PakistanLocationFields({
               onChange={(e) => handleTehsilChange(e.target.value)}
               disabled={!values.district}
               className={cn(
-                "field-float field-float--with-left-icon !ps-11 !pe-9 appearance-none cursor-pointer bg-white disabled:bg-slate-50 disabled:cursor-not-allowed",
+                "field-float field-float--with-left-icon !ps-11 !pe-9 appearance-none cursor-pointer bg-[#111111] text-[#EDE8E0] disabled:bg-white/[0.02] disabled:text-[#5C5852] disabled:cursor-not-allowed",
                 touched && !tehsilValid && "border-rose-300 focus:border-rose-400 focus:ring-rose-400/15"
               )}
             >
-              <option value="" disabled>
+              <option value="" disabled className="bg-[#111111] text-[#9A958C]">
                 {values.district
                   ? `-- ${t("marketing.regTehsilSelect")} --`
                   : `-- ${t("marketing.regDistrictSelect")} First --`}
               </option>
               {tehsils.map((tName) => (
-                <option key={tName} value={tName}>
+                <option key={tName} value={tName} className="bg-[#111111] text-[#EDE8E0]">
                   {tName}
                 </option>
               ))}

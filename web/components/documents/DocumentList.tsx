@@ -49,7 +49,7 @@ function DocPreviewModal({ url, mime, onClose }: { url: string; mime: string | n
       aria-label={t("common.view")}
     >
       <div
-        className="max-w-3xl max-h-[90dvh] w-full bg-white rounded-2xl overflow-hidden shadow-modal"
+        className="max-w-3xl max-h-[90dvh] w-full bg-[#111111] border border-[rgba(237,232,224,0.18)] rounded-none overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.85)]"
         onClick={e => e.stopPropagation()}
       >
         {mime?.startsWith("image/") ? (
@@ -65,7 +65,7 @@ function DocPreviewModal({ url, mime, onClose }: { url: string; mime: string | n
           <iframe src={url} title={t("documents.pdfPreview")} className="w-full h-[80dvh]" />
         ) : (
           <div className="p-8 text-center">
-            <p className="text-navy-400 text-sm mb-4">{t("common.noPreview")}</p>
+            <p className="text-[#9A958C] text-sm mb-4">{t("common.noPreview")}</p>
             <a href={url} download className="btn-primary">{t("common.download")}</a>
           </div>
         )}
@@ -155,17 +155,17 @@ export function DocumentList({
         {docs.map(doc => (
           <div
             key={doc.id}
-            className="flex items-center gap-3 p-3 bg-white rounded-xl border border-border shadow-xs"
+            className="flex items-center gap-3 p-3 bg-[#111111] rounded-none border border-[rgba(237,232,224,0.12)] hover:border-[rgba(237,232,224,0.25)] transition-colors"
           >
             {/* Icon */}
-            <div className="w-9 h-9 rounded-lg bg-navy-50 flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 rounded-none bg-white/[0.04] border border-[rgba(237,232,224,0.10)] flex items-center justify-center flex-shrink-0">
               <DocIcon mime={doc.mime} />
             </div>
 
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-navy truncate">{doc.name}</p>
-              <p className="text-[11px] text-navy-400">
+              <p className="text-sm font-medium text-[#EDE8E0] truncate">{doc.name}</p>
+              <p className="text-[11px] text-[#9A958C]">
                 {fmtDate(doc.created_at)}
                 {doc.size ? ` · ${formatFileSize(doc.size)}` : ""}
               </p>
@@ -178,7 +178,7 @@ export function DocumentList({
                 <button
                   onClick={() => handlePreview(doc)}
                   aria-label={t("common.view")}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg text-navy-400 hover:bg-navy-50 hover:text-navy transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-none text-[#9A958C] hover:bg-white/[0.06] hover:text-[#EDE8E0] transition-colors"
                 >
                   <Eye className="w-4 h-4" />
                 </button>
@@ -187,7 +187,7 @@ export function DocumentList({
               <button
                 onClick={() => handleDownload(doc)}
                 aria-label={t("documents.download")}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-navy-400 hover:bg-navy-50 hover:text-navy transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-none text-[#9A958C] hover:bg-white/[0.06] hover:text-[#EDE8E0] transition-colors"
               >
                 <Download className="w-4 h-4" />
               </button>
@@ -197,7 +197,7 @@ export function DocumentList({
                   onClick={() => setConfirmDoc(doc)}
                   {...lock}
                   aria-label={t("documents.delete")}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg text-navy-400 hover:bg-red-50 hover:text-danger transition-colors disabled:opacity-40"
+                  className="w-8 h-8 flex items-center justify-center rounded-none text-[#9A958C] hover:bg-[#C45C5C]/20 hover:text-[#C45C5C] transition-colors disabled:opacity-40"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>

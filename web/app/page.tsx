@@ -12,6 +12,7 @@ import {
 
 import { AppShell }          from "@/components/layout/AppShell";
 import { RouteGuard }        from "@/components/shared/RouteGuard";
+import { ThemeCustomizer }   from "@/components/shared/ThemeCustomizer";
 import { Logo }              from "@/components/shared/Logo";
 import { Card }              from "@/components/ui/Card";
 import { Badge }             from "@/components/ui/Badge";
@@ -147,30 +148,34 @@ function DashboardPage() {
     <AppShell hideTopBar>
       <div className="space-y-7">
         {/* ── Executive Command Header ── */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-[#0F1117] via-[#12151E] to-[#090A0F] border border-white/[0.08] rounded-2xl p-6 md:p-8 text-zinc-100 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-          <div className="absolute top-0 end-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-20 bg-gradient-to-br from-card via-card/90 to-background border border-border/80 rounded-2xl p-6 md:p-8 text-foreground shadow-sm">
+          {/* Decorative glow contained inside rounded container */}
+          <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none" aria-hidden="true">
+            <div className="absolute top-0 end-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+          </div>
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2.5">
               <div className="flex items-center gap-2.5 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/15 text-primary border border-primary/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                   {profile?.role === "super_admin" ? "Platform Super Admin" : "Active Firm Practice"}
                 </span>
-                <span className="text-zinc-400 text-xs flex items-center gap-1.5 font-medium">
-                  <Clock className="w-3.5 h-3.5 text-zinc-500" />
+                <span className="text-muted-foreground text-xs flex items-center gap-1.5 font-medium">
+                  <Clock className="w-3.5 h-3.5 text-muted-foreground" />
                   {todayLabel}
                 </span>
               </div>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-50 tracking-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
                 {t("dashboard.greeting", { time: timeOfDay, name: firstName })}
               </h1>
-              <p className="text-zinc-400 text-sm max-w-xl leading-relaxed">
+              <p className="text-muted-foreground text-sm max-w-xl leading-relaxed">
                 {t("dashboard.subtitle") || "Real-time overview of active litigation, scheduled court cause lists, and client matters."}
               </p>
             </div>
 
             {/* Quick Action Buttons */}
             <div className="flex items-center gap-2.5 flex-wrap flex-shrink-0">
+              <ThemeCustomizer showFullLabel align="right" />
               <Link
                 href="/cases/new"
                 className="btn-primary text-xs md:text-sm font-medium flex items-center gap-2"
@@ -180,16 +185,16 @@ function DashboardPage() {
               </Link>
               <Link
                 href="/cause-list"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#161922] hover:bg-[#1E2230] border border-white/[0.08] hover:border-white/[0.15] text-zinc-200 text-xs md:text-sm font-medium backdrop-blur-sm transition-all duration-150"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-secondary hover:bg-muted border border-border/80 hover:border-border-strong text-foreground text-xs md:text-sm font-medium transition-all duration-150 shadow-xs"
               >
-                <CalendarCheck className="w-4 h-4 text-amber-400" />
+                <CalendarCheck className="w-4 h-4 text-amber-500" />
                 <span>{t("nav.causeList") || "Cause List"}</span>
               </Link>
               <Link
                 href="/cases/running"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#161922] hover:bg-[#1E2230] border border-white/[0.08] hover:border-white/[0.15] text-zinc-200 text-xs md:text-sm font-medium backdrop-blur-sm transition-all duration-150"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-secondary hover:bg-muted border border-border/80 hover:border-border-strong text-foreground text-xs md:text-sm font-medium transition-all duration-150 shadow-xs"
               >
-                <Scale className="w-4 h-4 text-indigo-400" />
+                <Scale className="w-4 h-4 text-primary" />
                 <span>{t("nav.runningCases") || "Running"}</span>
               </Link>
             </div>
@@ -199,11 +204,11 @@ function DashboardPage() {
         {/* ── Stats Grid (4 KPI Cards) ── */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base md:text-lg font-semibold tracking-tight text-zinc-50 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+            <h2 className="text-base md:text-lg font-semibold tracking-tight text-foreground flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary" />
               {t("dashboard.stats") || "Key Practice Metrics"}
             </h2>
-            <span className="text-xs text-zinc-400 font-medium">{t("common.realTime") || "Live database sync"}</span>
+            <span className="text-xs text-muted-foreground font-medium">{t("common.realTime") || "Live database sync"}</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -211,13 +216,13 @@ function DashboardPage() {
               <div className="col-span-full"><QueryErrorState onRetry={() => void counts.refetch()} /></div>
             ) : counts.isLoading ? (
               Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="bg-[#0F1117] border border-white/[0.08] rounded-xl p-5 shadow-sm animate-pulse">
+                <div key={i} className="bg-card border border-border/80 rounded-xl p-5 shadow-xs animate-pulse">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-zinc-800" />
-                    <div className="w-16 h-5 rounded-full bg-zinc-800" />
+                    <div className="w-10 h-10 rounded-xl bg-secondary" />
+                    <div className="w-16 h-5 rounded-full bg-secondary" />
                   </div>
-                  <div className="h-4 w-24 bg-zinc-800 rounded mb-2" />
-                  <div className="h-8 w-16 bg-zinc-800 rounded" />
+                  <div className="h-4 w-24 bg-secondary rounded mb-2" />
+                  <div className="h-8 w-16 bg-secondary rounded" />
                 </div>
               ))
             ) : (
@@ -225,7 +230,7 @@ function DashboardPage() {
                 {
                   id: "running",
                   icon: Briefcase,
-                  iconBox: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+                  iconBox: "bg-primary/10 text-primary border-primary/20",
                   label: t("dashboard.runningCases"),
                   value: counts.data?.runningCases ?? 0,
                   trend: t("dashboard.active") || "Active Litigation",
@@ -235,7 +240,7 @@ function DashboardPage() {
                 {
                   id: "today",
                   icon: CalendarCheck,
-                  iconBox: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+                  iconBox: "bg-amber-500/10 text-amber-500 border-amber-500/20",
                   label: t("dashboard.todayCases"),
                   value: counts.data?.todayHearings ?? 0,
                   trend: (counts.data?.todayHearings ?? 0) > 0 ? "Scheduled Today" : "None Today",
@@ -245,7 +250,7 @@ function DashboardPage() {
                 {
                   id: "clients",
                   icon: Users,
-                  iconBox: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+                  iconBox: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
                   label: t("dashboard.totalClients"),
                   value: counts.data?.totalClients ?? 0,
                   trend: t("dashboard.registered") || "Retained Clients",
@@ -255,7 +260,7 @@ function DashboardPage() {
                 {
                   id: "reminders",
                   icon: BellRing,
-                  iconBox: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+                  iconBox: "bg-rose-500/10 text-rose-500 border-rose-500/20",
                   label: t("dashboard.upcoming"),
                   value: counts.data?.upcomingReminders ?? 0,
                   trend: (counts.data?.upcomingReminders ?? 0) > 0 ? "Pending Actions" : "Up to Date",
@@ -268,7 +273,7 @@ function DashboardPage() {
                   <Link
                     key={stat.id}
                     href={stat.href}
-                    className="group bg-[#0F1117] border border-white/[0.08] hover:border-indigo-500/40 rounded-xl p-5 transition-all duration-200 hover:shadow-lg shadow-sm active:scale-[0.99] block"
+                    className="group bg-card border border-border/80 hover:border-primary/40 rounded-xl p-5 transition-all duration-200 hover:shadow-md shadow-xs active:scale-[0.99] block"
                   >
                     <div className="flex items-center justify-between mb-3">
                       <div className={cn("w-10 h-10 rounded-xl border flex items-center justify-center transition-transform group-hover:scale-105", stat.iconBox)}>
@@ -278,14 +283,14 @@ function DashboardPage() {
                         {stat.trend}
                       </Badge>
                     </div>
-                    <p className="text-zinc-400 text-[11px] font-semibold uppercase tracking-wider mb-1">
+                    <p className="text-muted-foreground text-[11px] font-semibold uppercase tracking-wider mb-1">
                       {stat.label}
                     </p>
                     <div className="flex items-baseline justify-between">
-                      <span className="text-3xl font-bold text-zinc-50 tracking-tight font-sans">
+                      <span className="text-3xl font-bold text-foreground tracking-tight font-sans">
                         {stat.value}
                       </span>
-                      <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-indigo-400 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition-all" />
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition-all" />
                     </div>
                   </Link>
                 );
@@ -296,8 +301,8 @@ function DashboardPage() {
 
         {/* ── Services Grid ── */}
         <div>
-          <h2 className="text-base md:text-lg font-semibold tracking-tight text-zinc-50 mb-4 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+          <h2 className="text-base md:text-lg font-semibold tracking-tight text-foreground mb-4 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary" />
             {t("dashboard.services")}
           </h2>
           <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
@@ -307,12 +312,12 @@ function DashboardPage() {
                 <Link
                   key={svc.key}
                   href={svc.href}
-                  className="group flex flex-col items-center gap-3 p-4 bg-[#0F1117] border border-white/[0.08] hover:border-indigo-500/40 hover:bg-[#161922] rounded-xl transition-all duration-200 hover:shadow-md shadow-sm active:scale-[0.98]"
+                  className="group flex flex-col items-center gap-3 p-4 bg-card border border-border/80 hover:border-primary/40 hover:bg-secondary/60 rounded-xl transition-all duration-200 hover:shadow-xs shadow-xs active:scale-[0.98]"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500/20 group-hover:scale-105 transition-all duration-200">
-                    <Icon className="w-6 h-6 text-indigo-400 transition-transform duration-200" />
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-105 transition-all duration-200">
+                    <Icon className="w-6 h-6 text-primary transition-transform duration-200" />
                   </div>
-                  <span className="text-xs font-medium text-zinc-300 text-center leading-tight group-hover:text-zinc-100 transition-colors">
+                  <span className="text-xs font-medium text-foreground/80 text-center leading-tight group-hover:text-foreground transition-colors">
                     {t(`services.${svc.key}`)}
                   </span>
                   {svc.badge > 0 && (
@@ -327,20 +332,20 @@ function DashboardPage() {
         </div>
 
         {/* ── Today's Hearings Preview ── */}
-        <div className="bg-[#0F1117] border border-white/[0.08] rounded-xl p-6 shadow-sm space-y-4">
-          <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+        <div className="bg-card border border-border/80 rounded-xl p-6 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-border/80 pb-4">
             <div>
-              <h2 className="text-base md:text-lg font-semibold tracking-tight text-zinc-50 flex items-center gap-2">
-                <Gavel className="w-4.5 h-4.5 text-indigo-400" />
+              <h2 className="text-base md:text-lg font-semibold tracking-tight text-foreground flex items-center gap-2">
+                <Gavel className="w-4.5 h-4.5 text-primary" />
                 {t("dashboard.todayPreview")}
               </h2>
-              <p className="text-xs text-zinc-400 mt-0.5">
+              <p className="text-xs text-muted-foreground mt-0.5">
                 {hearings.data?.length ?? 0} {t("hearings.scheduledToday") || "cases listed for today"}
               </p>
             </div>
             <Link
               href="/cause-list"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-400 hover:text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 px-3 py-1.5 rounded-lg transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 bg-primary/10 hover:bg-primary/20 border border-primary/20 px-3 py-1.5 rounded-lg transition-colors"
             >
               <span>{t("dashboard.viewAll")}</span>
               <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" />

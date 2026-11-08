@@ -192,7 +192,7 @@ Status definitions: `[DONE]` verified complete; `[PARTIAL]` implemented but inco
 | W5 DB trigger on notification insert | DONE (migration, not applied remotely) | `supabase/migrations/20261016000000_push_dispatch_trigger.sql` created. `supabase migration list` and `supabase db push --dry-run` both fail: `Missing required permission(s): database_write`. Must be applied manually in Supabase Dashboard → SQL Editor. |
 | W6 Push end-to-end test | MISSING | Cannot test without W2+W4 completed. Function log + push payload verification pending manual setup. |
 | A1 Android platform added | DONE | `npx cap add android` succeeded; `web/android/` created with 7 Capacitor plugins. |
-| A2 Capacitor config | DONE | `appId=com.mzmassociates.cms`, `appName=MZM & Associates`, `webDir=out`, PushNotifications plugin configured. |
+| A2 Capacitor config | DONE | `appId=com.peshify.cms`, `appName=Peshify`, `webDir=out`, PushNotifications plugin configured. |
 | A3 Android plugins & scripts | DONE | `@capacitor/push-notifications`, `@capacitor/camera`, `@capacitor/filesystem` installed. `build:mobile` and `open:android` scripts added to `package.json`. |
 | A4 Debug APK build | BLOCKED | `.\gradlew assembleDebug` fails: `JAVA_HOME is not set`. JDK/Android SDK not installed. |
 | A5 Android install requirements | DOCUMENTED | JDK 17/21, Android Studio/SDK, `ANDROID_HOME` env var, SDK license acceptance required (see below). |

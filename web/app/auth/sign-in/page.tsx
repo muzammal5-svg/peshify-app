@@ -41,7 +41,7 @@ export default function SignInPage() {
 
   // Pre-fill email from localStorage if remember-me was set
   useEffect(() => {
-    const saved = localStorage.getItem("mzm_remember_email");
+    const saved = localStorage.getItem("peshify_remember_email");
     if (saved) { setEmail(saved); setRememberMe(true); }
   }, []);
 
@@ -62,8 +62,8 @@ export default function SignInPage() {
             : t("auth.invalidCreds")
         );
       } else {
-        if (rememberMe) localStorage.setItem("mzm_remember_email", email);
-        else localStorage.removeItem("mzm_remember_email");
+        if (rememberMe) localStorage.setItem("peshify_remember_email", email);
+        else localStorage.removeItem("peshify_remember_email");
         router.replace("/");
       }
     } catch {

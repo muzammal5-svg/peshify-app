@@ -1,4 +1,4 @@
-# MZM & Associates — Launch Preparation Guide
+# Peshify — Launch Preparation Guide
 
 **Purpose**: Step-by-step actions to complete before commercial launch  
 **Priority**: Complete items in this order  

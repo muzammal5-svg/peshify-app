@@ -57,13 +57,15 @@ function CasesTab({ clientId }: { clientId: string }) {
   return (
     <div className="space-y-3">
       {/* Sub-tab toggle */}
-      <div className="flex rounded-xl overflow-hidden border border-border">
+      <div className="flex rounded-none overflow-hidden border border-[rgba(237,232,224,0.14)] bg-[#0A0A0A]">
         {(["running", "decided"] as const).map(s => (
           <button
             key={s}
             onClick={() => setSub(s)}
-            className={`flex-1 py-2 text-xs font-semibold transition-colors ${
-              sub === s ? "bg-navy text-white shadow-xs" : "bg-white text-navy-600 hover:bg-navy-50"
+            className={`flex-1 py-2 text-xs font-semibold transition-all duration-200 uppercase tracking-[0.08em] ${
+              sub === s
+                ? "bg-[#EDE8E0] text-[#050505] shadow-xs"
+                : "bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717]"
             }`}
           >
             {s === "running" ? t("cases.running") : t("cases.decided")}

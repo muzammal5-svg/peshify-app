@@ -6,18 +6,39 @@ import { cn } from "@/lib/utils";
 import type { SupportedLang } from "@/i18n/config";
 
 interface LangSwitcherProps {
-  compact?:   boolean;   // icon-only pill
-  className?: string;
+  compact?:      boolean;   // icon-only pill
+  singleToggle?: boolean;   // single icon/text button for tight spaces (collapsed sidebars)
+  className?:    string;
 }
 
-export function LangSwitcher({ compact = false, className }: LangSwitcherProps) {
+export function LangSwitcher({ compact = false, singleToggle = false, className }: LangSwitcherProps) {
   const { t } = useTranslation();
   const { lang, setLang, languages } = useLang();
+
+  if (singleToggle) {
+    const nextLang = lang === "en" ? "ur" : "en";
+    return (
+      <button
+        type="button"
+        onClick={() => setLang(nextLang as SupportedLang)}
+        title={lang === "en" ? "اردو میں تبدیل کریں (Switch to Urdu)" : "Switch to English"}
+        aria-label={lang === "en" ? "Switch to Urdu" : "Switch to English"}
+        className={cn(
+          "w-8 h-8 flex items-center justify-center rounded-lg border border-border/80 bg-secondary hover:bg-muted text-xs font-bold transition-all select-none shadow-xs",
+          className
+        )}
+      >
+        <span className="text-[11px] font-bold text-primary">
+          {lang === "en" ? "اردو" : "EN"}
+        </span>
+      </button>
+    );
+  }
 
   return (
     <div
       className={cn(
-        "flex rounded-none overflow-hidden border border-[rgba(237,232,224,0.14)] bg-[#111111] p-0.5",
+        "flex rounded-lg overflow-hidden border border-border bg-secondary/80 p-0.5",
         compact ? "w-auto" : "w-full",
         className
       )}
@@ -33,10 +54,10 @@ export function LangSwitcher({ compact = false, className }: LangSwitcherProps) 
             aria-pressed={active}
             aria-label={l.label}
             className={cn(
-              "flex-1 py-1.5 px-3 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors duration-150 rounded-none",
+              "flex-1 py-1 px-2.5 text-[11px] font-semibold transition-all duration-150 rounded-md",
               active
-                ? "bg-[#EDE8E0] text-[#050505]"
-                : "bg-transparent text-[#9A958C] hover:text-[#EDE8E0]"
+                ? "bg-primary text-primary-foreground shadow-xs font-bold"
+                : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-card/50"
             )}
           >
             {compact ? l.code.toUpperCase() : l.label}

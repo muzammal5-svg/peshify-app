@@ -14,21 +14,21 @@ export function TopBar({ title }: TopBarProps) {
   const { t } = useTranslation();
 
   return (
-    <header className="md:hidden sticky top-0 z-20 bg-white border-b border-navy-50 px-4 flex items-center justify-between"
+    <header className="md:hidden sticky top-0 z-20 bg-card/90 backdrop-blur-xl border-b border-border px-4 flex items-center justify-between text-foreground"
       style={{ paddingTop: "env(safe-area-inset-top, 0px)", minHeight: "56px" }}
     >
       <Logo size="xs" variant="mark" />
 
       {title && (
-        <span className="absolute start-1/2 -translate-x-1/2 text-sm font-semibold text-navy truncate max-w-[40vw]">
+        <span className="absolute start-1/2 -translate-x-1/2 text-sm font-semibold text-foreground truncate max-w-[40vw]">
           {title}
         </span>
       )}
 
       <Link href="/reminders" aria-label={t("nav.reminders")}
-        className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-navy-50 transition-colors relative"
+        className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-muted transition-colors relative"
       >
-        <Bell className="w-5 h-5 text-navy" />
+        <Bell className="w-5 h-5 text-foreground" />
       </Link>
     </header>
   );

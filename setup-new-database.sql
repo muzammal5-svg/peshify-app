@@ -1,5 +1,5 @@
 -- =============================================================================
--- Peshify / MZM & Associates — Complete Database Setup Script
+-- Peshify — Complete Database Setup Script
 -- Self-Contained, Single-Run Script for Fresh Supabase Project Setup
 -- Generated: 2026-11-03T20:03:46.699Z
 -- =============================================================================
@@ -75,7 +75,7 @@ SET public = FALSE,
 -- Migration: 20240001000000_initial_schema.sql
 -- -----------------------------------------------------------------------------
 -- =============================================================================
--- MZM & Associates — Case Management System
+-- Peshify — Case Management System
 -- Phase 1 Revised: Complete Multi-Tenant Schema
 -- Timezone: Asia/Karachi
 -- =============================================================================
@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS public.documents (
   mime         TEXT,
   size         BIGINT,                 -- bytes
   uploaded_by  UUID        REFERENCES public.profiles(id) ON DELETE SET NULL,
-  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 COMMENT ON TABLE public.documents IS 'One module for case docs and client docs. Stored in private bucket.';

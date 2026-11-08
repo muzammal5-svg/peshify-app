@@ -93,7 +93,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
               key: "citation",
               header: t("caseLaws.citation"),
               render: (row) => (
-                <span className="font-medium text-navy">{`${row.law_report} ${row.year} ${row.page_no}`}</span>
+                <span className="font-medium text-[#EDE8E0]">{`${row.law_report} ${row.year} ${row.page_no}`}</span>
               ),
               className: "font-mono",
             },
@@ -101,7 +101,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
               key: "title",
               header: t("caseLaws.caseTitle"),
               render: (row) => (
-                <p className="text-navy-400 truncate max-w-[200px]">{row.case_title}</p>
+                <p className="text-[#9A958C] truncate max-w-[200px]">{row.case_title}</p>
               ),
             },
             {
@@ -123,7 +123,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
                         onEdit?.(row);
                       }}
                       title={t("common.edit")}
-                      className="w-8 h-8 flex items-center justify-center rounded text-navy-400 hover:bg-navy-50 hover:text-navy transition-colors"
+                      className="w-8 h-8 flex items-center justify-center rounded text-[#9A958C] hover:bg-white/[0.06] hover:text-[#EDE8E0] transition-colors"
                     >
                       <Edit className="w-4 h-4" />
                     </button>
@@ -135,7 +135,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
                         handleDelete(row.id);
                       }}
                       title={t("common.delete")}
-                      className="w-8 h-8 flex items-center justify-center rounded text-navy-400 hover:bg-danger/10 hover:text-danger transition-colors"
+                      className="w-8 h-8 flex items-center justify-center rounded text-[#9A958C] hover:bg-danger/10 hover:text-danger transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -149,17 +149,17 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
           data={caseLaws}
           keyExtractor={(row) => row.id}
           renderMobile={(row, index) => (
-            <div className="rounded-xl border border-border shadow-xs p-3 bg-white">
+            <div className="rounded-none border border-[rgba(237,232,224,0.12)] p-4 bg-[#111111]">
               <div className="flex justify-between items-start mb-2">
-                <span className="font-medium text-navy font-mono">{`${row.law_report} ${row.year} ${row.page_no}`}</span>
+                <span className="font-medium text-[#EDE8E0] font-mono">{`${row.law_report} ${row.year} ${row.page_no}`}</span>
                 <Badge variant="navy" size="sm">{row.law_report}</Badge>
               </div>
-              <p className="text-navy-600 text-sm">{row.case_title}</p>
-              <div className="mt-3 flex items-center gap-2">
+              <p className="text-[#9A958C] text-sm">{row.case_title}</p>
+              <div className="mt-3 flex items-center gap-3">
                 {isSuperAdmin && (
                   <button
                     onClick={(e) => { e.stopPropagation(); onEdit?.(row); }}
-                    className="text-xs text-navy-500 hover:text-navy underline underline-offset-2"
+                    className="text-xs text-[#EDE8E0] hover:text-white underline underline-offset-2 transition-colors"
                   >
                     {t("common.edit")}
                   </button>
@@ -167,7 +167,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
                 {isSuperAdmin && (
                   <button
                     onClick={(e) => { e.stopPropagation(); handleDelete(row.id); }}
-                    className="text-xs text-danger hover:text-red-700 underline underline-offset-2"
+                    className="text-xs text-danger hover:text-red-400 underline underline-offset-2 transition-colors"
                   >
                     {t("common.delete")}
                   </button>
@@ -190,7 +190,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
           >
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          <span className="text-xs text-navy-400">
+          <span className="text-xs text-[#9A958C]">
             {t("common.page", { current: page, total: totalPages })}
           </span>
           <Button

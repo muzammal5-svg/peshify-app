@@ -116,11 +116,11 @@ function MorePage() {
               </div>
             );
             return item.href ? (
-              <Link key={item.label} href={item.href} className="block hover:bg-navy-50/50 transition-colors active:bg-navy-50">
+              <Link key={item.label} href={item.href} className="block hover:bg-white/[0.04] transition-colors active:bg-white/[0.08]">
                 {Inner}
               </Link>
             ) : (
-              <button key={item.label} onClick={item.action} className="w-full hover:bg-navy-50/50 transition-colors active:bg-navy-50 text-start">
+              <button key={item.label} onClick={item.action} className="w-full hover:bg-white/[0.04] transition-colors active:bg-white/[0.08] text-start">
                 {Inner}
               </button>
             );
@@ -129,7 +129,7 @@ function MorePage() {
 
         {/* ── Language switcher ── */}
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-navy-500 mb-2 px-1">
+          <p className="text-xs font-semibold uppercase tracking-wider text-[#9A958C] mb-2 px-1">
             {t("settings.language")}
           </p>
           <LangSwitcher className="w-full" />
@@ -138,16 +138,16 @@ function MorePage() {
         {/* ── Logout ── */}
         <button
           onClick={() => setConfirmLogout(true)}
-          className="w-full flex items-center gap-3.5 px-4 py-4 bg-white rounded-xl border border-border shadow-xs hover:bg-red-50 transition-colors active:bg-red-100"
+          className="w-full flex items-center gap-3.5 px-4 py-4 bg-[#111111] rounded-none border border-[rgba(237,232,224,0.12)] hover:border-danger/40 hover:bg-danger/5 transition-colors"
         >
-          <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 rounded-none bg-danger/10 flex items-center justify-center flex-shrink-0">
             <LogOut className="w-4 h-4 text-danger" />
           </div>
           <span className="text-sm font-medium text-danger">{t("more.logout")}</span>
         </button>
 
         {/* ── Version ── */}
-        <p className="text-xs text-center text-navy-400 pb-2">
+        <p className="text-xs text-center text-[#5C5852] pb-2">
           {t("more.version", { version: "1.0.0" })}
         </p>
       </div>

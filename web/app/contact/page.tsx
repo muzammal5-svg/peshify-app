@@ -75,7 +75,7 @@ export default function ContactPage() {
             Get in Touch
           </h1>
           <p className="text-base sm:text-lg text-[#C8C2B8] max-w-xl mx-auto leading-relaxed">
-            Have questions about MZM &amp; Associates? Our legal ops onboarding team is here to help your chamber get set up.
+            Have questions about Peshify? Our legal ops onboarding team is here to help your chamber get set up.
           </p>
         </div>
       </section>
@@ -123,7 +123,7 @@ export default function ContactPage() {
                   href={`mailto:${SITE.email}`}
                   className="btn-secondary w-full h-11 text-center"
                 >
-                  {t("contact.sendEmail") || "support@mzm.associates"}
+                  {t("contact.sendEmail") || "support@peshify.com"}
                 </a>
               </div>
             </Reveal>
@@ -225,7 +225,7 @@ export default function ContactPage() {
                   <option value="General Inquiry">General Inquiry</option>
                   <option value="Chamber Demo">Request Chamber Demo</option>
                   <option value="Technical Support">Technical Support</option>
-                  <option value="Pricing">Multi-Lawyer Pricing</option>
+                  <option value="Chamber Setup">Chamber &amp; Multi-Lawyer Setup</option>
                 </select>
               </div>
 

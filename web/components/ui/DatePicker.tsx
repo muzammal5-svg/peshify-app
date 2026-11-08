@@ -43,7 +43,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
             required={required}
             aria-invalid={!!error}
             className={cn(
-              "input ps-9 min-h-[44px] [color-scheme:dark]",
+              "input ps-9 min-h-[44px]",
               error && "border-danger focus:ring-danger",
               className
             )}

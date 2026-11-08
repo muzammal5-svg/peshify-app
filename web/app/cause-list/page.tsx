@@ -32,7 +32,7 @@ const PRINT_STYLE = `
 
 function injectPrintStyle() {
   if (typeof document === "undefined") return;
-  const id = "mzm-print-style";
+  const id = "peshify-print-style";
   if (document.getElementById(id)) return;
   const style   = document.createElement("style");
   style.id      = id;
@@ -129,22 +129,22 @@ function CauseListPage() {
 
         {/* ── Date navigation ── */}
         <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-1 bg-[#0F1117] rounded-xl border border-white/[0.08] p-1 shadow-sm">
+          <div className="flex items-center gap-1 bg-card rounded-xl border border-border p-1 shadow-xs">
             <button
               onClick={() => navigate(-1)}
               aria-label={t("common.previousDay")}
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100 transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               <ChevronLeft className="w-4 h-4 rtl:rotate-180" />
             </button>
             <div className="px-3 text-center min-w-[130px]">
-              <p className="text-sm font-semibold text-zinc-100">{fmtDate(date)}</p>
-              {isToday && <p className="text-[10px] text-indigo-400 font-semibold uppercase tracking-wider">{t("common.today")}</p>}
+              <p className="text-sm font-semibold text-foreground">{fmtDate(date)}</p>
+              {isToday && <p className="text-[10px] text-primary font-semibold uppercase tracking-wider">{t("common.today")}</p>}
             </div>
             <button
               onClick={() => navigate(1)}
               aria-label={t("common.nextDay")}
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100 transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               <ChevronRight className="w-4 h-4 rtl:rotate-180" />
             </button>
@@ -153,7 +153,7 @@ function CauseListPage() {
           {!isToday && (
             <button
               onClick={() => { setDate(todayKarachi()); setPage(1); }}
-              className="text-xs text-indigo-400 hover:text-indigo-300 hover:underline font-medium flex items-center gap-1"
+              className="text-xs text-primary hover:underline font-medium flex items-center gap-1"
             >
               <Calendar className="w-3.5 h-3.5" /> {t("common.backToToday")}
             </button>
@@ -161,7 +161,7 @@ function CauseListPage() {
 
           {/* Count badge */}
           {allData && (
-            <span className="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2.5 py-1 rounded-full font-medium">
+            <span className="text-xs bg-primary/10 text-primary border border-primary/20 px-2.5 py-1 rounded-full font-medium">
               {t("hearings.hearingCount", { count: allData.total })}
             </span>
           )}
@@ -171,7 +171,7 @@ function CauseListPage() {
         <div id="cause-list-print">
           {/* Print header (hidden on screen) */}
           <div className="hidden print:block mb-4 text-center">
-            <h1 className="text-lg font-bold">{firm?.name ?? "MZM & Associates"}</h1>
+            <h1 className="text-lg font-bold">{firm?.name ?? "Peshify"}</h1>
             <p className="text-sm">{t("nav.causeList")} — {fmtDate(date)}</p>
           </div>
 

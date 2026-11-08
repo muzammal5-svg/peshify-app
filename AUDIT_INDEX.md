@@ -1,4 +1,4 @@
-# MZM & Associates — Complete Audit Documentation Index
+# Peshify — Complete Audit Documentation Index
 
 **Audit Date**: October 27, 2026  
 **Status**: ✅ **COMPLETE — PRODUCTION READY**  

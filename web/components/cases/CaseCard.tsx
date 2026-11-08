@@ -20,21 +20,21 @@ export function CaseCard({ case_: c, className }: CaseCardProps) {
     <Link href={`/cases/view?id=${c.id}`} className="block group">
       <Card hover className={cn("flex items-start gap-3", className)}>
         {/* Ref no circle */}
-        <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-          <span className="text-[10px] font-bold text-indigo-400 leading-tight text-center px-1 break-all font-mono">
+        <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <span className="text-[10px] font-bold text-primary leading-tight text-center px-1 break-all font-mono">
             {c.case_ref_no ? c.case_ref_no.slice(0, 8) : "—"}
           </span>
         </div>
 
         {/* Info */}
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-mono text-indigo-400 font-semibold">{c.case_ref_no || "—"}</p>
+          <p className="text-xs font-mono text-primary font-semibold">{c.case_ref_no || "—"}</p>
           <p
-            className="text-sm font-semibold text-zinc-100 group-hover:text-indigo-300 mt-0.5 leading-snug line-clamp-2 transition-colors"
+            className="text-sm font-semibold text-foreground group-hover:text-primary mt-0.5 leading-snug line-clamp-2 transition-colors"
             dir={isUrdu(c.plaintiff_name) || isUrdu(c.defendant_name) ? "rtl" : "ltr"}
           >
             {c.plaintiff_name}
-            <span className="text-zinc-500 font-medium mx-1 text-xs">{t("cases.vs")}</span>
+            <span className="text-muted-foreground font-medium mx-1 text-xs">{t("cases.vs")}</span>
             {c.defendant_name}
           </p>
           <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
@@ -47,14 +47,14 @@ export function CaseCard({ case_: c, className }: CaseCardProps) {
             )}
           </div>
           {c.client?.full_name && (
-            <p className="text-xs text-zinc-400 mt-1"
+            <p className="text-xs text-muted-foreground mt-1"
               dir={textDir(c.client.full_name)}>
               {c.client.full_name}
             </p>
           )}
         </div>
 
-        <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-indigo-400 transition-colors flex-shrink-0 mt-1 rtl:rotate-180" />
+        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-1 rtl:rotate-180" />
       </Card>
     </Link>
   );

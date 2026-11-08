@@ -92,7 +92,7 @@ Complete redesign of the MZM dashboard to match modern admin panel aesthetics. D
 ```
 ┌─────────────────────────────┐
 │ ┌─ Logo Section ──────────┐ │ ← height: 60px, gap: 12px
-│ │ [Logo] MZM & Associates  │ │
+│ │ [Logo] Peshify           │ │
 │ │ case management system   │ │
 │ └──────────────────────────┘ │
 ├──────────────────────────────┤ ← divider

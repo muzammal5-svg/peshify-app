@@ -121,14 +121,16 @@ function EditCasePage() {
 
             <div className="space-y-1.5">
               <label className="label">{t("cases.From")}</label>
-              <div className="flex rounded-xl overflow-hidden border border-border">
+              <div className="flex p-1 rounded-lg border border-border bg-muted/40 gap-1">
                 {(["plaintiff", "defendant"] as const).map(r => {
                   const active = watch("From") === r;
                   return (
                     <button key={r} type="button"
                       onClick={() => setValue("From", r)}
-                      className={`flex-1 py-2.5 text-sm font-semibold transition-colors ${
-                        active ? "bg-navy text-white shadow-xs" : "bg-white text-navy-600 hover:bg-navy-50"
+                      className={`flex-1 py-2 text-xs font-semibold rounded-md transition-all duration-200 ${
+                        active
+                          ? "bg-primary text-primary-foreground shadow-sm"
+                          : "text-muted-foreground hover:text-foreground hover:bg-card"
                       }`}
                     >
                       {r === "plaintiff" ? t("cases.plaintiff") : t("cases.defendant")}

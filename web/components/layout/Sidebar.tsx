@@ -9,10 +9,11 @@ import {
   LayoutDashboard, Calendar, Briefcase, Users,
   FolderOpen, Bell, CheckSquare, BellRing,
   Settings, LogOut, ChevronRight, List, ShieldCheck, FileText, BookOpen,
-  Phone, ChevronLeft, Sparkles,
+  Phone, PanelLeftClose, PanelLeft, Sparkles,
 } from "lucide-react";
 import { Logo }           from "@/components/shared/Logo";
 import { LangSwitcher }   from "@/components/shared/LangSwitcher";
+import { ThemeCustomizer } from "@/components/shared/ThemeCustomizer";
 import { RoleBadge }      from "@/components/ui/Badge";
 import { useAuth }        from "@/providers/AuthProvider";
 import { SITE, phoneLink } from "@/lib/siteConfig";
@@ -24,24 +25,36 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   FolderOpen, Bell, CheckSquare, BellRing, Settings, List, FileText, BookOpen, Sparkles,
 };
 
-export function Sidebar() {
+interface SidebarProps {
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
+}
+
+export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: SidebarProps = {}) {
   const { t }                             = useTranslation();
   const pathname                          = usePathname();
   const { profile, firm, unreadCount, reminderCount, signOut } = useAuth();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [internalCollapsed, setInternalCollapsed] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("sidebar-collapsed");
-    if (saved !== null) setIsCollapsed(JSON.parse(saved));
-  }, []);
+    if (controlledCollapsed === undefined) {
+      const saved = localStorage.getItem("sidebar-collapsed");
+      if (saved !== null) {
+        try { setInternalCollapsed(JSON.parse(saved)); } catch {}
+      }
+    }
+  }, [controlledCollapsed]);
 
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("sidebar-collapsed", JSON.stringify(isCollapsed));
+    if (mounted && controlledCollapsed === undefined) {
+      localStorage.setItem("sidebar-collapsed", JSON.stringify(internalCollapsed));
     }
-  }, [isCollapsed, mounted]);
+  }, [internalCollapsed, mounted, controlledCollapsed]);
+
+  const isCollapsed = controlledCollapsed !== undefined ? controlledCollapsed : internalCollapsed;
+  const toggleCollapse = onToggleCollapse ?? (() => setInternalCollapsed(!internalCollapsed));
 
   const mainItems = SIDEBAR_NAV.filter(i => i.sidebarSection === "main");
   const moreItems = SIDEBAR_NAV.filter(i => i.sidebarSection === "more");
@@ -60,32 +73,34 @@ export function Sidebar() {
         aria-current={isActive ? "page" : undefined}
         title={isCollapsed ? t(`nav.${item.key}`) : undefined}
         className={cn(
-          "group flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 relative whitespace-nowrap",
+          "group flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg transition-all duration-150 relative select-none",
           isActive
-            ? "bg-indigo-500/10 text-indigo-400 border-s-2 border-indigo-500 shadow-[inset_0_0_15px_rgba(99,102,241,0.08)] font-medium"
-            : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-100"
+            ? "bg-primary/12 text-primary font-semibold shadow-xs"
+            : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground font-medium"
         )}
       >
         {Icon && (
-          <span className="relative flex-shrink-0">
+          <span className="relative flex-shrink-0 flex items-center justify-center">
             <Icon className={cn(
-              "w-5 h-5 transition-colors duration-200",
-              isActive ? "text-indigo-400" : "text-zinc-400 group-hover:text-zinc-100"
+              "w-4 h-4 transition-colors duration-150",
+              isActive ? "text-primary stroke-[2.25]" : "text-muted-foreground group-hover:text-foreground stroke-[1.75]"
             )} />
-            {badge > 0 && (
-              <span aria-hidden="true" className="absolute -top-1.5 -end-1.5 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+            {badge > 0 && isCollapsed && (
+              <span aria-hidden="true" className="absolute -top-1 -end-1 w-2 h-2 rounded-full bg-rose-500 animate-pulse ring-2 ring-card" />
             )}
           </span>
         )}
         {!isCollapsed && (
           <>
-            <span className="flex-1 truncate text-xs font-medium">{t(`nav.${item.key}`)}</span>
+            <span className="flex-1 truncate text-xs">{t(`nav.${item.key}`)}</span>
             {badge > 0 && (
-              <span className="text-[9px] font-bold bg-rose-500 text-white rounded-full px-1.5 py-0.5 leading-none flex-shrink-0">
+              <span className="text-[10px] font-bold bg-rose-500/15 text-rose-500 border border-rose-500/25 rounded-full px-1.5 py-0.2 leading-tight flex-shrink-0">
                 {badge > 99 ? "99+" : badge}
               </span>
             )}
-            {isActive && <ChevronRight className="w-3.5 h-3.5 opacity-60 flex-shrink-0 rtl:rotate-180" />}
+            {isActive && (
+              <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+            )}
           </>
         )}
       </Link>
@@ -96,72 +111,97 @@ export function Sidebar() {
 
   return (
     <aside className={cn(
-      "hidden md:flex flex-col h-screen bg-[#0A0C12] fixed start-0 top-0 z-30",
-      "border-e border-white/[0.08] transition-all duration-300 overflow-hidden",
-      isCollapsed ? "w-[80px]" : "w-[280px]"
+      "hidden md:flex flex-col h-screen bg-card/95 text-foreground fixed start-0 top-0 z-30",
+      "border-e border-border/80 transition-all duration-300",
+      isCollapsed ? "w-[72px]" : "w-[256px]"
     )}>
-      {/* Logo / firm header - Fixed height, flex-shrink-0 */}
+      {/* ── Top Header: Brand & Collapse Toggle ── */}
       <div className={cn(
-        "px-4 py-5 border-b border-white/[0.08] flex items-center gap-3 transition-all duration-300 flex-shrink-0",
-        isCollapsed ? "justify-center" : ""
+        "h-16 px-4 border-b border-border/80 flex items-center justify-between gap-2.5 transition-all duration-300 flex-shrink-0",
+        isCollapsed ? "justify-center px-2" : ""
       )}>
-        {profile?.photo_url ? (
-          <Image src={profile.photo_url} alt={profile.full_name} width={40} height={40}
-            className="rounded-full object-cover flex-shrink-0 border border-white/10 w-10 h-10" unoptimized />
-        ) : firm?.logo_url ? (
-          <Image src={firm.logo_url} alt={firm.name} width={40} height={40}
-            className="rounded-lg object-contain flex-shrink-0 w-10 h-10" unoptimized />
-        ) : (
-          <Logo size="sm" variant="mark" />
-        )}
+        <Link href="/" className="flex items-center gap-3 min-w-0 group">
+          {profile?.photo_url ? (
+            <Image
+              src={profile.photo_url}
+              alt={profile.full_name}
+              width={34}
+              height={34}
+              className="rounded-full object-cover flex-shrink-0 border border-border/80 w-8.5 h-8.5"
+              unoptimized
+            />
+          ) : firm?.logo_url ? (
+            <Image
+              src={firm.logo_url}
+              alt={firm.name}
+              width={34}
+              height={34}
+              className="rounded-lg object-contain flex-shrink-0 w-8.5 h-8.5"
+              unoptimized
+            />
+          ) : (
+            <Logo size="sm" variant="mark" />
+          )}
+          {!isCollapsed && (
+            <div className="min-w-0 flex-1">
+              <p className="text-foreground text-xs font-bold tracking-tight truncate leading-tight group-hover:text-primary transition-colors">
+                {firm?.name ?? "Peshify Advocates"}
+              </p>
+              <span className="inline-flex items-center gap-1.5 text-[10px] text-muted-foreground font-medium truncate mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                {profile?.role === "super_admin" ? "Platform Admin" : "Active Practice"}
+              </span>
+            </div>
+          )}
+        </Link>
+
+        {/* Collapse button (expanded view) */}
         {!isCollapsed && (
-          <div className="min-w-0 flex-1">
-            <p className="text-zinc-50 text-xs font-semibold tracking-tight truncate leading-tight">
-              {firm?.name ?? "MZM"}
-            </p>
-            <p className="text-zinc-500 text-[9px] uppercase tracking-wider truncate">{t("nav.dashboard")}</p>
-          </div>
+          <button
+            onClick={toggleCollapse}
+            title="Collapse sidebar"
+            aria-label="Collapse sidebar"
+            className="w-7 h-7 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary border border-transparent hover:border-border/80 transition-all flex-shrink-0"
+          >
+            <PanelLeftClose className="w-4 h-4 rtl:rotate-180" />
+          </button>
         )}
       </div>
 
-      {/* Search box (expanded only) */}
-      {!isCollapsed && (
-        <div className="px-3 py-3 border-b border-white/[0.08] flex-shrink-0">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder={t("common.search") || "Search..."}
-              className="w-full ps-3 pe-9 py-2 bg-[#161922] border border-white/[0.08] rounded-lg text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/60 transition-all"
-            />
-            <svg className="absolute end-3 top-2.5 w-4 h-4 text-zinc-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
+      {/* Expand button (collapsed view) */}
+      {isCollapsed && (
+        <div className="pt-2 px-2 flex justify-center flex-shrink-0">
+          <button
+            onClick={toggleCollapse}
+            title="Expand sidebar"
+            aria-label="Expand sidebar"
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary border border-border/60 hover:border-border transition-all"
+          >
+            <PanelLeft className="w-4 h-4 rtl:rotate-180" />
+          </button>
         </div>
       )}
 
-      {/* Main nav - Scrollable */}
+      {/* ── Main Nav - Scrollable ── */}
       <nav className={cn(
-        "flex-1 overflow-y-auto overflow-x-hidden transition-all duration-300",
-        isCollapsed ? "px-2 py-4 space-y-1" : "px-3 py-4 space-y-0.5"
+        "flex-1 overflow-y-auto overflow-x-hidden transition-all duration-300 py-3",
+        isCollapsed ? "px-2 space-y-1.5" : "px-3 space-y-0.5"
       )} aria-label={t("common.mainNavigation")}>
         {/* MAIN section label */}
         {!isCollapsed && (
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500 px-3 mb-2.5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/80 px-2.5 mb-1.5">
             {t("nav.main")}
           </p>
         )}
         {mainItems.map(item => <NavLink key={item.href} item={item} />)}
 
         {/* MORE section */}
-        {!isCollapsed && mainItems.length > 0 && (
-          <>
-            <div className="pt-3 pb-1">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500 px-3">
-                {t("nav.more")}
-              </p>
-            </div>
-          </>
+        {!isCollapsed && moreItems.length > 0 && (
+          <div className="pt-3 pb-1">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/80 px-2.5 mb-1.5">
+              {t("nav.more")}
+            </p>
+          </div>
         )}
         {moreItems.map(item => <NavLink key={item.href} item={item} />)}
 
@@ -170,7 +210,7 @@ export function Sidebar() {
           <>
             {!isCollapsed && (
               <div className="pt-3 pb-1">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500 px-3">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/80 px-2.5 mb-1.5">
                   Admin
                 </p>
               </div>
@@ -179,14 +219,14 @@ export function Sidebar() {
               href="/admin"
               title={isCollapsed ? "Admin Control" : undefined}
               className={cn(
-                "group flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 whitespace-nowrap",
-                "bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/20"
+                "group flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg transition-all duration-150 whitespace-nowrap text-xs",
+                "bg-primary/10 text-primary hover:bg-primary/20 border border-primary/25 font-semibold"
               )}
             >
-              <ShieldCheck className="w-5 h-5 flex-shrink-0" />
+              <ShieldCheck className="w-4 h-4 flex-shrink-0" />
               {!isCollapsed && (
                 <>
-                  <span className="flex-1 truncate text-xs font-semibold">{t("nav.admin") || "Admin"}</span>
+                  <span className="flex-1 truncate">{t("nav.admin") || "Admin"}</span>
                   <ChevronRight className="w-3.5 h-3.5 opacity-60 flex-shrink-0 rtl:rotate-180" />
                 </>
               )}
@@ -195,104 +235,99 @@ export function Sidebar() {
         )}
       </nav>
 
-      {/* Collapse toggle & theme (expanded view) */}
-      {!isCollapsed && (
-        <div className="px-3 pb-3 border-t border-white/[0.08] pt-3 flex items-center gap-2 flex-shrink-0">
-          <button
-            onClick={() => setIsCollapsed(true)}
-            title="Collapse sidebar"
-            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-100 transition-all"
-          >
-            <ChevronLeft className="w-4 h-4 rtl:rotate-180" />
-            {t("common.collapse") || "Collapse"}
-          </button>
+      {/* ── Preferences Utility Row (Theme & Language) ── */}
+      {!isCollapsed ? (
+        <div className="px-3 pt-2 pb-1.5 border-t border-border/80 flex items-center gap-2 flex-shrink-0">
+          <ThemeCustomizer dropup align="left" className="flex-1 min-w-0" />
+          <LangSwitcher compact className="flex-shrink-0" />
+        </div>
+      ) : (
+        <div className="px-2 pt-2 pb-1.5 border-t border-border/80 flex flex-col items-center gap-1.5 flex-shrink-0">
+          <ThemeCustomizer compact dropup align="left" />
+          <LangSwitcher singleToggle className="flex-shrink-0" />
         </div>
       )}
 
-      {/* Collapse toggle (collapsed view - icon only) */}
-      {isCollapsed && (
-        <div className="px-2 pb-3 border-t border-white/[0.08] pt-3 flex-shrink-0">
-          <button
-            onClick={() => setIsCollapsed(false)}
-            title="Expand sidebar"
-            className="w-full flex items-center justify-center p-2.5 rounded-lg text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-100 transition-all"
-          >
-            <ChevronRight className="w-5 h-5 rtl:rotate-180" />
-          </button>
-        </div>
-      )}
-
-      {/* Language switcher (expanded only) */}
-      {!isCollapsed && (
-        <div className="px-3 pb-2 flex-shrink-0">
-          <LangSwitcher compact className="w-full text-xs" />
-        </div>
-      )}
-
-      {/* User footer */}
+      {/* ── User Footer Card (Profile + Support + Sign Out) ── */}
       <div className={cn(
-        "px-3 pb-4 border-t border-white/[0.08] pt-3 space-y-2 transition-all duration-300 flex-shrink-0",
-        isCollapsed ? "flex flex-col items-center gap-2" : ""
+        "px-3 pb-3 pt-1 flex-shrink-0",
+        isCollapsed ? "px-2" : ""
       )}>
-        {profile && (
-          <Link href="/profile"
-            title={isCollapsed ? profile.full_name : undefined}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/[0.04] transition-all group text-xs whitespace-nowrap",
-              isCollapsed ? "justify-center" : ""
-            )}
-          >
-            {profile.photo_url ? (
-              <Image src={profile.photo_url} alt={profile.full_name}
-                width={32} height={32}
-                className="w-8 h-8 rounded-full object-cover border border-white/20 flex-shrink-0"
-                unoptimized
-              />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center flex-shrink-0">
-                <span className="text-indigo-400 text-xs font-bold leading-none">
-                  {profile.full_name.charAt(0).toUpperCase()}
-                </span>
-              </div>
-            )}
+        <div className={cn(
+          "p-1.5 rounded-xl bg-secondary/40 hover:bg-secondary/70 border border-border/70 transition-all",
+          isCollapsed ? "p-1 bg-transparent border-0" : ""
+        )}>
+          <div className={cn(
+            "flex items-center gap-2.5",
+            isCollapsed ? "justify-center" : ""
+          )}>
+            {/* User avatar linking to /profile */}
+            <Link
+              href="/profile"
+              title={profile ? profile.full_name : "Profile"}
+              className="relative flex-shrink-0 group"
+            >
+              {profile?.photo_url ? (
+                <Image
+                  src={profile.photo_url}
+                  alt={profile.full_name}
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 rounded-full object-cover border border-border/80 flex-shrink-0"
+                  unoptimized
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0 text-primary text-xs font-bold">
+                  {profile?.full_name?.charAt(0).toUpperCase() ?? "U"}
+                </div>
+              )}
+              <span className="absolute -bottom-0.5 -end-0.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-card" />
+            </Link>
+
+            {/* User details */}
             {!isCollapsed && (
-              <div className="flex-1 min-w-0">
-                <p className="text-zinc-200 text-xs font-medium truncate leading-tight group-hover:text-indigo-400 transition-colors">
-                  {profile.full_name}
+              <Link href="/profile" className="min-w-0 flex-1 group">
+                <p className="text-foreground text-xs font-semibold truncate leading-tight group-hover:text-primary transition-colors">
+                  {profile?.full_name ?? "User"}
                 </p>
-                <RoleBadge role={profile.role} />
+                <span className="text-[10px] text-muted-foreground truncate block capitalize mt-0.5">
+                  {profile?.role ? profile.role.replace("_", " ") : "Advocate"}
+                </span>
+              </Link>
+            )}
+
+            {/* Quick Actions (Support Phone + Sign Out) */}
+            {!isCollapsed && (
+              <div className="flex items-center gap-0.5 flex-shrink-0">
+                <a
+                  href={phoneLink()}
+                  title={`${SITE.phone} (${t("common.support") || "Support"})`}
+                  aria-label="Call support"
+                  className="w-7 h-7 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-card border border-transparent hover:border-border/80 transition-all"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  onClick={signOut}
+                  title={t("auth.signOut") || "Sign Out"}
+                  aria-label="Sign out"
+                  className="w-7 h-7 flex items-center justify-center rounded-lg text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all"
+                >
+                  <LogOut className="w-3.5 h-3.5 rtl:rotate-180" />
+                </button>
               </div>
             )}
-          </Link>
-        )}
+          </div>
+        </div>
 
-        {!isCollapsed && (
-          <>
-            <a
-              href={phoneLink()}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/[0.08] text-xs font-medium text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-100 hover:border-white/[0.15] transition-all whitespace-nowrap"
-            >
-              <Phone className="w-4 h-4 flex-shrink-0" />
-              <span className="truncate">{SITE.phone}</span>
-            </a>
-
-            <button
-              onClick={signOut}
-              className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-xs font-medium text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-100 transition-all"
-            >
-              <LogOut className="w-4 h-4 flex-shrink-0" />
-              <span className="truncate">{t("auth.signOut")}</span>
-            </button>
-          </>
-        )}
-
+        {/* Collapsed Sign Out button */}
         {isCollapsed && (
           <button
             onClick={signOut}
-            title={t("auth.signOut")}
-            className="w-full flex items-center justify-center p-2.5 rounded-lg text-zinc-400 hover:bg-white/[0.04] hover:text-rose-400 transition-all"
+            title={t("auth.signOut") || "Sign Out"}
+            className="mt-1.5 w-8 h-8 mx-auto flex items-center justify-center rounded-lg text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all"
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="w-4 h-4 rtl:rotate-180" />
           </button>
         )}
       </div>

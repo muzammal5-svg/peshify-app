@@ -117,7 +117,7 @@ function RegisterForm() {
       setLoading(false);
       return;
     }
-    router.replace(plan ? `/billing?plan=${encodeURIComponent(plan)}` : "/");
+    router.replace("/");
   }
 
   const benefits = [

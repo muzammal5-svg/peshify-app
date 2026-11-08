@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import type { Database, TablesInsert, TablesUpdate } from "@/types/supabase";
 
 const rawUrl  = process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "";
-const rawAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+const rawAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? "";
 
 export const IS_SUPABASE_CONFIGURED =
   !!rawUrl &&
@@ -15,7 +15,7 @@ const supabaseAnon = IS_SUPABASE_CONFIGURED ? rawAnon : "placeholder-anon-key";
 
 if (typeof window !== "undefined" && !IS_SUPABASE_CONFIGURED) {
   console.warn(
-    "[MZM] Supabase not configured — copy .env.local.example → .env.local " +
+    "[Peshify] Supabase not configured — copy .env.local.example → .env.local " +
     "and fill in NEXT_PUBLIC_SUPABASE_URL + NEXT_PUBLIC_SUPABASE_ANON_KEY"
   );
 }
@@ -34,7 +34,7 @@ export const supabase = createClient<Database>(
       detectSessionInUrl: false,  // static export — handle redirects manually
     },
     global: {
-      headers: { "x-app-name": "mzm-case-management" },
+      headers: { "x-app-name": "peshify-case-management" },
     },
   }
 );

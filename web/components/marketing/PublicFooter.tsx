@@ -7,16 +7,11 @@ import {
   Mail, MessageCircle, Phone, MapPin, ArrowRight,
 } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
-import { LegalDrawer } from "@/components/marketing/LegalDrawer";
 import { SITE, whatsappLink, phoneLink } from "@/lib/siteConfig";
-import type { LegalDocId } from "@/lib/legalDocs";
 
 export function PublicFooter() {
   const { t } = useTranslation();
-  const [doc, setDoc] = useState<LegalDocId | null>(null);
   const [formSent, setFormSent] = useState(false);
-
-  const openLegal = (d: LegalDocId) => setDoc(d);
 
   const handleMessageSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,11 +82,6 @@ export function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="hover:text-[#EDE8E0] transition-colors">
-                  {t("marketing.navPricing")}
-                </Link>
-              </li>
-              <li>
                 <Link href="/faq" className="hover:text-[#EDE8E0] transition-colors">
                   {t("marketing.navFaq")}
                 </Link>
@@ -102,31 +92,28 @@ export function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <button
-                  type="button"
-                  onClick={() => openLegal("terms")}
-                  className="hover:text-[#EDE8E0] transition-colors text-start"
+                <Link
+                  href="/terms"
+                  className="hover:text-[#EDE8E0] transition-colors text-start block"
                 >
                   {t("marketing.footerTerms")}
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  type="button"
-                  onClick={() => openLegal("privacy")}
-                  className="hover:text-[#EDE8E0] transition-colors text-start"
+                <Link
+                  href="/privacy"
+                  className="hover:text-[#EDE8E0] transition-colors text-start block"
                 >
                   {t("marketing.footerPrivacy")}
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  type="button"
-                  onClick={() => openLegal("refund")}
-                  className="hover:text-[#EDE8E0] transition-colors text-start"
+                <Link
+                  href="/refund-policy"
+                  className="hover:text-[#EDE8E0] transition-colors text-start block"
                 >
                   {t("marketing.footerRefund")}
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -168,7 +155,7 @@ export function PublicFooter() {
                   <option value="" disabled className="text-[#5C5852]">Select subject...</option>
                   <option value="demo">Request a chamber demo</option>
                   <option value="support">Technical support</option>
-                  <option value="pricing">Pricing &amp; multi-lawyer license</option>
+                  <option value="feedback">Chamber feedback &amp; suggestions</option>
                   <option value="other">Other inquiry</option>
                 </select>
                 <textarea
@@ -195,36 +182,27 @@ export function PublicFooter() {
         <div className="mx-auto max-w-[1240px] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <button
-              type="button"
-              onClick={() => openLegal("privacy")}
+            <Link
+              href="/privacy"
               className="hover:text-[#EDE8E0] transition-colors"
             >
               Privacy Policy
-            </button>
-            <button
-              type="button"
-              onClick={() => openLegal("terms")}
+            </Link>
+            <Link
+              href="/terms"
               className="hover:text-[#EDE8E0] transition-colors"
             >
               Terms of Service
-            </button>
-            <button
-              type="button"
-              onClick={() => openLegal("refund")}
+            </Link>
+            <Link
+              href="/refund-policy"
               className="hover:text-[#EDE8E0] transition-colors"
             >
               Refund Policy
-            </button>
+            </Link>
           </div>
         </div>
       </div>
-
-      <LegalDrawer
-        open={doc !== null}
-        doc={doc ?? "terms"}
-        onClose={() => setDoc(null)}
-      />
     </footer>
   );
 }

@@ -21,7 +21,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="md:hidden fixed bottom-0 start-0 end-0 z-30 bg-[#0F1117]/95 backdrop-blur-xl border-t border-white/[0.08] shadow-[0_-4px_25px_rgba(0,0,0,0.6)]"
+      className="md:hidden fixed bottom-0 start-0 end-0 z-30 bg-card/90 backdrop-blur-xl border-t border-border shadow-lg"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       aria-label={t("nav.home")}
     >
@@ -46,15 +46,15 @@ export function BottomNav() {
                className={cn(
                  "flex-1 flex flex-col items-center justify-center gap-0.5",
                  "min-h-[56px] py-2 text-[10px] font-medium transition-colors relative",
-                 isActive ? "text-indigo-400 font-semibold" : "text-zinc-500 hover:text-zinc-300"
+                 isActive ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground"
                )}
              >
                {isActive && (
-                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-1 rounded-t-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.8)]" aria-hidden="true" />
+                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-1 rounded-t-full bg-primary shadow-xs" aria-hidden="true" />
                )}
                <span className="relative">
                  {Icon && (
-                   <Icon className={cn("w-[22px] h-[22px] transition-transform", isActive && "scale-110 text-indigo-400")} />
+                   <Icon className={cn("w-[22px] h-[22px] transition-transform", isActive && "scale-110 text-primary")} />
                  )}
                  {badge > 0 && (
                   <span

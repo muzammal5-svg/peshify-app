@@ -27,7 +27,7 @@ export const REVIEWS: Review[] = [
     location: "Lahore",
     tag: "Cause List Automation",
     quote:
-      "MZM completely transformed our daily court preparation. The cause list automation and instant hearing diary save our associates at least two hours of manual ledger work every morning.",
+      "Peshify completely transformed our daily court preparation. The cause list automation and instant hearing diary save our associates at least two hours of manual ledger work every morning.",
     stars: 5,
     sample: false,
   },
@@ -53,7 +53,7 @@ export const REVIEWS: Review[] = [
     location: "Karachi",
     tag: "Chamber Management",
     quote:
-      "Managing over 300 active civil and corporate suits was chaos on paper diaries. With MZM, every junior has instant visibility of their cause list, and no critical date or notice ever slips through.",
+      "Managing over 300 active civil and corporate suits was chaos on paper diaries. With Peshify, every junior has instant visibility of their cause list, and no critical date or notice ever slips through.",
     stars: 5,
     sample: false,
   },

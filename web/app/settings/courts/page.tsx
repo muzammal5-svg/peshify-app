@@ -98,7 +98,7 @@ function CourtsAdmin() {
         {isError ? <QueryErrorState onRetry={() => void refetch()} /> :
          isLoading ? Array.from({length:3}).map((_,i)=><SkeletonCard key={i}/>) :
           courts.length === 0 ? <EmptyState icon={Scale} title={t("common.noData")} /> :
-          <Card padding="none" className="divide-y divide-navy-50">
+          <Card padding="none" className="divide-y divide-[rgba(237,232,224,0.08)]">
             {courts.map(ct => (
               <div key={ct.id} className="px-4 py-3">
                 {editId === ct.id ? (
@@ -113,15 +113,15 @@ function CourtsAdmin() {
                   </div>
                 ) : (
                   <div className="flex items-center gap-3">
-                    <Scale className="w-4 h-4 text-navy-300 flex-shrink-0" />
-                    <span className="flex-1 text-sm font-medium text-navy">{ct.name}</span>
+                    <Scale className="w-4 h-4 text-[#9A958C] flex-shrink-0" />
+                    <span className="flex-1 text-sm font-medium text-[#EDE8E0]">{ct.name}</span>
                     <div className="flex gap-1">
                       <button onClick={() => { setEditId(ct.id); setEditName(ct.name); }} {...lock}
-                        className="w-7 h-7 flex items-center justify-center rounded text-navy-300 hover:text-navy hover:bg-navy-50 transition-colors disabled:opacity-40">
+                        className="w-7 h-7 flex items-center justify-center rounded text-[#9A958C] hover:text-[#EDE8E0] hover:bg-white/[0.06] transition-colors disabled:opacity-40">
                         <Edit className="w-3.5 h-3.5" />
                       </button>
                       <button onClick={() => setConfirmId(ct.id)} {...lock}
-                        className="w-7 h-7 flex items-center justify-center rounded text-navy-300 hover:text-danger hover:bg-red-50 transition-colors disabled:opacity-40">
+                        className="w-7 h-7 flex items-center justify-center rounded text-[#9A958C] hover:text-danger hover:bg-danger/10 transition-colors disabled:opacity-40">
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>

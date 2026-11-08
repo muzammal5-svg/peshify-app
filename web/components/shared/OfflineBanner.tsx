@@ -45,8 +45,8 @@ export function OfflineBanner() {
         "md:top-auto md:bottom-4 md:start-1/2 md:-translate-x-1/2 md:end-auto",
         "md:rounded-xl md:shadow-modal md:px-5 md:py-2.5 md:w-auto",
         online
-          ? "bg-success text-white"
-          : "bg-navy text-white"
+          ? "bg-[#2D4A34] text-[#EDE8E0] border border-[#6B8F71]/40"
+          : "bg-[#1A1A1A] text-[#EDE8E0] border border-[rgba(237,232,224,0.25)]"
       )}
     >
       {online ? (

@@ -128,9 +128,9 @@ export function MarkDecidedModal({
   const formContent = (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       {/* Case info */}
-      <div className="bg-navy-50 rounded-xl px-3 py-2.5">
-        <p className="text-xs font-mono text-gold font-semibold">{caseRef}</p>
-        <p className="text-sm text-navy font-medium truncate mt-0.5">{parties}</p>
+      <div className="bg-[#111111] border border-[rgba(237,232,224,0.12)] rounded-none px-3.5 py-3">
+        <p className="text-xs font-mono text-[#EDE8E0] font-semibold">{caseRef}</p>
+        <p className="text-sm text-[#9A958C] font-medium truncate mt-0.5">{parties}</p>
       </div>
 
       <DatePicker
@@ -164,20 +164,20 @@ export function MarkDecidedModal({
       {/* Optional final order upload */}
       <div className="space-y-1.5">
         <label className="label">
-          {t("common.finalOrderDocument")} <span className="text-navy-400 font-normal text-xs">{t("common.finalOrderOptional")}</span>
+          {t("common.finalOrderDocument")} <span className="text-[#9A958C] font-normal text-xs">{t("common.finalOrderOptional")}</span>
         </label>
         {docFile ? (
-          <div className="flex items-center gap-2 p-3 bg-green-50 border border-success/30 rounded-xl">
-            <FileText className="w-4 h-4 text-success flex-shrink-0" />
+          <div className="flex items-center gap-2 p-3 bg-[#6B8F71]/10 border border-[#6B8F71]/30 rounded-none">
+            <FileText className="w-4 h-4 text-[#6B8F71] flex-shrink-0" />
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-navy truncate">{docFile.name}</p>
-              <p className="text-[11px] text-navy-500 font-medium">{formatFileSize(docFile.size)}</p>
+              <p className="text-xs font-semibold text-[#EDE8E0] truncate">{docFile.name}</p>
+              <p className="text-[11px] text-[#9A958C] font-medium">{formatFileSize(docFile.size)}</p>
             </div>
             {uploading &&             <progress className="w-full" max={100} value={uploadProgress} aria-label={t("common.uploadProgress", { progress: uploadProgress })} />}
             <button
               type="button"
               onClick={() => { setDocFile(null); if (fileRef.current) fileRef.current.value = ""; }}
-              className="text-navy-400 hover:text-danger transition-colors"
+              className="text-[#9A958C] hover:text-danger transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -187,7 +187,7 @@ export function MarkDecidedModal({
             type="button"
             onClick={() => fileRef.current?.click()}
             {...lock}
-            className="w-full flex items-center gap-2 p-3 border-2 border-dashed border-border rounded-xl hover:border-gold hover:bg-gold-50/30 transition-colors text-sm text-navy-500 font-medium disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 p-3 border border-dashed border-[rgba(237,232,224,0.2)] rounded-none hover:border-[#EDE8E0] hover:bg-white/[0.03] transition-colors text-sm text-[#9A958C] hover:text-[#EDE8E0] font-medium disabled:opacity-50"
           >
             <Upload className="w-4 h-4 flex-shrink-0" />
             {t("common.uploadFinalOrder")}
@@ -203,7 +203,7 @@ export function MarkDecidedModal({
         />
       </div>
 
-      <p className="text-[11px] text-navy-400 bg-yellow-50 border border-yellow-100 rounded-lg px-3 py-2">
+      <p className="text-[11px] text-[#C4A574] bg-[#C4A574]/10 border border-[#C4A574]/20 rounded-none px-3 py-2">
         {t("common.decidedMoveNote")}
       </p>
 

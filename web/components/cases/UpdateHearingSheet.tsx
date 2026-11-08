@@ -106,9 +106,9 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       {/* Case label */}
       {row && (
-        <div className="bg-[#161922] border border-white/[0.08] rounded-xl px-4 py-3">
-          <p className="text-xs font-mono text-indigo-400 font-semibold">{row.case_ref_no || "—"}</p>
-          <p className="text-sm font-semibold text-zinc-100 truncate mt-0.5">
+        <div className="bg-muted/40 border border-border rounded-xl px-4 py-3">
+          <p className="text-xs font-mono text-primary font-semibold">{row.case_ref_no || "—"}</p>
+          <p className="text-sm font-semibold text-foreground truncate mt-0.5">
             {row.plaintiff_name} {t("cases.vs")} {row.defendant_name}
           </p>
         </div>

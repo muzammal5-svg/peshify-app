@@ -64,7 +64,7 @@ BEGIN
   DELETE FROM public.courts WHERE firm_id = v_firm;
 
   INSERT INTO public.firms (id, name, subscription_status, subscription_valid_till)
-  VALUES (v_firm, 'MZM & Associates', 'active', v_karachi_today + INTERVAL '1 year')
+  VALUES (v_firm, 'Peshify', 'active', v_karachi_today + INTERVAL '1 year')
   ON CONFLICT (id) DO UPDATE
     SET name = EXCLUDED.name,
         subscription_status = EXCLUDED.subscription_status,
@@ -222,6 +222,6 @@ BEGIN
       created_by = EXCLUDED.created_by;
   END LOOP;
 
-  RAISE NOTICE 'Seed completed successfully for firm: MZM & Associates at %', v_karachi_today;
+  RAISE NOTICE 'Seed completed successfully for firm: Peshify at %', v_karachi_today;
 END $$;
 

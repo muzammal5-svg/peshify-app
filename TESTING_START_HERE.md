@@ -132,7 +132,7 @@ Password: Lawyer1234!
 **Recommended**: Use `lawyer@mzm.pk` (full access)
 
 ### Demo Test Data
-- **Company**: "MZM & Associates"
+- **Company**: "Peshify"
 - **Users**: All pre-configured
 - **Cases/Clients**: Add during testing
 

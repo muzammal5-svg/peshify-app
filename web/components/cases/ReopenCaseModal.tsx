@@ -49,7 +49,7 @@ export function ReopenCaseModal({ caseId, caseRef, open, onClose }: ReopenCaseMo
   return (
     <Modal open={open} onClose={onClose} title={t("common.reopenCase")} size="sm">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <p className="text-sm text-navy-400">
+        <p className="text-sm text-[#9A958C]">
           {t("common.reopenNote")}
         </p>
         <Textarea

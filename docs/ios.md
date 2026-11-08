@@ -1,4 +1,4 @@
-# iOS Platform (MZM & Associates)
+# iOS Platform (Peshify)
 
 ## Status
 

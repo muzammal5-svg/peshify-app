@@ -119,7 +119,7 @@ function CaseTypesAdmin() {
         {isError ? <QueryErrorState onRetry={() => void refetch()} /> :
          isLoading ? Array.from({length:3}).map((_,i)=><SkeletonCard key={i}/>) :
           types.length === 0 ? <EmptyState title={t("common.noData")} /> :
-          <Card padding="none" className="divide-y divide-navy-50">
+          <Card padding="none" className="divide-y divide-[rgba(237,232,224,0.08)]">
             {types.map(ct => (
               <div key={ct.id} className="px-4 py-3">
                 {editId === ct.id ? (
@@ -129,7 +129,7 @@ function CaseTypesAdmin() {
                       <input type="checkbox" checked={editOffence}
                         onChange={e => setEditOffence(e.target.checked)}
                         className="w-4 h-4 accent-gold rounded" />
-                      <span className="text-sm text-navy">{t("common.requiresOffence")}</span>
+                      <span className="text-sm text-[#EDE8E0]">{t("common.requiresOffence")}</span>
                     </label>
                     <div className="flex gap-2">
                       <MutatingButton size="xs" onClick={handleUpdate} loading={updateType.isPending}
@@ -141,18 +141,18 @@ function CaseTypesAdmin() {
                 ) : (
                   <div className="flex items-center gap-3">
                     <div className="flex-1">
-                      <span className="text-sm font-medium text-navy">{ct.name}</span>
+                      <span className="text-sm font-medium text-[#EDE8E0]">{ct.name}</span>
                       {ct.requires_offence && (
                         <Badge variant="warning" size="sm" className="ms-2">{t("common.requiresOffence")}</Badge>
                       )}
                     </div>
                     <div className="flex gap-1">
                       <button onClick={() => startEdit(ct)} {...lock}
-                        className="w-7 h-7 flex items-center justify-center rounded text-navy-300 hover:text-navy hover:bg-navy-50 transition-colors disabled:opacity-40">
+                        className="w-7 h-7 flex items-center justify-center rounded text-[#9A958C] hover:text-[#EDE8E0] hover:bg-white/[0.06] transition-colors disabled:opacity-40">
                         <Edit className="w-3.5 h-3.5" />
                       </button>
                       <button onClick={() => setConfirmId(ct.id)} {...lock}
-                        className="w-7 h-7 flex items-center justify-center rounded text-navy-300 hover:text-danger hover:bg-red-50 transition-colors disabled:opacity-40">
+                        className="w-7 h-7 flex items-center justify-center rounded text-[#9A958C] hover:text-danger hover:bg-danger/10 transition-colors disabled:opacity-40">
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>

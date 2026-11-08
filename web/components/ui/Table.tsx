@@ -34,10 +34,10 @@ export function Table<T>({
   stickyHeader = false,
 }: TableProps<T>) {
   return (
-    <div className={cn("w-full overflow-x-auto rounded-xl border border-white/[0.08] bg-[#0F1117] shadow-sm", className)}>
+    <div className={cn("w-full overflow-x-auto rounded-xl border border-border bg-card shadow-xs", className)}>
       <table className="w-full text-sm border-collapse">
         <thead className={cn(
-          "bg-[#12151E] text-zinc-400 border-b border-white/[0.08]",
+          "bg-muted/50 backdrop-blur-md text-muted-foreground border-b border-border/80",
           stickyHeader && "sticky top-0 z-10"
         )}>
           <tr>
@@ -47,8 +47,8 @@ export function Table<T>({
                 scope="col"
                 style={col.width ? { width: col.width } : undefined}
                 className={cn(
-                  "text-start font-semibold text-[11px] uppercase tracking-wider text-zinc-400",
-                  "px-4 py-3.5 border-b border-white/[0.08]",
+                  "text-start font-semibold text-[11px] uppercase tracking-wider text-muted-foreground",
+                  "px-4 py-2.5 border-b border-border/80",
                   col.headerClass
                 )}
               >
@@ -57,10 +57,10 @@ export function Table<T>({
             ))}
           </tr>
         </thead>
-        <tbody className="bg-[#0F1117] divide-y divide-white/[0.06]">
+        <tbody className="bg-card divide-y divide-border/60">
           {data.length === 0 ? (
             <tr>
-              <td colSpan={columns.length} className="text-center py-12 text-zinc-500 font-medium">
+              <td colSpan={columns.length} className="text-center py-10 text-muted-foreground font-medium text-xs">
                 {emptyMessage}
               </td>
             </tr>
@@ -71,13 +71,13 @@ export function Table<T>({
                 onClick={onRowClick ? () => onRowClick(row) : undefined}
                 className={cn(
                   "transition-colors duration-150",
-                  onRowClick && "cursor-pointer hover:bg-zinc-900/60"
+                  onRowClick && "cursor-pointer hover:bg-muted/50"
                 )}
               >
                 {columns.map((col) => (
                   <td
                     key={col.key}
-                    className={cn("px-4 py-3.5 text-zinc-200", col.className)}
+                    className={cn("px-4 py-2.5 text-foreground text-xs", col.className)}
                   >
                     {col.render(row, index)}
                   </td>

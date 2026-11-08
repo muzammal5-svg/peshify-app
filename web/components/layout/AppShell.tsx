@@ -2,7 +2,6 @@
 
 import { type ReactNode }  from "react";
 import { useState, useEffect } from "react";
-import { SubscriptionBanner } from "@/components/shared/SubscriptionBanner";
 import { Sidebar }         from "./Sidebar";
 import { BottomNav }       from "./BottomNav";
 import { MobileHeader }    from "./MobileHeader";
@@ -35,34 +34,34 @@ export function AppShell({
     setMounted(true);
     const saved = localStorage.getItem("sidebar-collapsed");
     if (saved !== null) {
-      setSidebarCollapsed(JSON.parse(saved));
+      try {
+        setSidebarCollapsed(JSON.parse(saved));
+      } catch {}
     }
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-    const handleStorageChange = () => {
-      const saved = localStorage.getItem("sidebar-collapsed");
-      if (saved !== null) {
-        setSidebarCollapsed(JSON.parse(saved));
-      }
-    };
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, [mounted]);
+  const handleToggleCollapse = () => {
+    setSidebarCollapsed(prev => {
+      const next = !prev;
+      try {
+        localStorage.setItem("sidebar-collapsed", JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  };
 
-  const sidebarWidth = sidebarCollapsed ? "md:ms-[80px]" : "md:ms-[280px]";
+  const sidebarWidth = sidebarCollapsed ? "md:ms-[72px]" : "md:ms-[256px]";
 
   return (
-    <div className="min-h-dvh bg-[#090A0F] text-zinc-100 relative selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-dvh bg-background text-foreground relative selection:bg-primary/20 selection:text-foreground">
       {/* ── Ambient subtle top background glow ── */}
       <div
-        className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_40%_at_50%_-10%,rgba(99,102,241,0.08),rgba(9,10,15,0))] z-0"
+        className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_40%_at_50%_-10%,hsl(var(--primary)/0.07),transparent)] z-0"
         aria-hidden="true"
       />
 
       {/* ── Desktop sidebar (fixed, left) ── */}
-      <Sidebar />
+      <Sidebar isCollapsed={sidebarCollapsed} onToggleCollapse={handleToggleCollapse} />
 
       {/* ── Mobile header (sticky, top) ── */}
       <MobileHeader
@@ -90,7 +89,6 @@ export function AppShell({
               actions={headerActions}
             />
           )}
-          <SubscriptionBanner />
           <div className="animate-slide-down">
             {children}
           </div>

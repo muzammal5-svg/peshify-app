@@ -1,14 +1,43 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["class"],
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./providers/**/*.{js,ts,jsx,tsx,mdx}",
     "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
+        // Modern Semantic SaaS Palette
+        primary: {
+          DEFAULT: "hsl(var(--primary) / <alpha-value>)",
+          hover:   "hsl(var(--primary-hover) / <alpha-value>)",
+          muted:   "hsl(var(--primary-muted) / <alpha-value>)",
+          foreground: "hsl(var(--primary-foreground) / <alpha-value>)",
+        },
+        background: "hsl(var(--background) / <alpha-value>)",
+        foreground: "hsl(var(--foreground) / <alpha-value>)",
+        card: {
+          DEFAULT: "hsl(var(--card) / <alpha-value>)",
+          foreground: "hsl(var(--card-foreground) / <alpha-value>)",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover) / <alpha-value>)",
+          foreground: "hsl(var(--popover-foreground) / <alpha-value>)",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary) / <alpha-value>)",
+          foreground: "hsl(var(--secondary-foreground) / <alpha-value>)",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted) / <alpha-value>)",
+          foreground: "hsl(var(--muted-foreground) / <alpha-value>)",
+        },
+        ring: "hsl(var(--ring) / <alpha-value>)",
+
         // Kontrora Editorial Luxury Palette
         black:    "#050505",
         dark:     "#0A0A0A",
@@ -29,9 +58,9 @@ const config: Config = {
         canvas:   "#050505",
         obsidian: "#050505",
         border:   {
-          DEFAULT: "rgba(237, 232, 224, 0.12)",
-          strong:  "rgba(237, 232, 224, 0.22)",
-          subtle:  "rgba(237, 232, 224, 0.06)",
+          DEFAULT: "hsl(var(--border) / <alpha-value>)",
+          strong:  "hsl(var(--border-strong) / <alpha-value>)",
+          subtle:  "hsl(var(--border-subtle) / <alpha-value>)",
         },
         kontrora: {
           bg:     "#050505",
@@ -75,7 +104,6 @@ const config: Config = {
         danger:   "#C45C5C",
         warning:  "#C4A574",
         info:     "#EDE8E0",
-        muted:    "#9A958C",
       },
 
       fontFamily: {

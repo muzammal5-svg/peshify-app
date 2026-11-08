@@ -28,8 +28,8 @@ export function Header({ title, showBack = false, actions, className }: HeaderPr
   return (
     <header
       className={cn(
-        "md:hidden sticky top-0 z-20 bg-white border-b border-navy-50",
-        "flex items-center justify-between px-4 gap-2",
+        "md:hidden sticky top-0 z-20 bg-card/90 backdrop-blur-xl border-b border-border",
+        "flex items-center justify-between px-4 gap-2 text-foreground",
         className
       )}
       style={{
@@ -43,9 +43,9 @@ export function Header({ title, showBack = false, actions, className }: HeaderPr
           <button
             onClick={() => router.back()}
             aria-label={t("common.back")}
-            className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-navy-50 transition-colors -ms-2"
+            className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-muted transition-colors -ms-2"
           >
-            <ArrowLeft className="w-5 h-5 text-navy" />
+            <ArrowLeft className="w-5 h-5 text-foreground rtl:rotate-180" />
           </button>
         ) : (
           <Logo size="xs" variant="mark" />
@@ -54,7 +54,7 @@ export function Header({ title, showBack = false, actions, className }: HeaderPr
 
       {/* Centre: title */}
       {title && (
-        <span className="absolute start-1/2 -translate-x-1/2 text-sm font-semibold text-navy truncate max-w-[45vw]">
+        <span className="absolute start-1/2 -translate-x-1/2 text-sm font-semibold text-foreground truncate max-w-[45vw]">
           {title}
         </span>
       )}
@@ -65,9 +65,9 @@ export function Header({ title, showBack = false, actions, className }: HeaderPr
           <Link
             href="/reminders"
             aria-label={t("nav.reminders")}
-            className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-navy-50 transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-muted transition-colors"
           >
-            <Bell className="w-5 h-5 text-navy" />
+            <Bell className="w-5 h-5 text-foreground" />
           </Link>
         )}
       </div>
@@ -88,8 +88,8 @@ export function PageHeader({ title, subtitle, actions, className }: PageHeaderPr
   return (
     <div className={cn("flex items-start justify-between gap-4 mb-6", className)}>
       <div>
-        <h1 className="text-2xl font-heading font-bold text-navy leading-tight">{title}</h1>
-        {subtitle && <p className="text-sm text-navy-400 mt-0.5">{subtitle}</p>}
+        <h1 className="text-2xl font-heading font-bold text-foreground leading-tight">{title}</h1>
+        {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
       </div>
       {actions && <div className="flex items-center gap-2 flex-shrink-0">{actions}</div>}
     </div>

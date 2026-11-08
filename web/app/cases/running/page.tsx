@@ -117,7 +117,7 @@ function RunningCasesPage({ updateCaseId }: { updateCaseId: string | null }) {
 
         {/* ── Filter panel ── */}
         {filtersOpen && (
-          <div className="bg-[#0F1117] rounded-xl border border-white/[0.08] p-5 shadow-md space-y-4 animate-slide-down text-zinc-100">
+          <div className="bg-card rounded-xl border border-border p-5 shadow-sm space-y-4 animate-slide-down text-foreground">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               <Select
                 label="Court"
@@ -142,14 +142,14 @@ function RunningCasesPage({ updateCaseId }: { updateCaseId: string | null }) {
               />
               <div className="space-y-1.5">
                 <label className="label">{t("cases.From")}</label>
-                <div className="flex rounded-lg overflow-hidden border border-white/[0.08] bg-[#161922]">
+                <div className="flex p-1 rounded-lg border border-border bg-muted/40 gap-1">
                   {(["", "plaintiff", "defendant"] as const).map(r => (
                     <button key={r} type="button"
                       onClick={() => { setFrom(r); setPage(1); }}
-                      className={`flex-1 py-2 text-xs font-medium transition-colors ${
+                      className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${
                         From === r
-                          ? "bg-indigo-600 text-white shadow-xs"
-                          : "bg-transparent text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
+                          ? "bg-primary text-primary-foreground shadow-sm"
+                          : "text-muted-foreground hover:text-foreground hover:bg-card"
                       }`}
                     >
                       {r === "" ? t("common.all") : r === "plaintiff" ? t("cases.plaintiff") : t("cases.defendant")}

@@ -35,7 +35,7 @@ export function HeroDashboard() {
           </span>
           <span className="flex items-center gap-1.5 px-2.5 py-0.5 font-mono text-[11px] text-[#9A958C]">
             <Activity className="h-3 w-3 text-[#EDE8E0]" aria-hidden="true" />
-            mzm.associates/chamber
+            peshify.com/chamber
           </span>
           <span className="ms-auto inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[#EDE8E0] border border-[rgba(237,232,224,0.15)] bg-white/[0.03]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#6B8F71] animate-pulse" aria-hidden="true" />
