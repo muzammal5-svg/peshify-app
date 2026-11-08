@@ -63,11 +63,15 @@ function RegisterForm() {
     setLoading(true);
     setError("");
 
-    const { data, error: signUpErr } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
+    // 1. Try instant registration via Edge Function (bypasses Supabase SMTP email rate limits)
+    let registrationSuccess = false;
+    let fallbackToStandard = false;
+
+    try {
+      const { data: edgeData, error: edgeErr } = await supabase.functions.invoke("register-firm", {
+        body: {
+          email,
+          password,
           full_name: fullName,
           phone,
           firm_name: firmName,
@@ -77,30 +81,64 @@ function RegisterForm() {
           location: locationValues.location,
           province: locationValues.province,
         },
-      },
-    });
-    if (signUpErr) {
-      setError(signUpErr.message);
-      setLoading(false);
-      return;
+      });
+
+      if (edgeErr) {
+        const errMsg = edgeErr.message || "";
+        if (errMsg.toLowerCase().includes("already") || errMsg.toLowerCase().includes("registered")) {
+          setError("An account with this email already exists. Please sign in.");
+          setLoading(false);
+          return;
+        }
+        fallbackToStandard = true;
+      } else if (edgeData?.user) {
+        registrationSuccess = true;
+      } else {
+        fallbackToStandard = true;
+      }
+    } catch {
+      fallbackToStandard = true;
     }
-    let session = data.session;
-    const userId = data.user?.id;
-    if (!userId) {
-      setError("Registration failed. Please try again.");
-      setLoading(false);
-      return;
-    }
-    // Ensure an authenticated session exists before calling register_firm (RPC requires auth.uid())
-    if (!session) {
-      const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
-      if (signInErr || !signInData.session) {
-        setError(signInErr?.message || "Please sign in with your credentials.");
+
+    // 2. Fallback to standard signUp only if edge function was unreachable
+    if (!registrationSuccess && fallbackToStandard) {
+      const { data, error: signUpErr } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            phone,
+            firm_name: firmName,
+            city: locationValues.city,
+            district: locationValues.district,
+            tehsil: locationValues.tehsil,
+            location: locationValues.location,
+            province: locationValues.province,
+          },
+        },
+      });
+      if (signUpErr) {
+        setError(signUpErr.message);
         setLoading(false);
         return;
       }
-      session = signInData.session;
+      if (!data.user?.id) {
+        setError("Registration failed. Please try again.");
+        setLoading(false);
+        return;
+      }
     }
+
+    // 3. Immediately sign in to establish active session
+    const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
+    if (signInErr || !signInData?.session) {
+      setError(signInErr?.message || "Please sign in with your new credentials.");
+      setLoading(false);
+      return;
+    }
+
+    // 4. Register firm in database under active user
     const { error: rpcErr } = await saasRpc.registerFirm(
       firmName,
       fullName,
