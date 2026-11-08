@@ -52,12 +52,12 @@ export function Landing() {
         </div>
 
         {/* Centered Law Firm Chamber Hero Content */}
-        <div className={`${CONTAINER} relative z-10 text-center max-w-4xl mx-auto`}>
+        <div className={`${CONTAINER} relative z-10 text-center max-w-4xl mx-auto px-2 sm:px-6`}>
           {/* Law Firm Eyebrow Badge */}
-          <div className="mb-7 flex justify-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[rgba(212,175,55,0.35)] bg-[rgba(15,12,8,0.82)] backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.6)]">
-              <Scale className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span className="text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#E8DCC2]">
+          <div className="mb-5 sm:mb-7 flex justify-center">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[rgba(212,175,55,0.35)] bg-[rgba(15,12,8,0.85)] backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.6)] max-w-full">
+              <Scale className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
+              <span className="text-[9.5px] xs:text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.10em] xs:tracking-[0.16em] sm:tracking-[0.22em] text-[#E8DCC2] truncate">
                 PAKISTAN LEGAL CHAMBERS &amp; ADVOCATES PLATFORM
               </span>
             </div>
@@ -65,7 +65,7 @@ export function Landing() {
 
           {/* 3-Line Display Headline */}
           {lang === "ur" ? (
-            <h1 className="font-heading font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.28] tracking-normal text-[#EDE8E0] mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+            <h1 className="font-heading font-bold text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.28] tracking-normal text-[#EDE8E0] mb-5 sm:mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
               پیشی لسٹ سنبھالیں۔<br />
               مقدمات ٹریک کریں۔<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5EADB] via-[#D4AF37] to-[#C59B3F]">
@@ -73,7 +73,7 @@ export function Landing() {
               </span>
             </h1>
           ) : (
-            <h1 className="font-heading font-bold text-[2.35rem] sm:text-[3.35rem] md:text-[4.35rem] lg:text-[4.85rem] leading-[1.10] tracking-tight text-[#EDE8E0] mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+            <h1 className="font-heading font-bold text-[2rem] xs:text-[2.35rem] sm:text-[3.35rem] md:text-[4.35rem] lg:text-[4.85rem] leading-[1.12] sm:leading-[1.10] tracking-tight text-[#EDE8E0] mb-5 sm:mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
               Manage cases.<br />
               Track hearings.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F5EADB] via-[#D4AF37] to-[#C59B3F]">
@@ -83,56 +83,56 @@ export function Landing() {
           )}
 
           {/* Subtitle with high contrast legal bone grey text */}
-          <p className="text-base sm:text-lg md:text-xl text-[#D8D2C7] max-w-2xl mx-auto leading-relaxed font-normal mb-8 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#D8D2C7] max-w-2xl mx-auto leading-relaxed font-normal mb-6 sm:mb-8 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] px-1 sm:px-0">
             Built specifically for Pakistani advocates, High Court practitioners, and chambers. Manage daily cause lists, case diaries, court notifications, and client updates in one unified legal workspace.
           </p>
 
           {/* CTA Actions */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-6">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-3.5 mb-6 w-full max-w-xs sm:max-w-none mx-auto">
             <Link
               href="/register"
-              className="btn-primary w-full sm:w-auto min-w-[210px] text-center shadow-[0_4px_24px_rgba(212,175,55,0.25)] hover:shadow-[0_6px_28px_rgba(212,175,55,0.4)] transition-all"
+              className="btn-primary w-full sm:w-auto min-w-[200px] text-center shadow-[0_4px_24px_rgba(212,175,55,0.25)] hover:shadow-[0_6px_28px_rgba(212,175,55,0.4)] transition-all py-3 sm:py-3.5 text-sm"
             >
               <span>Get Started Free</span>
               <ArrowRight className="w-4 h-4 ms-2 rtl:rotate-180" />
             </Link>
             <Link
               href="/features"
-              className="btn-secondary w-full sm:w-auto min-w-[170px] text-center bg-[rgba(15,12,8,0.7)] border-[rgba(212,175,55,0.25)] text-[#EDE8E0] hover:border-[rgba(212,175,55,0.45)] transition-all"
+              className="btn-secondary w-full sm:w-auto min-w-[160px] text-center bg-[rgba(15,12,8,0.7)] border-[rgba(212,175,55,0.25)] text-[#EDE8E0] hover:border-[rgba(212,175,55,0.45)] transition-all py-3 sm:py-3.5 text-sm"
             >
               <span>Explore Features</span>
             </Link>
           </div>
 
           {/* WhatsApp Direct Line */}
-          <div className="flex items-center justify-center gap-2 text-xs text-[#A8A298]">
+          <div className="flex items-center justify-center gap-2 text-[11px] sm:text-xs text-[#A8A298]">
             <a
               href={whatsappLink("Assalam-o-Alaikum, I want to learn more about Peshify Case Management for my legal practice.")}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 hover:text-[#EDE8E0] transition-colors"
             >
-              <MessageSquare className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <MessageSquare className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
               <span>Chamber Onboarding &amp; Support via WhatsApp (24/7)</span>
             </a>
           </div>
 
           {/* Stately Law Firm Trust Bar */}
-          <div className="mt-14 pt-8 border-t border-[rgba(212,175,55,0.18)] grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-medium text-[#CFC8BC]">
-            <div className="flex items-center justify-center gap-2.5">
-              <Scale className="w-4 h-4 text-[#D4AF37] shrink-0" />
+          <div className="mt-10 sm:mt-14 pt-6 sm:pt-8 border-t border-[rgba(212,175,55,0.18)] grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-[10.5px] sm:text-xs font-medium text-[#CFC8BC]">
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2.5">
+              <Scale className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#D4AF37] shrink-0" />
               <span>Supreme &amp; High Courts</span>
             </div>
-            <div className="flex items-center justify-center gap-2.5">
-              <Gavel className="w-4 h-4 text-[#D4AF37] shrink-0" />
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2.5">
+              <Gavel className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#D4AF37] shrink-0" />
               <span>Automated Cause Lists</span>
             </div>
-            <div className="flex items-center justify-center gap-2.5">
-              <BookOpen className="w-4 h-4 text-[#D4AF37] shrink-0" />
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2.5">
+              <BookOpen className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#D4AF37] shrink-0" />
               <span>Urdu &amp; English (RTL)</span>
             </div>
-            <div className="flex items-center justify-center gap-2.5">
-              <ShieldCheck className="w-4 h-4 text-[#D4AF37] shrink-0" />
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2.5">
+              <ShieldCheck className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#D4AF37] shrink-0" />
               <span>Chamber-Grade Security</span>
             </div>
           </div>

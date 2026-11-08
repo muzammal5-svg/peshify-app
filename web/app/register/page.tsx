@@ -9,7 +9,8 @@ import { supabase } from "@/lib/supabase/client";
 import { saasRpc } from "@/lib/supabase/saas";
 import { Button } from "@/components/ui/Button";
 import { FloatingField } from "@/components/billing/FloatingField";
-import { MarketingShell } from "@/components/marketing/MarketingShell";
+import { PublicHeader } from "@/components/marketing/PublicHeader";
+import { PublicFooter } from "@/components/marketing/PublicFooter";
 import { PakistanLocationFields, type LocationValues } from "@/components/marketing/PakistanLocationFields";
 import { Logo } from "@/components/shared/Logo";
 
@@ -86,7 +87,7 @@ function RegisterForm() {
     let session = data.session;
     const userId = data.user?.id;
     if (!userId) {
-      setError(t("marketing.regCheckEmail"));
+      setError("Registration failed. Please try again.");
       setLoading(false);
       return;
     }
@@ -94,7 +95,7 @@ function RegisterForm() {
     if (!session) {
       const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
       if (signInErr || !signInData.session) {
-        setError(t("marketing.regCheckEmail"));
+        setError(signInErr?.message || "Please sign in with your credentials.");
         setLoading(false);
         return;
       }
@@ -127,39 +128,41 @@ function RegisterForm() {
   ];
 
   return (
-    <div className="relative min-h-dvh overflow-hidden bg-[#050505] text-[#EDE8E0] px-4 py-10 sm:px-6 md:py-16">
+    <div className="relative min-h-[calc(100dvh-140px)] overflow-hidden bg-[#050505] text-[#EDE8E0] px-3 sm:px-6 py-8 sm:py-12 md:py-16">
       <div className="mx-auto w-full max-w-5xl">
-        <div className="overflow-hidden rounded-none border border-[rgba(237,232,224,0.12)] bg-[#050505] shadow-[0_24px_64px_rgba(0,0,0,0.8)] lg:grid lg:grid-cols-[1fr_1.1fr]">
+        <div className="overflow-hidden rounded-xl border border-[rgba(237,232,224,0.12)] bg-[#050505] shadow-[0_24px_64px_rgba(0,0,0,0.8)] lg:grid lg:grid-cols-[1fr_1.1fr]">
 
           {/* Brand panel */}
-          <aside className="relative overflow-hidden bg-[#0A0A0A] border-b lg:border-b-0 lg:border-e border-[rgba(237,232,224,0.12)] px-7 py-10 text-[#EDE8E0] sm:px-10 lg:py-14">
+          <aside className="relative overflow-hidden bg-[#0A0A0A] border-b lg:border-b-0 lg:border-e border-[rgba(237,232,224,0.12)] px-5 py-7 sm:px-8 sm:py-10 text-[#EDE8E0] lg:px-10 lg:py-14">
             <div className="relative">
-              <Logo size="md" variant="full" inverted />
+              <div className="hidden lg:block">
+                <Logo size="md" variant="full" inverted />
+              </div>
 
-              <span className="mt-8 border border-[rgba(237,232,224,0.18)] bg-white/[0.04] text-[#EDE8E0] px-3 py-1 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.12em]">
+              <span className="mt-0 lg:mt-8 border border-[rgba(237,232,224,0.18)] bg-white/[0.04] text-[#EDE8E0] px-3 py-1 inline-flex items-center gap-1.5 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.12em]">
                 <Sparkles className="h-3.5 w-3.5 text-[#EDE8E0]" aria-hidden="true" />
                 {t("marketing.regTrialBadge")}
               </span>
 
-              <h1 className="mt-6 font-heading text-3xl sm:text-4xl font-bold leading-tight text-[#EDE8E0]">
+              <h1 className="mt-4 lg:mt-6 font-heading text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-[#EDE8E0]">
                 {t("marketing.regTitle")}
               </h1>
-              <p className="mt-3 text-sm leading-relaxed text-[#9A958C]">
+              <p className="mt-2 lg:mt-3 text-xs sm:text-sm leading-relaxed text-[#9A958C]">
                 {t("marketing.regSubtitle")}
               </p>
 
-              <ul className="mt-8 space-y-3.5">
+              <ul className="mt-5 lg:mt-8 space-y-2.5 sm:space-y-3.5">
                 {benefits.map((b) => (
-                  <li key={b} className="flex items-start gap-3 text-sm text-[#9A958C]">
+                  <li key={b} className="flex items-start gap-2.5 sm:gap-3 text-xs sm:text-sm text-[#9A958C]">
                     <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center bg-[#EDE8E0] text-[#050505]">
                       <Check className="h-3 w-3" aria-hidden="true" />
                     </span>
-                    {b}
+                    <span>{b}</span>
                   </li>
                 ))}
               </ul>
 
-              <p className="mt-10 flex items-center gap-2 border-t border-[rgba(237,232,224,0.10)] pt-6 text-xs text-[#5C5852]">
+              <p className="mt-6 lg:mt-10 flex items-center gap-2 border-t border-[rgba(237,232,224,0.10)] pt-4 lg:pt-6 text-xs text-[#5C5852]">
                 <ShieldCheck className="h-4 w-4 text-[#EDE8E0]" aria-hidden="true" />
                 {t("marketing.regSecureNote")}
               </p>
@@ -167,7 +170,7 @@ function RegisterForm() {
           </aside>
 
           {/* Form panel */}
-          <div className="bg-[#050505] px-6 py-10 sm:px-10 lg:py-14 text-[#EDE8E0]">
+          <div className="bg-[#050505] px-5 py-7 sm:px-8 sm:py-10 lg:px-10 lg:py-14 text-[#EDE8E0]">
             {plan && (
               <p className="mb-6 inline-flex items-center gap-2 border border-[rgba(237,232,224,0.20)] bg-[#111111] px-3.5 py-2 text-xs font-semibold text-[#EDE8E0]">
                 <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
@@ -273,10 +276,14 @@ function RegisterForm() {
 
 export default function RegisterPage() {
   return (
-    <MarketingShell>
-      <Suspense fallback={<div className="min-h-dvh bg-offwhite" />}>
-        <RegisterForm />
-      </Suspense>
-    </MarketingShell>
+    <div className="min-h-dvh bg-[#050505] text-[#EDE8E0] selection:bg-[rgba(237,232,224,0.25)]">
+      <PublicHeader overDark />
+      <main>
+        <Suspense fallback={<div className="min-h-dvh bg-[#050505]" />}>
+          <RegisterForm />
+        </Suspense>
+      </main>
+      <PublicFooter />
+    </div>
   );
 }
