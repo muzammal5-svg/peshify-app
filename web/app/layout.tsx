@@ -12,10 +12,57 @@ import { OfflineBanner }  from "@/components/shared/OfflineBanner";
 import { BRAND }          from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title:       { template: `%s | ${BRAND.name}`, default: BRAND.name },
-  description: `${BRAND.name} — ${BRAND.tagline}`,
-  manifest:    "/manifest.json",
-  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: BRAND.shortName },
+  metadataBase: new URL("https://peshify-app.vercel.app"),
+  title: {
+    template: `%s | ${BRAND.name}`,
+    default: `${BRAND.name} — Modern Case Management for Pakistani Advocates`,
+  },
+  description:
+    "Daily Cause Lists, Hearing Diary, Urdu & English bilingual support, WhatsApp client updates, and Chamber Ledger for Pakistani advocates and law firms.",
+  keywords: [
+    "Peshify",
+    "Pakistani Advocates",
+    "Case Management Pakistan",
+    "High Court Cause List",
+    "District Court Diary",
+    "Supreme Court Pakistan",
+    "Urdu Legal Software",
+    "Chamber Management Pakistan",
+    "Law Firm Software Pakistan",
+  ],
+  alternates: {
+    canonical: "https://peshify-app.vercel.app",
+  },
+  openGraph: {
+    title: "Peshify | Modern Case Management for Pakistani Advocates",
+    description:
+      "Daily Cause Lists, Hearing Diary, Urdu & English bilingual support, WhatsApp client updates, and Chamber Ledger for Pakistani advocates and law firms.",
+    url: "https://peshify-app.vercel.app",
+    siteName: "Peshify",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Peshify Case Management Platform",
+      },
+    ],
+    locale: "en_PK",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Peshify | Modern Case Management for Pakistani Advocates",
+    description:
+      "Daily Cause Lists, Hearing Diary, Urdu & English bilingual support, and WhatsApp client updates for Pakistani courts.",
+    images: ["/og.png"],
+  },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: BRAND.shortName,
+  },
   other: {
     "mobile-web-app-capable": "yes",
   },
@@ -41,11 +88,36 @@ export const viewport: Viewport = {
   viewportFit:  "cover",
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Peshify",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web, iOS, Android",
+  description:
+    "Case management platform for Pakistani advocates and chambers: daily cause lists, hearing diary, client directory, WhatsApp updates, and Urdu RTL support.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "PKR",
+    availability: "https://schema.org/InStock",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Peshify (Pvt) Ltd",
+    url: "https://peshify-app.vercel.app",
+  },
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     // lang + dir are set dynamically by LangProvider on the client via useEffect
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

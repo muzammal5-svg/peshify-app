@@ -6,7 +6,7 @@ import { useState }       from "react";
 import { useTranslation } from "react-i18next";
 import {
   ArrowLeft, Bell, Menu, X, ChevronRight, ShieldCheck, LogOut, Phone,
-  LayoutDashboard, Calendar, Briefcase, Users, FolderOpen, CheckSquare, BellRing, Settings, List, FileText, BookOpen, Sparkles,
+  LayoutDashboard, Calendar, Briefcase, Users, FolderOpen, CheckSquare, BellRing, Settings, List, FileText, BookOpen, Sparkles, MessageSquarePlus,
   type LucideIcon,
 } from "lucide-react";
 import { useRouter }      from "next/navigation";
@@ -16,6 +16,8 @@ import { Logo }           from "@/components/shared/Logo";
 import { RoleBadge }      from "@/components/ui/Badge";
 import { LangSwitcher }   from "@/components/shared/LangSwitcher";
 import { ThemeCustomizer } from "@/components/shared/ThemeCustomizer";
+import { FeedbackModal }   from "@/components/shared/FeedbackModal";
+import { WhatsNewModal }   from "@/components/shared/WhatsNewModal";
 import { cn }             from "@/lib/utils";
 import { SITE, phoneLink } from "@/lib/siteConfig";
 import { SIDEBAR_NAV }    from "./navItems";
@@ -49,6 +51,8 @@ export function MobileHeader({ title, showBack, actions, className }: MobileHead
   const router                          = useRouter();
   const pathname                        = usePathname();
   const [menuOpen, setMenuOpen]         = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [whatsNewOpen, setWhatsNewOpen] = useState(false);
 
   const mainItems = SIDEBAR_NAV.filter(i => i.sidebarSection === "main");
   const moreItems = SIDEBAR_NAV.filter(i => i.sidebarSection === "more");
@@ -191,6 +195,31 @@ export function MobileHeader({ title, showBack, actions, className }: MobileHead
               <div className="flex items-center justify-between gap-2">
                 <LangSwitcher compact className="flex-1" />
                 <ThemeCustomizer align="left" dropup />
+              </div>
+
+              <div className="flex items-center gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setWhatsNewOpen(true);
+                  }}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg bg-amber-400/10 hover:bg-amber-400/20 text-amber-500 border border-amber-400/20 text-xs font-semibold min-h-[44px] transition-colors"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" strokeWidth={1.75} />
+                  <span>What&apos;s New</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setFeedbackOpen(true);
+                  }}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg bg-secondary hover:bg-muted text-foreground border border-border text-xs font-medium min-h-[44px] transition-colors"
+                >
+                  <MessageSquarePlus className="w-3.5 h-3.5 text-primary" strokeWidth={1.75} />
+                  <span>Feedback</span>
+                </button>
               </div>
             </div>
 
@@ -337,6 +366,9 @@ export function MobileHeader({ title, showBack, actions, className }: MobileHead
           </Link>
         </div>
       </header>
+
+      <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
+      <WhatsNewModal open={whatsNewOpen} onClose={() => setWhatsNewOpen(false)} />
     </>
   );
 }
