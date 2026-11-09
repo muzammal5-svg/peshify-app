@@ -1,205 +1,145 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import {
-  Mail, MessageCircle, Phone, MapPin, ArrowRight,
+  Mail, MessageCircle, Phone, MapPin, ArrowRight, ShieldCheck, Scale, ExternalLink
 } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
 import { SITE, whatsappLink, phoneLink } from "@/lib/siteConfig";
 
 export function PublicFooter() {
   const { t } = useTranslation();
-  const [formSent, setFormSent] = useState(false);
-
-  const handleMessageSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSent(true);
-    setTimeout(() => setFormSent(false), 5000);
-  };
 
   return (
-    <footer className="relative bg-[#050505] text-[#EDE8E0] border-t border-[rgba(237,232,224,0.12)]">
-      <div className="mx-auto max-w-[1240px] px-6 py-16 md:py-24">
-        {/* 3-column Kontrora Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16">
-          {/* Column 1: Contact Us (4.5 cols) */}
-          <div className="md:col-span-5 lg:col-span-4 space-y-6">
-            <h4 className="font-heading text-xl font-bold tracking-tight text-[#EDE8E0]">
-              Contact Us
-            </h4>
-
-            <div className="space-y-4 text-sm text-[#9A958C]">
-              <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[#EDE8E0] shrink-0 opacity-70" />
-                <a href={phoneLink()} className="hover:text-[#EDE8E0] transition-colors font-medium">
-                  {SITE.phone}
-                </a>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[#EDE8E0] shrink-0 opacity-70" />
-                <a href={`mailto:${SITE.email}`} className="hover:text-[#EDE8E0] transition-colors font-medium">
-                  {SITE.email}
-                </a>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <MessageCircle className="w-4 h-4 text-[#6B8F71] shrink-0" />
-                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-[#EDE8E0] transition-colors font-medium">
-                  WhatsApp Support (24/7)
-                </a>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#EDE8E0] shrink-0 opacity-70 mt-0.5" />
-                <span>
-                  High Court Bar Association &amp; District Courts, Peshawar &bull; Islamabad, Pakistan
-                </span>
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <Logo size="md" variant="full" inverted />
+    <footer className="relative bg-[#050811] text-[#EDE8E0] border-t border-white/[0.08]">
+      <div className="mx-auto max-w-[1240px] px-6 py-14 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+          {/* Column 1: Brand & Mission */}
+          <div className="space-y-4">
+            <Logo size="md" variant="full" inverted />
+            <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
+              The modern legal operating system engineered specifically for Pakistani advocates, chambers, and High Court practitioners. Daily cause lists, case diaries, and client alerts.
+            </p>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-[11px] text-zinc-300">
+              <Scale className="w-3.5 h-3.5 text-primary" strokeWidth={1.75} />
+              <span>Built for Pakistani Courts</span>
             </div>
           </div>
 
-          {/* Column 2: Quick Links (3.5 cols) */}
-          <div className="md:col-span-3 lg:col-span-3">
-            <h4 className="font-heading text-xl font-bold tracking-tight text-[#EDE8E0] mb-6">
-              Quick Links
+          {/* Column 2: Platform Features */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200">
+              Platform Features
             </h4>
-            <ul className="space-y-3 text-sm text-[#9A958C]">
+            <ul className="space-y-2 text-xs text-zinc-400">
               <li>
-                <Link href="/" className="hover:text-[#EDE8E0] transition-colors">
-                  {t("nav.home")}
+                <Link href="/features" className="hover:text-white transition-colors">
+                  Automated Daily Cause List
                 </Link>
               </li>
               <li>
-                <Link href="/features" className="hover:text-[#EDE8E0] transition-colors">
-                  {t("marketing.navFeatures")}
+                <Link href="/features" className="hover:text-white transition-colors">
+                  Hearing Diary &amp; Limitation Alerts
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-[#EDE8E0] transition-colors">
-                  {t("marketing.navFaq")}
+                <Link href="/features" className="hover:text-white transition-colors">
+                  Urdu Typography &amp; Native RTL
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#EDE8E0] transition-colors">
-                  {t("marketing.navContact")}
+                <Link href="/features" className="hover:text-white transition-colors">
+                  Automated WhatsApp Client Updates
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/terms"
-                  className="hover:text-[#EDE8E0] transition-colors text-start block"
-                >
-                  {t("marketing.footerTerms")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/privacy"
-                  className="hover:text-[#EDE8E0] transition-colors text-start block"
-                >
-                  {t("marketing.footerPrivacy")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/refund-policy"
-                  className="hover:text-[#EDE8E0] transition-colors text-start block"
-                >
-                  {t("marketing.footerRefund")}
+                <Link href="/features" className="hover:text-white transition-colors">
+                  Chamber Billing &amp; Invoicing Ledger
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Send Us A Message (4 cols) */}
-          <div className="md:col-span-4 lg:col-span-5">
-            <h3 className="font-heading text-2xl lg:text-3xl font-bold tracking-tight text-[#EDE8E0] leading-none mb-2">
-              Send Us<br />A Message
-            </h3>
-            <p className="text-xs text-[#9A958C] mb-6">
-              Kindly fill this form. Average chamber response is within 24 hours.
-            </p>
+          {/* Column 3: Quick Links & Contact */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200">
+              Chamber Practice
+            </h4>
+            <ul className="space-y-2 text-xs text-zinc-400">
+              <li>
+                <Link href="/faq" className="hover:text-white transition-colors">
+                  Frequently Asked Questions
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors flex items-center gap-1">
+                  <span>Contact Chamber Support</span>
+                  <ArrowRight className="w-3 h-3 rtl:rotate-180" />
+                </Link>
+              </li>
+              <li>
+                <a href={phoneLink()} className="hover:text-white transition-colors flex items-center gap-2">
+                  <Phone className="w-3 h-3 text-primary" />
+                  <span>{SITE.phone}</span>
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${SITE.email}`} className="hover:text-white transition-colors flex items-center gap-2">
+                  <Mail className="w-3 h-3 text-primary" />
+                  <span>{SITE.email}</span>
+                </a>
+              </li>
+              <li>
+                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
+                  <MessageCircle className="w-3 h-3 text-emerald-400" />
+                  <span>Direct WhatsApp Channel</span>
+                </a>
+              </li>
+            </ul>
+          </div>
 
-            {formSent ? (
-              <div className="p-4 border border-[#6B8F71]/30 bg-[#6B8F71]/10 text-[#6B8F71] text-xs font-semibold">
-                Thank you. Your message has been received. Our team will contact you shortly.
-              </div>
-            ) : (
-              <form onSubmit={handleMessageSubmit} className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  name="name"
-                  required
-                  className="input-underline"
-                />
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  name="email"
-                  required
-                  className="input-underline"
-                />
-                <select
-                  name="subject"
-                  defaultValue=""
-                  className="input-underline bg-[#050505] text-[#EDE8E0]"
-                >
-                  <option value="" disabled className="text-[#5C5852]">Select subject...</option>
-                  <option value="demo">Request a chamber demo</option>
-                  <option value="support">Technical support</option>
-                  <option value="feedback">Chamber feedback &amp; suggestions</option>
-                  <option value="other">Other inquiry</option>
-                </select>
-                <textarea
-                  placeholder="Your message..."
-                  name="message"
-                  required
-                  rows={3}
-                  className="input-underline resize-none"
-                />
-                <button
-                  type="submit"
-                  className="w-full mt-2 py-3.5 bg-[#EDE8E0] text-[#050505] font-bold text-xs uppercase tracking-[0.14em] hover:bg-white transition-colors"
-                >
-                  Submit Message
-                </button>
-              </form>
-            )}
+          {/* Column 4: Legal & Security Statement */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200">
+              Legal &amp; Privacy
+            </h4>
+            <ul className="space-y-2 text-xs text-zinc-400">
+              <li>
+                <Link href="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-white transition-colors">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link href="/refund-policy" className="hover:text-white transition-colors">
+                  Refund &amp; Early-Access Policy
+                </Link>
+              </li>
+            </ul>
+            <div className="pt-2 text-[11px] text-zinc-400 leading-relaxed border-t border-white/[0.06]">
+              <span className="flex items-center gap-1 text-zinc-300 font-semibold mb-0.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                Data Protection Guarantee
+              </span>
+              Chamber matter files and client information belong 100% to your practice. Encrypted in transit and at rest.
+            </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-[rgba(237,232,224,0.10)] px-6 py-6 text-xs text-[#5C5852]">
+      <div className="border-t border-white/[0.08] px-6 py-6 text-xs text-zinc-400">
         <div className="mx-auto max-w-[1240px] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved. Designed for Pakistani Advocates.</p>
           <div className="flex items-center gap-6">
-            <Link
-              href="/privacy"
-              className="hover:text-[#EDE8E0] transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="hover:text-[#EDE8E0] transition-colors"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="/refund-policy"
-              className="hover:text-[#EDE8E0] transition-colors"
-            >
-              Refund Policy
-            </Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
         </div>
       </div>
