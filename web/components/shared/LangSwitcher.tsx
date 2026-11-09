@@ -24,11 +24,11 @@ export function LangSwitcher({ compact = false, singleToggle = false, className 
         title={lang === "en" ? "اردو میں تبدیل کریں (Switch to Urdu)" : "Switch to English"}
         aria-label={lang === "en" ? "Switch to Urdu" : "Switch to English"}
         className={cn(
-          "w-8 h-8 flex items-center justify-center rounded-lg border border-border/80 bg-secondary hover:bg-muted text-xs font-bold transition-all select-none shadow-xs",
+          "w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl border border-border/80 bg-secondary hover:bg-muted text-xs font-bold transition-all select-none shadow-xs",
           className
         )}
       >
-        <span className="text-[11px] font-bold text-primary">
+        <span className="text-xs font-bold text-primary">
           {lang === "en" ? "اردو" : "EN"}
         </span>
       </button>
@@ -38,7 +38,7 @@ export function LangSwitcher({ compact = false, singleToggle = false, className 
   return (
     <div
       className={cn(
-        "flex rounded-lg overflow-hidden border border-border bg-secondary/80 p-0.5",
+        "inline-flex items-center rounded-xl overflow-hidden border border-border/80 bg-secondary/80 p-1 min-h-[44px]",
         compact ? "w-auto" : "w-full",
         className
       )}
@@ -54,7 +54,7 @@ export function LangSwitcher({ compact = false, singleToggle = false, className 
             aria-pressed={active}
             aria-label={l.label}
             className={cn(
-              "flex-1 py-1 px-2.5 text-[11px] font-semibold transition-all duration-150 rounded-md",
+              "flex-1 min-h-[36px] py-1.5 px-3 text-xs font-semibold transition-all duration-150 rounded-lg flex items-center justify-center select-none",
               active
                 ? "bg-primary text-primary-foreground shadow-xs font-bold"
                 : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-card/50"

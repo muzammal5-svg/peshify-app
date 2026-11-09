@@ -109,41 +109,41 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
             {user ? (
               <Link
                 href="/"
-                className="btn-secondary h-9 px-3.5 text-[11px] whitespace-nowrap"
+                className="btn-secondary min-h-[44px] h-11 px-4 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-2 rounded-xl"
               >
                 {t("marketing.goToDashboard")}
-                <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" aria-hidden="true" />
+                <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
               </Link>
             ) : (
               <>
                 <Link
                   href="/auth/sign-in"
-                  className="inline-flex items-center justify-center h-9 px-3.5 text-[11.5px] font-semibold uppercase tracking-[0.10em] text-[#EDE8E0] border border-[rgba(237,232,224,0.22)] hover:border-[#EDE8E0] hover:text-white transition-colors"
+                  className="inline-flex items-center justify-center min-h-[44px] h-11 px-4 text-xs font-semibold uppercase tracking-[0.10em] text-[#EDE8E0] border border-[rgba(237,232,224,0.22)] hover:border-[#EDE8E0] hover:text-white rounded-xl transition-colors"
                 >
                   {t("marketing.signIn")}
                 </Link>
                 <Link
                   href="/register"
-                  className="inline-flex items-center justify-center gap-1.5 h-9 px-4 text-[11.5px] font-bold uppercase tracking-[0.10em] bg-[#EDE8E0] text-[#050505] hover:bg-white transition-colors active:scale-[0.99]"
+                  className="inline-flex items-center justify-center gap-1.5 min-h-[44px] h-11 px-5 text-xs font-bold uppercase tracking-[0.10em] bg-[#EDE8E0] text-[#050505] hover:bg-white rounded-xl transition-colors active:scale-[0.99] shadow-xs"
                 >
                   {t("marketing.signUp")}
-                  <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" aria-hidden="true" />
+                  <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
                 </Link>
               </>
             )}
           </div>
 
           {/* Mobile & Tablet controls */}
-          <div className="flex lg:hidden items-center gap-2.5 z-10">
+          <div className="flex lg:hidden items-center gap-2 z-10">
             <LangPill />
             <button
               type="button"
-              className="grid h-9 w-9 place-items-center rounded-none border border-[rgba(237,232,224,0.18)] text-[#EDE8E0] transition-colors duration-200 hover:bg-white/10 focus-visible:outline-none"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl border border-[rgba(237,232,224,0.18)] text-[#EDE8E0] transition-colors duration-200 hover:bg-white/10 focus-visible:outline-none"
               onClick={() => setOpen(true)}
               aria-label={t("marketing.menu")}
               aria-expanded={open}
             >
-              <Menu className="h-4 w-4" aria-hidden="true" />
+              <Menu className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -170,7 +170,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="grid h-9 w-9 place-items-center text-[#9A958C] hover:text-[#EDE8E0] transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-[#9A958C] hover:text-[#EDE8E0] hover:bg-white/10 transition-colors"
                 aria-label={t("marketing.close")}
               >
                 <X className="h-5 w-5" aria-hidden="true" />
@@ -244,7 +244,7 @@ function LangPill({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative inline-flex items-center h-9 rounded-none border border-[rgba(237,232,224,0.18)] bg-[#0A0A0A] p-0.5",
+        "relative inline-flex items-center min-h-[44px] h-11 rounded-xl border border-[rgba(237,232,224,0.18)] bg-[#0A0A0A] p-1",
         className
       )}
       role="group"
@@ -252,10 +252,10 @@ function LangPill({ className }: { className?: string }) {
     >
       {/* Sliding active indicator */}
       <span
-        className="absolute top-0.5 bottom-0.5 rounded-none bg-[#EDE8E0] transition-all duration-200 ease-out"
+        className="absolute top-1 bottom-1 rounded-lg bg-[#EDE8E0] transition-all duration-200 ease-out"
         style={{
-          width: `calc((100% - 0.25rem) / ${languages.length})`,
-          insetInlineStart: `calc(0.125rem + ${index} * ((100% - 0.25rem) / ${languages.length}))`,
+          width: `calc((100% - 0.5rem) / ${languages.length})`,
+          insetInlineStart: `calc(0.25rem + ${index} * ((100% - 0.5rem) / ${languages.length}))`,
         }}
         aria-hidden="true"
       />
@@ -269,7 +269,7 @@ function LangPill({ className }: { className?: string }) {
             aria-pressed={active}
             aria-label={l.label}
             className={cn(
-              "relative z-10 min-h-0 min-w-0 h-full flex items-center justify-center rounded-none px-2.5 text-[10.5px] font-bold uppercase tracking-[0.08em] transition-colors duration-200 focus-visible:outline-none",
+              "relative z-10 min-w-[44px] min-h-[36px] h-full flex items-center justify-center rounded-lg px-3 text-xs font-bold uppercase tracking-[0.08em] transition-colors duration-200 focus-visible:outline-none select-none",
               active ? "text-[#050505]" : "text-[#C8C2B8] hover:text-[#EDE8E0]"
             )}
           >

@@ -71,31 +71,36 @@ export function Modal({
   return (
     <>
       <Overlay onClick={onClose} />
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 pointer-events-none">
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby={title ? "modal-title" : undefined}
           className={cn(
-            "relative w-full bg-card rounded-2xl shadow-xl border border-border text-foreground",
-            "pointer-events-auto animate-slide-down",
-            "flex flex-col max-h-[90dvh]",
+            "relative w-full bg-card rounded-t-2xl sm:rounded-2xl shadow-2xl border border-border/80 text-foreground",
+            "pointer-events-auto animate-slide-up sm:animate-slide-down",
+            "flex flex-col max-h-[88dvh] sm:max-h-[90dvh]",
             MODAL_SIZES[size],
             className
           )}
         >
+          {/* Mobile bottom sheet drag handle */}
+          <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0">
+            <div className="w-10 h-1 rounded-full bg-muted-foreground/30" aria-hidden="true" />
+          </div>
+
           {/* Header */}
           {title && (
-            <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-border flex-shrink-0">
-              <h2 id="modal-title" className="text-lg font-semibold tracking-tight text-foreground">
+            <div className="flex items-center justify-between px-5 pt-3 sm:pt-5 pb-4 border-b border-border/80 flex-shrink-0">
+              <h2 id="modal-title" className="text-base sm:text-lg font-semibold tracking-tight text-foreground">
                 {title}
               </h2>
               <button
                 onClick={onClose}
                 aria-label={t("common.close")}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                className="w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" strokeWidth={1.75} />
               </button>
             </div>
           )}
@@ -107,7 +112,7 @@ export function Modal({
 
           {/* Footer */}
           {footer && (
-            <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-border flex-shrink-0">
+            <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-border/80 flex-shrink-0" style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 1rem))" }}>
               {footer}
             </div>
           )}
@@ -183,9 +188,9 @@ export function BottomSheet({
             <button
               onClick={onClose}
               aria-label={t("common.close")}
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+              className="w-10 h-10 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" strokeWidth={1.75} />
             </button>
           </div>
         )}
