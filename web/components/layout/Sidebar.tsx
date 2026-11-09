@@ -10,6 +10,7 @@ import {
   FolderOpen, Bell, CheckSquare, BellRing,
   Settings, LogOut, ChevronRight, List, ShieldCheck, FileText, BookOpen,
   Phone, PanelLeftClose, PanelLeft, Sparkles,
+  type LucideIcon,
 } from "lucide-react";
 import { Logo }           from "@/components/shared/Logo";
 import { LangSwitcher }   from "@/components/shared/LangSwitcher";
@@ -20,7 +21,7 @@ import { SITE, phoneLink } from "@/lib/siteConfig";
 import { cn }             from "@/lib/utils";
 import { SIDEBAR_NAV }    from "./navItems";
 
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+const ICON_MAP: Record<string, LucideIcon | React.ComponentType<any>> = {
   LayoutDashboard, Calendar, Briefcase, Users,
   FolderOpen, Bell, CheckSquare, BellRing, Settings, List, FileText, BookOpen, Sparkles,
 };
@@ -85,23 +86,23 @@ export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: 
               "w-4 h-4 transition-colors duration-150",
               isActive ? "text-primary stroke-[2.25]" : "text-muted-foreground group-hover:text-foreground stroke-[1.75]"
             )} />
-            {badge > 0 && isCollapsed && (
-              <span aria-hidden="true" className="absolute -top-1 -end-1 w-2 h-2 rounded-full bg-rose-500 animate-pulse ring-2 ring-card" />
+            {badge > 0 && (
+              <span aria-hidden="true" className={cn("absolute -top-1 -end-1 w-2 h-2 rounded-full bg-rose-500 animate-pulse ring-2 ring-card", !isCollapsed && "lg:hidden")} />
             )}
           </span>
         )}
         {!isCollapsed && (
-          <>
-            <span className="flex-1 truncate text-xs">{t(`nav.${item.key}`)}</span>
+          <div className="hidden lg:flex flex-1 items-center justify-between min-w-0">
+            <span className="truncate text-xs">{t(`nav.${item.key}`)}</span>
             {badge > 0 && (
               <span className="text-[10px] font-bold bg-rose-500/15 text-rose-500 border border-rose-500/25 rounded-full px-1.5 py-0.2 leading-tight flex-shrink-0">
                 {badge > 99 ? "99+" : badge}
               </span>
             )}
             {isActive && (
-              <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 ms-1" />
             )}
-          </>
+          </div>
         )}
       </Link>
     );
@@ -113,12 +114,12 @@ export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: 
     <aside className={cn(
       "hidden md:flex flex-col h-screen bg-card/95 text-foreground fixed start-0 top-0 z-30",
       "border-e border-border/80 transition-all duration-300",
-      isCollapsed ? "w-[72px]" : "w-[256px]"
+      isCollapsed ? "w-[72px]" : "w-[72px] lg:w-[256px]"
     )}>
       {/* ── Top Header: Brand & Collapse Toggle ── */}
       <div className={cn(
         "h-16 px-4 border-b border-border/80 flex items-center justify-between gap-2.5 transition-all duration-300 flex-shrink-0",
-        isCollapsed ? "justify-center px-2" : ""
+        isCollapsed ? "justify-center px-2" : "justify-center lg:justify-between px-2 lg:px-4"
       )}>
         <Link href="/" className="flex items-center gap-3 min-w-0 group">
           {profile?.photo_url ? (
@@ -143,7 +144,7 @@ export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: 
             <Logo size="sm" variant="mark" />
           )}
           {!isCollapsed && (
-            <div className="min-w-0 flex-1">
+            <div className="hidden lg:block min-w-0 flex-1">
               <p className="text-foreground text-xs font-bold tracking-tight truncate leading-tight group-hover:text-primary transition-colors">
                 {firm?.name ?? "Peshify Advocates"}
               </p>
@@ -161,7 +162,7 @@ export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: 
             onClick={toggleCollapse}
             title="Collapse sidebar"
             aria-label="Collapse sidebar"
-            className="w-7 h-7 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary border border-transparent hover:border-border/80 transition-all flex-shrink-0"
+            className="hidden lg:flex w-7 h-7 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary border border-transparent hover:border-border/80 transition-all flex-shrink-0"
           >
             <PanelLeftClose className="w-4 h-4 rtl:rotate-180" />
           </button>
@@ -286,7 +287,7 @@ export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: 
 
             {/* User details */}
             {!isCollapsed && (
-              <Link href="/profile" className="min-w-0 flex-1 group">
+              <Link href="/profile" className="hidden lg:block min-w-0 flex-1 group">
                 <p className="text-foreground text-xs font-semibold truncate leading-tight group-hover:text-primary transition-colors">
                   {profile?.full_name ?? "User"}
                 </p>
@@ -298,7 +299,7 @@ export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: 
 
             {/* Quick Actions (Support Phone + Sign Out) */}
             {!isCollapsed && (
-              <div className="flex items-center gap-0.5 flex-shrink-0">
+              <div className="hidden lg:flex items-center gap-0.5 flex-shrink-0">
                 <a
                   href={phoneLink()}
                   title={`${SITE.phone} (${t("common.support") || "Support"})`}
@@ -320,12 +321,15 @@ export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: 
           </div>
         </div>
 
-        {/* Collapsed Sign Out button */}
-        {isCollapsed && (
+        {/* Collapsed Sign Out button (collapsed desktop or tablet) */}
+        {(isCollapsed || !isCollapsed) && (
           <button
             onClick={signOut}
             title={t("auth.signOut") || "Sign Out"}
-            className="mt-1.5 w-8 h-8 mx-auto flex items-center justify-center rounded-lg text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all"
+            className={cn(
+              "mt-1.5 w-8 h-8 mx-auto flex items-center justify-center rounded-lg text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all",
+              !isCollapsed && "lg:hidden"
+            )}
           >
             <LogOut className="w-4 h-4 rtl:rotate-180" />
           </button>

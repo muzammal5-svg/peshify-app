@@ -9,9 +9,9 @@ export interface NavItem {
 /** Bottom nav slots (mobile) — exactly 5 */
 export const BOTTOM_NAV: NavItem[] = [
   { key: "home",      href: "/",            icon: "Home",          mobileVisible: true, sidebarSection: "main" },
+  { key: "causeList", href: "/cause-list",  icon: "Calendar",      mobileVisible: true, sidebarSection: "main" },
   { key: "cases",     href: "/cases",       icon: "Briefcase",     mobileVisible: true, sidebarSection: "main" },
   { key: "clients",   href: "/clients",     icon: "Users",         mobileVisible: true, sidebarSection: "main" },
-  { key: "reminders", href: "/reminders",   icon: "Bell",          mobileVisible: true, sidebarSection: "main" },
   { key: "more",      href: "/more",        icon: "MoreHorizontal",mobileVisible: true, sidebarSection: "more" },
 ];
 

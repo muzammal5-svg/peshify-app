@@ -50,7 +50,7 @@ export function AppShell({
     });
   };
 
-  const sidebarWidth = sidebarCollapsed ? "md:ms-[72px]" : "md:ms-[256px]";
+  const sidebarWidth = sidebarCollapsed ? "md:ms-[72px]" : "md:ms-[72px] lg:ms-[256px]";
 
   return (
     <div className="min-h-dvh bg-background text-foreground relative selection:bg-primary/20 selection:text-foreground">

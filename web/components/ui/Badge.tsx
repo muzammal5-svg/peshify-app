@@ -73,6 +73,34 @@ export function CaseStatusBadge({ status, className }: { status: CaseStatus; cla
   return <Badge variant={variant} dot className={className}>{label}</Badge>;
 }
 
+export type HearingStatus = "running" | "pending" | "adjourned" | "decided";
+
+export function HearingStatusBadge({ status, className }: { status?: string | null; className?: string }) {
+  const norm = (status ?? "pending").toLowerCase();
+  let variant: BadgeVariant = "warning";
+  let label = "Pending";
+
+  if (norm.includes("run") || norm === "running") {
+    variant = "success";
+    label = "Running";
+  } else if (norm.includes("adj") || norm === "adjourned") {
+    variant = "info";
+    label = "Adjourned";
+  } else if (norm.includes("decid") || norm === "decided") {
+    variant = "neutral";
+    label = "Decided";
+  } else {
+    variant = "warning";
+    label = "Pending";
+  }
+
+  return (
+    <Badge variant={variant} size="sm" dot className={className}>
+      {label}
+    </Badge>
+  );
+}
+
 const OUTCOME_MAP: Record<CaseOutcome, { variant: BadgeVariant; label: string }> = {
   won:       { variant: "success", label: "Won" },
   lost:      { variant: "danger",  label: "Lost" },
