@@ -53,7 +53,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-dvh bg-[#050505] text-[#EDE8E0]">
+    <div className="min-h-dvh bg-[#050505] text-[#EDE8E0] overflow-x-clip">
       <PublicHeader overDark />
 
       {/* ── HERO ── */}

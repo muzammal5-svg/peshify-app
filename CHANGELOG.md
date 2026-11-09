@@ -4,6 +4,42 @@ This changelog records all design refinements, architectural upgrades, and bug f
 
 ---
 
+## [2.2.0] - Production Hardening, Reminders DB Migration & Long-String Mobile Safety
+
+### 🛠️ Reminders Database & UI Overhaul
+- **Supabase PostgreSQL Migration Applied:** Diagnosed and executed remote database schema migration to fix reminder creation failures:
+  - Dropped illegal `NOT NULL` constraint on `case_id` and `hearing_id`, allowing advocates to create general chamber reminders independent of specific litigation cases.
+  - Added missing columns `title`, `"from"`, `from_party`, and `is_custom` to the public `reminders` table.
+  - Reloaded PostgREST schema cache to ensure instant API synchronization.
+- **Modernized Reminders Interface:** Completely overhauled [web/app/reminders/page.tsx](file:///d:/peshify-app/web/app/reminders/page.tsx) with the Navy & Gold design system, pill filter tabs (`All`, `General`, `Case-linked`), instant completion toggle, safe word-wrapping, and error-tolerant session/firm ID resolution.
+
+### 📱 Long String & Client Email Mobile Overflow Fixes
+- **Mobile Wrap Protection:** Fixed client email strings and long legal citations causing horizontal overflow on small phone screens (320px–360px):
+  - Updated `DetailRow` in [web/app/clients/view/page.tsx](file:///d:/peshify-app/web/app/clients/view/page.tsx) to stack vertically on mobile (`flex-col sm:flex-row`) with `min-w-0 break-all sm:break-words [overflow-wrap:anywhere]`.
+  - Updated [web/components/clients/ClientCard.tsx](file:///d:/peshify-app/web/components/clients/ClientCard.tsx) with responsive truncation boundaries (`max-w-[150px] xs:max-w-[190px] sm:max-w-[260px]`).
+  - Updated [web/app/cases/view/page.tsx](file:///d:/peshify-app/web/app/cases/view/page.tsx) to protect long party names and legal descriptions from viewport blowout.
+  - Updated [web/components/shared/Logo.tsx](file:///d:/peshify-app/web/components/shared/Logo.tsx) to hide the wide `"Advocates & Legal CMS"` subtitle on small screens (`hidden sm:block`), preventing 360px header overflow.
+  - Added `overflow-x-clip` to all public route containers (`features`, `faq`, `contact`, `privacy`, `terms`, `refund-policy`, `register`).
+
+### 🏛️ Public Footer Redesign
+- **Deep Navy & Amber Aesthetic:** Redesigned [web/components/marketing/PublicFooter.tsx](file:///d:/peshify-app/web/components/marketing/PublicFooter.tsx) with a Deep Navy gradient (`from-[#0B1B3A] via-[#071329] to-[#040A17]`), subtle amber accent lines, and 4 structured columns:
+  - **Brand & Chamber Mission:** Clear statement of purpose and Pakistani advocate focus.
+  - **Chamber Operations:** Links to Cause Lists, Diary, WhatsApp Notices, Urdu RTL, and Invoicing.
+  - **Court Coverage:** Supreme Court, Lahore, Islamabad, Sindh, Peshawar & Quetta High Courts, and District Judiciary.
+  - **Chamber Support:** One-tap WhatsApp helpline (+92 341 7359571), direct phone, and chamber email.
+- **Attorney Data Protection Pledge:** Integrated a dedicated pledge banner detailing client privilege and PostgreSQL RLS multi-tenant data segregation.
+- **Accessible Tap Targets:** Elevated bottom bar legal links to `min-h-[44px]` with flex wrap protection.
+
+### 🧪 Automated Playwright Verification Suite
+- **Multi-Viewport Test Runner:** Created [web/scripts/verify-all-pages.mjs](file:///d:/peshify-app/web/scripts/verify-all-pages.mjs) verifying:
+  - 15 core routes across 4 viewports (`360px`, `390px`, `768px`, `1440px`).
+  - Zero horizontal overflow (`scrollWidth <= innerWidth`) on every page.
+  - 100-character long email address stress test wrapping cleanly at 360px.
+  - Full presence of redesigned footer columns and legal badges.
+- **Passed with 0 errors, 0 layout breaks, and 0 warnings.**
+
+---
+
 ## [2.1.0] - Production Launch Edition
 
 ### 🎨 Design Tokens & Brand System

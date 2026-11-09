@@ -75,7 +75,7 @@ export function Logo({ size = "md", variant = "full", className, inverted = fals
         </span>
         <span
           className={cn(
-            "uppercase tracking-[0.18em] font-semibold whitespace-nowrap",
+            "uppercase tracking-[0.18em] font-semibold whitespace-nowrap hidden sm:block",
             isLightText ? "text-[#C8C2B8]" : "text-gold",
             s.sub
           )}

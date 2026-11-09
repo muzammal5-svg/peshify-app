@@ -12,7 +12,7 @@ export default function RefundPolicyPage() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-dvh bg-[#050505] text-[#EDE8E0] selection:bg-[rgba(237,232,224,0.25)]">
+    <div className="min-h-dvh bg-[#050505] text-[#EDE8E0] selection:bg-[rgba(237,232,224,0.25)] overflow-x-clip">
       <PublicHeader overDark />
 
       <main className="py-24 md:py-32">

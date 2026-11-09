@@ -93,7 +93,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
               key: "citation",
               header: t("caseLaws.citation"),
               render: (row) => (
-                <span className="font-medium text-[#EDE8E0]">{`${row.law_report} ${row.year} ${row.page_no}`}</span>
+                <span className="font-semibold text-primary font-mono">{`${row.law_report} ${row.year} ${row.page_no}`}</span>
               ),
               className: "font-mono",
             },
@@ -101,7 +101,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
               key: "title",
               header: t("caseLaws.caseTitle"),
               render: (row) => (
-                <p className="text-[#9A958C] truncate max-w-[200px]">{row.case_title}</p>
+                <p className="text-foreground truncate max-w-[260px] font-medium">{row.case_title}</p>
               ),
             },
             {
@@ -115,7 +115,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
               key: "actions",
               header: "",
               render: (row, index) => (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 justify-end">
                   {isSuperAdmin && (
                     <button
                       onClick={(e) => {
@@ -123,7 +123,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
                         onEdit?.(row);
                       }}
                       title={t("common.edit")}
-                      className="w-8 h-8 flex items-center justify-center rounded text-[#9A958C] hover:bg-white/[0.06] hover:text-[#EDE8E0] transition-colors"
+                      className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                     >
                       <Edit className="w-4 h-4" />
                     </button>
@@ -135,31 +135,31 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
                         handleDelete(row.id);
                       }}
                       title={t("common.delete")}
-                      className="w-8 h-8 flex items-center justify-center rounded text-[#9A958C] hover:bg-danger/10 hover:text-danger transition-colors"
+                      className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-danger/10 hover:text-danger transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   )}
                 </div>
               ),
-              className: "text-center",
-              headerClass: "text-center",
+              className: "text-end",
+              headerClass: "text-end",
             },
           ]}
           data={caseLaws}
           keyExtractor={(row) => row.id}
           renderMobile={(row, index) => (
-            <div className="rounded-none border border-[rgba(237,232,224,0.12)] p-4 bg-[#111111]">
+            <div className="rounded-xl border border-border/80 p-4 bg-card shadow-xs">
               <div className="flex justify-between items-start mb-2">
-                <span className="font-medium text-[#EDE8E0] font-mono">{`${row.law_report} ${row.year} ${row.page_no}`}</span>
+                <span className="font-semibold text-primary font-mono text-sm">{`${row.law_report} ${row.year} ${row.page_no}`}</span>
                 <Badge variant="navy" size="sm">{row.law_report}</Badge>
               </div>
-              <p className="text-[#9A958C] text-sm">{row.case_title}</p>
-              <div className="mt-3 flex items-center gap-3">
+              <p className="text-foreground/90 text-sm font-medium break-words">{row.case_title}</p>
+              <div className="mt-3 flex items-center gap-4 pt-2 border-t border-border/50">
                 {isSuperAdmin && (
                   <button
                     onClick={(e) => { e.stopPropagation(); onEdit?.(row); }}
-                    className="text-xs text-[#EDE8E0] hover:text-white underline underline-offset-2 transition-colors"
+                    className="text-xs font-semibold text-primary hover:underline underline-offset-2 transition-colors min-h-[36px] flex items-center"
                   >
                     {t("common.edit")}
                   </button>
@@ -167,7 +167,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
                 {isSuperAdmin && (
                   <button
                     onClick={(e) => { e.stopPropagation(); handleDelete(row.id); }}
-                    className="text-xs text-danger hover:text-red-400 underline underline-offset-2 transition-colors"
+                    className="text-xs font-semibold text-danger hover:underline underline-offset-2 transition-colors min-h-[36px] flex items-center"
                   >
                     {t("common.delete")}
                   </button>
@@ -181,16 +181,17 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2 pt-2">
           <Button
             variant="ghost"
             size="sm"
             disabled={page <= 1}
             onClick={() => setPage(page - 1)}
+            className="min-h-[44px]"
           >
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          <span className="text-xs text-[#9A958C]">
+          <span className="text-xs text-muted-foreground font-medium">
             {t("common.page", { current: page, total: totalPages })}
           </span>
           <Button
@@ -198,6 +199,7 @@ export function CaseLawList({ onEdit }: CaseLawListProps = {}) {
             size="sm"
             disabled={page >= totalPages}
             onClick={() => setPage(page + 1)}
+            className="min-h-[44px]"
           >
             <ChevronRight className="w-4 h-4" />
           </Button>

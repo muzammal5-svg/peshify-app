@@ -26,6 +26,7 @@ import { useCourts }           from "@/hooks/useCourts";
 import { useClient }           from "@/hooks/useClients";
 import { useCreateCase, checkDuplicateRefNo } from "@/hooks/useCases";
 import { todayKarachi }        from "@/lib/utils";
+import { supabase }            from "@/lib/supabase/client";
 import type { Client }         from "@/types/supabase";
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
@@ -103,8 +104,24 @@ function NewCasePage() {
   }, [toast, t]);
 
   async function onSubmit(data: FormData) {
-    if (!profile) return;
     try {
+      let firmId = profile?.firm_id;
+      let userId = profile?.id;
+
+      if (!firmId || !userId) {
+        const { data: authData } = await supabase.auth.getUser();
+        if (authData?.user) {
+          userId = authData.user.id;
+          const { data: prof } = await supabase.from("profiles").select("firm_id").eq("id", userId).maybeSingle();
+          firmId = prof?.firm_id;
+        }
+      }
+
+      if (!firmId || !userId) {
+        toast.error(t("common.error"), "Session is initializing. Please wait a moment and try again.");
+        return;
+      }
+
       const refNo = (data.case_ref_no ?? "").trim();
       const customColsText = customCols.map(c => c.trim()).filter(Boolean);
       const combinedDescription = [
@@ -113,7 +130,7 @@ function NewCasePage() {
       ].filter(Boolean).join("\n\n");
 
       const newCase = await createCase.mutateAsync({
-        firm_id:        profile.firm_id,
+        firm_id:        firmId,
         client_id:      data.client_id,
         case_ref_no:    refNo,
         plaintiff_name: data.plaintiff_name.trim(),
@@ -124,8 +141,8 @@ function NewCasePage() {
         case_type_id:   data.case_type_id,
         offence:        needsOffence ? (data.offence || undefined) : undefined,
         description:    combinedDescription || undefined,
-        assigned_to:    profile.id,
-        created_by:     profile.id,
+        assigned_to:    userId,
+        created_by:     userId,
         first_hearing: {
           serial_no:       data.serial_no       || undefined,
           next_date:       data.next_date        || undefined,

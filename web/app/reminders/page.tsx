@@ -5,7 +5,20 @@ import { useState } from "react";
 import Link from "next/link";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 import { useTranslation } from "react-i18next";
-import { Bell, Check, ExternalLink, RotateCcw, X, Plus, Calendar, Briefcase, User } from "lucide-react";
+import {
+  Bell,
+  Check,
+  ExternalLink,
+  RotateCcw,
+  X,
+  Plus,
+  Calendar,
+  Briefcase,
+  User,
+  Clock,
+  AlertCircle,
+  FolderOpen,
+} from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { RouteGuard } from "@/components/shared/RouteGuard";
 import { Button } from "@/components/ui/Button";
@@ -20,14 +33,14 @@ import { useToast } from "@/components/ui/Toast";
 import { useReminders, useUpdateReminderStatus } from "@/hooks/useReminders";
 import { useAuth } from "@/providers/AuthProvider";
 import { supabaseRaw } from "@/lib/supabase/client";
-import { fmtDate, todayKarachi } from "@/lib/utils";
+import { fmtDate, todayKarachi, textDir, isUrdu } from "@/lib/utils";
 import type { ReminderStatus } from "@/types/supabase";
 
 type ReminderTab = Extract<ReminderStatus, "upcoming" | "done" | "dismissed">;
 
 function RemindersPage() {
   const { t } = useTranslation();
-  const { profile } = useAuth();
+  const { profile, user } = useAuth();
   const qc = useQueryClient();
   const [tab, setTab] = useState<ReminderTab>("upcoming");
   const { data, isLoading, isError, refetch } = useReminders();
@@ -69,7 +82,7 @@ function RemindersPage() {
   });
 
   const caseOptions = [
-    { value: "", label: `-- ${t("common.optional") || "No specific case (General)"} --` },
+    { value: "", label: `-- ${t("common.optional") || "No specific case (General Reminder)"} --` },
     ...casesList.map(c => ({
       value: c.id,
       label: `${c.case_ref_no ? `[${c.case_ref_no}] ` : ""}${c.plaintiff_name} vs ${c.defendant_name}`
@@ -91,25 +104,37 @@ function RemindersPage() {
   }
 
   async function addReminder() {
-    if (!profile) return;
+    const activeFirmId = profile?.firm_id;
+    const activeUserId = profile?.id || user?.id;
+
+    if (!activeFirmId || !activeUserId) {
+      toast.error(t("common.error"), "Session error: could not resolve user profile.");
+      return;
+    }
     if (!title.trim() || !date) {
-      toast.error(t("common.error"), "Please provide a title and remind date.");
+      toast.error(t("common.error"), "Please provide a reminder title and remind date.");
       return;
     }
     setSaving(true);
     try {
-      const { error } = await supabaseRaw.from("reminders").insert({
-        firm_id: profile.firm_id,
-        user_id: profile.id,
+      const payload: Record<string, any> = {
+        firm_id: activeFirmId,
+        user_id: activeUserId,
         case_id: selectedCaseId || null,
         title: title.trim(),
-        from: fromValue.trim() || null,
-        from_party: fromValue.trim() || null,
         remind_date: date,
         status: "upcoming",
         is_custom: true,
-      } as any);
+      };
+
+      if (fromValue.trim()) {
+        payload.from = fromValue.trim();
+        payload.from_party = fromValue.trim();
+      }
+
+      const { error } = await supabaseRaw.from("reminders").insert(payload);
       if (error) throw error;
+
       toast.success(t("common.saved") || "Reminder added!");
       setTitle("");
       setDate("");
@@ -117,7 +142,7 @@ function RemindersPage() {
       setSelectedCaseId("");
       setShowForm(false);
       void refetch();
-      qc.invalidateQueries({ queryKey: ["reminders", profile?.id] });
+      qc.invalidateQueries({ queryKey: ["reminders"] });
       qc.invalidateQueries({ queryKey: ["dashboard-counts"] });
     } catch (e) {
       toast.error("Failed", e instanceof Error ? e.message : "Could not add reminder");
@@ -149,25 +174,26 @@ function RemindersPage() {
 
   return (
     <AppShell pageTitle={t("reminders.title")} showBack>
-      <div className="max-w-3xl mx-auto space-y-4">
-        {/* Top Bar: Tabs & Add Reminder Button */}
+      <div className="max-w-4xl mx-auto space-y-5">
+
+        {/* Top Controls: Tabs & Add Reminder */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex gap-2 overflow-x-auto">
+          <div className="flex bg-secondary/50 p-1 rounded-xl border border-border/80 gap-1 overflow-x-auto">
             {(["upcoming", "done", "dismissed"] as const).map(status => (
               <button
                 key={status}
                 role="tab"
                 aria-selected={tab === status}
                 onClick={() => setTab(status)}
-                className={`flex items-center gap-2 rounded-none border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-all duration-200 ${
+                className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-semibold transition-all duration-200 min-h-[44px] ${
                   tab === status
-                    ? "border-[#EDE8E0] bg-[#EDE8E0] text-[#050505] shadow-xs"
-                    : "border-[rgba(237,232,224,0.14)] bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717]"
+                    ? "bg-card text-foreground shadow-xs border border-border/80 font-bold"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
               >
-                {t(`reminders.${status}`)}
-                <span className={`rounded-none px-1.5 py-0.5 text-[10px] font-mono font-bold leading-none ${
-                  tab === status ? "bg-[#050505]/15 text-[#050505]" : "bg-white/[0.06] text-[#9A958C]"
+                <span>{t(`reminders.${status}`)}</span>
+                <span className={`rounded-full px-2 py-0.5 text-[10px] font-mono font-bold leading-none ${
+                  tab === status ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
                 }`}>
                   {counts[status]}
                 </span>
@@ -175,31 +201,34 @@ function RemindersPage() {
             ))}
           </div>
 
-          <button
+          <Button
             type="button"
+            variant="primary"
             onClick={() => setShowForm(v => !v)}
-            className="self-end sm:self-auto px-4 py-2 rounded-none bg-[#EDE8E0] text-[#050505] font-bold text-xs uppercase tracking-[0.08em] hover:bg-white transition-all flex items-center gap-1.5 active:scale-95"
+            leftIcon={showForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+            className="self-stretch sm:self-auto min-h-[44px] px-4 font-semibold"
           >
-            <Plus className="w-4 h-4" />
-            <span>{showForm ? t("common.cancel") : (t("reminders.add") || "Add Reminder")}</span>
-          </button>
+            {showForm ? t("common.cancel") : (t("reminders.add") || "Add Reminder")}
+          </Button>
         </div>
 
         {/* Collapsible Add Reminder Form */}
         {showForm && (
-          <Card className="p-5 border-[rgba(237,232,224,0.16)] bg-[#111111] space-y-4 animate-in fade-in duration-200">
-            <div className="flex items-center justify-between border-b border-[rgba(237,232,224,0.10)] pb-3">
-              <h3 className="text-sm font-heading font-bold text-[#EDE8E0] flex items-center gap-2">
-                <Bell className="w-4 h-4 text-[#EDE8E0]" />
-                {t("reminders.newReminder") || "New Reminder"}
+          <Card className="p-5 sm:p-6 border-border/80 bg-card rounded-2xl shadow-md space-y-4 animate-in fade-in duration-200">
+            <div className="flex items-center justify-between border-b border-border/80 pb-3">
+              <h3 className="text-sm font-heading font-bold text-foreground flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                  <Bell className="w-4 h-4" strokeWidth={1.75} />
+                </div>
+                <span>{t("reminders.newReminder") || "Create Chamber Reminder"}</span>
               </h3>
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="text-[#9A958C] hover:text-[#EDE8E0] p-1 transition-colors"
+                className="text-muted-foreground hover:text-foreground p-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label={t("common.close")}
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4" strokeWidth={1.75} />
               </button>
             </div>
 
@@ -207,7 +236,7 @@ function RemindersPage() {
               {/* Cases Dropdown */}
               <div className="md:col-span-2">
                 <Select
-                  label={t("reminders.case") || "Case"}
+                  label={t("reminders.case") || "Associated Case (Optional)"}
                   options={caseOptions}
                   value={selectedCaseId}
                   onChange={e => handleCaseChange(e.target.value)}
@@ -218,8 +247,8 @@ function RemindersPage() {
               {/* Custom "From" Input */}
               <div>
                 <Input
-                  label={t("reminders.From") || "From"}
-                  placeholder={t("reminders.fromPlaceholder") || "e.g. Plaintiff, Defendant, Advocate, or custom party"}
+                  label={t("reminders.From") || "Party / Originator"}
+                  placeholder={t("reminders.fromPlaceholder") || "e.g. Plaintiff, Defendant, Senior Advocate"}
                   value={fromValue}
                   onChange={e => setFromValue(e.target.value)}
                 />
@@ -239,8 +268,8 @@ function RemindersPage() {
               {/* Reminder Title / Action */}
               <div className="md:col-span-2">
                 <Input
-                  label={t("reminders.reminder") || "Reminder Note / Action"}
-                  placeholder="e.g. Prepare rejoinder, file power of attorney, client update..."
+                  label={t("reminders.reminder") || "Reminder Action / Note"}
+                  placeholder="e.g. Prepare rejoinder, file Vakalatnama, inspect case record, send notice"
                   value={title}
                   onChange={e => setTitle(e.target.value)}
                   required
@@ -248,22 +277,22 @@ function RemindersPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2.5 pt-2">
+            <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-border/80">
               <Button
                 type="button"
                 variant="secondary"
-                size="sm"
                 onClick={() => setShowForm(false)}
                 disabled={saving}
+                className="min-h-[44px]"
               >
                 {t("common.cancel")}
               </Button>
               <Button
                 type="button"
                 variant="primary"
-                size="sm"
                 onClick={addReminder}
                 loading={saving}
+                className="min-h-[44px] px-5"
               >
                 {t("common.save") || "Save Reminder"}
               </Button>
@@ -277,12 +306,12 @@ function RemindersPage() {
         ) : isError ? (
           <QueryErrorState onRetry={() => void refetch()} />
         ) : visible.length === 0 ? (
-          <Card>
+          <Card className="rounded-2xl border-border/80">
             <EmptyState
               icon={Bell}
               title={tab === "upcoming" ? t("reminders.noUpcoming") : t("reminders.noStatus", { status: t(`reminders.${tab}`) })}
               message={tab === "upcoming" ? t("reminders.emptyUpcoming") : undefined}
-              className="py-10"
+              className="py-12"
             />
           </Card>
         ) : (
@@ -293,10 +322,10 @@ function RemindersPage() {
                 ? differenceInCalendarDays(parseISO(nextDate), parseISO(todayKarachi()))
                 : null;
               const urgent = daysLeft === 0
-                ? "border-[#C45C5C]/40 bg-[#C45C5C]/10"
+                ? "border-rose-500/40 bg-rose-500/5 shadow-xs"
                 : daysLeft !== null && daysLeft <= 3
-                  ? "border-[rgba(237,232,224,0.25)] bg-[#171717]"
-                  : "border-[rgba(237,232,224,0.10)] bg-[#111111]";
+                  ? "border-amber-500/30 bg-amber-500/5 shadow-xs"
+                  : "border-border/80 bg-card hover:border-border";
               const timing = daysLeft === null
                 ? "Date unavailable"
                 : daysLeft < 0
@@ -313,102 +342,136 @@ function RemindersPage() {
               const customFrom = (reminder as any).from || (reminder as any).from_party;
 
               return (
-                <Card key={reminder.id} className={`border ${urgent} transition-all duration-200 hover:border-[rgba(237,232,224,0.25)]`}>
+                <Card
+                  key={reminder.id}
+                  className={`border ${urgent} rounded-2xl p-4 sm:p-5 transition-all duration-200`}
+                >
                   {/* Reminder custom title / action */}
                   {(reminder as any).title && (
-                    <p className="mb-2 font-semibold text-[#EDE8E0] text-sm">{(reminder as any).title}</p>
+                    <div className="mb-2.5">
+                      <p className="font-semibold text-foreground text-sm sm:text-base leading-snug break-words [overflow-wrap:anywhere]">
+                        {(reminder as any).title}
+                      </p>
+                    </div>
                   )}
 
-                  <div className="flex items-start gap-4">
+                  <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
                     {/* Date Pill */}
-                    <div className={`w-[76px] shrink-0 rounded-none p-2 text-center ${
-                      daysLeft === 0 ? "bg-[#C45C5C] text-white" : daysLeft !== null && daysLeft <= 3 ? "bg-[#EDE8E0] text-[#050505]" : "bg-white/[0.06] text-[#EDE8E0]"
+                    <div className={`w-full sm:w-[84px] shrink-0 rounded-xl p-2.5 text-center flex sm:flex-col items-center justify-between sm:justify-center ${
+                      daysLeft === 0
+                        ? "bg-rose-500 text-white"
+                        : daysLeft !== null && daysLeft <= 3
+                          ? "bg-amber-400 text-slate-950 font-bold"
+                          : "bg-secondary text-foreground border border-border"
                     }`}>
-                      <p className="text-sm font-bold leading-tight">
+                      <p className="text-xs sm:text-sm font-bold leading-tight font-mono">
                         {nextDate ? fmtDate(nextDate) : t("reminders.dateUnavailable")}
                       </p>
-                      <p className="mt-1 text-[10px] leading-tight font-medium opacity-80">{timing}</p>
+                      <p className="sm:mt-1 text-[10px] leading-tight font-medium opacity-90 uppercase tracking-wider">
+                        {timing}
+                      </p>
                     </div>
 
                     {/* Details Column */}
-                    <div className="min-w-0 flex-1 space-y-1">
+                    <div className="min-w-0 flex-1 space-y-1.5 w-full">
                       {reminder.case ? (
                         <>
-                          <p className="text-sm font-semibold text-[#EDE8E0] truncate">
-                            {reminder.case.plaintiff_name} <span className="text-[#9A958C] font-normal text-xs mx-1">{t("cases.vs")}</span> {reminder.case.defendant_name}
+                          <p
+                            className="text-sm font-semibold text-foreground truncate"
+                            dir={textDir(reminder.case.plaintiff_name)}
+                          >
+                            {reminder.case.plaintiff_name}{" "}
+                            <span className="text-muted-foreground font-normal text-xs mx-1">{t("cases.vs")}</span>{" "}
+                            {reminder.case.defendant_name}
                           </p>
-                          <div className="flex items-center gap-2 flex-wrap text-xs">
+                          <div className="flex items-center gap-2 flex-wrap text-xs text-muted-foreground">
                             {reminder.case.case_ref_no && (
-                              <span className="font-mono text-[#EDE8E0] font-medium">
+                              <span className="font-mono text-primary font-semibold">
                                 {reminder.case.case_ref_no}
                               </span>
                             )}
                             {(reminder.hearing?.court_no ?? reminder.case?.court_no) && (
-                              <span className="text-[#9A958C]">
-                                • {t("reminders.court")} {reminder.hearing?.court_no ?? reminder.case?.court_no}
+                              <span>
+                                &bull; {t("reminders.court")} {reminder.hearing?.court_no ?? reminder.case?.court_no}
                               </span>
                             )}
                           </div>
                         </>
                       ) : (
-                        <p className="text-xs text-[#9A958C] font-medium">
-                          {t("reminders.reminder")}
-                        </p>
+                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <FolderOpen className="w-3.5 h-3.5 text-muted-foreground shrink-0" strokeWidth={1.75} />
+                          <span>General Chamber Matter (No specific case attached)</span>
+                        </div>
                       )}
 
                       {/* Custom "From" Display */}
                       {(customFrom || reminder.case?.representing) && (
-                        <div className="pt-0.5 flex items-center gap-1.5 text-xs text-[#C8C2B8]">
-                          <span className="text-[#9A958C] font-normal">{t("reminders.From") || "From"}:</span>
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-none bg-white/[0.05] text-[#EDE8E0] border border-[rgba(237,232,224,0.14)] font-medium text-[11px]">
+                        <div className="pt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground flex-wrap">
+                          <span className="font-medium">{t("reminders.From") || "From"}:</span>
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-secondary text-foreground border border-border text-[11px] font-medium truncate max-w-full">
                             {customFrom || (reminder.case?.representing === "plaintiff" ? t("cases.plaintiff") : reminder.case?.representing === "defendant" ? t("cases.defendant") : reminder.case?.representing)}
                           </span>
                         </div>
                       )}
 
                       {reminder.case?.client?.full_name && (
-                        <p className="text-xs text-[#9A958C] font-medium flex items-center gap-1">
-                          <User className="w-3 h-3 text-[#9A958C]" />
-                          <span>{t("reminders.client")}: {reminder.case.client.full_name}</span>
+                        <p className="text-xs text-muted-foreground flex items-center gap-1.5 truncate">
+                          <User className="w-3.5 h-3.5 shrink-0" strokeWidth={1.75} />
+                          <span className="truncate">{t("reminders.client")}: {reminder.case.client.full_name}</span>
                         </p>
                       )}
                     </div>
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border pt-3">
+                  <div className="mt-3.5 flex flex-wrap items-center gap-2 border-t border-border/80 pt-3">
                     {tab === "upcoming" ? (
                       <>
                         <Button
                           size="sm"
-                          leftIcon={<Check className="h-3.5 w-3.5" />}
+                          variant="primary"
+                          leftIcon={<Check className="h-3.5 w-3.5" strokeWidth={2} />}
                           loading={updateStatus.isPending}
                           {...lock}
                           onClick={() => void setStatus(reminder.id, "done")}
-                        >{t("reminders.markDone")}</Button>
+                          className="min-h-[44px]"
+                        >
+                          {t("reminders.markDone")}
+                        </Button>
                         <Button
                           size="sm"
                           variant="secondary"
-                          leftIcon={<X className="h-3.5 w-3.5" />}
+                          leftIcon={<X className="h-3.5 w-3.5" strokeWidth={2} />}
                           disabled={updateStatus.isPending}
                           {...lock}
                           onClick={() => void setStatus(reminder.id, "dismissed")}
-                        >{t("reminders.dismiss")}</Button>
+                          className="min-h-[44px]"
+                        >
+                          {t("reminders.dismiss")}
+                        </Button>
                       </>
                     ) : (
                       <Button
                         size="sm"
                         variant="secondary"
-                        leftIcon={<RotateCcw className="h-3.5 w-3.5" />}
+                        leftIcon={<RotateCcw className="h-3.5 w-3.5" strokeWidth={2} />}
                         loading={updateStatus.isPending}
                         {...lock}
                         onClick={() => void setStatus(reminder.id, "upcoming")}
-                      >{t("reminders.undo")}</Button>
+                        className="min-h-[44px]"
+                      >
+                        {t("reminders.undo")}
+                      </Button>
                     )}
 
                     {reminder.case?.id && (
                       <Link href={caseUrl} className="ms-auto">
-                        <Button size="sm" variant="ghost" rightIcon={<ExternalLink className="h-3.5 w-3.5" />}>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          rightIcon={<ExternalLink className="h-3.5 w-3.5" strokeWidth={1.75} />}
+                          className="min-h-[44px]"
+                        >
                           {t("reminders.viewCase")}
                         </Button>
                       </Link>
@@ -425,5 +488,9 @@ function RemindersPage() {
 }
 
 export default function RemindersPageRoute() {
-  return <RouteGuard><RemindersPage /></RouteGuard>;
+  return (
+    <RouteGuard>
+      <RemindersPage />
+    </RouteGuard>
+  );
 }

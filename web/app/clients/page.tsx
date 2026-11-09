@@ -41,20 +41,21 @@ function FilterPill({
   const active = value === current;
   return (
     <button
+      type="button"
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "flex items-center gap-1.5 px-3 py-1.5 rounded-none text-xs font-semibold border transition-all duration-200 uppercase tracking-[0.08em]",
+        "flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all duration-150 min-h-[36px]",
         active
-          ? "bg-[#EDE8E0] text-[#050505] border-[#EDE8E0] shadow-xs"
-          : "bg-[#111111] text-[#9A958C] border-[rgba(237,232,224,0.14)] hover:text-[#EDE8E0] hover:border-[rgba(237,232,224,0.3)] hover:bg-[#171717]"
+          ? "bg-navy-900 text-white border-navy-900 shadow-xs"
+          : "bg-surface text-navy-600 border-navy-200 hover:text-navy-900 hover:border-navy-300 hover:bg-navy-50"
       )}
     >
-      {label}
+      <span>{label}</span>
       {count !== undefined && (
         <span className={cn(
-          "text-[10px] font-bold rounded-none px-1.5 py-0.5 leading-none",
-          active ? "bg-[#050505]/15 text-[#050505]" : "bg-white/[0.06] text-[#9A958C]"
+          "text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none",
+          active ? "bg-white/20 text-white" : "bg-navy-100 text-navy-700"
         )}>
           {count}
         </span>

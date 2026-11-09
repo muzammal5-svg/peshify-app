@@ -204,9 +204,9 @@ function OverviewTab({ caseId }: { caseId: string }) {
   function Row({ label, value, mono = false }: { label: string; value?: string | null; mono?: boolean }) {
     if (!value) return null;
     return (
-      <div className="flex items-start justify-between gap-4 py-2.5 border-b border-white/[0.06] last:border-0">
-        <span className="text-sm text-zinc-400 font-medium flex-shrink-0 w-28">{label}</span>
-        <span className={`text-sm font-semibold text-zinc-100 text-end flex-1 ${mono ? "font-mono text-indigo-400" : ""} ${isUrdu(value) ? "font-urdu" : ""}`}
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-4 py-2.5 border-b border-border/60 last:border-0 min-w-0">
+        <span className="text-xs sm:text-sm text-muted-foreground font-medium flex-shrink-0 sm:w-32">{label}</span>
+        <span className={`text-sm font-semibold text-foreground text-start sm:text-end flex-1 min-w-0 break-all sm:break-words [overflow-wrap:anywhere] ${mono ? "font-mono text-primary font-bold" : ""} ${isUrdu(value) ? "font-urdu" : ""}`}
           dir={textDir(value)}>{value}</span>
       </div>
     );

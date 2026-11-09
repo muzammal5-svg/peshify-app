@@ -393,7 +393,7 @@ function RegisterForm() {
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-dvh bg-slate-950 text-slate-100 selection:bg-amber-400/20">
+    <div className="min-h-dvh bg-slate-950 text-slate-100 selection:bg-amber-400/20 overflow-x-clip">
       <PublicHeader overDark />
       <main>
         <Suspense fallback={<div className="min-h-dvh bg-slate-950" />}>

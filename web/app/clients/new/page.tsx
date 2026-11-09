@@ -102,23 +102,39 @@ function AddClientPage() {
 
   // ── Step 1 submit → create client ────────────────────────────────────────
   async function onStep1Submit(data: ClientStep1Data) {
-    if (!profile) return;
     setSaving(true);
     try {
+      let firmId = profile?.firm_id;
+      let userId = profile?.id;
+
+      if (!firmId || !userId) {
+        const { data: authData } = await supabase.auth.getUser();
+        if (authData?.user) {
+          userId = authData.user.id;
+          const { data: prof } = await supabase.from("profiles").select("firm_id").eq("id", userId).maybeSingle();
+          firmId = prof?.firm_id;
+        }
+      }
+
+      if (!firmId || !userId) {
+        toast.error(t("common.error"), "Session is initializing. Please wait a moment and try again.");
+        return;
+      }
+
       const phone    = normalisePhone(data.phone);
       const whatsapp = data.whatsapp_same ? phone : (data.whatsapp ? normalisePhone(data.whatsapp) : null);
 
       const { data: row, error } = await insert.client({
-        firm_id:             profile.firm_id,
+        firm_id:             firmId,
         full_name:           data.full_name.trim(),
         father_husband_name: data.father_husband_name || null,
         cnic:                data.cnic || null,
         phone,
         whatsapp,
-        email:               data.email || null,
-        address:             data.address || null,
+        email:               data.email?.trim() || null,
+        address:             data.address?.trim() || null,
         city:                data.city || null,
-        created_by:          profile.id,
+        created_by:          userId,
         is_active:           true,
       });
 

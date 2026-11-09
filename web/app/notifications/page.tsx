@@ -116,22 +116,23 @@ function NotificationsPage() {
     <AppShell pageTitle={t("notifications.title")} showBack>
       <div className="max-w-2xl mx-auto space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="flex gap-2 overflow-x-auto pb-1 max-w-full">
             {FILTERS.map(item => (
               <button
                 key={item.value}
+                type="button"
                 aria-pressed={filter === item.value}
                 onClick={() => setFilter(item.value)}
-                className={`rounded-none border px-3 py-1.5 text-xs font-semibold whitespace-nowrap uppercase tracking-[0.08em] transition-all duration-200 ${
+                className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-150 min-h-[36px] ${
                   filter === item.value
-                    ? "border-[#EDE8E0] bg-[#EDE8E0] text-[#050505] shadow-xs"
-                    : "border-[rgba(237,232,224,0.14)] bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717]"
+                    ? "border-navy-900 bg-navy-900 text-white shadow-xs"
+                    : "border-navy-200 bg-surface text-navy-600 hover:text-navy-900 hover:border-navy-300 hover:bg-navy-50"
                 }`}
               >{t(item.label)}</button>
             ))}
           </div>
           {unread > 0 && (
-            <Button size="sm" variant="secondary" leftIcon={<CheckCheck className="h-4 w-4" />} onClick={() => void markAllRead()}>
+            <Button size="sm" variant="secondary" leftIcon={<CheckCheck className="h-4 w-4" />} onClick={() => void markAllRead()} className="min-h-[36px]">
               {t("notifications.markAll")}
             </Button>
           )}
@@ -146,24 +147,43 @@ function NotificationsPage() {
             <EmptyState icon={BellRing} title={t("notifications.empty")} message={t("notifications.emptyMessage")} className="py-10" />
           </Card>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {visible.map(item => (
               <button
                 key={item.id}
+                type="button"
                 onClick={() => void openNotification(item)}
-                className={`block w-full rounded-none border text-start transition-colors ${
+                className={`block w-full rounded-xl border text-start transition-all duration-150 p-4 ${
                   item.is_read
-                    ? "border-[rgba(237,232,224,0.10)] bg-[#111111] hover:bg-[#171717]"
-                    : "border-[rgba(237,232,224,0.25)] bg-[#171717] hover:bg-[#1E1E1E]"
+                    ? "border-border/60 bg-card/60 hover:bg-card hover:border-border text-foreground"
+                    : "border-primary/30 bg-primary/[0.03] hover:bg-primary/[0.06] text-foreground shadow-xs"
                 }`}
               >
-                <div className="flex items-start gap-3 p-4">
-                  <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${item.is_read ? "bg-transparent" : "bg-[#EDE8E0]"}`} aria-label={item.is_read ? "Read" : "Unread"} />
-                  <span className="min-w-0 flex-1">
-                    <span className={`block text-sm font-semibold ${item.is_read ? "text-[#C8C2B8] font-normal" : "text-[#EDE8E0] font-bold"}`}>{item.title}</span>
-                    <span className={`mt-0.5 block text-xs ${item.is_read ? "text-[#9A958C]" : "text-[#C8C2B8]"}`}>{item.body}</span>
-                    <span className="mt-1 block text-[10px] text-[#5C5852] font-medium">{fmtDate(item.created_at)} · {t(`notifications.type.${item.type}`, { defaultValue: item.type.replace(/_/g, " ") })}</span>
-                  </span>
+                <div className="flex items-start gap-3">
+                  <span
+                    className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full transition-colors ${
+                      item.is_read ? "bg-transparent border border-muted-foreground/30" : "bg-primary shadow-[0_0_8px_rgba(11,27,58,0.3)]"
+                    }`}
+                    aria-label={item.is_read ? "Read" : "Unread"}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className={`block text-sm leading-snug break-words ${item.is_read ? "font-semibold text-foreground/90" : "font-bold text-foreground"}`}>
+                        {item.title}
+                      </span>
+                      <span className="text-[10px] text-muted-foreground font-medium shrink-0">
+                        {fmtDate(item.created_at)}
+                      </span>
+                    </div>
+                    {item.body && (
+                      <span className="mt-1 block text-xs text-muted-foreground leading-relaxed break-words [overflow-wrap:anywhere]">
+                        {item.body}
+                      </span>
+                    )}
+                    <span className="mt-2 inline-flex items-center text-[10px] font-semibold text-primary/80 uppercase tracking-wider bg-primary/10 px-2 py-0.5 rounded-md">
+                      {t(`notifications.type.${item.type}`, { defaultValue: item.type.replace(/_/g, " ") })}
+                    </span>
+                  </div>
                 </div>
               </button>
             ))}

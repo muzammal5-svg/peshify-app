@@ -49,13 +49,13 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
     <>
       <header
         className={cn(
-          "sticky top-0 z-40 transition-all duration-300 ease-in-out",
+          "sticky top-0 z-40 transition-all duration-300 ease-in-out overflow-x-clip",
           scrolled
             ? "bg-[#050505]/95 backdrop-blur-md border-b border-[rgba(237,232,224,0.12)] shadow-[0_12px_32px_rgba(0,0,0,0.85)]"
             : "bg-[#050505]/75 backdrop-blur-sm border-b border-[rgba(237,232,224,0.08)]"
         )}
       >
-        <div className="relative max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 h-16 md:h-[80px] flex items-center justify-between safe-top">
+        <div className="relative max-w-[1360px] mx-auto px-3.5 sm:px-6 md:px-10 h-16 md:h-[80px] flex items-center justify-between safe-top">
           {/* Brand (Left) */}
           <div className="flex items-center flex-shrink-0 z-10">
             <Link href="/" className="flex items-center gap-3 group" aria-label={t("brand.name")}>

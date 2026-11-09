@@ -5,7 +5,7 @@ import { useSearchParams }      from "next/navigation";
 import { useTranslation }       from "react-i18next";
 import Link                     from "next/link";
 import {
-  Edit, Plus, Briefcase, ToggleLeft, ToggleRight, ChevronRight,
+  Edit, Plus, Briefcase, ToggleLeft, ToggleRight, ChevronRight, Mail, Phone, MapPin, User,
 } from "lucide-react";
 
 import { AppShell }             from "@/components/layout/AppShell";
@@ -57,15 +57,15 @@ function CasesTab({ clientId }: { clientId: string }) {
   return (
     <div className="space-y-3">
       {/* Sub-tab toggle */}
-      <div className="flex rounded-none overflow-hidden border border-[rgba(237,232,224,0.14)] bg-[#0A0A0A]">
+      <div className="flex rounded-xl overflow-hidden border border-border/80 bg-secondary/40 p-1 gap-1">
         {(["running", "decided"] as const).map(s => (
           <button
             key={s}
             onClick={() => setSub(s)}
-            className={`flex-1 py-2 text-xs font-semibold transition-all duration-200 uppercase tracking-[0.08em] ${
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all duration-200 min-h-[44px] ${
               sub === s
-                ? "bg-[#EDE8E0] text-[#050505] shadow-xs"
-                : "bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717]"
+                ? "bg-card text-foreground shadow-xs border border-border/80 font-bold"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
             }`}
           >
             {s === "running" ? t("cases.running") : t("cases.decided")}
@@ -82,7 +82,7 @@ function CasesTab({ clientId }: { clientId: string }) {
           action={
             sub === "running" ? (
               <Link href={`/cases/new?clientId=${clientId}`}>
-                <Button leftIcon={<Plus className="w-4 h-4" />} size="sm">
+                <Button leftIcon={<Plus className="w-4 h-4" />} size="sm" className="min-h-[44px]">
                   {t("cases.new")}
                 </Button>
               </Link>
@@ -95,13 +95,13 @@ function CasesTab({ clientId }: { clientId: string }) {
             <Link key={c.id} href={`/cases/view?id=${c.id}`}>
               <Card hover className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-mono text-gold font-semibold">{c.case_ref_no || "—"}</p>
+                  <p className="text-xs font-mono text-primary font-semibold">{c.case_ref_no || "—"}</p>
                   <p
-                    className="text-sm font-medium text-navy truncate mt-0.5"
+                    className="text-sm font-semibold text-foreground truncate mt-0.5"
                     dir={textDir(c.plaintiff_name)}
                   >
                     {c.plaintiff_name}{" "}
-                    <span className="text-navy-400 text-xs">{t("cases.vs")}</span>{" "}
+                    <span className="text-muted-foreground text-xs font-normal mx-1">{t("cases.vs")}</span>{" "}
                     {c.defendant_name}
                   </p>
                   <div className="flex items-center gap-1.5 mt-1 flex-wrap">
@@ -110,11 +110,11 @@ function CasesTab({ clientId }: { clientId: string }) {
                       <OutcomeBadge outcome={c.outcome} />
                     )}
                     {c.decision_date && (
-                      <span className="text-[11px] text-navy-500">{fmtDate(c.decision_date)}</span>
+                      <span className="text-[11px] text-muted-foreground">{fmtDate(c.decision_date)}</span>
                     )}
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-navy-400 flex-shrink-0" />
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0 rtl:rotate-180" strokeWidth={1.75} />
               </Card>
             </Link>
           ))}
@@ -124,16 +124,16 @@ function CasesTab({ clientId }: { clientId: string }) {
   );
 }
 
-// ─── Details row ──────────────────────────────────────────────────────────────
+// ─── Details row with mobile-first wrap protection ────────────────────────────
 function DetailRow({ label, value, isUrduText = false }: {
-  label: string; value: string | null; isUrduText?: boolean;
+  label: string; value: string | null | undefined; isUrduText?: boolean;
 }) {
   if (!value) return null;
   return (
-    <div className="flex items-start justify-between gap-4 py-2.5 border-b border-border last:border-0">
-      <span className="text-sm text-navy-500 font-medium flex-shrink-0 w-32">{label}</span>
+    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-4 py-2.5 border-b border-border/60 last:border-0 min-w-0">
+      <span className="text-xs sm:text-sm text-muted-foreground font-medium flex-shrink-0 sm:w-36">{label}</span>
       <span
-        className={`text-sm font-semibold text-navy text-end flex-1 ${isUrduText && isUrdu(value) ? "font-urdu" : ""}`}
+        className={`text-sm font-semibold text-foreground text-start sm:text-end flex-1 min-w-0 break-all sm:break-words [overflow-wrap:anywhere] ${isUrduText && isUrdu(value) ? "font-urdu" : ""}`}
         dir={isUrduText ? textDir(value) : "ltr"}
       >
         {value}
@@ -174,7 +174,7 @@ function ClientViewPage() {
   if (isLoading) return <AppShell showBack><PageLoader /></AppShell>;
   if (isError) return <AppShell showBack><QueryErrorState onRetry={() => void refetch()} /></AppShell>;
   if (countsError) return <AppShell showBack><QueryErrorState onRetry={() => void refetchCounts()} /></AppShell>;
-if (!client) return <AppShell showBack><EmptyState title={t("common.clientNotFound")} /></AppShell>;
+  if (!client) return <AppShell showBack><EmptyState title={t("common.clientNotFound")} /></AppShell>;
 
   return (
     <AppShell
@@ -183,7 +183,7 @@ if (!client) return <AppShell showBack><EmptyState title={t("common.clientNotFou
       headerActions={
         canWrite ? (
           <Link href={`/clients/edit?id=${client.id}`}>
-            <Button size="sm" variant="secondary" leftIcon={<Edit className="w-4 h-4" />}>
+            <Button size="sm" variant="secondary" leftIcon={<Edit className="w-4 h-4" strokeWidth={1.75} />} className="min-h-[44px]">
               {t("common.edit")}
             </Button>
           </Link>
@@ -193,48 +193,50 @@ if (!client) return <AppShell showBack><EmptyState title={t("common.clientNotFou
       <div className="max-w-2xl mx-auto space-y-5">
 
         {/* Profile header */}
-        <Card className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-gold/10 border-2 border-gold/20 flex items-center justify-center flex-shrink-0">
-            <span className={`text-2xl font-bold text-gold leading-none ${isUrdu(client.full_name) ? "font-urdu" : ""}`}>
-              {client.full_name.charAt(0).toUpperCase()}
-            </span>
-          </div>
-          <div className="flex-1 min-w-0">
-            <p
-              className="text-lg font-heading font-bold text-navy"
-              dir={textDir(client.full_name)}
-              lang={isUrdu(client.full_name) ? "ur" : "en"}
-            >
-              {client.full_name}
-            </p>
-            {client.city && <p className="text-sm text-navy-500 font-medium">{client.city}</p>}
-            <div className="flex items-center gap-2 mt-1 flex-wrap">
-              {client.is_active
-                ? <Badge variant="success" dot>{t("common.active")}</Badge>
-                : <Badge variant="neutral">{t("common.deactivate")}</Badge>
-              }
-              {counts && counts.running > 0 && (
-                <Badge variant="info">{counts.running} {t("cases.running")}</Badge>
-              )}
-              {counts && counts.decided > 0 && (
-                <Badge variant="neutral">{counts.decided} {t("cases.decided")}</Badge>
-              )}
+        <Card className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5 min-w-0 flex-1">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 border-2 border-primary/20 flex items-center justify-center flex-shrink-0">
+              <span className={`text-xl sm:text-2xl font-bold text-primary leading-none ${isUrdu(client.full_name) ? "font-urdu" : ""}`}>
+                {client.full_name.charAt(0).toUpperCase()}
+              </span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p
+                className="text-base sm:text-lg font-heading font-bold text-foreground truncate"
+                dir={textDir(client.full_name)}
+                lang={isUrdu(client.full_name) ? "ur" : "en"}
+              >
+                {client.full_name}
+              </p>
+              {client.city && <p className="text-xs sm:text-sm text-muted-foreground font-medium truncate mt-0.5">{client.city}</p>}
+              <div className="flex items-center gap-1.5 sm:gap-2 mt-1.5 flex-wrap">
+                {client.is_active
+                  ? <Badge variant="success" dot size="sm">{t("common.active")}</Badge>
+                  : <Badge variant="neutral" size="sm">{t("common.deactivate")}</Badge>
+                }
+                {counts && counts.running > 0 && (
+                  <Badge variant="info" size="sm">{counts.running} {t("cases.running")}</Badge>
+                )}
+                {counts && counts.decided > 0 && (
+                  <Badge variant="neutral" size="sm">{counts.decided} {t("cases.decided")}</Badge>
+                )}
+              </div>
             </div>
           </div>
-          <div className="flex flex-col items-end gap-2 flex-shrink-0">
+          <div className="flex items-center justify-end gap-2 flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-border/50">
             <Link href={`/cases/new?clientId=${client.id}`}>
-              <Button size="xs" leftIcon={<Plus className="w-3.5 h-3.5" />}>{t("common.case")}</Button>
+              <Button size="sm" leftIcon={<Plus className="w-3.5 h-3.5" />} className="min-h-[40px]">{t("common.case")}</Button>
             </Link>
             {canDelete && (
               <button
                 onClick={handleToggleActive}
                 {...lock}
                 aria-label={client.is_active ? t("common.deactivate") : t("common.activate")}
-                className="text-navy-400 hover:text-navy transition-colors disabled:opacity-40"
+                className="text-muted-foreground hover:text-foreground transition-colors disabled:opacity-40 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg hover:bg-secondary/60"
               >
                 {client.is_active
-                  ? <ToggleRight className="w-6 h-6 text-success" />
-                  : <ToggleLeft  className="w-6 h-6" />
+                  ? <ToggleRight className="w-6 h-6 text-emerald-500" strokeWidth={1.75} />
+                  : <ToggleLeft  className="w-6 h-6" strokeWidth={1.75} />
                 }
               </button>
             )}
@@ -250,7 +252,7 @@ if (!client) return <AppShell showBack><EmptyState title={t("common.clientNotFou
           </TabList>
 
           <TabPanel value="details">
-            <Card padding="sm">
+            <Card padding="sm" className="space-y-1">
               <DetailRow label={t("clients.name")}              value={client.full_name}           isUrduText />
               <DetailRow label={t("clients.fatherHusbandName")} value={client.father_husband_name} isUrduText />
               <DetailRow label={t("clients.cnic")}              value={client.cnic} />
@@ -258,13 +260,13 @@ if (!client) return <AppShell showBack><EmptyState title={t("common.clientNotFou
               <DetailRow label={t("clients.whatsapp")}
                 value={client.whatsapp && client.whatsapp !== client.phone ? formatPhoneDisplay(client.whatsapp) : null}
               />
-              <DetailRow label={t("clients.email")}   value={client.email} />
-              <DetailRow label={t("clients.city")}    value={client.city} />
-              <DetailRow label={t("clients.address")} value={client.address} />
+              <DetailRow label={t("clients.email")}             value={client.email} />
+              <DetailRow label={t("clients.city")}              value={client.city} />
+              <DetailRow label={t("clients.address")}           value={client.address} />
               {canWrite && (
-                <div className="pt-3">
+                <div className="pt-4">
                   <Link href={`/clients/edit?id=${client.id}`} className="w-full">
-                    <Button variant="secondary" fullWidth leftIcon={<Edit className="w-4 h-4" />}>
+                    <Button variant="secondary" fullWidth leftIcon={<Edit className="w-4 h-4" strokeWidth={1.75} />} className="min-h-[44px]">
                       {t("common.edit")}
                     </Button>
                   </Link>
