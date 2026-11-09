@@ -4,7 +4,23 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { Scale, ShieldCheck, Sparkles, Check, Mail, Lock, User, Building2, Phone, ArrowRight, AlertCircle } from "lucide-react";
+import {
+  Scale,
+  ShieldCheck,
+  Sparkles,
+  Check,
+  Mail,
+  Lock,
+  User,
+  Building2,
+  Phone,
+  ArrowRight,
+  AlertCircle,
+  Eye,
+  EyeOff,
+  Gavel,
+  CheckCircle2,
+} from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { saasRpc } from "@/lib/supabase/saas";
 import { Button } from "@/components/ui/Button";
@@ -15,13 +31,15 @@ import { PakistanLocationFields, type LocationValues } from "@/components/market
 import { Logo } from "@/components/shared/Logo";
 
 function RegisterForm() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const router = useRouter();
   const params = useSearchParams();
   const plan = params.get("plan") ?? "";
+  const isRTL = i18n.language === "ur";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [firmName, setFirmName] = useState("");
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
@@ -86,7 +104,11 @@ function RegisterForm() {
       if (edgeErr) {
         const errMsg = edgeErr.message || "";
         if (errMsg.toLowerCase().includes("already") || errMsg.toLowerCase().includes("registered")) {
-          setError("An account with this email already exists. Please sign in.");
+          setError(
+            isRTL
+              ? "اس ای میل پر اکاؤنٹ پہلے سے موجود ہے۔ براہ کرم لاگ ان کریں۔"
+              : "An account with this email already exists. Please sign in."
+          );
           setLoading(false);
           return;
         }
@@ -124,7 +146,11 @@ function RegisterForm() {
         return;
       }
       if (!data.user?.id) {
-        setError("Registration failed. Please try again.");
+        setError(
+          isRTL
+            ? "رجسٹریشن مکمل نہ ہو سکی۔ براہ کرم دوبارہ کوشش کریں۔"
+            : "Registration failed. Please try again."
+        );
         setLoading(false);
         return;
       }
@@ -133,7 +159,10 @@ function RegisterForm() {
     // 3. Immediately sign in to establish active session
     const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
     if (signInErr || !signInData?.session) {
-      setError(signInErr?.message || "Please sign in with your new credentials.");
+      setError(
+        signInErr?.message ||
+          (isRTL ? "نیا اکاؤنٹ بن گیا ہے، براہ کرم لاگ ان کریں۔" : "Account created. Please sign in with your credentials.")
+      );
       setLoading(false);
       return;
     }
@@ -160,70 +189,88 @@ function RegisterForm() {
   }
 
   const benefits = [
-    t("marketing.regBenefit1"),
-    t("marketing.regBenefit2"),
-    t("marketing.regBenefit3"),
+    isRTL ? "سپریم کورٹ، ہائی کورٹس اور ضلعی عدالتوں کی سماعت کا مکمل ریکارڈ" : "Full hearing diary for Supreme Court, High Courts & District Benches",
+    isRTL ? "صبح کی کاز لسٹ کا خودکار شیڈول اور بینچ نمبرز" : "Smart morning cause lists with automatic courtroom tracking",
+    isRTL ? "مؤکلین کو براہ راست واٹس ایپ پر اگلی تاریخ کی پیشی کا الرٹ" : "Instant WhatsApp hearing alerts sent directly to clients",
+    isRTL ? "چیمبر کا محفوظ کلاؤڈ ڈیٹا، بیک اپ اور وکلاء کے لیے رسائی کنٹرول" : "Chamber-grade privacy, encrypted backups & team permissions",
   ];
 
   return (
-    <div className="relative min-h-[calc(100dvh-140px)] overflow-hidden bg-[#050505] text-[#EDE8E0] px-3 sm:px-6 py-8 sm:py-12 md:py-16">
+    <div className="relative min-h-[calc(100dvh-140px)] overflow-hidden bg-slate-950 text-slate-100 px-3 sm:px-6 py-8 sm:py-12 md:py-16 font-sans">
       <div className="mx-auto w-full max-w-5xl">
-        <div className="overflow-hidden rounded-xl border border-[rgba(237,232,224,0.12)] bg-[#050505] shadow-[0_24px_64px_rgba(0,0,0,0.8)] lg:grid lg:grid-cols-[1fr_1.1fr]">
+        <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 shadow-[0_24px_64px_rgba(0,0,0,0.6)] lg:grid lg:grid-cols-[1fr_1.2fr]">
 
-          {/* Brand panel */}
-          <aside className="relative overflow-hidden bg-[#0A0A0A] border-b lg:border-b-0 lg:border-e border-[rgba(237,232,224,0.12)] px-5 py-7 sm:px-8 sm:py-10 text-[#EDE8E0] lg:px-10 lg:py-14">
-            <div className="relative">
-              <div className="hidden lg:block">
+          {/* Left Brand Panel */}
+          <aside className="relative overflow-hidden bg-gradient-to-br from-[#0B1B3A] via-[#0E234A] to-[#081329] border-b lg:border-b-0 lg:border-e border-slate-800 p-6 sm:p-8 lg:p-10 text-white flex flex-col justify-between">
+            {/* Subtle decorative grid motif */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-[0.08]"
+              style={{
+                backgroundImage: `linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)`,
+                backgroundSize: "32px 32px",
+              }}
+              aria-hidden="true"
+            />
+
+            <div className="relative z-10">
+              <div className="flex items-center gap-3">
                 <Logo size="md" variant="full" inverted />
               </div>
 
-              <span className="mt-0 lg:mt-8 border border-[rgba(237,232,224,0.18)] bg-white/[0.04] text-[#EDE8E0] px-3 py-1 inline-flex items-center gap-1.5 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.12em]">
-                <Sparkles className="h-3.5 w-3.5 text-[#EDE8E0]" aria-hidden="true" />
-                {t("marketing.regTrialBadge")}
-              </span>
+              <div className="mt-6 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20">
+                <Sparkles className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
+                {isRTL ? "مفت ارلی ایکسس — کوئی کریڈٹ کارڈ درکار نہیں" : "100% Free Early Access • No Card Required"}
+              </div>
 
-              <h1 className="mt-4 lg:mt-6 font-heading text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-[#EDE8E0]">
-                {t("marketing.regTitle")}
+              <h1 className="mt-4 font-heading text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-white">
+                {isRTL ? "اپنے چیمبر کو جدید اور منظم بنائیں" : "Upgrade your chamber to a modern SaaS diary"}
               </h1>
-              <p className="mt-2 lg:mt-3 text-xs sm:text-sm leading-relaxed text-[#9A958C]">
-                {t("marketing.regSubtitle")}
+              <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-300">
+                {isRTL
+                  ? "چند سیکنڈ میں چیمبر اکاؤنٹ رجسٹر کریں اور آج ہی اپنی کاز لسٹ اور کلائنٹ ریکارڈ ڈیجیٹلائز کریں۔"
+                  : "Register in under 60 seconds to organize cause lists, track bench hearings, and send client alerts."}
               </p>
 
-              <ul className="mt-5 lg:mt-8 space-y-2.5 sm:space-y-3.5">
-                {benefits.map((b) => (
-                  <li key={b} className="flex items-start gap-2.5 sm:gap-3 text-xs sm:text-sm text-[#9A958C]">
-                    <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center bg-[#EDE8E0] text-[#050505]">
-                      <Check className="h-3 w-3" aria-hidden="true" />
+              {/* Benefits list */}
+              <ul className="mt-6 space-y-3">
+                {benefits.map((b, i) => (
+                  <li key={i} className="flex items-start gap-3 text-xs sm:text-sm text-slate-200">
+                    <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded bg-amber-400 text-slate-950">
+                      <Check className="h-3 w-3" strokeWidth={2.5} aria-hidden="true" />
                     </span>
                     <span>{b}</span>
                   </li>
                 ))}
               </ul>
+            </div>
 
-              <p className="mt-6 lg:mt-10 flex items-center gap-2 border-t border-[rgba(237,232,224,0.10)] pt-4 lg:pt-6 text-xs text-[#5C5852]">
-                <ShieldCheck className="h-4 w-4 text-[#EDE8E0]" aria-hidden="true" />
-                {t("marketing.regSecureNote")}
-              </p>
+            <div className="relative z-10 mt-8 pt-6 border-t border-white/10 flex items-center gap-2 text-xs text-slate-400">
+              <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" aria-hidden="true" />
+              <span>
+                {isRTL
+                  ? "قانونی رازداری کی مکمل ضمانت: آپ کا چیمبر ڈیٹا محفوظ اور صرف آپ کی ملکیت ہے۔"
+                  : "Chamber-grade confidentiality: TLS 1.3 encryption and dedicated advocate data ownership."}
+              </span>
             </div>
           </aside>
 
-          {/* Form panel */}
-          <div className="bg-[#050505] px-5 py-7 sm:px-8 sm:py-10 lg:px-10 lg:py-14 text-[#EDE8E0]">
+          {/* Form Panel */}
+          <div className="bg-slate-900/60 p-6 sm:p-8 lg:p-10 text-slate-100">
             {plan && (
-              <p className="mb-6 inline-flex items-center gap-2 border border-[rgba(237,232,224,0.20)] bg-[#111111] px-3.5 py-2 text-xs font-semibold text-[#EDE8E0]">
+              <p className="mb-4 inline-flex items-center gap-2 border border-amber-400/30 bg-amber-400/10 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-amber-300">
                 <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
                 {t("marketing.regPlan", { plan })}
               </p>
             )}
 
             {error && (
-              <p
+              <div
                 role="alert"
-                className="mb-5 flex items-start gap-2 border border-[#C45C5C]/30 bg-[#C45C5C]/10 px-3.5 py-3 text-xs font-medium text-[#C45C5C]"
+                className="mb-5 flex items-start gap-2.5 rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-xs font-medium text-rose-400"
               >
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                {error}
-              </p>
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+                <p>{error}</p>
+              </div>
             )}
 
             <form onSubmit={submit} className="space-y-4" noValidate>
@@ -255,6 +302,7 @@ function RegisterForm() {
                 valid={nameValid}
                 error={touched && !nameValid ? t("marketing.regFullNameRequired") : undefined}
               />
+
               <FloatingField
                 label={t("auth.email")}
                 type="email"
@@ -266,9 +314,10 @@ function RegisterForm() {
                 valid={emailValid}
                 error={touched && !emailValid ? t("marketing.regEmailRequired") : undefined}
               />
+
               <FloatingField
                 label={t("auth.password")}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -277,7 +326,22 @@ function RegisterForm() {
                 valid={passwordValid}
                 error={touched && !passwordValid ? t("marketing.regPasswordRequired") : undefined}
                 hint={t("marketing.regPasswordHint")}
+                rightSlot={
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="p-1.5 text-slate-400 hover:text-white transition-colors"
+                    aria-label={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" strokeWidth={1.75} />
+                    ) : (
+                      <Eye className="w-4 h-4" strokeWidth={1.75} />
+                    )}
+                  </button>
+                }
               />
+
               <FloatingField
                 label={t("auth.phone")}
                 type="tel"
@@ -288,24 +352,39 @@ function RegisterForm() {
                 valid={phone.trim().length >= 10}
               />
 
-              <Button
+              <button
                 type="submit"
-                loading={loading}
-                fullWidth
-                className="h-12 mt-4"
-                rightIcon={<ArrowRight className="h-4 w-4" />}
+                disabled={loading}
+                className="w-full h-12 mt-4 bg-amber-400 hover:bg-amber-300 text-slate-950 font-semibold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-400/10 transition-all disabled:opacity-50 min-h-[48px]"
               >
-                {t("marketing.regTitle")}
-              </Button>
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <span>{t("common.loading")}</span>
+                  </span>
+                ) : (
+                  <>
+                    <span>{t("marketing.regTitle")}</span>
+                    <ArrowRight className="h-4 w-4 rtl:rotate-180" strokeWidth={1.75} />
+                  </>
+                )}
+              </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-[#9A958C]">
+            <p className="mt-6 text-center text-xs sm:text-sm text-slate-400">
               {t("marketing.regHaveAccount")}{" "}
-              <Link href="/auth/sign-in" className="font-semibold text-[#EDE8E0] underline-offset-4 transition-colors hover:underline">
+              <Link
+                href="/auth/sign-in"
+                className="font-semibold text-amber-400 underline underline-offset-4 transition-colors hover:text-amber-300"
+              >
                 {t("marketing.signIn")}
               </Link>
             </p>
           </div>
+
         </div>
       </div>
     </div>
@@ -314,10 +393,10 @@ function RegisterForm() {
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-dvh bg-[#050505] text-[#EDE8E0] selection:bg-[rgba(237,232,224,0.25)]">
+    <div className="min-h-dvh bg-slate-950 text-slate-100 selection:bg-amber-400/20">
       <PublicHeader overDark />
       <main>
-        <Suspense fallback={<div className="min-h-dvh bg-[#050505]" />}>
+        <Suspense fallback={<div className="min-h-dvh bg-slate-950" />}>
           <RegisterForm />
         </Suspense>
       </main>
