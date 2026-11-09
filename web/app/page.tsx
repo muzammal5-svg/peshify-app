@@ -1,5 +1,7 @@
 "use client";
 
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { AppShell } from "@/components/layout/AppShell";
 import { RouteGuard } from "@/components/shared/RouteGuard";
@@ -21,9 +23,15 @@ function DashboardPage() {
   );
 }
 
-export default function HomePage() {
+function HomeContent() {
   const { user, loading, configured } = useAuth();
   const stored = useStoredSession();
+  const searchParams = useSearchParams();
+
+  // Allow previewing the dashboard with mock chamber data when ?view=dashboard
+  if (searchParams?.get("view") === "dashboard") {
+    return <DashboardPage />;
+  }
 
   // Session resolved (or impossible) with no user → landing for everyone,
   // including stale/revoked stored tokens.
@@ -34,12 +42,12 @@ export default function HomePage() {
   // resolves, then hand over to the dashboard.
   if (!user) {
     return (
-      <div className="min-h-dvh bg-[#090A0F] flex items-center justify-center">
+      <div className="min-h-dvh bg-slate-950 flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-[#0F1117] border border-white/[0.08] flex items-center justify-center">
-            <span className="text-zinc-100 font-bold">M</span>
+          <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center">
+            <span className="text-white font-bold">P</span>
           </div>
-          <div className="h-2 w-32 bg-zinc-800 rounded animate-shimmer" />
+          <div className="h-2 w-32 bg-slate-800 rounded animate-pulse" />
         </div>
       </div>
     );
@@ -52,5 +60,10 @@ export default function HomePage() {
   );
 }
 
-
-
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div className="min-h-dvh bg-slate-950" />}>
+      <HomeContent />
+    </Suspense>
+  );
+}

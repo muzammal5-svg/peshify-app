@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 import { StatCard } from "@/components/ui/StatCard";
+import { OnboardingChecklist } from "./OnboardingChecklist";
 import { Card } from "@/components/ui/Card";
 import { Badge, HearingStatusBadge, CaseStatusBadge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -102,6 +103,12 @@ export function ExecutiveDashboard() {
           </div>
         </div>
       </section>
+
+      {/* ── Onboarding Checklist (First-Login Practice Activation) ── */}
+      <OnboardingChecklist
+        caseCount={counts?.runningCases ?? 0}
+        clientCount={counts?.totalClients ?? 0}
+      />
 
       {/* ── SECTION (b): Stat Cards (4 KPI Cards Grid) ── */}
       <section>

@@ -1,0 +1,67 @@
+[
+  {
+    "route": "Landing Page",
+    "path": "/",
+    "loadTimeMs": 1944,
+    "horizontalOverflow": "PASS (0px overflow)",
+    "touchTargets": "WARN (13 small targets)",
+    "scores": {
+      "performance": 91,
+      "accessibility": 95,
+      "bestPractices": 96,
+      "seo": 100
+    }
+  },
+  {
+    "route": "Dashboard",
+    "path": "/?view=dashboard",
+    "loadTimeMs": 94,
+    "horizontalOverflow": "PASS (0px overflow)",
+    "touchTargets": "PASS (≥44px touch targets)",
+    "scores": {
+      "performance": 94,
+      "accessibility": 96,
+      "bestPractices": 96,
+      "seo": 100
+    }
+  },
+  {
+    "route": "Sign In",
+    "path": "/auth/sign-in",
+    "loadTimeMs": 194,
+    "horizontalOverflow": "PASS (0px overflow)",
+    "touchTargets": "WARN (4 small targets)",
+    "scores": {
+      "performance": 94,
+      "accessibility": 96,
+      "bestPractices": 96,
+      "seo": 100
+    }
+  },
+  {
+    "route": "Registration",
+    "path": "/register",
+    "loadTimeMs": 148,
+    "horizontalOverflow": "PASS (0px overflow)",
+    "touchTargets": "WARN (12 small targets)",
+    "scores": {
+      "performance": 94,
+      "accessibility": 95,
+      "bestPractices": 96,
+      "seo": 100
+    }
+  },
+  {
+    "route": "Privacy Policy",
+    "path": "/privacy",
+    "loadTimeMs": 137,
+    "horizontalOverflow": "PASS (0px overflow)",
+    "touchTargets": "WARN (11 small targets)",
+    "scores": {
+      "performance": 94,
+      "accessibility": 95,
+      "bestPractices": 96,
+      "seo": 100
+    }
+  }
+]
