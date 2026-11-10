@@ -2,14 +2,19 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronDown, Search } from "lucide-react";
+import {
+  ChevronDown, Search, HelpCircle, MessageCircle, Mail,
+  ArrowRight, Sparkles, X, ShieldCheck
+} from "lucide-react";
 import { PublicHeader } from "@/components/marketing/PublicHeader";
 import { PublicFooter } from "@/components/marketing/PublicFooter";
+import { FloatingWhatsApp } from "@/components/marketing/FloatingWhatsApp";
 import { Reveal } from "@/components/marketing/Reveal";
+import { whatsappLink, SITE } from "@/lib/siteConfig";
 import Link from "next/link";
 
 const CONTAINER = "max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8";
-const SECTION = "py-20 md:py-32";
+const SECTION = "py-16 md:py-24";
 
 interface FAQItem {
   category: string;
@@ -20,210 +25,290 @@ interface FAQItem {
 }
 
 export default function FAQPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "ur";
   const [search, setSearch] = useState("");
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [selectedCat, setSelectedCat] = useState<string>("All");
+  const [openId, setOpenId] = useState<string | null>("0-0");
 
   const faqs: FAQItem[] = [
     {
-      category: "General",
+      category: isRTL ? "عمومی معلومات" : "General",
       questions: [
         {
           q: t("faq.q1") || "What is Peshify?",
-          a: t("faq.a1") || "Peshify is a comprehensive law practice management platform designed specifically for Pakistani law firms."
+          a: t("faq.a1") || "Peshify is a modern chamber operating system engineered specifically for Pakistani advocates, barristers, and law firms across all court hierarchies."
         },
         {
           q: t("faq.q2") || "Who can use Peshify?",
-          a: t("faq.a2") || "Peshify is perfect for solo practitioners, small law firms, and large chambers managing multiple cases and clients."
+          a: t("faq.a2") || "Peshify is built for solo advocates, chamber associates, senior counsel, and large law partnerships managing daily cause lists, hearing diaries, and clients."
         },
         {
-          q: t("faq.q3") || "Is Peshify free?",
-          a: t("faq.a3") || "Yes! Peshify is 100% free with full access to all features. No payment, fees, or credit card is required."
-        },
-      ]
-    },
-    {
-      category: "Features",
-      questions: [
-        {
-          q: t("faq.q4") || "What is case management?",
-          a: t("faq.a4") || "Case management in Peshify lets you organize all case details, documents, and deadlines in one secure location."
-        },
-        {
-          q: t("faq.q5") || "How do reminders work?",
-          a: t("faq.a5") || "Peshify sends automated reminders via push notifications, email, and SMS for important dates and deadlines."
-        },
-        {
-          q: t("faq.q6") || "Can clients see their cases?",
-          a: t("faq.a6") || "Yes, clients have secure access to a portal showing their case status, documents, and communication history."
-        },
-        {
-          q: t("faq.q7") || "Does it support Urdu?",
-          a: t("faq.a7") || "Yes! Peshify has full Urdu language support with proper RTL formatting and culturally adapted features."
+          q: t("faq.q3") || "Is Peshify really free during early access?",
+          a: t("faq.a3") || "Yes! Peshify is 100% free with unrestricted access to all features during our launch period. No credit card, no trial expiration, and no hidden fees."
         },
       ]
     },
     {
-      category: "Pricing & Plans",
+      category: isRTL ? "فیچرز اور ٹولز" : "Features",
       questions: [
         {
-          q: t("faq.q8") || "Are there any hidden costs or limits?",
-          a: t("faq.a8") || "None. You get unlimited cases, cause lists, hearings, documents, and client records completely free."
+          q: t("faq.q4") || "How does the daily cause list feature work?",
+          a: t("faq.a4") || "Peshify compiles your chamber's daily court fixtures into an automated hearing list sorted by serial number, court, judge, and hearing stage."
         },
         {
-          q: t("faq.q9") || "Can my entire chamber use Peshify?",
-          a: t("faq.a9") || "Yes! You can invite partners, associates, and chamber staff with zero seat restrictions."
+          q: t("faq.q5") || "How do WhatsApp client notifications work?",
+          a: t("faq.a5") || "With a single click from any case or hearing entry, Peshify formats bilingual court progress notices and sends them directly to your client via WhatsApp."
         },
         {
-          q: t("faq.q10") || "Do I need to submit payment slips or receipts?",
-          a: t("faq.a10") || "No. There are no payment requirements or paywalls. Simply register and start managing your cases immediately."
+          q: t("faq.q6") || "Can clients or associates view case details?",
+          a: t("faq.a6") || "Yes, you can configure team role permissions for associates and clerks, and share structured PDF cause lists or case summaries with clients."
         },
         {
-          q: t("faq.q11") || "Will my data stay private and secure?",
-          a: t("faq.a11") || "Yes! All case files, notes, and records are isolated and encrypted with strict role-based access control."
+          q: t("faq.q7") || "Does it support native Urdu and Nastaliq typography?",
+          a: t("faq.a7") || "Yes! Peshify features native Urdu Nastaliq typography with right-to-left (RTL) mirroring across all screens and documents."
         },
       ]
     },
     {
-      category: "Security & Support",
+      category: isRTL ? "پلان اور ارلی ایکسس" : "Pricing & Access",
       questions: [
         {
-          q: t("faq.q12") || "How secure is my data?",
-          a: t("faq.a12") || "We use bank-level encryption, regular backups, and comply with international security standards."
+          q: t("faq.q8") || "Are there any limits on cases or documents?",
+          a: t("faq.a8") || "None. Early access advocates enjoy unlimited cases, cause lists, hearings, pleadings, and client directories with zero restrictions."
         },
         {
-          q: t("faq.q13") || "What support do you offer?",
-          a: t("faq.a13") || "We provide 24/7 support via WhatsApp, email, and our help center for all chambers."
+          q: t("faq.q9") || "Can multiple advocates from the same chamber share a firm account?",
+          a: t("faq.a9") || "Yes! You can invite partners, associates, and chamber clerks to your firm with separate login credentials and role-based permissions."
         },
         {
-          q: t("faq.q14") || "Can I export my data?",
-          a: t("faq.a14") || "Yes, you can export all your data anytime in standard formats. Your data belongs to you."
+          q: t("faq.q10") || "Do I need to submit payment receipts or credit card details?",
+          a: t("faq.a10") || "No. There are no credit card prompts or paywalls. Simply sign up and your chamber account is ready to use immediately."
+        },
+      ]
+    },
+    {
+      category: isRTL ? "رازداری اور سیکیورٹی" : "Security & Privacy",
+      questions: [
+        {
+          q: t("faq.q11") || "Will my chamber's data stay confidential?",
+          a: t("faq.a11") || "Absolutely. All legal files, client notes, and case records are protected by attorney-client privilege standards and isolated via PostgreSQL Row-Level Security."
+        },
+        {
+          q: t("faq.q12") || "How is data protected against loss or hardware failure?",
+          a: t("faq.a12") || "All data is encrypted in transit (TLS 1.3) and at rest (AES-256), with automated daily multi-region cloud backups."
+        },
+        {
+          q: t("faq.q13") || "What support is available if I need assistance?",
+          a: t("faq.a13") || "We provide direct WhatsApp support (+92 341 7359571) and email support for all Pakistani advocates and chambers."
+        },
+        {
+          q: t("faq.q14") || "Can I export my chamber data at any time?",
+          a: t("faq.a14") || "Yes. You retain 100% data ownership and can export your cause lists, client lists, and case files at any time."
         },
       ]
     }
   ];
 
+  const categories = ["All", ...faqs.map(f => f.category)];
+
   const filteredFaqs = faqs.map(item => ({
     ...item,
-    questions: item.questions.filter(
-      q => q.q.toLowerCase().includes(search.toLowerCase()) ||
-           q.a.toLowerCase().includes(search.toLowerCase())
-    )
+    questions: item.questions.filter(q => {
+      const matchesSearch = !search ||
+        q.q.toLowerCase().includes(search.toLowerCase()) ||
+        q.a.toLowerCase().includes(search.toLowerCase());
+      const matchesCategory = selectedCat === "All" || item.category === selectedCat;
+      return matchesSearch && matchesCategory;
+    })
   })).filter(item => item.questions.length > 0);
 
   return (
-    <div className="min-h-dvh bg-[#050505] text-[#EDE8E0] overflow-x-clip">
+    <div className="min-h-dvh bg-[#070A12] text-[#EDE8E0] selection:bg-primary/30 selection:text-white overflow-x-clip font-sans">
       <PublicHeader overDark />
 
       {/* ── HERO ── */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 text-center overflow-hidden bg-[#050505] border-b border-[rgba(237,232,224,0.10)]">
+      <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 text-center overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
           <div
-            className="absolute inset-0 opacity-[0.12]"
+            className="absolute inset-0 opacity-[0.05]"
             style={{
-              backgroundImage: `linear-gradient(rgba(237,232,224,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(237,232,224,0.12) 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)`,
+              backgroundSize: "48px 48px",
             }}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(5,5,5,0.4)_0%,#050505_80%)]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-amber-500/10 via-primary/15 to-transparent blur-3xl pointer-events-none" />
         </div>
 
         <div className={`${CONTAINER} relative z-10 max-w-3xl mx-auto space-y-4`}>
-          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#9A958C]">Knowledge Base</span>
-          <h1 className="font-heading font-bold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-[#EDE8E0]">
-            Frequently Asked Questions
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20 shadow-xs">
+            <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
+            <span>{isRTL ? "چیمبر نالج بیس" : "Chamber Knowledge Base & FAQ"}</span>
+          </div>
+
+          <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
+            {isRTL ? "اکثر پوچھے جانے والے سوالات" : "Frequently Asked Questions"}
           </h1>
-          <p className="text-base sm:text-lg text-[#C8C2B8] max-w-xl mx-auto leading-relaxed">
-            Find immediate answers about cause lists, diary alerts, pricing, and data security.
+
+          <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed">
+            {isRTL
+              ? "کاز لسٹ، پیشی ڈائری، واٹس ایپ الرٹس اور ڈیٹا سیکیورٹی سے متعلق تمام معلومات حاصل کریں۔"
+              : "Find immediate answers regarding daily cause lists, diary alerts, pricing, and attorney data security."}
           </p>
 
           {/* Search Bar */}
-          <div className="pt-4 max-w-lg mx-auto">
+          <div className="pt-4 max-w-xl mx-auto">
             <div className="relative">
-              <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9A958C]" />
+              <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
               <input
                 type="text"
-                placeholder={t("faq.search") || "Search questions..."}
+                placeholder={isRTL ? "سوال تلاش کریں..." : "Search questions by topic, feature, or keyword..."}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-[#111111] border border-[rgba(237,232,224,0.14)] py-3.5 ps-11 pe-4 text-sm text-[#EDE8E0] placeholder:text-[#5C5852] focus:outline-none focus:border-[#EDE8E0] rounded-none transition-colors"
+                className="w-full bg-card/80 border border-white/10 focus:border-amber-400/50 focus:ring-2 focus:ring-amber-400/20 py-3.5 ps-11 pe-10 text-sm text-white placeholder:text-slate-500 rounded-2xl transition-all shadow-lg outline-none backdrop-blur-md"
               />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch("")}
+                  className="absolute end-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
+          </div>
+
+          {/* Category Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+            {categories.map((cat) => {
+              const active = selectedCat === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCat(cat)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 min-h-[36px] ${
+                    active
+                      ? "bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20"
+                      : "bg-white/[0.05] text-slate-300 border border-white/10 hover:bg-white/[0.1] hover:text-white"
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── FAQS ── */}
-      <section className={`${SECTION} bg-[#050505]`}>
-        <div className={`${CONTAINER} max-w-4xl`}>
-          <div className="space-y-12">
-            {filteredFaqs.map((category, catIdx) => (
-              <div key={catIdx}>
-                <h2 className="font-heading text-xl font-bold uppercase tracking-[0.1em] text-[#EDE8E0] mb-6 pb-3 border-b border-[rgba(237,232,224,0.10)]">
-                  {category.category}
-                </h2>
+      {/* ── FAQS ACCORDION ── */}
+      <section className={SECTION}>
+        <div className={`${CONTAINER} max-w-3xl`}>
+          {filteredFaqs.length === 0 ? (
+            <div className="text-center py-16 rounded-2xl border border-white/10 bg-white/[0.02] p-8">
+              <HelpCircle className="w-12 h-12 text-slate-500 mx-auto mb-3" />
+              <h3 className="text-lg font-bold text-white mb-1">
+                {isRTL ? "کوئی سوال نہیں ملا" : "No matching questions found"}
+              </h3>
+              <p className="text-xs text-slate-400 mb-4">
+                {isRTL
+                  ? "براہ کرم کوئی دوسرا لفظ تلاش کریں یا براہ راست سپورٹ سے رابطہ کریں۔"
+                  : `We couldn't find any questions matching "${search}".`}
+              </p>
+              <button
+                type="button"
+                onClick={() => { setSearch(""); setSelectedCat("All"); }}
+                className="btn-secondary text-xs px-4 py-2"
+              >
+                {isRTL ? "تمام سوالات دیکھیں" : "Clear filters"}
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-10">
+              {filteredFaqs.map((category, catIdx) => (
+                <div key={catIdx} className="space-y-4">
+                  <h2 className="font-heading text-lg font-bold uppercase tracking-wider text-amber-300 pb-2 border-b border-white/10 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-400" />
+                    <span>{category.category}</span>
+                  </h2>
 
-                <div className="space-y-3">
-                  {category.questions.map((faq, idx) => {
-                    const id = `${catIdx}-${idx}`;
-                    const isOpen = openId === id;
+                  <div className="space-y-3">
+                    {category.questions.map((faq, idx) => {
+                      const id = `${catIdx}-${idx}`;
+                      const isOpen = openId === id;
 
-                    return (
-                      <Reveal key={idx}>
-                        <div className="border border-[rgba(237,232,224,0.12)] bg-[#050505] transition-colors duration-200">
+                      return (
+                        <div
+                          key={idx}
+                          className={`rounded-2xl border transition-all duration-200 overflow-hidden shadow-sm ${
+                            isOpen
+                              ? "border-amber-400/30 bg-gradient-to-b from-white/[0.05] to-white/[0.02]"
+                              : "border-white/10 bg-gradient-to-b from-white/[0.03] to-white/[0.01] hover:border-white/20"
+                          }`}
+                        >
                           <button
+                            type="button"
                             onClick={() => setOpenId(isOpen ? null : id)}
-                            className="w-full p-5 sm:p-6 text-start flex items-center justify-between gap-4 transition-colors hover:bg-[#0A0A0A]"
+                            className="w-full p-5 sm:p-6 text-start flex items-center justify-between gap-4 transition-colors hover:bg-white/[0.02]"
+                            aria-expanded={isOpen}
                           >
-                            <span className="font-semibold text-sm sm:text-base text-[#EDE8E0]">
+                            <span className="font-semibold text-sm sm:text-base text-white leading-snug">
                               {faq.q}
                             </span>
-                            <ChevronDown
-                              className={`w-4 h-4 text-[#9A958C] shrink-0 transition-transform duration-200 ${
-                                isOpen ? "rotate-180 text-[#EDE8E0]" : ""
-                              }`}
-                            />
+                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isOpen ? "bg-amber-400/10 text-amber-300" : "bg-white/5 text-slate-400"}`}>
+                              <ChevronDown
+                                className={`w-4 h-4 transition-transform duration-200 ${
+                                  isOpen ? "rotate-180" : ""
+                                }`}
+                              />
+                            </div>
                           </button>
 
                           {isOpen && (
-                            <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-sm text-[#C8C2B8] border-t border-[rgba(237,232,224,0.08)] pt-4 leading-relaxed bg-[#0A0A0A]">
+                            <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-sm text-slate-300 border-t border-white/10 pt-4 leading-relaxed bg-black/10">
                               {faq.a}
                             </div>
                           )}
                         </div>
-                      </Reveal>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              ))}
+            </div>
+          )}
 
-      {/* ── STILL HAVE QUESTIONS ── */}
-      <section className="py-20 md:py-28 bg-[#050505] border-t border-[rgba(237,232,224,0.10)] text-center">
-        <div className={`${CONTAINER} max-w-2xl`}>
-          <div className="border border-[rgba(237,232,224,0.12)] bg-[#0A0A0A] p-10 sm:p-14 space-y-4">
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#9A958C]">Still Have Questions?</span>
-            <h2 className="font-heading font-bold text-2xl sm:text-3xl text-[#EDE8E0]">
-              Can&apos;t find what you&apos;re looking for?
-            </h2>
-            <p className="text-sm text-[#C8C2B8]">
-              Our chamber support specialists are available on WhatsApp and email.
+          {/* ── STILL HAVE QUESTIONS BANNER ── */}
+          <div className="mt-16 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#0B1B3A] via-[#0E234A] to-[#081329] border border-amber-400/20 text-center shadow-xl space-y-4">
+            <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-300 flex items-center justify-center mx-auto">
+              <MessageCircle className="w-6 h-6" strokeWidth={1.75} />
+            </div>
+            <h3 className="font-heading font-bold text-xl text-white">
+              {isRTL ? "کیا آپ کے پاس کوئی اور سوال ہے؟" : "Still Have Questions About Setup?"}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
+              {isRTL
+                ? "ہماری چیمبر سپورٹ ٹیم 24 گھنٹے واٹس ایپ پر وکلاء اور چیمبرز کے سوالات کے جوابات دینے کے لیے حاضر ہے۔"
+                : "Our chamber onboarding team is ready on WhatsApp 24/7 to walk counsel through migration, multi-associate setup, and daily cause list automation."}
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <a
+                href={whatsappLink("Assalam-o-Alaikum, I have a question regarding Peshify.")}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-primary min-h-[44px] px-6 py-2.5 text-xs font-semibold rounded-xl inline-flex items-center gap-2"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>{isRTL ? "واٹس ایپ سپورٹ سے بات کریں" : "Chat on WhatsApp"}</span>
+              </a>
               <Link
                 href="/contact"
-                className="btn-primary"
+                className="btn-secondary min-h-[44px] px-5 py-2.5 text-xs font-semibold rounded-xl bg-white/5 border-white/10 text-white hover:bg-white/10 inline-flex items-center gap-2"
               >
-                Contact Support
-              </Link>
-              <Link
-                href="/register"
-                className="btn-secondary"
-              >
-                Get Started Free
+                <Mail className="w-4 h-4 text-amber-400" />
+                <span>{isRTL ? "رابطہ صفحہ کھولیں" : "Contact Chamber Office"}</span>
               </Link>
             </div>
           </div>
@@ -231,6 +316,7 @@ export default function FAQPage() {
       </section>
 
       <PublicFooter />
+      <FloatingWhatsApp />
     </div>
   );
 }

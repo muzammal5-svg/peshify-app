@@ -45,12 +45,13 @@ export function LegalDocument({
 
       <div className="space-y-8">
         {definition.sections.map((s) => (
-          <section key={s.id} id={s.id} className="space-y-3">
-            <h2 className="font-heading text-base font-bold text-[#EDE8E0] md:text-lg">
-              {t(s.titleKey)}
+          <section key={s.id} id={s.id} className="space-y-3 pb-6 border-b border-white/[0.06] last:border-0 last:pb-0">
+            <h2 className="font-heading text-lg font-bold text-white md:text-xl flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              <span>{t(s.titleKey)}</span>
             </h2>
             {s.bodyKeys.map((k) => (
-              <p key={k} className="text-sm leading-relaxed text-[#9A958C]">{t(k)}</p>
+              <p key={k} className="text-sm leading-relaxed text-slate-300">{t(k)}</p>
             ))}
           </section>
         ))}

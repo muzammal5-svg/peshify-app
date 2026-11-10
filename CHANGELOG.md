@@ -4,6 +4,30 @@ This changelog records all design refinements, architectural upgrades, and bug f
 
 ---
 
+## [2.3.0] - Universal SaaS Design Alignment (Features, FAQ, Contact, Help & Legal Pages)
+
+### ✨ Marketing & Public Routes Overhaul
+- **Features Page ([web/app/features/page.tsx](file:///d:/peshify-app/web/app/features/page.tsx)):**
+  - Upgraded from brutalist 0-radius black blocks to the Home Page's Obsidian & Gold theme (`bg-[#070A12]`).
+  - Added modern `rounded-2xl` cards with `bg-gradient-to-b from-white/[0.04] to-white/[0.01]`, tinted icon squircles (`bg-amber-400/10 text-amber-300`), and emerald checkmark benefits.
+  - Redesigned the tier comparison table into a frosted glass card with sticky header and highlighted chamber tier.
+  - Added the stately Deep Navy final chamber CTA banner matching the Home Page.
+- **FAQ Knowledge Base ([web/app/faq/page.tsx](file:///d:/peshify-app/web/app/faq/page.tsx)):**
+  - Integrated interactive category pills (`All`, `General`, `Features`, `Pricing & Access`, `Security & Privacy`).
+  - Upgraded accordion cards to modern `rounded-2xl` cards with smooth chevron animations, high-contrast typography, and quick search.
+  - Added a dedicated 24/7 WhatsApp chamber onboarding support banner.
+- **Contact Page ([web/app/contact/page.tsx](file:///d:/peshify-app/web/app/contact/page.tsx)):**
+  - Transformed into 3 stately channel cards: WhatsApp Rapid Helpline, Email Desk, and Chamber Presence.
+  - Overhauled contact form into a `rounded-3xl` glass container with floating focus rings, instant validation, response time guarantees, and success states.
+- **Legal Compliance Pages ([privacy](file:///d:/peshify-app/web/app/privacy/page.tsx), [terms](file:///d:/peshify-app/web/app/terms/page.tsx), [refund-policy](file:///d:/peshify-app/web/app/refund-policy/page.tsx)):**
+  - Replaced flat black boxes with Deep Navy & Gold gradient hero headers, frosted glass document containers, and direct WhatsApp inquiry buttons.
+  - Upgraded [web/components/marketing/LegalDocument.tsx](file:///d:/peshify-app/web/components/marketing/LegalDocument.tsx) typography and section dividers.
+- **Help Center & Admin Polish:**
+  - Modernized [web/app/help/page.tsx](file:///d:/peshify-app/web/app/help/page.tsx) with direct WhatsApp 24/7 helpline, FAQ shortcut card, and direct phone contact.
+  - Removed remaining legacy brutalist styles from [web/app/admin/page.tsx](file:///d:/peshify-app/web/app/admin/page.tsx) (rounded pills and modern input fields).
+
+---
+
 ## [2.2.0] - Production Hardening, Reminders DB Migration & Long-String Mobile Safety
 
 ### 🛠️ Reminders Database & UI Overhaul

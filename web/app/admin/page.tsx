@@ -582,15 +582,15 @@ function AdminDashboard() {
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               {/* Filter pills */}
-              <div className="flex items-center gap-1.5 overflow-x-auto">
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
                 {(["pending", "verified", "rejected", "all"] as const).map((st) => (
                   <button
                     key={st}
                     onClick={() => { setPaymentFilter(st); setPaymentPage(1); }}
-                    className={`px-3 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider transition-all ${
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                       paymentFilter === st
-                        ? "bg-[#EDE8E0] text-[#050505] shadow-xs"
-                        : "bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717] border border-[rgba(237,232,224,0.14)]"
+                        ? "bg-navy-900 text-white shadow-xs"
+                        : "bg-surface text-navy-600 hover:text-navy-900 border border-navy-200"
                     }`}
                   >
                     {st}
@@ -600,13 +600,13 @@ function AdminDashboard() {
 
               {/* Search box */}
               <div className="relative w-full sm:w-64">
-                <Search className="w-4 h-4 absolute start-3 top-1/2 -translate-y-1/2 text-muted" />
+                <Search className="w-4 h-4 absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search firm or ref no..."
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setPaymentPage(1); }}
-                  className="w-full ps-9 pe-3 py-1.5 text-xs text-[#EDE8E0] rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] placeholder:text-[#5C5852] focus:outline-none focus:border-[#EDE8E0]"
+                  className="w-full ps-9 pe-3 py-1.5 text-xs text-navy-900 rounded-xl border border-navy-200 bg-surface placeholder:text-navy-400 focus:outline-none focus:border-navy-900"
                 />
               </div>
             </div>
@@ -766,15 +766,16 @@ function AdminDashboard() {
         {activeTab === "firms" && (
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-1.5 overflow-x-auto">
+              {/* Filter pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
                 {(["all", "active", "trialing", "grace", "expired", "suspended"] as const).map((st) => (
                   <button
                     key={st}
                     onClick={() => { setFirmFilter(st); setFirmPage(1); }}
-                    className={`px-3 py-1.5 rounded-none text-xs font-semibold uppercase tracking-wider transition-all ${
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                       firmFilter === st
-                        ? "bg-[#EDE8E0] text-[#050505] shadow-xs"
-                        : "bg-[#111111] text-[#9A958C] hover:text-[#EDE8E0] hover:bg-[#171717] border border-[rgba(237,232,224,0.14)]"
+                        ? "bg-navy-900 text-white shadow-xs"
+                        : "bg-surface text-navy-600 hover:text-navy-900 border border-navy-200"
                     }`}
                   >
                     {st}
@@ -783,13 +784,13 @@ function AdminDashboard() {
               </div>
 
               <div className="relative w-full sm:w-64">
-                <Search className="w-4 h-4 absolute start-3 top-1/2 -translate-y-1/2 text-muted" />
+                <Search className="w-4 h-4 absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search firm, email, phone..."
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setFirmPage(1); }}
-                  className="w-full ps-9 pe-3 py-1.5 text-xs text-[#EDE8E0] rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] placeholder:text-[#5C5852] focus:outline-none focus:border-[#EDE8E0]"
+                  className="w-full ps-9 pe-3 py-1.5 text-xs text-navy-900 rounded-xl border border-navy-200 bg-surface placeholder:text-navy-400 focus:outline-none focus:border-navy-900"
                 />
               </div>
             </div>
@@ -1357,20 +1358,20 @@ function AdminDashboard() {
               required
             />
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-[#EDE8E0]">Instructions for Subscribers</label>
+              <label className="text-xs font-semibold text-navy-900">Instructions for Subscribers</label>
               <textarea
                 value={editAccount.instructions || ""}
                 onChange={(e) => setEditAccount({ ...editAccount, instructions: e.target.value })}
                 rows={3}
-                className="w-full text-xs text-[#EDE8E0] p-2.5 rounded-none border border-[rgba(237,232,224,0.14)] bg-[#111111] placeholder:text-[#5C5852] focus:outline-none focus:border-[#EDE8E0]"
+                className="w-full text-xs text-navy-900 p-2.5 rounded-xl border border-navy-200 bg-surface placeholder:text-navy-400 focus:outline-none focus:border-navy-900"
               />
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-[#EDE8E0]">
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-navy-900">
               <input
                 type="checkbox"
                 checked={editAccount.is_active}
                 onChange={(e) => setEditAccount({ ...editAccount, is_active: e.target.checked })}
-                className="rounded border-border text-gold focus:ring-gold"
+                className="rounded border-navy-300 text-gold focus:ring-gold"
               />
               <span>Enable this payment method for checkout</span>
             </label>
