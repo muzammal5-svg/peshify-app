@@ -79,8 +79,8 @@ export function OnboardingChecklist({
   const completedCount = steps.filter(s => s.completed).length;
   const progressPercent = Math.round((completedCount / steps.length) * 100);
 
-  // If already dismissed or completely done, don't show
-  if (!mounted || dismissed || completedCount === steps.length) {
+  // If already dismissed, completely done, or logged in as clerk, don't show
+  if (!mounted || dismissed || completedCount === steps.length || profile?.role === "clerk") {
     return null;
   }
 

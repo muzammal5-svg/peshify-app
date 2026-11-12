@@ -67,10 +67,10 @@ export function formatFileSize(bytes: number): string {
 
 export const ALLOWED_MIME_TYPES = [
   "application/pdf",
-  "image/jpeg", "image/png", "image/webp",
-  "application/msword",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "image/jpeg",
+  "image/png",
 ] as const;
 
-export const ALLOWED_MIME_ACCEPT = ALLOWED_MIME_TYPES.join(",");
-export const MAX_FILE_SIZE       = 50 * 1024 * 1024; // 50 MB
+export const ALLOWED_MIME_ACCEPT = ".pdf,.docx,.jpg,.jpeg,.png,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png";
+export const MAX_FILE_SIZE       = 10 * 1024 * 1024; // 10 MB

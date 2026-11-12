@@ -18,6 +18,7 @@ import { SkeletonTable }   from "@/components/ui/Skeleton";
 import { Table }           from "@/components/ui/Table";
 import { ClientCard }      from "@/components/clients/ClientCard";
 import { useClients, useClientCaseCounts } from "@/hooks/useClients";
+import { useRoleGuard } from "@/hooks/useRoleGuard";
 import { formatPhoneDisplay } from "@/lib/phone";
 import { cn, isUrdu, textDir } from "@/lib/utils";
 import type { Client }     from "@/types/supabase";
@@ -99,6 +100,7 @@ function Pagination({
 function ClientsPage() {
   const { t }    = useTranslation();
   const router   = useRouter();
+  const { can }  = useRoleGuard();
 
   const [search,       setSearch]       = useState("");
   const [activeFilter, setActiveFilter] = useState<ActiveFilter>("all");
@@ -128,11 +130,13 @@ function ClientsPage() {
     <AppShell
       pageTitle={t("clients.title")}
       headerActions={
-        <Link href="/clients/new">
-          <Button size="sm" leftIcon={<Plus className="w-4 h-4" />}>
-            {t("clients.new")}
-          </Button>
-        </Link>
+        can("clients:create") ? (
+          <Link href="/clients/new">
+            <Button size="sm" leftIcon={<Plus className="w-4 h-4" />}>
+              {t("clients.new")}
+            </Button>
+          </Link>
+        ) : undefined
       }
     >
       <div className="space-y-4">
@@ -153,11 +157,13 @@ function ClientsPage() {
             />
           </div>
           {/* Desktop add button already in header; show on mobile too */}
-          <Link href="/clients/new" className="md:hidden">
-            <Button size="md" leftIcon={<Plus className="w-4 h-4" />}>
-              {t("common.addNew")}
-            </Button>
-          </Link>
+          {can("clients:create") && (
+            <Link href="/clients/new" className="md:hidden">
+              <Button size="md" leftIcon={<Plus className="w-4 h-4" />}>
+                {t("common.addNew")}
+              </Button>
+            </Link>
+          )}
         </div>
 
         {/* ── Filter pills ── */}
@@ -192,9 +198,11 @@ function ClientsPage() {
               title={t("common.noData")}
               message={search ? t("common.noClientsMatch", { search }) : t("common.getStarted")}
               action={
-                <Link href="/clients/new">
-                  <Button leftIcon={<Plus className="w-4 h-4" />}>{t("clients.new")}</Button>
-                </Link>
+                can("clients:create") ? (
+                  <Link href="/clients/new">
+                    <Button leftIcon={<Plus className="w-4 h-4" />}>{t("clients.new")}</Button>
+                  </Link>
+                ) : undefined
               }
             />
           ) : (
@@ -216,9 +224,11 @@ function ClientsPage() {
               title={t("common.noData")}
               message={search ? t("common.noClientsMatch", { search }) : t("common.getStarted")}
               action={
-                <Link href="/clients/new">
-                  <Button leftIcon={<Plus className="w-4 h-4" />}>{t("clients.new")}</Button>
-                </Link>
+                can("clients:create") ? (
+                  <Link href="/clients/new">
+                    <Button leftIcon={<Plus className="w-4 h-4" />}>{t("clients.new")}</Button>
+                  </Link>
+                ) : undefined
               }
             />
           ) : (

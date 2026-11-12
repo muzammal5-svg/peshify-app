@@ -274,7 +274,7 @@ function CaseActionsMenu({
 }) {
   const { t }       = useTranslation();
   const toast       = useToast();
-  const { canDelete, isSuperAdmin, isAdminOrAbove } = useRoleGuard();
+  const { can, canDelete, isSuperAdmin, isAdminOrAbove } = useRoleGuard();
   const { lock } = useMutationLock();
   const softDelete  = useSoftDeleteCase();
   const [open,    setOpen]    = useState(false);
@@ -302,27 +302,33 @@ function CaseActionsMenu({
             <div className="absolute end-0 top-full mt-1.5 w-52 bg-[#0F1117] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/[0.08] z-50 animate-slide-down overflow-hidden text-zinc-100">
               {status === "running" && (
                 <>
-                  <Link href={`/cases/running?updateCaseId=${caseId}`} onClick={() => setOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-3 text-sm text-zinc-300 hover:bg-white/[0.05] hover:text-zinc-100 transition-colors">
-                    <CalendarPlus className="w-4 h-4 text-zinc-400" /> {t("common.updateHearing")}
-                  </Link>
-                  <Link href={`/cases/edit?id=${caseId}`} onClick={() => setOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-3 text-sm text-zinc-300 hover:bg-white/[0.05] hover:text-zinc-100 transition-colors">
-                    <Edit className="w-4 h-4 text-zinc-400" /> {t("common.edit")}
-                  </Link>
+                  {can("hearings:edit") && (
+                    <Link href={`/cases/running?updateCaseId=${caseId}`} onClick={() => setOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-3 text-sm text-zinc-300 hover:bg-white/[0.05] hover:text-zinc-100 transition-colors">
+                      <CalendarPlus className="w-4 h-4 text-zinc-400" /> {t("common.updateHearing")}
+                    </Link>
+                  )}
+                  {can("cases:edit") && (
+                    <Link href={`/cases/edit?id=${caseId}`} onClick={() => setOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-3 text-sm text-zinc-300 hover:bg-white/[0.05] hover:text-zinc-100 transition-colors">
+                      <Edit className="w-4 h-4 text-zinc-400" /> {t("common.edit")}
+                    </Link>
+                  )}
+                  {can("cases:decide") && (
                     <button onClick={() => { setOpen(false); onDecide(); }} {...lock}
                       className="flex items-center gap-2.5 w-full px-4 py-3 text-sm text-zinc-300 hover:bg-white/[0.05] hover:text-zinc-100 transition-colors disabled:opacity-40">
                       <CheckSquare className="w-4 h-4 text-zinc-400" /> {t("common.markAsDecided")}
                     </button>
+                  )}
                 </>
               )}
-              {status === "decided" && isAdminOrAbove && (
+              {status === "decided" && can("cases:reopen") && (
                   <button onClick={() => { setOpen(false); onReopen(); }} {...lock}
                     className="flex items-center gap-2.5 w-full px-4 py-3 text-sm text-zinc-300 hover:bg-white/[0.05] hover:text-zinc-100 transition-colors disabled:opacity-40">
                     <RefreshCw className="w-4 h-4 text-zinc-400" /> {t("common.reopenCase")}
                   </button>
               )}
-              {canDelete && (
+              {can("cases:delete") && (
                 <>
                   <div className="border-t border-white/[0.08]" />
                   <button onClick={() => { setOpen(false); setConfirm(true); }} {...lock}

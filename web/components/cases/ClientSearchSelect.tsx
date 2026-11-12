@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Link         from "next/link";
 import { Search, X, UserPlus, ChevronDown } from "lucide-react";
 import { useClients } from "@/hooks/useClients";
+import { useRoleGuard } from "@/hooks/useRoleGuard";
 import { QueryErrorState } from "@/components/ui/QueryErrorState";
 import { cn, isUrdu, textDir } from "@/lib/utils";
 import type { Client } from "@/types/supabase";
@@ -22,6 +23,7 @@ export function ClientSearchSelect({
   value, onChange, error, disabled, className, newClientHref = "/clients/new",
 }: ClientSearchSelectProps) {
   const { t } = useTranslation();
+  const { can } = useRoleGuard();
   const [open,   setOpen]   = useState(false);
   const [search, setSearch] = useState("");
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -145,15 +147,17 @@ export function ClientSearchSelect({
           </div>
 
           {/* + New client shortcut */}
-          <div className="border-t border-border p-2 bg-muted/20">
-            <Link
-              href={newClientHref}
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-primary hover:bg-primary/10 transition-colors"
-            >
-              <UserPlus className="w-3.5 h-3.5 text-primary" /> {t("common.addNewClient")}
-            </Link>
-          </div>
+          {can("clients:create") && (
+            <div className="border-t border-border p-2 bg-muted/20">
+              <Link
+                href={newClientHref}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-primary hover:bg-primary/10 transition-colors"
+              >
+                <UserPlus className="w-3.5 h-3.5 text-primary" /> {t("common.addNewClient")}
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </div>

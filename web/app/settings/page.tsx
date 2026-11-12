@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import {
   User,
+  Users,
   Globe,
   Info,
   ChevronRight,
@@ -38,7 +39,7 @@ import { cn } from "@/lib/utils";
 
 function SettingsPage() {
   const { t } = useTranslation();
-  const { isAdminOrAbove } = useRoleGuard();
+  const { can, isAdminOrAbove } = useRoleGuard();
   const { signOut } = useAuth();
   const { mode, setMode, accent, setAccent, accents } = useTheme();
   const router = useRouter();
@@ -178,12 +179,20 @@ function SettingsPage() {
         </section>
 
         {/* Admin config */}
-        {isAdminOrAbove && (
+        {can("settings:admin_config") && (
           <section>
             <p className="text-xs font-semibold uppercase tracking-wider text-navy-500 mb-2 px-1 flex items-center gap-1">
               <Shield className="w-3.5 h-3.5 text-gold" /> {t("settings.adminConfig")}
             </p>
             <Card padding="none" className="divide-y divide-border">
+              <Link
+                href="/settings/members"
+                className="flex items-center gap-3 px-4 py-3.5 hover:bg-white/[0.04] transition-colors group"
+              >
+                <Users className="w-4 h-4 text-navy-400 group-hover:text-gold transition-colors" />
+                <span className="flex-1 text-sm font-semibold text-navy">Chamber Members & Munshi</span>
+                <ChevronRight className="w-4 h-4 text-navy-400 group-hover:text-gold transition-colors" />
+              </Link>
               <Link
                 href="/settings/case-types"
                 className="flex items-center gap-3 px-4 py-3.5 hover:bg-white/[0.04] transition-colors group"

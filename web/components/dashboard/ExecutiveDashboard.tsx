@@ -20,6 +20,7 @@ import { QueryErrorState } from "@/components/ui/QueryErrorState";
 import { Skeleton, SkeletonCard } from "@/components/ui/Skeleton";
 import { useDashboardView } from "@/hooks/useDashboardView";
 import { useAuth } from "@/providers/AuthProvider";
+import { useRoleGuard } from "@/hooks/useRoleGuard";
 import { fmtDate, todayKarachi, isUrdu, textDir } from "@/lib/utils";
 import { toZonedTime } from "date-fns-tz";
 import { BRAND } from "@/lib/brand";
@@ -35,6 +36,7 @@ function getTimeOfDay(t: (k: string) => string): string {
 export function ExecutiveDashboard() {
   const { t } = useTranslation();
   const { profile, firm } = useAuth();
+  const { can } = useRoleGuard();
   const { data, isLoading, isError, refetch } = useDashboardView();
 
   const timeOfDay = getTimeOfDay(t);
@@ -93,13 +95,15 @@ export function ExecutiveDashboard() {
               <span>Cause List ({todayHearings.length})</span>
             </Link>
 
-            <Link
-              href="/cases/new"
-              className="btn-primary text-xs md:text-sm font-semibold flex items-center gap-2 px-4 py-2.5 rounded-xl min-h-[44px] shadow-xs hover:shadow-md"
-            >
-              <Plus className="w-4 h-4" strokeWidth={2} />
-              <span>{t("cases.newCase") || "New Case"}</span>
-            </Link>
+            {can("cases:create") && (
+              <Link
+                href="/cases/new"
+                className="btn-primary text-xs md:text-sm font-semibold flex items-center gap-2 px-4 py-2.5 rounded-xl min-h-[44px] shadow-xs hover:shadow-md"
+              >
+                <Plus className="w-4 h-4" strokeWidth={2} />
+                <span>{t("cases.newCase") || "New Case"}</span>
+              </Link>
+            )}
           </div>
         </div>
       </section>
@@ -500,11 +504,13 @@ export function ExecutiveDashboard() {
             title="No Clients Registered Yet"
             description="Add your first client to track cases, generate receipts, and send WhatsApp updates."
             action={
-              <Link href="/clients/new">
-                <Button size="sm" leftIcon={<UserPlus className="w-4 h-4" strokeWidth={2} />}>
-                  Add Client
-                </Button>
-              </Link>
+              can("clients:create") ? (
+                <Link href="/clients/new">
+                  <Button size="sm" leftIcon={<UserPlus className="w-4 h-4" strokeWidth={2} />}>
+                    Add Client
+                  </Button>
+                </Link>
+              ) : undefined
             }
             className="py-6"
           />
@@ -543,41 +549,45 @@ export function ExecutiveDashboard() {
           Chamber Quick Operations
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <Link
-            href="/cases/new"
-            className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-secondary/50 hover:bg-secondary border border-border/80 hover:border-primary/40 transition-all text-center min-h-[56px] group active:scale-[0.98]"
-          >
-            <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-              <Briefcase className="w-5 h-5" strokeWidth={1.75} />
-            </div>
-            <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
-              Add New Case
-            </span>
-          </Link>
+          {can("cases:create") && (
+            <Link
+              href="/cases/new"
+              className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-secondary/50 hover:bg-secondary border border-border/80 hover:border-primary/40 transition-all text-center min-h-[56px] group active:scale-[0.98]"
+            >
+              <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+                <Briefcase className="w-5 h-5" strokeWidth={1.75} />
+              </div>
+              <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
+                Add New Case
+              </span>
+            </Link>
+          )}
 
           <Link
-            href="/hearings/new"
+            href="/cause-list"
             className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-secondary/50 hover:bg-secondary border border-border/80 hover:border-amber-500/40 transition-all text-center min-h-[56px] group active:scale-[0.98]"
           >
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 group-hover:scale-105 transition-transform">
               <CalendarCheck className="w-5 h-5" strokeWidth={1.75} />
             </div>
             <span className="text-xs font-semibold text-foreground group-hover:text-amber-500 transition-colors">
-              Add Hearing
+              Update Hearing
             </span>
           </Link>
 
-          <Link
-            href="/clients/new"
-            className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-secondary/50 hover:bg-secondary border border-border/80 hover:border-emerald-500/40 transition-all text-center min-h-[56px] group active:scale-[0.98]"
-          >
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 group-hover:scale-105 transition-transform">
-              <UserPlus className="w-5 h-5" strokeWidth={1.75} />
-            </div>
-            <span className="text-xs font-semibold text-foreground group-hover:text-emerald-500 transition-colors">
-              Add Client
-            </span>
-          </Link>
+          {can("clients:create") && (
+            <Link
+              href="/clients/new"
+              className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-secondary/50 hover:bg-secondary border border-border/80 hover:border-emerald-500/40 transition-all text-center min-h-[56px] group active:scale-[0.98]"
+            >
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 group-hover:scale-105 transition-transform">
+                <UserPlus className="w-5 h-5" strokeWidth={1.75} />
+              </div>
+              <span className="text-xs font-semibold text-foreground group-hover:text-emerald-500 transition-colors">
+                Add Client
+              </span>
+            </Link>
+          )}
 
           <a
             href={whatsappLink("Assalam-o-Alaikum, this is an automated court hearing update from your legal counsel via Peshify.")}

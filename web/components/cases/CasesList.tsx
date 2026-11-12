@@ -15,6 +15,7 @@ import { SkeletonTable, SkeletonCard } from "@/components/ui/Skeleton";
 import { CaseStatusBadge, Badge, OutcomeBadge } from "@/components/ui/Badge";
 import { CaseCard }     from "./CaseCard";
 import { useCases }     from "@/hooks/useCases";
+import { useRoleGuard } from "@/hooks/useRoleGuard";
 import { fmtDate, isUrdu, textDir } from "@/lib/utils";
 import type { CaseStatus, Case } from "@/types/supabase";
 
@@ -58,6 +59,7 @@ function Pagination({ page, totalPages, onChange }: {
 export function CasesList({ status, title }: CasesListProps) {
   const { t }   = useTranslation();
   const router  = useRouter();
+  const { can } = useRoleGuard();
 
   const [search, setSearch] = useState("");
   const [page,   setPage]   = useState(1);
@@ -87,7 +89,7 @@ export function CasesList({ status, title }: CasesListProps) {
             ) : undefined}
           />
         </div>
-        {!isDecided && (
+        {!isDecided && can("cases:create") && (
           <Link href="/cases/new" className="flex-shrink-0">
             <Button leftIcon={<Plus className="w-4 h-4" />}>{t("cases.new")}</Button>
           </Link>
@@ -110,7 +112,7 @@ export function CasesList({ status, title }: CasesListProps) {
           ? Array.from({ length: 5 }).map((_, i) => <SkeletonCard key={i} />)
           : data?.cases.length === 0
           ? <EmptyState icon={Briefcase} title={t("common.noData")}
-              action={!isDecided ? <Link href="/cases/new"><Button leftIcon={<Plus className="w-4 h-4"/>}>{t("cases.new")}</Button></Link> : undefined}
+              action={!isDecided && can("cases:create") ? <Link href="/cases/new"><Button leftIcon={<Plus className="w-4 h-4"/>}>{t("cases.new")}</Button></Link> : undefined}
             />
           : <div className="space-y-2">
               {data?.cases.map(c => <CaseCard key={c.id} case_={c} />)}
@@ -124,7 +126,7 @@ export function CasesList({ status, title }: CasesListProps) {
           ? <SkeletonTable rows={8} />
           : data?.cases.length === 0
           ? <EmptyState icon={Briefcase} title={t("common.noData")}
-              action={!isDecided ? <Link href="/cases/new"><Button leftIcon={<Plus className="w-4 h-4"/>}>{t("cases.new")}</Button></Link> : undefined}
+              action={!isDecided && can("cases:create") ? <Link href="/cases/new"><Button leftIcon={<Plus className="w-4 h-4"/>}>{t("cases.new")}</Button></Link> : undefined}
             />
           : <Table
               columns={[

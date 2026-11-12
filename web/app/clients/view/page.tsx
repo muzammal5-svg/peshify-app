@@ -148,7 +148,7 @@ function ClientViewPage() {
   const toast           = useToast();
   const params          = useSearchParams();
   const id              = params.get("id");
-  const { canWrite, canDelete } = useRoleGuard();
+  const { can, canWrite, canDelete } = useRoleGuard();
   const { lock } = useMutationLock();
 
   const { data: client, isLoading, isError, refetch } = useClient(id);
@@ -181,7 +181,7 @@ function ClientViewPage() {
       pageTitle={client.full_name}
       showBack
       headerActions={
-        canWrite ? (
+        can("clients:edit") ? (
           <Link href={`/clients/edit?id=${client.id}`}>
             <Button size="sm" variant="secondary" leftIcon={<Edit className="w-4 h-4" strokeWidth={1.75} />} className="min-h-[44px]">
               {t("common.edit")}
@@ -224,9 +224,11 @@ function ClientViewPage() {
             </div>
           </div>
           <div className="flex items-center justify-end gap-2 flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-border/50">
-            <Link href={`/cases/new?clientId=${client.id}`}>
-              <Button size="sm" leftIcon={<Plus className="w-3.5 h-3.5" />} className="min-h-[40px]">{t("common.case")}</Button>
-            </Link>
+            {can("cases:create") && (
+              <Link href={`/cases/new?clientId=${client.id}`}>
+                <Button size="sm" leftIcon={<Plus className="w-3.5 h-3.5" />} className="min-h-[40px]">{t("common.case")}</Button>
+              </Link>
+            )}
             {canDelete && (
               <button
                 onClick={handleToggleActive}

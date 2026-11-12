@@ -17,10 +17,12 @@ import { Badge }              from "@/components/ui/Badge";
 import { CauseListView }      from "@/components/cases/CauseListView";
 import { useCauseListFilterOptions } from "@/hooks/useHearings";
 import { useDebounce }        from "@/hooks/useDebounce";
+import { useRoleGuard }       from "@/hooks/useRoleGuard";
 import type { CauseListFilter } from "@/hooks/useHearings";
 
 function RunningCasesPage({ updateCaseId }: { updateCaseId: string | null }) {
   const { t }  = useTranslation();
+  const { can } = useRoleGuard();
   const sortOptions = [
     { value: "serial_no", label: t("hearings.serialNo") },
     { value: "hearing_date", label: t("cases.hearingDate") },
@@ -107,12 +109,14 @@ function RunningCasesPage({ updateCaseId }: { updateCaseId: string | null }) {
               <Badge variant="danger" size="sm" className="-me-1">{activeFilterCount}</Badge>
             )}
           </Button>
-          <Link href="/cases/new" className="flex-shrink-0">
-            <Button size="md" variant="primary" leftIcon={<Plus className="w-4 h-4" />}>
-              <span className="hidden sm:inline">{t("cases.newCase") || "New Case"}</span>
-              <span className="sm:hidden">{t("cases.new")}</span>
-            </Button>
-          </Link>
+          {can("cases:create") && (
+            <Link href="/cases/new" className="flex-shrink-0">
+              <Button size="md" variant="primary" leftIcon={<Plus className="w-4 h-4" />}>
+                <span className="hidden sm:inline">{t("cases.newCase") || "New Case"}</span>
+                <span className="sm:hidden">{t("cases.new")}</span>
+              </Button>
+            </Link>
+          )}
         </div>
 
         {/* ── Filter panel ── */}

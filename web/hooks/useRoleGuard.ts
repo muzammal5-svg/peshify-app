@@ -1,7 +1,8 @@
 "use client";
 
-import { useAuth }      from "@/providers/AuthProvider";
+import { useAuth } from "@/providers/AuthProvider";
 import type { UserRole } from "@/types/supabase";
+import { can, type PermissionAction } from "@/lib/permissions";
 
 const ROLE_RANK: Record<UserRole, number> = {
   super_admin: 4,
@@ -11,19 +12,22 @@ const ROLE_RANK: Record<UserRole, number> = {
 };
 
 /**
- * Returns boolean helpers for role-based UI decisions.
- * Does NOT redirect — use useRequireAuth for that.
+ * Returns role and permission helpers for role-based UI decisions.
+ * Does NOT redirect — use RouteGuard for route-level protection.
  *
  * Usage:
- *   const { canDelete, isAdminOrAbove } = useRoleGuard();
+ *   const { can, canDelete, role } = useRoleGuard();
+ *   if (can("cases:create")) { ... }
  */
 export function useRoleGuard() {
   const { profile } = useAuth();
-  const role = profile?.role ?? "clerk";
-  const rank = ROLE_RANK[role];
+  const role = (profile?.role ?? "clerk") as UserRole;
+  const rank = ROLE_RANK[role] ?? 1;
 
   return {
     role,
+    /** Primary permission checker: can("cases:create") */
+    can: (action: PermissionAction) => can(role, action),
     /** true for super_admin and admin */
     isAdminOrAbove:      rank >= ROLE_RANK.admin,
     /** true for super_admin only */
@@ -31,14 +35,15 @@ export function useRoleGuard() {
     /** true for lawyer and above */
     isLawyerOrAbove:     rank >= ROLE_RANK.lawyer,
     /** Can insert/update cases and clients */
-    canWrite:            rank >= ROLE_RANK.lawyer,
+    canWrite:            can(role, "cases:create"),
     /** Can delete records */
-    canDelete:           rank >= ROLE_RANK.admin,
-    canDeleteDocuments:  rank >= ROLE_RANK.lawyer,
+    canDelete:           can(role, "cases:delete"),
+    /** Can delete documents */
+    canDeleteDocuments:  can(role, "documents:delete"),
     /** Can manage users */
-    canManageUsers:      rank >= ROLE_RANK.admin,
+    canManageUsers:      can(role, "settings:users"),
     /** Generic check */
     hasRole:             (r: UserRole) => role === r,
-    atLeast:             (r: UserRole) => rank >= ROLE_RANK[r],
+    atLeast:             (r: UserRole) => rank >= (ROLE_RANK[r] ?? 1),
   };
 }
