@@ -164,7 +164,9 @@
     "download": "Download",
     "delete": "Delete",
     "pdfPreview": "PDF preview",
-    "firmRequired": "No firm is associated with your account. Please contact support to link a firm before uploading documents."
+    "firmRequired": "No firm is associated with your account. Please contact support to link a firm before uploading documents.",
+    "noCourtForms": "No Essential Court Forms",
+    "searchForms": "Search Court Forms"
   },
   "reminders": {
     "title": "Reminders",
@@ -525,6 +527,8 @@
     "found": "found",
     "collapse": "Collapse",
     "realTime": "Live sync",
+    "accessDenied": "Access Denied",
+    "support": "Support",
     "page": "Page {{current}} of {{total}}"
   },
   "marketing": {

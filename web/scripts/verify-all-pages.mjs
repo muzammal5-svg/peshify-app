@@ -14,7 +14,7 @@ const PAGES_TO_TEST = [
   "/features",
   "/faq",
   "/contact",
-  "/auth",
+  "/auth/sign-in",
   "/register",
   "/privacy",
   "/terms",
