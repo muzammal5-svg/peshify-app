@@ -7,7 +7,8 @@ import {
   Calendar, Briefcase, Users, Bell, AlertTriangle,
   Plus, ChevronRight, CalendarCheck, Clock, ShieldCheck,
   CheckCircle2, ArrowUpRight, Scale, Gavel, FileText,
-  MessageSquare, UserPlus, FileSpreadsheet, Sparkles, AlertCircle
+  MessageSquare, UserPlus, FileSpreadsheet, Sparkles, AlertCircle,
+  Wallet, Receipt
 } from "lucide-react";
 
 import { StatCard } from "@/components/ui/StatCard";
@@ -19,6 +20,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { QueryErrorState } from "@/components/ui/QueryErrorState";
 import { Skeleton, SkeletonCard } from "@/components/ui/Skeleton";
 import { useDashboardView } from "@/hooks/useDashboardView";
+import { useFirmLedgerSummary } from "@/hooks/useLedger";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRoleGuard } from "@/hooks/useRoleGuard";
 import { fmtDate, todayKarachi, isUrdu, textDir } from "@/lib/utils";
@@ -38,6 +40,7 @@ export function ExecutiveDashboard() {
   const { profile, firm } = useAuth();
   const { can } = useRoleGuard();
   const { data, isLoading, isError, refetch } = useDashboardView();
+  const { data: ledgerSummary } = useFirmLedgerSummary(can("fees:view"));
 
   const timeOfDay = getTimeOfDay(t);
   const firstName = profile?.full_name?.split(" ")[0] ?? (firm?.name ? firm.name.split(" ")[0] : "Counsel");
@@ -53,7 +56,7 @@ export function ExecutiveDashboard() {
   return (
     <div className="space-y-6 md:space-y-8 pb-10">
       {/* ── SECTION (a): Greeting + Date + Today's Hearings Summary Banner ── */}
-      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card via-card/95 to-secondary border border-border/80 p-5 md:p-8 shadow-xs text-foreground">
+      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card via-card/95 to-secondary border border-border/80 p-5 md:p-8 shadow-xs text-foreground card-hover-subtle animate-fade-in-down">
         {/* Subtle decorative glow */}
         <div className="absolute top-0 end-0 -translate-y-1/2 translate-x-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
         
@@ -140,7 +143,7 @@ export function ExecutiveDashboard() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5 stagger-children animate-fade-in-up">
             <StatCard
               label={t("dashboard.runningCases") || "Active Litigation"}
               value={counts?.runningCases ?? 0}
@@ -543,6 +546,82 @@ export function ExecutiveDashboard() {
         )}
       </section>
 
+      {/* ── SECTION: Optional Financial Ledger & Top Baqaya Card ── */}
+      {can("fees:view") && ledgerSummary && ledgerSummary.total_agreed > 0 && (
+        <section className="bg-card border border-border/80 rounded-2xl p-5 md:p-6 shadow-xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 border-b border-border/80 gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-500">
+                <Wallet className="w-4 h-4" strokeWidth={1.75} />
+              </div>
+              <div>
+                <h3 className="text-base font-bold tracking-tight text-foreground flex items-center gap-2">
+                  <span>Chamber Ledger · Total Baqaya</span>
+                  <Badge variant="warning" size="sm">Outstanding</Badge>
+                </h3>
+                <p className="text-xs text-muted-foreground">Accounts receivable and client fee balances</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/25 space-y-1">
+              <p className="text-xs font-semibold text-amber-400">Total Baqaya (Outstanding)</p>
+              <p className="text-xl sm:text-2xl font-bold font-mono text-amber-400">
+                Rs {Number(ledgerSummary.total_outstanding).toLocaleString()}
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25 space-y-1">
+              <p className="text-xs font-semibold text-emerald-400">Total Fees Received</p>
+              <p className="text-xl sm:text-2xl font-bold font-mono text-emerald-400">
+                Rs {Number(ledgerSummary.total_received).toLocaleString()}
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-secondary/50 border border-border/80 space-y-1">
+              <p className="text-xs font-semibold text-muted-foreground">Total Agreed Retainers</p>
+              <p className="text-xl sm:text-2xl font-bold font-mono text-foreground">
+                Rs {Number(ledgerSummary.total_agreed).toLocaleString()}
+              </p>
+            </div>
+          </div>
+
+          {/* Top Baqaya Clients */}
+          {ledgerSummary.debtors && ledgerSummary.debtors.length > 0 && (
+            <div className="pt-2 space-y-2.5">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground px-1">
+                Highest Balance Clients (بقایا جات لسٹ)
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                {ledgerSummary.debtors.map((d) => (
+                  <Link
+                    key={d.client_id}
+                    href={`/clients/view?id=${d.client_id}&tab=fees`}
+                    className="p-3.5 rounded-xl bg-secondary/40 hover:bg-secondary border border-border/80 hover:border-amber-500/40 transition-all flex items-center justify-between gap-3 group"
+                  >
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-foreground truncate group-hover:text-primary transition-colors" dir={textDir(d.client_name)}>
+                        {d.client_name}
+                      </p>
+                      <p className="text-xs text-muted-foreground font-mono mt-0.5">
+                        {d.client_phone || `${d.active_deals_count} active deal(s)`}
+                      </p>
+                    </div>
+                    <div className="text-end flex-shrink-0">
+                      <span className="text-xs text-amber-400 font-bold font-mono block">
+                        Rs {Number(d.total_balance).toLocaleString()}
+                      </span>
+                      <span className="text-[10px] text-muted-foreground">Baqaya</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
+
       {/* ── SECTION (g): Quick Actions Bar ── */}
       <section className="bg-card border border-border/80 rounded-2xl p-5 md:p-6 shadow-xs">
         <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">
@@ -590,7 +669,7 @@ export function ExecutiveDashboard() {
           )}
 
           <a
-            href={whatsappLink("Assalam-o-Alaikum, this is an automated court hearing update from your legal counsel via Peshify.")}
+            href={whatsappLink("Hello, this is an automated court hearing update from your legal counsel via DiaryLex.")}
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-secondary/50 hover:bg-secondary border border-border/80 hover:border-emerald-500/40 transition-all text-center min-h-[56px] group active:scale-[0.98]"

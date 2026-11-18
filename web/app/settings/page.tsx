@@ -90,6 +90,16 @@ function SettingsPage() {
               </span>
               <ChevronRight className="w-4 h-4 text-navy-400 group-hover:text-gold transition-colors" />
             </Link>
+            <Link
+              href="/settings/devices"
+              className="flex items-center gap-3 px-4 py-3.5 hover:bg-white/[0.04] transition-colors group"
+            >
+              <Laptop className="w-4 h-4 text-navy-400 group-hover:text-gold transition-colors" />
+              <span className="flex-1 text-sm font-semibold text-navy">
+                {t("settings.myDevices") || "My Devices (Active Sessions)"}
+              </span>
+              <ChevronRight className="w-4 h-4 text-navy-400 group-hover:text-gold transition-colors" />
+            </Link>
           </Card>
         </section>
 
@@ -219,7 +229,7 @@ function SettingsPage() {
             <Info className="w-3.5 h-3.5 text-navy-400" /> {t("settings.about")}
           </p>
           <Card>
-            <p className="text-sm text-navy font-semibold">Peshify</p>
+            <p className="text-sm text-navy font-semibold">DiaryLex</p>
             <p className="text-xs text-navy-500 mt-0.5">Case Management System v1.0.0</p>
             <p className="text-xs text-navy-400 mt-2">Next.js 14 · Supabase · Capacitor</p>
           </Card>

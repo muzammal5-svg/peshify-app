@@ -27,11 +27,11 @@ export function Logo({ size = "md", variant = "full", className, inverted = fals
     return (
       <div data-variant={variant} className={cn("inline-flex items-center select-none flex-shrink-0", className)}>
         <Image
-          src="/logo/peshify-full.png"
-          alt={t("brand.name") || "Peshify"}
-          width={s.dim * 2}
-          height={s.dim * 2}
-          className="object-contain rounded-xl shadow-md bg-[#FEF8EA]"
+          src={isLightText ? "/logo/diarylex-logo-white-text.png" : "/logo/diarylex-logo-transparent.png"}
+          alt={t("brand.name") || "DiaryLex"}
+          width={s.dim * 3}
+          height={Math.round(s.dim * 1.8)}
+          className="object-contain"
           priority={size === "lg"}
         />
       </div>
@@ -43,10 +43,10 @@ export function Logo({ size = "md", variant = "full", className, inverted = fals
       <div data-variant={variant} className={cn("inline-flex items-center select-none flex-shrink-0", className)}>
         <Image
           src="/logo/app-icon.png"
-          alt={t("brand.name") || "Peshify"}
+          alt={t("brand.name") || "DiaryLex"}
           width={s.dim}
           height={s.dim}
-          className={cn("object-contain shadow-sm flex-shrink-0 bg-[#FEF8EA]", s.mark)}
+          className={cn("object-cover shadow-sm flex-shrink-0 rounded-xl overflow-hidden", s.mark)}
           priority={size === "lg"}
         />
       </div>
@@ -57,10 +57,10 @@ export function Logo({ size = "md", variant = "full", className, inverted = fals
     <div data-variant={variant} className={cn("inline-flex items-center gap-3 select-none flex-shrink-0", className)}>
       <Image
         src="/logo/app-icon.png"
-        alt={t("brand.name") || "Peshify"}
+        alt={t("brand.name") || "DiaryLex"}
         width={s.dim}
         height={s.dim}
-        className={cn("object-contain shadow-sm flex-shrink-0 bg-[#FEF8EA]", s.mark)}
+        className={cn("object-cover shadow-sm flex-shrink-0 rounded-xl overflow-hidden", s.mark)}
         priority={size === "lg"}
       />
       <div className="flex flex-col leading-none text-start" dir="ltr">
@@ -71,16 +71,16 @@ export function Logo({ size = "md", variant = "full", className, inverted = fals
             s.text
           )}
         >
-          Peshify
+          DiaryLex
         </span>
         <span
           className={cn(
             "uppercase tracking-[0.18em] font-semibold whitespace-nowrap hidden sm:block",
-            isLightText ? "text-[#C8C2B8]" : "text-gold",
+            isLightText ? "text-amber-400/90" : "text-gold",
             s.sub
           )}
         >
-          Advocates &amp; Legal CMS
+          Legal Case Management &amp; Diary
         </span>
       </div>
     </div>

@@ -23,8 +23,7 @@ interface Feature {
 }
 
 export default function FeaturesPage() {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === "ur";
+  const { t } = useTranslation();
 
   const features: Feature[] = [
     {
@@ -71,9 +70,9 @@ export default function FeaturesPage() {
     },
     {
       icon: Globe,
-      titleKey: "features.multiLanguageTitle",
-      descKey: "features.multiLanguageDesc",
-      benefits: ["urduEnglish", "rtlSupport", "culturalAdaptation", "accessibility"]
+      titleKey: "features.jurisdictionTitle",
+      descKey: "features.jurisdictionDesc",
+      benefits: ["appellateBenches", "arbitrationForums", "courtCalendars", "universalAccess"]
     },
   ];
 
@@ -90,12 +89,12 @@ export default function FeaturesPage() {
     },
     clientPortal: {
       title: "Client Directory & Alerts",
-      desc: "Manage client files with automated bilingual WhatsApp hearing updates dispatched with one click.",
+      desc: "Manage client files with automated WhatsApp hearing updates and email notifications dispatched with one click.",
       benefits: {
         secureAccess: "Encrypted client records",
         caseUpdates: "1-Click WhatsApp hearing alerts",
         documentSharing: "Direct order sheet sharing",
-        communication: "Bilingual English & Urdu notices"
+        communication: "Direct client alerts via WhatsApp and email"
       }
     },
     reminders: {
@@ -110,7 +109,7 @@ export default function FeaturesPage() {
     },
     documents: {
       title: "Chamber File Repository",
-      desc: "Centralize petitions, vakalatnamas, and court judgments per case with instant search.",
+      desc: "Centralize briefs, filings, and court orders per case with instant full-text search.",
       benefits: {
         centralizedStorage: "Single repository per case",
         versionControl: "Pleadings draft management",
@@ -133,7 +132,7 @@ export default function FeaturesPage() {
       desc: "Compliant with attorney-client confidentiality with PostgreSQL Row-Level Security (RLS) isolation.",
       benefits: {
         encryption: "TLS 1.3 in transit & AES-256 rest",
-        compliance: "Pakistani Bar standards compliant",
+        compliance: "International Bar & GDPR-aligned",
         dataBackup: "Automated multi-region backups",
         accessControl: "Role-based associate permissions"
       }
@@ -148,14 +147,14 @@ export default function FeaturesPage() {
         efficiency: "Reduced clerical overhead"
       }
     },
-    multiLanguage: {
-      title: "Native Urdu Nastaliq & RTL",
-      desc: "Full Urdu and English support with true right-to-left layout mirroring and Nastaliq typography.",
+    jurisdiction: {
+      title: "Global Court Dockets & Multi-Jurisdiction Support",
+      desc: "Engineered to adapt seamlessly across Common Law courts, Appellate Benches, District Courts, and Arbitration Tribunals.",
       benefits: {
-        urduEnglish: "1-Click English/Urdu switch",
-        rtlSupport: "True RTL layout mirroring",
-        culturalAdaptation: "Pakistani court nomenclature",
-        accessibility: "High-contrast legible Nastaliq"
+        appellateBenches: "Appellate & High Court docketing",
+        arbitrationForums: "Arbitration & commercial tribunal tracking",
+        courtCalendars: "Time-zone aware court hearing calendars",
+        universalAccess: "Universal access across desktop & mobile"
       }
     }
   };
@@ -178,37 +177,33 @@ export default function FeaturesPage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-amber-500/10 via-primary/15 to-transparent blur-3xl pointer-events-none" />
         </div>
 
-        <div className={`${CONTAINER} relative z-10 max-w-3xl mx-auto space-y-5`}>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20 shadow-xs">
+        <div className={`${CONTAINER} relative z-10 max-w-3xl mx-auto space-y-5 animate-fade-in-up`}>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20 shadow-xs animate-float-subtle">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>{isRTL ? "وکلاء کے لیے جدید ترین ٹیکنالوجی" : "Platform Capabilities & Courtroom Workflows"}</span>
+            <span>Platform Capabilities & Courtroom Workflows</span>
           </div>
 
           <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
-            {isRTL
-              ? "پاکستانی وکلاء کے لیے مخصوص جدید فیچرز"
-              : "Modern Legal Software Built For Pakistani Advocates"}
+            Intelligent Legal Case Management Built For Modern Counsel
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            {isRTL
-              ? "صبح کی کاز لسٹ سے لے کر موکلین کو واٹس ایپ اپ ڈیٹس تک، پیشی فائی آپ کے چیمبر کے ہر عمل کو تیز اور منظم بناتا ہے۔"
-              : "From automated morning cause lists to client WhatsApp hearing notices and limitation alerts — engineered specifically for the courts of Pakistan."}
+            From automated court cause lists to client hearing notices and limitation alerts — engineered for litigation attorneys, law firms, and counsel worldwide.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
             <Link
               href="/register"
-              className="btn-primary min-w-[200px] py-3.5 text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl"
+              className="btn-primary min-w-[200px] py-3.5 text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl btn-sheen btn-tactile"
             >
-              <span>{isRTL ? "مفت اکاؤنٹ بنائیں" : "Get Started Free"}</span>
-              <ArrowRight className="w-4 h-4 ms-2 rtl:rotate-180" />
+              <span>Get Started Free</span>
+              <ArrowRight className="w-4 h-4 ms-2" />
             </Link>
             <Link
               href="/contact"
-              className="btn-secondary min-w-[160px] py-3.5 text-sm font-semibold rounded-xl bg-card border-white/10 text-slate-200 hover:text-white"
+              className="btn-secondary min-w-[160px] py-3.5 text-sm font-semibold rounded-xl bg-card border-white/10 text-slate-200 hover:text-white btn-tactile"
             >
-              <span>{isRTL ? "چیمبر ڈیمو حاصل کریں" : "Request Chamber Demo"}</span>
+              <span>Request Chamber Demo</span>
             </Link>
           </div>
         </div>
@@ -219,15 +214,13 @@ export default function FeaturesPage() {
         <div className={CONTAINER}>
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              {isRTL ? "چیمبر آپریشنز" : "Core Capabilities"}
+              Core Capabilities
             </span>
             <h2 className="font-heading font-bold text-2xl sm:text-4xl text-white tracking-tight">
-              {isRTL ? "آپ کے چیمبر کی روزمرہ ضروریات کا مکمل حل" : "Everything Needed to Run a High-Performing Chamber"}
+              Everything Needed to Run a High-Performing Chamber
             </h2>
             <p className="text-sm sm:text-base text-slate-300">
-              {isRTL
-                ? "کاغذی فائلوں اور پرانے رجسٹروں کی جگہ جدید کلاؤڈ سسٹم جو موبائل اور کمپیوٹر دونوں پر کام کرتا ہے۔"
-                : "Eliminate manual paperwork with a unified operating system built for Supreme Court, High Courts, and District Benches."}
+              Eliminate manual paperwork with a unified operating system built for Supreme Courts, High Courts, District Benches, and Arbitration Tribunals.
             </p>
           </div>
 
@@ -243,10 +236,10 @@ export default function FeaturesPage() {
 
               return (
                 <Reveal key={idx}>
-                  <div className="group rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 sm:p-7 h-full flex flex-col justify-between hover:border-amber-400/40 hover:-translate-y-1 transition-all duration-300 shadow-xl">
+                  <div className="group rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 sm:p-7 h-full flex flex-col justify-between hover:border-amber-400/40 card-hover-elevate transition-all duration-300 shadow-xl">
                     <div>
                       {/* Icon */}
-                      <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-300 flex items-center justify-center mb-5 group-hover:scale-105 group-hover:bg-amber-400/20 transition-all">
+                      <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-300 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-amber-400/20 group-hover:rotate-3 transition-all duration-300">
                         <Icon className="w-5 h-5" strokeWidth={1.75} />
                       </div>
 
@@ -262,7 +255,7 @@ export default function FeaturesPage() {
                     {/* Benefits */}
                     <ul className="space-y-2.5 border-t border-white/10 pt-4">
                       {feature.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs text-slate-300">
+                        <li key={i} className="flex items-center gap-2 text-xs text-slate-300 transition-transform duration-200 group-hover:translate-x-1">
                           <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" strokeWidth={2} />
                           <span>{t(`features.benefit_${benefit}`, fallback.benefits[benefit] || benefit)}</span>
                         </li>
@@ -281,7 +274,7 @@ export default function FeaturesPage() {
         <div className={CONTAINER}>
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              {isRTL ? "خصوصیات کا موازنہ" : "Tier Breakdown & Comparison"}
+              Tier Breakdown & Comparison
             </span>
             <h2 className="font-heading font-bold text-2xl sm:text-4xl text-white tracking-tight">
               {t("features.comparisonTitle", "Transparent Practice Plans")}
@@ -317,7 +310,7 @@ export default function FeaturesPage() {
                     { key: "reminders", label: "Limitation & Appeal Due Alerts" },
                     { key: "documentStorage", label: "Case Pleadings & Judgment Vault" },
                     { key: "analytics", label: "Practice Benchmarks & Ledger" },
-                    { key: "customization", label: "Urdu Nastaliq & RTL Interface" },
+                    { key: "customization", label: "Court Rules & Hearing Calendars" },
                     { key: "apiAccess", label: "Multi-Associate Role Permissions" },
                     { key: "support", label: "Priority 24/7 WhatsApp Chamber Help" }
                   ].map((feature, idx) => (
@@ -347,29 +340,27 @@ export default function FeaturesPage() {
       <section className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-b from-[#070A12] to-[#0A0E1C] border-t border-white/10">
         <div className={`${CONTAINER} max-w-3xl text-center relative z-10 space-y-6`}>
           <span className="text-xs font-bold uppercase tracking-wider text-amber-300 block">
-            {isRTL ? "ابھی شروع کریں" : "Ready For Trial-Ready Litigation?"}
+            Ready For Trial-Ready Litigation?
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-            {isRTL ? "اپنے چیمبر کو جدید سافٹ ویئر سے لیس کریں" : "Equip Your Chamber With Modern Software"}
+            Equip Your Chamber With Modern Software
           </h2>
           <p className="text-sm md:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-            {isRTL
-              ? "ابھی مفت اکاؤنٹ بنائیں اور صبح کی کاز لسٹس، پیشی ڈائری اور کلائنٹ نوٹسز خودکار بنائیں۔"
-              : "Experience morning cause lists organized automatically, limitation alerts that keep counsel informed, and client updates that dispatch themselves."}
+            Experience morning cause lists organized automatically, limitation alerts that keep counsel informed, and client updates that dispatch themselves.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
             <Link
               href="/register"
               className="btn-primary min-w-[220px] py-3.5 text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl"
             >
-              <span>{isRTL ? "مفت اکاؤنٹ رجسٹر کریں" : "Create Free Chamber Account"}</span>
-              <ArrowRight className="w-4 h-4 ms-2 rtl:rotate-180" />
+              <span>Create Free Chamber Account</span>
+              <ArrowRight className="w-4 h-4 ms-2" />
             </Link>
             <Link
               href="/contact"
               className="btn-secondary min-w-[160px] py-3.5 text-sm font-semibold rounded-xl bg-card border-white/10 text-slate-200 hover:text-white"
             >
-              <span>{isRTL ? "ہم سے رابطہ کریں" : "Contact Chamber Support"}</span>
+              <span>Contact Chamber Support</span>
             </Link>
           </div>
         </div>

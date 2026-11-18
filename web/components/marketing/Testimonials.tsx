@@ -31,10 +31,10 @@ export function Testimonials({ reviews = REAL_TESTIMONIALS }: { reviews?: Testim
             Advocate Experiences
           </span>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-            What Counsel Say About Peshify
+            What Counsel Say About DiaryLex
           </h2>
           <p className="text-sm md:text-base text-muted-foreground">
-            Verified feedback from advocates and chambers practicing across Pakistani High Courts.
+            Verified feedback from litigation advocates, counsel, and law partnerships worldwide.
           </p>
         </div>
 

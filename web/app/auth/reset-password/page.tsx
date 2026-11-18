@@ -10,9 +10,8 @@ import { Logo } from "@/components/shared/Logo";
 import { LangSwitcher } from "@/components/shared/LangSwitcher";
 
 export default function ResetPasswordPage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
-  const isRTL = i18n.language === "ur";
 
   const [newPwd, setNewPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
@@ -78,7 +77,7 @@ export default function ResetPasswordPage() {
               {t("auth.resetPassword")}
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 max-w-xs leading-relaxed">
-              {isRTL ? "اپنا نیا پاس ورڈ درج کریں" : "Set a new secure password for your chamber"}
+              Set a new secure password for your chamber
             </p>
           </div>
 
@@ -176,7 +175,7 @@ export default function ResetPasswordPage() {
       </main>
 
       <footer className="w-full max-w-7xl mx-auto px-4 py-4 text-center text-xs text-slate-500">
-        &copy; {new Date().getFullYear()} Peshify (Pvt) Ltd.
+        &copy; {new Date().getFullYear()} DiaryLex Technologies Ltd.
       </footer>
     </div>
   );

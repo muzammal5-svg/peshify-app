@@ -30,10 +30,10 @@ export function Card({
       role={clickable ? "button" : undefined}
       tabIndex={clickable ? 0 : undefined}
       className={cn(
-        "bg-card rounded-xl border border-border/80 shadow-xs text-foreground transition-all duration-200",
+        "bg-card rounded-xl border border-border/80 shadow-xs text-foreground transition-all duration-300 ease-out",
         paddingMap[padding],
-        hover     && "hover:border-primary/40 hover:shadow-md hover:bg-card/90",
-        clickable && "cursor-pointer active:scale-[.99] transition-transform focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-1",
+        hover     && "hover:border-primary/40 hover:shadow-lg hover:-translate-y-1 hover:bg-card/95",
+        clickable && "cursor-pointer active:scale-[.98] transition-transform focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1",
         className
       )}
       {...props}

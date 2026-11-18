@@ -146,7 +146,7 @@ export function Sidebar({ isCollapsed: controlledCollapsed, onToggleCollapse }: 
           {!isCollapsed && (
             <div className="hidden lg:block min-w-0 flex-1">
               <p className="text-foreground text-xs font-bold tracking-tight truncate leading-tight group-hover:text-primary transition-colors">
-                {firm?.name ?? "Peshify Advocates"}
+                {firm?.name ?? "DiaryLex Legal"}
               </p>
               <span className="inline-flex items-center gap-1.5 text-[10px] text-muted-foreground font-medium truncate mt-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

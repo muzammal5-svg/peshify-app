@@ -31,11 +31,10 @@ import { PakistanLocationFields, type LocationValues } from "@/components/market
 import { Logo } from "@/components/shared/Logo";
 
 function RegisterForm() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
   const params = useSearchParams();
   const plan = params.get("plan") ?? "";
-  const isRTL = i18n.language === "ur";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -104,11 +103,7 @@ function RegisterForm() {
       if (edgeErr) {
         const errMsg = edgeErr.message || "";
         if (errMsg.toLowerCase().includes("already") || errMsg.toLowerCase().includes("registered")) {
-          setError(
-            isRTL
-              ? "اس ای میل پر اکاؤنٹ پہلے سے موجود ہے۔ براہ کرم لاگ ان کریں۔"
-              : "An account with this email already exists. Please sign in."
-          );
+          setError("An account with this email already exists. Please sign in.");
           setLoading(false);
           return;
         }
@@ -146,11 +141,7 @@ function RegisterForm() {
         return;
       }
       if (!data.user?.id) {
-        setError(
-          isRTL
-            ? "رجسٹریشن مکمل نہ ہو سکی۔ براہ کرم دوبارہ کوشش کریں۔"
-            : "Registration failed. Please try again."
-        );
+        setError("Registration failed. Please try again.");
         setLoading(false);
         return;
       }
@@ -160,8 +151,7 @@ function RegisterForm() {
     const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({ email, password });
     if (signInErr || !signInData?.session) {
       setError(
-        signInErr?.message ||
-          (isRTL ? "نیا اکاؤنٹ بن گیا ہے، براہ کرم لاگ ان کریں۔" : "Account created. Please sign in with your credentials.")
+        signInErr?.message || "Account created. Please sign in with your credentials."
       );
       setLoading(false);
       return;
@@ -189,10 +179,10 @@ function RegisterForm() {
   }
 
   const benefits = [
-    isRTL ? "سپریم کورٹ، ہائی کورٹس اور ضلعی عدالتوں کی سماعت کا مکمل ریکارڈ" : "Full hearing diary for Supreme Court, High Courts & District Benches",
-    isRTL ? "صبح کی کاز لسٹ کا خودکار شیڈول اور بینچ نمبرز" : "Smart morning cause lists with automatic courtroom tracking",
-    isRTL ? "مؤکلین کو براہ راست واٹس ایپ پر اگلی تاریخ کی پیشی کا الرٹ" : "Instant WhatsApp hearing alerts sent directly to clients",
-    isRTL ? "چیمبر کا محفوظ کلاؤڈ ڈیٹا، بیک اپ اور وکلاء کے لیے رسائی کنٹرول" : "Chamber-grade privacy, encrypted backups & team permissions",
+    "Full hearing diary for Supreme Courts, High Courts & District Benches",
+    "Smart morning cause lists with automatic courtroom tracking",
+    "Instant WhatsApp & email hearing alerts sent directly to clients",
+    "Chamber-grade privacy, encrypted backups & team permissions",
   ];
 
   return (
@@ -219,16 +209,14 @@ function RegisterForm() {
 
               <div className="mt-6 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20">
                 <Sparkles className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
-                {isRTL ? "مفت ارلی ایکسس — کوئی کریڈٹ کارڈ درکار نہیں" : "100% Free Early Access • No Card Required"}
+                100% Free Early Access • No Card Required
               </div>
 
               <h1 className="mt-4 font-heading text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-white">
-                {isRTL ? "اپنے چیمبر کو جدید اور منظم بنائیں" : "Upgrade your chamber to a modern SaaS diary"}
+                Upgrade your law practice to an intelligent digital diary
               </h1>
               <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-300">
-                {isRTL
-                  ? "چند سیکنڈ میں چیمبر اکاؤنٹ رجسٹر کریں اور آج ہی اپنی کاز لسٹ اور کلائنٹ ریکارڈ ڈیجیٹلائز کریں۔"
-                  : "Register in under 60 seconds to organize cause lists, track bench hearings, and send client alerts."}
+                Register in under 60 seconds to organize cause lists, track bench hearings, and send client alerts worldwide.
               </p>
 
               {/* Benefits list */}
@@ -247,9 +235,7 @@ function RegisterForm() {
             <div className="relative z-10 mt-8 pt-6 border-t border-white/10 flex items-center gap-2 text-xs text-slate-400">
               <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" aria-hidden="true" />
               <span>
-                {isRTL
-                  ? "قانونی رازداری کی مکمل ضمانت: آپ کا چیمبر ڈیٹا محفوظ اور صرف آپ کی ملکیت ہے۔"
-                  : "Chamber-grade confidentiality: TLS 1.3 encryption and dedicated advocate data ownership."}
+                Chamber-grade confidentiality: TLS 1.3 encryption and dedicated advocate data ownership.
               </span>
             </div>
           </aside>

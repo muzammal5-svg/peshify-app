@@ -96,7 +96,7 @@ export function MobileHeader({ title, showBack, actions, className }: MobileHead
               )}
               <div className="min-w-0 flex-1">
                 <p className="text-foreground text-sm font-semibold tracking-tight truncate leading-tight">
-                  {firm?.name ?? "Peshify"}
+                  {firm?.name ?? "DiaryLex"}
                 </p>
                 <p className="text-muted-foreground text-[10px] uppercase tracking-wider truncate">
                   {t("nav.dashboard")}
@@ -311,7 +311,7 @@ export function MobileHeader({ title, showBack, actions, className }: MobileHead
           ) : (
             <div className="flex flex-col items-center leading-tight">
               <span className="text-sm font-semibold tracking-tight text-foreground truncate">
-                {firm?.name ?? "Peshify"}
+                {firm?.name ?? "DiaryLex"}
               </span>
               {profile && (
                 <span className="text-[10px] text-muted-foreground truncate">

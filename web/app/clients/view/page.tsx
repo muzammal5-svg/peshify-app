@@ -16,6 +16,7 @@ import { Badge, CaseStatusBadge, OutcomeBadge } from "@/components/ui/Badge";
 import { Button }               from "@/components/ui/Button";
 import { Tabs, TabList, TabTrigger, TabPanel } from "@/components/ui/Tabs";
 import { DocumentsModule }      from "@/components/documents/DocumentsModule";
+import { ClientFeesTab }        from "@/components/ledger/ClientFeesTab";
 import { SkeletonCard }         from "@/components/ui/Skeleton";
 import { EmptyState }           from "@/components/ui/EmptyState";
 import { QueryErrorState }      from "@/components/ui/QueryErrorState";
@@ -246,11 +247,14 @@ function ClientViewPage() {
         </Card>
 
         {/* Tabs */}
-        <Tabs defaultValue="details">
+        <Tabs defaultValue={params.get("tab") || "details"}>
           <TabList>
             <TabTrigger value="details">{t("settings.about")}</TabTrigger>
             <TabTrigger value="cases" count={counts?.total}>{t("common.tabCases")}</TabTrigger>
             <TabTrigger value="documents">{t("common.tabDocuments")}</TabTrigger>
+            {can("fees:view") && (
+              <TabTrigger value="fees">{t("fees.fees") || "Fees & Ledger"}</TabTrigger>
+            )}
           </TabList>
 
           <TabPanel value="details">
@@ -284,6 +288,16 @@ function ClientViewPage() {
           <TabPanel value="documents">
             <DocumentsModule clientId={client.id} />
           </TabPanel>
+
+          {can("fees:view") && (
+            <TabPanel value="fees">
+              <ClientFeesTab
+                clientId={client.id}
+                clientName={client.full_name}
+                clientPhone={client.phone}
+              />
+            </TabPanel>
+          )}
         </Tabs>
 
         <ConfirmDialog

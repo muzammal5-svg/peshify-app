@@ -19,8 +19,7 @@ import { LangSwitcher } from "@/components/shared/LangSwitcher";
 import { SITE, whatsappLink, phoneLink } from "@/lib/siteConfig";
 
 export function PublicFooter() {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === "ur";
+  const { t } = useTranslation();
 
   return (
     <footer className="relative bg-gradient-to-b from-[#0B1B3A] via-[#071329] to-[#040A17] text-slate-200 border-t border-amber-400/20 shadow-[0_-1px_30px_rgba(197,155,39,0.06)] font-sans overflow-hidden">
@@ -45,16 +44,14 @@ export function PublicFooter() {
               <Logo size="md" variant="full" inverted />
             </Link>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-sm">
-              {isRTL
-                ? "پاکستانی وکلاء، بیرسٹرز اور چیمبرز کے لیے جدید قانونی سافٹ ویئر۔ روزانہ کی کاز لسٹ، پیشی ڈائری اور کلائنٹ واٹس ایپ نوٹسز ایک جگہ۔"
-                : "The modern chamber operating system built specifically for Pakistani advocates, barristers, and law firms across all court hierarchies."}
+              The intelligent case management operating system built for litigation advocates, barristers, and law firms across global court hierarchies.
             </p>
 
             {/* Badges */}
             <div className="flex flex-wrap gap-2 pt-1">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[11px] font-medium text-amber-300 border border-amber-400/20">
                 <Scale className="w-3.5 h-3.5 text-amber-400" strokeWidth={1.75} />
-                <span>{isRTL ? "پاکستانی عدالتوں کے لیے مخصوص" : "Built for Pakistani Courts"}</span>
+                <span>Engineered for Global & Regional Courts</span>
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[11px] font-medium text-emerald-300 border border-emerald-400/20">
                 <Lock className="w-3 h-3 text-emerald-400" strokeWidth={1.75} />
@@ -66,37 +63,37 @@ export function PublicFooter() {
           {/* Col 2: Platform Capabilities (2 cols on lg) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              {isRTL ? "پلیٹ فارم کی خصوصیات" : "Chamber Operations"}
+              Chamber Operations
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-300">
               <li>
                 <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>{isRTL ? "روزانہ کی کاز لسٹ ہیرو" : "Automated Daily Cause List"}</span>
+                  <span>Automated Daily Cause List</span>
                 </Link>
               </li>
               <li>
                 <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>{isRTL ? "پیشی ڈائری اور میعاد الرٹ" : "Hearing Diary & Limitation Alerts"}</span>
+                  <span>Hearing Diary & Limitation Alerts</span>
                 </Link>
               </li>
               <li>
                 <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>{isRTL ? "مؤکلین کو واٹس ایپ الرٹس" : "WhatsApp Client Date Notices"}</span>
+                  <span>WhatsApp & Email Client Notices</span>
                 </Link>
               </li>
               <li>
                 <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>{isRTL ? "مکمل اردو اور انگریزی سپورٹ" : "Native Urdu RTL & Nastaliq Support"}</span>
+                  <span>Court Dockets & Hearing Diary</span>
                 </Link>
               </li>
               <li>
                 <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>{isRTL ? "چیمبر فیس لیجر اور بلنگ" : "Fee Ledger & Client Invoicing"}</span>
+                  <span>Fee Ledger & Client Invoicing</span>
                 </Link>
               </li>
             </ul>
@@ -105,32 +102,32 @@ export function PublicFooter() {
           {/* Col 3: Court Jurisdictions (2 cols on lg) */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              {isRTL ? "عدالتی دائرہ اختیار" : "Court Coverage"}
+              Court Coverage
             </h4>
             <ul className="space-y-2 text-xs text-slate-300">
               <li className="flex items-center gap-1.5">
                 <Gavel className="w-3 h-3 text-amber-400 shrink-0" strokeWidth={1.75} />
-                <span>Supreme Court</span>
+                <span>Apex & Supreme Courts</span>
               </li>
               <li className="flex items-center gap-1.5">
                 <Gavel className="w-3 h-3 text-amber-400 shrink-0" strokeWidth={1.75} />
-                <span>Lahore High Court</span>
+                <span>High & Appellate Courts</span>
               </li>
               <li className="flex items-center gap-1.5">
                 <Gavel className="w-3 h-3 text-amber-400 shrink-0" strokeWidth={1.75} />
-                <span>Islamabad High Court</span>
+                <span>Commercial Courts</span>
               </li>
               <li className="flex items-center gap-1.5">
                 <Gavel className="w-3 h-3 text-amber-400 shrink-0" strokeWidth={1.75} />
-                <span>Sindh High Court</span>
+                <span>District & Circuit Courts</span>
               </li>
               <li className="flex items-center gap-1.5">
                 <Gavel className="w-3 h-3 text-amber-400 shrink-0" strokeWidth={1.75} />
-                <span>Peshawar &amp; Quetta</span>
+                <span>Arbitration Tribunals</span>
               </li>
               <li className="flex items-center gap-1.5">
                 <Gavel className="w-3 h-3 text-amber-400 shrink-0" strokeWidth={1.75} />
-                <span>District Judiciary</span>
+                <span>Specialized Benches</span>
               </li>
             </ul>
           </div>
@@ -138,19 +135,19 @@ export function PublicFooter() {
           {/* Col 4: Contact & Legal (3 cols on lg) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              {isRTL ? "رابطہ اور چیمبر سپورٹ" : "Chamber Support"}
+              Chamber Support
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-300">
               <li>
                 <a
-                  href={whatsappLink("Assalam-o-Alaikum, I am an advocate inquiring about Peshify chamber setup.")}
+                  href={whatsappLink("Hello, I am inquiring about DiaryLex law practice setup.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors flex items-center gap-2 group p-1.5 rounded-lg hover:bg-white/5"
                 >
                   <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" strokeWidth={1.75} />
                   <span className="font-semibold text-emerald-400 group-hover:underline">
-                    {isRTL ? "براہ راست واٹس ایپ ہیلپ لائن" : "WhatsApp Chamber Support"}
+                    WhatsApp Chamber Support
                   </span>
                 </a>
               </li>
@@ -178,12 +175,10 @@ export function PublicFooter() {
             <div className="p-3 rounded-xl bg-amber-400/10 border border-amber-400/20 text-xs text-amber-200 mt-2">
               <span className="font-semibold text-amber-300 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                {isRTL ? "ارلی ایکسس مفت دستیاب ہے" : "100% Free During Early Access"}
+                100% Free During Early Access
               </span>
               <p className="text-[11px] text-slate-300 mt-1 leading-snug">
-                {isRTL
-                  ? "ابھی چیمبر اکاؤنٹ رجسٹر کریں اور تمام فیچرز بغیر کسی فیس کے استعمال کریں۔"
-                  : "All litigation tools, cause lists, and client alerts are free for advocates."}
+                All litigation tools, cause lists, and client alerts are free for advocates and law practices worldwide.
               </p>
             </div>
           </div>
@@ -198,12 +193,10 @@ export function PublicFooter() {
             </div>
             <div>
               <h5 className="text-xs sm:text-sm font-semibold text-white">
-                {isRTL ? "قانونی رازداری اور ڈیٹا کا مکمل تحفظ" : "Attorney-Client Privilege & Strict Data Segregation"}
+                Attorney-Client Privilege & Strict Data Segregation
               </h5>
               <p className="text-xs text-slate-400 leading-relaxed mt-0.5 max-w-3xl">
-                {isRTL
-                  ? "پیشی فائی آپ کے مؤکلین کا ڈیٹا کبھی کسی تیسرے فریق کو فروخت یا شیئر نہیں کرتا۔ آپ کے چیمبر کا ڈیٹا محفوظ اور صرف آپ کی ملکیت ہے۔"
-                  : "Peshify never sells, monetizes, or shares your case records, pleadings, or client contacts. PostgreSQL Row-Level Security (RLS) ensures total multi-tenant isolation."}
+                DiaryLex never sells, monetizes, or shares your case records, pleadings, or client contacts. PostgreSQL Row-Level Security (RLS) ensures total multi-tenant isolation.
               </p>
             </div>
           </div>
@@ -211,7 +204,7 @@ export function PublicFooter() {
             href="/privacy"
             className="text-xs font-semibold text-amber-400 hover:text-amber-300 underline underline-offset-4 shrink-0 p-2 min-h-[44px] flex items-center"
           >
-            {isRTL ? "پرائیویسی پالیسی پڑھیں →" : "Read Security Policy →"}
+            Read Security Policy &rarr;
           </Link>
         </div>
       </div>
@@ -220,7 +213,7 @@ export function PublicFooter() {
       <div className="border-t border-white/10 px-4 sm:px-6 lg:px-8 py-5 text-xs text-slate-400 bg-black/20">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-center sm:text-start">
-            &copy; {new Date().getFullYear()} {SITE.name} (Pvt) Ltd. Engineered for Advocates of Pakistan.
+            &copy; {new Date().getFullYear()} {SITE.name} Technologies Ltd. Intelligent Legal Case Management.
           </p>
 
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-1">

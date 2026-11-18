@@ -32,7 +32,7 @@ const PRINT_STYLE = `
 
 function injectPrintStyle() {
   if (typeof document === "undefined") return;
-  const id = "peshify-print-style";
+  const id = "diarylex-print-style";
   if (document.getElementById(id)) return;
   const style   = document.createElement("style");
   style.id      = id;
@@ -171,7 +171,7 @@ function CauseListPage() {
         <div id="cause-list-print">
           {/* Print header (hidden on screen) */}
           <div className="hidden print:block mb-4 text-center">
-            <h1 className="text-lg font-bold">{firm?.name ?? "Peshify"}</h1>
+            <h1 className="text-lg font-bold">{firm?.name ?? "DiaryLex"}</h1>
             <p className="text-sm">{t("nav.causeList")} — {fmtDate(date)}</p>
           </div>
 

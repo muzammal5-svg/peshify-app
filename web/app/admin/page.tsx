@@ -438,7 +438,7 @@ function AdminDashboard() {
             </span>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-heading text-lg font-bold text-white">Peshify Admin</span>
+                <span className="font-heading text-lg font-bold text-white">DiaryLex Admin</span>
                 <Badge variant="gold" size="sm" className="font-semibold uppercase text-[10px]">
                   Super Admin
                 </Badge>

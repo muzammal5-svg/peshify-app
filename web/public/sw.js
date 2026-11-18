@@ -1,5 +1,5 @@
 /**
- * Service Worker for Peshify PWA.
+ * Service Worker for DiaryLex PWA.
  * Handles offline caching and Firebase push notifications.
  * next-pwa will inject workbox precaching above this file in production.
  */
@@ -12,13 +12,13 @@ self.addEventListener("push", (event) => {
   try {
     payload = event.data.json();
   } catch {
-    payload = { notification: { title: "Peshify", body: event.data.text() } };
+    payload = { notification: { title: "DiaryLex", body: event.data.text() } };
   }
 
   const { title, body, icon, data } = payload.notification ?? payload;
 
   event.waitUntil(
-    self.registration.showNotification(title || "Peshify", {
+    self.registration.showNotification(title || "DiaryLex", {
       body:    body || "",
       icon:    icon || "/icons/icon-192.png",
       badge:   "/icons/icon-96.png",

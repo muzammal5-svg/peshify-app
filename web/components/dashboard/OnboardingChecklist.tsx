@@ -17,20 +17,29 @@ interface OnboardingChecklistProps {
   className?: string;
 }
 
+interface StepItem {
+  id: string;
+  title: string;
+  description: string;
+  completed: boolean;
+  href?: string;
+  onClick?: () => void;
+  icon: any;
+}
+
 export function OnboardingChecklist({
   caseCount,
   clientCount,
   className,
 }: OnboardingChecklistProps) {
   const { t } = useTranslation();
-  const { lang, setLang } = useLang();
   const { profile, firm } = useAuth();
   const [dismissed, setDismissed] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("peshify_onboarding_dismissed");
+    const saved = localStorage.getItem("diarylex_onboarding_dismissed");
     if (saved === "true") {
       setDismissed(true);
     }
@@ -38,10 +47,10 @@ export function OnboardingChecklist({
 
   const handleDismiss = () => {
     setDismissed(true);
-    localStorage.setItem("peshify_onboarding_dismissed", "true");
+    localStorage.setItem("diarylex_onboarding_dismissed", "true");
   };
 
-  const steps = [
+  const steps: StepItem[] = [
     {
       id: "case",
       title: "Add your first litigation case",
@@ -67,12 +76,12 @@ export function OnboardingChecklist({
       icon: MapPin,
     },
     {
-      id: "lang",
-      title: "Select your chamber language",
-      description: "Toggle between Urdu (RTL) or English anytime",
-      completed: true,
-      onClick: () => setLang(lang === "en" ? "ur" : "en"),
-      icon: Languages,
+      id: "profile",
+      title: "Configure your chamber profile",
+      description: "Set chamber name, letterhead header, and contact numbers",
+      completed: !!(profile?.full_name),
+      href: "/settings",
+      icon: Sparkles,
     },
   ];
 
@@ -109,7 +118,7 @@ export function OnboardingChecklist({
             </span>
           </div>
           <p className="text-xs text-muted-foreground">
-            Complete these quick steps to get your practice fully operational on Peshify.
+            Complete these quick steps to get your practice fully operational on DiaryLex.
           </p>
         </div>
 

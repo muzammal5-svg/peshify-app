@@ -1,29 +1,24 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import en from "./locales/en.json";
-import ur from "./locales/ur.json";
 
 export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "English", dir: "ltr" as const },
-  { code: "ur", label: "اردو",    dir: "rtl" as const },
 ] as const;
 
 export type SupportedLang = (typeof SUPPORTED_LANGUAGES)[number]["code"];
 
-// Safe init — works in both SSR and browser
+// Safe init — purely English for global international presence
 if (!i18n.isInitialized) {
   i18n
-    .use(initReactI18next)   // No LanguageDetector — avoids SSR window access
+    .use(initReactI18next)
     .init({
       resources: {
         en: { translation: en },
-        ur: { translation: ur },
       },
-      // Start with a stable language for SSR; LangProvider applies the saved
-      // preference after hydration to avoid rendering different server/client text.
       lng: "en",
       fallbackLng: "en",
-      supportedLngs: ["en", "ur"],
+      supportedLngs: ["en"],
       interpolation: { escapeValue: false },
     });
 }

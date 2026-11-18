@@ -24,8 +24,7 @@ interface FormData {
 }
 
 export default function ContactPage() {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === "ur";
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -83,17 +82,15 @@ export default function ContactPage() {
         <div className={`${CONTAINER} relative z-10 max-w-3xl mx-auto space-y-4`}>
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20 shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>{isRTL ? "چیمبر سپورٹ و رہنمائی" : "Advocate Onboarding & Chamber Inquiries"}</span>
+            <span>Advocate Onboarding & Chamber Inquiries</span>
           </div>
 
           <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
-            {isRTL ? "ہم سے رابطہ کریں" : "Get in Touch With Our Team"}
+            Get in Touch With Our Team
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed">
-            {isRTL
-              ? "پیشی فائی سیٹ اپ، چیمبر مائیگریشن یا ملٹی وکیل اکاؤنٹ سے متعلق رہنمائی کے لیے ہمارے نمائندے سے رابطہ کریں۔"
-              : "Have questions about Peshify setup, chamber migration, or multi-associate permissions? Our legal ops team is ready to assist."}
+            Have questions about DiaryLex setup, firm migration, or multi-associate permissions? Our legal ops team is ready to assist.
           </p>
         </div>
       </section>
@@ -113,13 +110,11 @@ export default function ContactPage() {
                     {t("contact.whatsapp") || "WhatsApp Chamber Help"}
                   </h3>
                   <p className="text-xs text-slate-300 mb-6 leading-relaxed">
-                    {isRTL
-                      ? "فوری رہنمائی اور آن بورڈنگ کے لیے 24 گھنٹے براہ راست واٹس ایپ پر رابطہ کریں۔"
-                      : "Chat directly with our chamber support team for immediate setup assistance and live onboarding."}
+                    Chat directly with our chamber support team for immediate setup assistance and live onboarding.
                   </p>
                 </div>
                 <a
-                  href={whatsappLink("Assalam-o-Alaikum, I am an advocate inquiring about Peshify chamber setup.")}
+                  href={whatsappLink("Hello, I am inquiring about DiaryLex law practice setup.")}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-primary w-full min-h-[46px] rounded-xl flex items-center justify-center gap-2 text-xs font-semibold"
@@ -141,9 +136,7 @@ export default function ContactPage() {
                     {t("contact.email") || "Email Inquiries"}
                   </h3>
                   <p className="text-xs text-slate-300 mb-6 leading-relaxed">
-                    {isRTL
-                      ? "چیمبر کی تفصیلی ضروریات، ڈیٹا درآمد یا تکنیکی سوالات کے لیے ای میل بھیجیں۔"
-                      : "Send detailed chamber requirements, bar association procurement questions, or data queries."}
+                    Send detailed chamber requirements, bar association procurement questions, or data queries.
                   </p>
                 </div>
                 <a
@@ -164,12 +157,10 @@ export default function ContactPage() {
                     <MapPin className="w-6 h-6" strokeWidth={1.75} />
                   </div>
                   <h3 className="font-heading font-bold text-xl text-white mb-2">
-                    {t("contact.office") || "Chamber Office"}
+                    {t("contact.office") || "Counsel Help Desk"}
                   </h3>
                   <p className="text-xs text-slate-300 mb-6 leading-relaxed">
-                    {isRTL
-                      ? "پشاور ہائی کورٹ بار اور اسلام آباد بار ایسوسی ایشن کے وکلاء کے لیے براہ راست سروس۔"
-                      : "Supporting counsel across Peshawar High Court Bar, Islamabad Bar, and Lahore High Court benches."}
+                    Supporting counsel, litigation chambers, and law firms across global jurisdictions and regional bar associations.
                   </p>
                 </div>
                 <a
@@ -189,15 +180,13 @@ export default function ContactPage() {
 
             <div className="mb-8 space-y-2 text-center sm:text-start">
               <span className="text-xs font-bold uppercase tracking-wider text-amber-300">
-                {isRTL ? "براہ راست پیغام" : "Direct Chamber Message"}
+                Direct Chamber Message
               </span>
               <h2 className="font-heading font-bold text-2xl sm:text-3xl text-white">
                 {t("contact.sendMessage") || "Send our team a message"}
               </h2>
               <p className="text-xs text-slate-300">
-                {isRTL
-                  ? "فارم پر کریں، ہماری ٹیم 24 گھنٹے کے اندر آپ سے رابطہ کرے گی۔"
-                  : "Fill out the inquiry form below and an advocate coordinator will reply within a few hours."}
+                Fill out the inquiry form below and an advocate coordinator will reply within a few hours.
               </p>
             </div>
 
@@ -208,10 +197,10 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-semibold text-white">
-                    {isRTL ? "پیغام کامیابی سے موصول ہو گیا ہے!" : "Message received successfully!"}
+                    Message received successfully!
                   </p>
                   <p className="text-slate-300 mt-0.5">
-                    {isRTL ? "ہم جلد آپ کے چیمبر سے رابطہ کریں گے۔" : "We will review your inquiry and get in touch shortly."}
+                    We will review your inquiry and get in touch shortly.
                   </p>
                 </div>
               </div>

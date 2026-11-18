@@ -13,6 +13,7 @@ import {
   ArrowRight,
   AlertCircle,
   CalendarDays,
+  Scale,
   Languages,
   MessageCircle,
   ShieldCheck,
@@ -29,9 +30,8 @@ type Tab = "password" | "otp";
 type OtpStep = "phone" | "verify";
 
 export default function SignInPage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
-  const isRTL = i18n.language === "ur";
 
   // ── Tab state ─────────────────────────────────────────────────────────────
   const [tab, setTab] = useState<Tab>("password");
@@ -132,40 +132,39 @@ export default function SignInPage() {
   const chamberHighlights = [
     {
       icon: CalendarDays,
-      title: isRTL ? "روزانہ کاز لسٹ اور سماعت ڈائری" : "Smart Daily Cause Lists & Hearing Diary",
-      desc: isRTL ? "صبح کی عدالت کی پیشی اور تاریخیں ایک نظر میں" : "Track daily courtroom hearings and benches effortlessly",
+      title: "Smart Daily Cause Lists & Hearing Diary",
+      desc: "Track daily courtroom hearings and benches effortlessly",
     },
     {
-      icon: Languages,
-      title: isRTL ? "اردو اور انگریزی مکمل سپورٹ" : "Native Urdu & English Legal Workflows",
-      desc: isRTL ? "پاکستانی عدالتی نظام کے لیے مکمل RTL تجربہ" : "Seamless toggle between languages with court terminology",
+      icon: Scale,
+      title: "Multi-Jurisdiction Docket Coverage",
+      desc: "Engineered for trial courts, appellate benches, and international tribunals",
     },
     {
       icon: MessageCircle,
-      title: isRTL ? "مؤکلین کو براہ راست واٹس ایپ الرٹ" : "Instant WhatsApp Client Notices",
-      desc: isRTL ? "اگلی پیشی اور قانونی پیش رفت کے فوری پیغامات" : "Keep clients updated with official hearing date alerts",
+      title: "Instant WhatsApp & Email Notices",
+      desc: "Keep clients updated with official hearing date alerts and orders",
     },
     {
       icon: ShieldCheck,
-      title: isRTL ? "چیمبر ڈیٹا کی محفوظ ملکیت" : "Chamber-Grade Data Privacy",
-      desc: isRTL ? "محفوظ انکرپٹڈ ڈیٹا جو صرف آپ کے چیمبر کے پاس رہے" : "Strict access controls, TLS 1.3 encryption, and data ownership",
+      title: "Chamber-Grade Data Privacy",
+      desc: "Strict access controls, TLS 1.3 encryption, and complete multi-tenant isolation",
     },
   ];
 
   return (
     <div className="min-h-dvh bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-amber-400/20 font-sans">
-      {/* Top Mobile Bar / Lang Switcher */}
+      {/* Top Mobile Bar */}
       <header className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between relative z-20">
         <Link href="/" className="flex items-center gap-2 group min-h-[44px]">
           <Logo size="md" variant="full" inverted />
         </Link>
         <div className="flex items-center gap-3">
-          <LangSwitcher className="min-h-[44px]" />
           <Link
             href="/"
             className="text-xs font-semibold text-slate-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/5 min-h-[44px] flex items-center"
           >
-            {isRTL ? "← ویب سائٹ پر جائیں" : "Back to Home →"}
+            Back to Home &rarr;
           </Link>
         </div>
       </header>
@@ -191,19 +190,15 @@ export default function SignInPage() {
             <div className="relative z-10 space-y-6">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20">
                 <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
-                {isRTL ? "پاکستانی وکلاء کا چیمبر پلیٹ فارم" : "Built for Pakistani Advocates"}
+                Built for Modern Law Practices & Counsel
               </span>
 
               <h2 className="text-2xl xl:text-3xl font-heading font-bold text-white leading-tight">
-                {isRTL
-                  ? "اپنے چیمبر کی پیشیاں اور کاز لسٹ سنبھالیں"
-                  : "Organize your chamber, hearings, and cause lists."}
+                Organize your cases, court dockets, and hearing diaries.
               </h2>
 
               <p className="text-sm text-slate-300 leading-relaxed">
-                {isRTL
-                  ? "سپریم کورٹ، ہائی کورٹس اور ضلعی عدالتوں کے وکلاء کے لیے جدید ڈیجیٹل ڈائری اور کلائنٹ الرٹس۔"
-                  : "The modern case diary and client portal engineered specifically for Pakistani courts."}
+                The intelligent case management platform and court hearing diary engineered for litigation counsel worldwide.
               </p>
 
               {/* Highlights List */}
@@ -228,12 +223,10 @@ export default function SignInPage() {
             {/* Chamber Trust Quote */}
             <div className="relative z-10 pt-6 border-t border-white/10 mt-8">
               <blockquote className="text-xs text-slate-300 italic leading-relaxed">
-                {isRTL
-                  ? "«پیشی فائی نے صبح کی کاز لسٹ اور مؤکلین کو نوٹس بھیجنے کا عمل نہایت آسان اور خودکار بنا دیا ہے۔»"
-                  : "“Peshify brings order and speed to morning cause lists and client notices across the High Court and District Bar.”"}
+                &ldquo;DiaryLex brings clarity and speed to daily hearing diaries, cause lists, and client communication across our litigation practice.&rdquo;
               </blockquote>
               <p className="text-[11px] text-amber-300 font-medium mt-2">
-                — {isRTL ? "ایڈوکیٹ ہائی کورٹ، اسلام آباد بار" : "Advocate High Court, Islamabad Bar"}
+                — Senior Litigation Counsel &amp; Law Partner
               </p>
             </div>
           </aside>
@@ -245,12 +238,10 @@ export default function SignInPage() {
               {/* Form Header */}
               <div>
                 <h1 className="text-2xl font-heading font-bold text-white tracking-tight">
-                  {isRTL ? "چیمبر اکاؤنٹ میں لاگ ان کریں" : "Sign in to your chamber"}
+                  Sign in to your chamber
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-400 mt-1.5">
-                  {isRTL
-                    ? "اپنی عدالتی ڈائری، کلائنٹس اور کاز لسٹ تک رسائی حاصل کریں"
-                    : "Access your daily cause lists, case files, and client updates"}
+                  Access your daily cause lists, case files, and client updates
                 </p>
               </div>
 
@@ -531,7 +522,7 @@ export default function SignInPage() {
       {/* Footer */}
       <footer className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs text-slate-500">
         <p>
-          &copy; {new Date().getFullYear()} Peshify (Pvt) Ltd. Built for Pakistani Advocates & Chambers.
+          &copy; {new Date().getFullYear()} DiaryLex Technologies Ltd. Intelligent Legal Case Management.
         </p>
       </footer>
     </div>

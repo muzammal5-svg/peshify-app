@@ -109,7 +109,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
             {user ? (
               <Link
                 href="/"
-                className="btn-secondary min-h-[44px] h-11 px-4 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-2 rounded-xl"
+                className="btn-secondary min-h-[44px] h-11 px-4 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-2 rounded-xl btn-tactile"
               >
                 {t("marketing.goToDashboard")}
                 <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
@@ -118,13 +118,13 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
               <>
                 <Link
                   href="/auth/sign-in"
-                  className="inline-flex items-center justify-center min-h-[44px] h-11 px-4 text-xs font-semibold uppercase tracking-[0.10em] text-[#EDE8E0] border border-[rgba(237,232,224,0.22)] hover:border-[#EDE8E0] hover:text-white rounded-xl transition-colors"
+                  className="inline-flex items-center justify-center min-h-[44px] h-11 px-4 text-xs font-semibold uppercase tracking-[0.10em] text-[#EDE8E0] border border-[rgba(237,232,224,0.22)] hover:border-[#EDE8E0] hover:text-white rounded-xl transition-all duration-200 btn-tactile"
                 >
                   {t("marketing.signIn")}
                 </Link>
                 <Link
                   href="/register"
-                  className="inline-flex items-center justify-center gap-1.5 min-h-[44px] h-11 px-5 text-xs font-bold uppercase tracking-[0.10em] bg-[#EDE8E0] text-[#050505] hover:bg-white rounded-xl transition-colors active:scale-[0.99] shadow-xs"
+                  className="inline-flex items-center justify-center gap-1.5 min-h-[44px] h-11 px-5 text-xs font-bold uppercase tracking-[0.10em] bg-[#EDE8E0] text-[#050505] hover:bg-white rounded-xl transition-all duration-200 shadow-xs btn-tactile btn-sheen"
                 >
                   {t("marketing.signUp")}
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
@@ -236,47 +236,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
 }
 
 /* ─── Language pill (EN / UR) with sliding active indicator ─────────────────── */
-function LangPill({ className }: { className?: string }) {
-  const { lang, setLang, languages } = useLang();
-  const { t } = useTranslation();
-  const index = Math.max(0, languages.findIndex((l) => l.code === lang));
-
-  return (
-    <div
-      className={cn(
-        "relative inline-flex items-center min-h-[44px] h-11 rounded-xl border border-[rgba(237,232,224,0.18)] bg-[#0A0A0A] p-1",
-        className
-      )}
-      role="group"
-      aria-label={t("settings.language")}
-    >
-      {/* Sliding active indicator */}
-      <span
-        className="absolute top-1 bottom-1 rounded-lg bg-[#EDE8E0] transition-all duration-200 ease-out"
-        style={{
-          width: `calc((100% - 0.5rem) / ${languages.length})`,
-          insetInlineStart: `calc(0.25rem + ${index} * ((100% - 0.5rem) / ${languages.length}))`,
-        }}
-        aria-hidden="true"
-      />
-      {languages.map((l) => {
-        const active = lang === l.code;
-        return (
-          <button
-            key={l.code}
-            type="button"
-            onClick={() => setLang(l.code as SupportedLang)}
-            aria-pressed={active}
-            aria-label={l.label}
-            className={cn(
-              "relative z-10 min-w-[44px] min-h-[36px] h-full flex items-center justify-center rounded-lg px-3 text-xs font-bold uppercase tracking-[0.08em] transition-colors duration-200 focus-visible:outline-none select-none",
-              active ? "text-[#050505]" : "text-[#C8C2B8] hover:text-[#EDE8E0]"
-            )}
-          >
-            {l.code.toUpperCase()}
-          </button>
-        );
-      })}
-    </div>
-  );
+function LangPill(_props: { className?: string }) {
+  // Purely English for international presentation
+  return null;
 }

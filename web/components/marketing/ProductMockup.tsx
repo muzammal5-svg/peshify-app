@@ -61,7 +61,7 @@ export function ProductMockup() {
           {/* URL bar */}
           <div className="flex items-center justify-center gap-2 px-4 py-1 rounded-lg bg-[#080B12] border border-white/[0.06] text-[11px] font-mono text-zinc-300 w-full max-w-sm mx-auto shadow-inner">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-            <span className="truncate">https://app.peshify.pk/cause-list/daily</span>
+            <span className="truncate">https://app.diarylex.com/cause-list/daily</span>
           </div>
 
           {/* Right badges */}
@@ -80,9 +80,9 @@ export function ProductMockup() {
             <div className="space-y-4">
               <div className="flex items-center gap-2.5 px-2">
                 <div className="w-7 h-7 rounded-lg bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold text-xs">
-                  P
+                  D
                 </div>
-                <span className="font-bold text-xs text-zinc-100 tracking-tight">Peshify Chambers</span>
+                <span className="font-bold text-xs text-zinc-100 tracking-tight">DiaryLex Practice</span>
               </div>
 
               <div className="space-y-1 text-xs font-medium">
@@ -106,8 +106,8 @@ export function ProductMockup() {
             </div>
 
             <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05] text-[11px] text-zinc-400">
-              <p className="font-semibold text-zinc-200">Karachi High Court</p>
-              <p className="text-[10px] text-zinc-400 mt-0.5">Bench 02 • Morning Call</p>
+              <p className="font-semibold text-zinc-200">Commercial Appellate Division</p>
+              <p className="text-[10px] text-zinc-400 mt-0.5">Bench 02 • Morning Cause List</p>
             </div>
           </div>
 
@@ -117,7 +117,7 @@ export function ProductMockup() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/[0.06]">
               <div>
                 <h3 className="text-base font-bold text-zinc-100 flex items-center gap-2">
-                  <span>Peshawar &amp; Islamabad Cause List</span>
+                  <span>Apex &amp; Appellate Cause List</span>
                   <Badge variant="gold" size="sm">Today&apos;s Board</Badge>
                 </h3>
                 <p className="text-xs text-zinc-400 mt-0.5">
@@ -168,9 +168,9 @@ export function ProductMockup() {
                     <td className="py-2.5 px-3 font-mono font-bold text-primary">#01</td>
                     <td className="py-2.5 px-3 font-mono font-semibold text-zinc-200">WP 1042/2024</td>
                     <td className="py-2.5 px-3">
-                      <span className="font-semibold text-zinc-100">Tariq Mahmood</span>
+                      <span className="font-semibold text-zinc-100">TechCorp Ltd</span>
                       <span className="text-zinc-500 mx-1">vs</span>
-                      <span className="text-zinc-300">Federation of Pakistan</span>
+                      <span className="text-zinc-300">Revenue Commissioners</span>
                     </td>
                     <td className="py-2.5 px-3 text-zinc-300">Court 02 • Hon. Justice S. Ali</td>
                     <td className="py-2.5 px-3">
@@ -181,9 +181,9 @@ export function ProductMockup() {
                     <td className="py-2.5 px-3 font-mono font-bold text-primary">#02</td>
                     <td className="py-2.5 px-3 font-mono font-semibold text-zinc-200">Crl. Misc 421/2024</td>
                     <td className="py-2.5 px-3">
-                      <span className="font-semibold text-zinc-100">State</span>
+                      <span className="font-semibold text-zinc-100">Crown / State</span>
                       <span className="text-zinc-500 mx-1">vs</span>
-                      <span className="text-zinc-300">Bilal Ahmad Khan</span>
+                      <span className="text-zinc-300">Global Logistics Corp</span>
                     </td>
                     <td className="py-2.5 px-3 text-zinc-300">Court 04 • Regular Board</td>
                     <td className="py-2.5 px-3">
@@ -194,9 +194,9 @@ export function ProductMockup() {
                     <td className="py-2.5 px-3 font-mono font-bold text-primary">#03</td>
                     <td className="py-2.5 px-3 font-mono font-semibold text-zinc-200">C.A. 89/2023</td>
                     <td className="py-2.5 px-3">
-                      <span className="font-semibold text-zinc-100">Haji Abdul Rehman</span>
+                      <span className="font-semibold text-zinc-100">Horizon Energy Ltd</span>
                       <span className="text-zinc-500 mx-1">vs</span>
-                      <span className="text-zinc-300">CDA Islamabad</span>
+                      <span className="text-zinc-300">Development Authority</span>
                     </td>
                     <td className="py-2.5 px-3 text-zinc-300">Supreme Court • Court 01</td>
                     <td className="py-2.5 px-3">
@@ -228,7 +228,7 @@ export function ProductMockup() {
           <div className="flex items-center justify-between px-2 mb-3">
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-primary" />
-              <span className="font-bold text-xs text-zinc-100">Peshify Mobile</span>
+              <span className="font-bold text-xs text-zinc-100">DiaryLex Mobile</span>
             </div>
             <span className="text-[10px] font-mono text-zinc-400">09:41</span>
           </div>
@@ -246,9 +246,9 @@ export function ProductMockup() {
             </div>
 
             <div className="p-3 rounded-2xl bg-[#111726] border border-white/[0.08]">
-              <span className="text-[10px] font-bold uppercase text-zinc-400">WhatsApp Alert</span>
-              <p className="text-xs font-semibold text-zinc-100 mt-0.5">Tariq vs Federation</p>
-              <p className="text-[10px] text-zinc-400">Next date 18 Nov dispatched to client</p>
+              <span className="text-[10px] font-bold uppercase text-zinc-400">Client Alert</span>
+              <p className="text-xs font-semibold text-zinc-100 mt-0.5">TechCorp vs Ministry</p>
+              <p className="text-[10px] text-zinc-400">Hearing update dispatched to client</p>
             </div>
           </div>
 

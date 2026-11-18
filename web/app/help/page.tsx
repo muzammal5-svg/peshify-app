@@ -27,13 +27,13 @@ export default function HelpPage() {
                 {t("more.helpTitle") || "How can we help your chamber today?"}
               </h1>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                {t("more.helpText") || "Our chamber legal ops team provides 24/7 dedicated assistance to Pakistani advocates and law firms."}
+                {t("more.helpText") || "Our legal operations team provides 24/7 dedicated assistance to litigation counsel, advocates, and law practices."}
               </p>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <a
-                href={whatsappLink("Assalam-o-Alaikum, I need assistance with Peshify chamber application.")}
+                href={whatsappLink("Hello, I need assistance with DiaryLex law practice application.")}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-primary min-h-[44px] px-5 text-xs font-semibold rounded-xl inline-flex items-center gap-2"

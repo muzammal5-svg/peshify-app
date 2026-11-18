@@ -34,7 +34,7 @@ export function LegalDocument({
         <header>
           <div className="flex items-center gap-2.5 text-[#EDE8E0]">
             <Icon className="h-5 w-5" aria-hidden="true" />
-            <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#9A958C]">Peshify</span>
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#9A958C]">DiaryLex</span>
           </div>
           <h1 className="mt-3 font-heading text-3xl font-bold text-[#EDE8E0] md:text-4xl">
             {t(definition.titleKey)}

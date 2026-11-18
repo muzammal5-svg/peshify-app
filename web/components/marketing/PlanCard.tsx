@@ -92,7 +92,7 @@ export function PlanCard({
   const features = [
     "Supreme & High Court Cause Lists",
     "Automated Daily Hearing Diary",
-    "Urdu & English WhatsApp Alerts",
+    "Automated WhatsApp & Email Hearing Alerts",
     `Up to ${plan.max_users} Chamber Associates`,
     "Unlimited Case Files & Documents",
     "Court Fee & Retainer Ledger",

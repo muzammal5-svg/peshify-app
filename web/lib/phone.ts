@@ -27,10 +27,17 @@ export function formatPhoneDisplay(e164: string): string {
   return e164;
 }
 
-/** Zod-compatible validator */
+/** Zod-compatible validator for global & international phone numbers */
+export function isValidPhone(value: string): boolean {
+  if (!value) return false;
+  const stripped = value.replace(/[\s\-\(\)\.]/g, "");
+  // Accepts standard international E.164 (+ and 7-15 digits) or local 10-15 digit numbers
+  return /^\+?[0-9]{7,15}$/.test(stripped);
+}
+
+/** Zod-compatible validator (kept for PK specific validation if needed) */
 export function isValidPkPhone(value: string): boolean {
-  const n = normalisePhone(value);
-  return /^\+923\d{9}$/.test(n);
+  return isValidPhone(value);
 }
 
 /** CNIC utilities — format: 35201-1234567-1 */

@@ -1,13 +1,17 @@
 "use client";
 
 import {
-  createContext, useContext, useEffect,
+  createContext, useContext, useEffect, useRef,
   useState, useCallback, type ReactNode,
 } from "react";
 import type { User, Session } from "@supabase/supabase-js";
 import { supabase, IS_SUPABASE_CONFIGURED } from "@/lib/supabase/client";
 import { canUseWebPush, enableWebPush, disableWebPush, getWebPushSubscriptionEndpoint } from "@/lib/push";
+import { devicesRpc } from "@/lib/supabase/devices";
+import { getClientDeviceInfo } from "@/lib/deviceDetection";
+import { DeviceLimitModal } from "@/components/devices/DeviceLimitModal";
 import type { Profile, Firm } from "@/types/supabase";
+import type { ActiveDeviceSummary } from "@/types/devices";
 
 interface AuthContextValue {
   user:           User    | null;
@@ -19,6 +23,8 @@ interface AuthContextValue {
   configured:     boolean;
   unreadCount:    number;          // unread notifications count
   reminderCount:  number;
+  currentDeviceId: string | null;
+  registerCurrentDevice: () => Promise<boolean>;
   refreshProfile: () => Promise<void>;
   refreshCounts:  () => Promise<void>;
   signOut:        () => Promise<void>;
@@ -34,6 +40,8 @@ const AuthContext = createContext<AuthContextValue>({
   configured:     false,
   unreadCount:    0,
   reminderCount:  0,
+  currentDeviceId: null,
+  registerCurrentDevice: async () => false,
   refreshProfile: async () => {},
   refreshCounts:  async () => {},
   signOut:        async () => {},
@@ -48,6 +56,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profileLoading, setProfileLoading] = useState(IS_SUPABASE_CONFIGURED);
   const [unreadCount, setUnreadCount] = useState(0);
   const [reminderCount, setReminderCount] = useState(0);
+
+  // Device registration & limit state
+  const [currentDeviceId, setCurrentDeviceId] = useState<string | null>(null);
+  const [deviceLimitReached, setDeviceLimitReached] = useState(false);
+  const [activeLimitDevices, setActiveLimitDevices] = useState<ActiveDeviceSummary[]>([]);
+  const lastHeartbeatTimeRef = useRef<number>(0);
 
   // ── Fetch profile row ────────────────────────────────────────────────────
   const fetchProfile = useCallback(async (userId: string) => {
@@ -152,6 +166,71 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // ── Register device (active device limits & session tracking) ───────────────
+  const registerCurrentDevice = useCallback(async (): Promise<boolean> => {
+    if (!IS_SUPABASE_CONFIGURED) return true;
+    try {
+      const info = await getClientDeviceInfo();
+      const res = await devicesRpc.registerDevice(
+        info.deviceName,
+        info.deviceType,
+        info.deviceUuid
+      );
+
+      if (res.status === "limit_reached") {
+        setActiveLimitDevices(res.devices);
+        setDeviceLimitReached(true);
+        return false;
+      }
+
+      if (res.status === "ok") {
+        setCurrentDeviceId(res.device_id);
+        setDeviceLimitReached(false);
+        setActiveLimitDevices([]);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("peshify_current_device_id", res.device_id);
+        }
+        return true;
+      }
+    } catch (error) {
+      console.error("[devices] register current device error:", error);
+    }
+    return true;
+  }, []);
+
+  // ── Heartbeat device check (throttled ping, max once every 10 min) ──────────
+  const performHeartbeat = useCallback(async (forced: boolean = false) => {
+    if (!IS_SUPABASE_CONFIGURED || !user) return;
+    const now = Date.now();
+    // At most once every 10 minutes unless forced
+    if (!forced && (now - lastHeartbeatTimeRef.current < 10 * 60 * 1000)) {
+      return;
+    }
+
+    const deviceId =
+      currentDeviceId ||
+      (typeof window !== "undefined"
+        ? localStorage.getItem("peshify_current_device_id")
+        : null);
+
+    if (!deviceId) return;
+    lastHeartbeatTimeRef.current = now;
+
+    try {
+      const res = await devicesRpc.heartbeat(deviceId);
+      if (res && res.valid === false && res.reason === "revoked") {
+        console.warn("[devices] Session revoked from another device.");
+        // Sign out automatically
+        await signOut();
+        if (typeof window !== "undefined") {
+          alert("Aap ko doosre device se logout kar diya gaya / You have been logged out from another device.");
+        }
+      }
+    } catch (err) {
+      console.error("[devices] heartbeat check failed:", err);
+    }
+  }, [user, currentDeviceId]);
+
   // ── Auth state listener ───────────────────────────────────────────────────
   useEffect(() => {
     if (!IS_SUPABASE_CONFIGURED) {
@@ -170,6 +249,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           await fetchProfile(data.session.user.id);
           await refreshCounts();
           await registerDeviceToken(data.session.user.id);
+          await registerCurrentDevice();
         } else {
           setProfile(null);
           setFirm(null);
@@ -193,12 +273,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           void fetchProfile(newSession.user.id)
             .then(refreshCounts)
             .then(() => registerDeviceToken(newSession.user.id))
+            .then(() => registerCurrentDevice())
             .catch(error => console.error("[auth] profile load:", error));
         } else {
           setProfile(null);
           setFirm(null);
           setUnreadCount(0);
           setReminderCount(0);
+          setCurrentDeviceId(null);
           setProfileLoading(false);
           setLoading(false);
         }
@@ -206,7 +288,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     );
 
     return () => subscription.unsubscribe();
-  }, [fetchProfile, refreshCounts, registerDeviceToken]);
+  }, [fetchProfile, refreshCounts, registerDeviceToken, registerCurrentDevice]);
+
+  // ── Poll heartbeat & check on window focus ────────────────────────────────
+  useEffect(() => {
+    if (!user || !IS_SUPABASE_CONFIGURED) return;
+
+    // Check heartbeat periodically (every 5 minutes)
+    const intervalId = setInterval(() => {
+      void performHeartbeat();
+    }, 5 * 60 * 1000);
+
+    // Check heartbeat on window focus / visibility change
+    const onFocus = () => {
+      void performHeartbeat();
+    };
+
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onFocus);
+
+    return () => {
+      clearInterval(intervalId);
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onFocus);
+    };
+  }, [user, performHeartbeat]);
 
   // ── Poll unread count every 60 s when user is active ─────────────────────
   useEffect(() => {
@@ -237,20 +343,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (user) await removeDeviceToken(user.id);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("peshify_current_device_id");
+    }
     await supabase.auth.signOut();
+    setUser(null);
+    setSession(null);
     setProfile(null);
     setFirm(null);
     setUnreadCount(0);
     setReminderCount(0);
+    setCurrentDeviceId(null);
+    setDeviceLimitReached(false);
+    setActiveLimitDevices([]);
   }, [user, removeDeviceToken]);
 
   return (
     <AuthContext.Provider value={{
       user, session, profile, firm, loading, profileLoading,
       configured: IS_SUPABASE_CONFIGURED,
-      unreadCount, reminderCount, refreshProfile, refreshCounts, signOut,
+      unreadCount, reminderCount,
+      currentDeviceId, registerCurrentDevice,
+      refreshProfile, refreshCounts, signOut,
     }}>
       {children}
+      {deviceLimitReached && (
+        <DeviceLimitModal
+          open={deviceLimitReached}
+          devices={activeLimitDevices}
+          onRetryRegister={registerCurrentDevice}
+          onSignOut={signOut}
+        />
+      )}
     </AuthContext.Provider>
   );
 }

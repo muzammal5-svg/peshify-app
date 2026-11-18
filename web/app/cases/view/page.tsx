@@ -7,7 +7,7 @@ import Link                           from "next/link";
 import {
   Edit, MoreVertical, Trash2, CheckSquare, RefreshCw,
   CalendarPlus, ChevronRight, User, Gavel, Plus,
-  FileText, Send, Clock, Activity,
+  FileText, Send, Clock, Activity, Wallet,
 } from "lucide-react";
 
 import { AppShell }            from "@/components/layout/AppShell";
@@ -24,6 +24,7 @@ import { useToast }            from "@/components/ui/Toast";
 import { useRoleGuard }        from "@/hooks/useRoleGuard";
 import { MutatingButton, useMutationLock } from "@/components/shared/MutatingButton";
 import { useCase, useCaseHearings, useCaseNotes, useSoftDeleteCase, useAddCaseNote, useDeleteCaseNote } from "@/hooks/useCases";
+import { useCaseDeal }         from "@/hooks/useLedger";
 import { useActivityLog }      from "@/hooks/useActivityLog";
 import { useAuth }             from "@/providers/AuthProvider";
 import { MarkDecidedModal }    from "@/components/cases/MarkDecidedModal";
@@ -199,6 +200,8 @@ function NotesTab({ caseId, readOnly = false }: { caseId: string; readOnly?: boo
 function OverviewTab({ caseId }: { caseId: string }) {
   const { data: c } = useCase(caseId);
   const { t }       = useTranslation();
+  const { can }     = useRoleGuard();
+  const { data: caseDeal } = useCaseDeal(caseId);
   if (!c) return null;
 
   function Row({ label, value, mono = false }: { label: string; value?: string | null; mono?: boolean }) {
@@ -257,6 +260,35 @@ function OverviewTab({ caseId }: { caseId: string }) {
               </p>
             </div>
             <ChevronRight className="w-4 h-4 text-zinc-500 flex-shrink-0 rtl:rotate-180" />
+          </Card>
+        </Link>
+      )}
+
+      {can("fees:view") && caseDeal && (
+        <Link href={`/clients/view?id=${c.client_id}&tab=fees`}>
+          <Card hover className="p-3.5 border-amber-500/30 bg-amber-500/[0.04] flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-500 flex-shrink-0">
+                <Wallet className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
+                    Fee Agreement &amp; Retainer
+                  </span>
+                  <Badge variant="neutral" size="sm">{caseDeal.status}</Badge>
+                </div>
+                <p className="text-xs text-foreground mt-0.5 font-medium truncate">
+                  {caseDeal.title}
+                </p>
+                <div className="flex items-center gap-3 text-xs font-mono mt-1 text-muted-foreground flex-wrap">
+                  <span>Agreed: <strong className="text-foreground">Rs {Number(caseDeal.agreed_amount).toLocaleString()}</strong></span>
+                  <span>Received: <strong className="text-emerald-400">Rs {Number(caseDeal.total_received).toLocaleString()}</strong></span>
+                  <span>Balance: <strong className="text-amber-400">Rs {Number(caseDeal.balance).toLocaleString()}</strong></span>
+                </div>
+              </div>
+            </div>
+            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0 rtl:rotate-180" />
           </Card>
         </Link>
       )}

@@ -43,7 +43,7 @@ export default function RefundPolicyPage() {
               Refund Policy
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Last Updated: October 2026 &bull; Fair, transparent billing and cancellation policies for Peshify subscriptions and advocate licenses.
+              Last Updated: October 2026 &bull; Fair, transparent billing and access policies for DiaryLex subscriptions and legal practice licenses.
             </p>
           </div>
 
@@ -59,7 +59,7 @@ export default function RefundPolicyPage() {
               </div>
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <a
-                  href={whatsappLink("Assalam-o-Alaikum, I have a billing inquiry regarding Peshify Refund Policy.")}
+                  href={whatsappLink("Hello, I have an inquiry regarding DiaryLex Policy.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary text-xs py-2.5 px-4 min-h-[44px] rounded-xl inline-flex items-center gap-2 justify-center"

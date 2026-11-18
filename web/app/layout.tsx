@@ -9,52 +9,54 @@ import { LangProvider }   from "@/providers/LangProvider";
 import { ToastProvider }  from "@/components/ui/Toast";
 import { ErrorBoundary }  from "@/components/shared/ErrorBoundary";
 import { OfflineBanner }  from "@/components/shared/OfflineBanner";
+import { ScrollAnimationProvider } from "@/components/shared/ScrollAnimationProvider";
 import { BRAND }          from "@/lib/brand";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://peshify-app.vercel.app"),
+  metadataBase: new URL("https://diarylex.com"),
   title: {
     template: `%s | ${BRAND.name}`,
-    default: `${BRAND.name} — Modern Case Management for Pakistani Advocates`,
+    default: `${BRAND.name} — Intelligent Case Management & Court Hearing Diary`,
   },
   description:
-    "Daily Cause Lists, Hearing Diary, Urdu & English bilingual support, WhatsApp client updates, and Chamber Ledger for Pakistani advocates and law firms.",
+    "Intelligent case management, automated court hearing diary, client communication, limitation tracking, and chamber ledger for litigation attorneys, law firms, and legal counsel worldwide.",
   keywords: [
-    "Peshify",
-    "Pakistani Advocates",
-    "Case Management Pakistan",
-    "High Court Cause List",
-    "District Court Diary",
-    "Supreme Court Pakistan",
-    "Urdu Legal Software",
-    "Chamber Management Pakistan",
-    "Law Firm Software Pakistan",
+    "DiaryLex",
+    "Legal Case Management",
+    "Court Hearing Diary",
+    "Law Practice Management",
+    "Litigation Management Software",
+    "Docket Management",
+    "Law Firm Software",
+    "Attorney Case Tracking",
+    "Court Calendar Software",
+    "Multilingual Legal CMS",
   ],
   alternates: {
-    canonical: "https://peshify-app.vercel.app",
+    canonical: "https://diarylex.com",
   },
   openGraph: {
-    title: "Peshify | Modern Case Management for Pakistani Advocates",
+    title: "DiaryLex | Intelligent Case Management & Court Hearing Diary",
     description:
-      "Daily Cause Lists, Hearing Diary, Urdu & English bilingual support, WhatsApp client updates, and Chamber Ledger for Pakistani advocates and law firms.",
-    url: "https://peshify-app.vercel.app",
-    siteName: "Peshify",
+      "Intelligent case management, automated court hearing diary, client updates, limitation alerts, and chamber ledger for law practices worldwide.",
+    url: "https://diarylex.com",
+    siteName: "DiaryLex",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Peshify Case Management Platform",
+        alt: "DiaryLex Case Management Platform",
       },
     ],
-    locale: "en_PK",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Peshify | Modern Case Management for Pakistani Advocates",
+    title: "DiaryLex | Intelligent Case Management & Court Hearing Diary",
     description:
-      "Daily Cause Lists, Hearing Diary, Urdu & English bilingual support, and WhatsApp client updates for Pakistani courts.",
+      "Intelligent case management, automated court hearing diary, client updates, and chamber ledger for law practices worldwide.",
     images: ["/og.png"],
   },
   manifest: "/manifest.json",
@@ -91,21 +93,21 @@ export const viewport: Viewport = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "Peshify",
+  name: "DiaryLex",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web, iOS, Android",
   description:
-    "Case management platform for Pakistani advocates and chambers: daily cause lists, hearing diary, client directory, WhatsApp updates, and Urdu RTL support.",
+    "Intelligent case management platform for litigation attorneys, barristers, and law firms: daily court cause lists, hearing diary, client directory, and multilingual RTL support.",
   offers: {
     "@type": "Offer",
     price: "0",
-    priceCurrency: "PKR",
+    priceCurrency: "USD",
     availability: "https://schema.org/InStock",
   },
   publisher: {
     "@type": "Organization",
-    name: "Peshify (Pvt) Ltd",
-    url: "https://peshify-app.vercel.app",
+    name: "DiaryLex Technologies Ltd",
+    url: "https://diarylex.com",
   },
 };
 
@@ -151,7 +153,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <SubscriptionProvider>
                     <LangProvider>
                       <ToastProvider>
-                        {children}
+                        <ScrollAnimationProvider>
+                          {children}
+                        </ScrollAnimationProvider>
                         <OfflineBanner />
                       </ToastProvider>
                     </LangProvider>

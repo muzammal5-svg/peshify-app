@@ -25,53 +25,52 @@ interface FAQItem {
 }
 
 export default function FAQPage() {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === "ur";
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [selectedCat, setSelectedCat] = useState<string>("All");
   const [openId, setOpenId] = useState<string | null>("0-0");
 
   const faqs: FAQItem[] = [
     {
-      category: isRTL ? "عمومی معلومات" : "General",
+      category: "General",
       questions: [
         {
-          q: t("faq.q1") || "What is Peshify?",
-          a: t("faq.a1") || "Peshify is a modern chamber operating system engineered specifically for Pakistani advocates, barristers, and law firms across all court hierarchies."
+          q: t("faq.q1") || "What is DiaryLex?",
+          a: t("faq.a1") || "DiaryLex is an intelligent case management and court hearing diary platform engineered for litigation attorneys, advocates, barristers, and law firms across global court hierarchies."
         },
         {
-          q: t("faq.q2") || "Who can use Peshify?",
-          a: t("faq.a2") || "Peshify is built for solo advocates, chamber associates, senior counsel, and large law partnerships managing daily cause lists, hearing diaries, and clients."
+          q: t("faq.q2") || "Who can use DiaryLex?",
+          a: t("faq.a2") || "DiaryLex is built for solo counsel, chamber associates, senior advocates, and law partnerships managing active litigation cases, court dockets, hearing diaries, and clients."
         },
         {
-          q: t("faq.q3") || "Is Peshify really free during early access?",
-          a: t("faq.a3") || "Yes! Peshify is 100% free with unrestricted access to all features during our launch period. No credit card, no trial expiration, and no hidden fees."
+          q: t("faq.q3") || "Is DiaryLex really free during early access?",
+          a: t("faq.a3") || "Yes! DiaryLex is 100% free with unrestricted access to all features during our global early access rollout. No credit card, no trial expiration, and no hidden fees."
         },
       ]
     },
     {
-      category: isRTL ? "فیچرز اور ٹولز" : "Features",
+      category: "Features",
       questions: [
         {
           q: t("faq.q4") || "How does the daily cause list feature work?",
-          a: t("faq.a4") || "Peshify compiles your chamber's daily court fixtures into an automated hearing list sorted by serial number, court, judge, and hearing stage."
+          a: t("faq.a4") || "DiaryLex compiles your practice's daily court fixtures into an automated hearing list sorted by case number, court, judge, and hearing stage."
         },
         {
           q: t("faq.q5") || "How do WhatsApp client notifications work?",
-          a: t("faq.a5") || "With a single click from any case or hearing entry, Peshify formats bilingual court progress notices and sends them directly to your client via WhatsApp."
+          a: t("faq.a5") || "With a single click from any case or hearing entry, DiaryLex formats professional court progress notices and sends them directly to your client via WhatsApp or email."
         },
         {
           q: t("faq.q6") || "Can clients or associates view case details?",
           a: t("faq.a6") || "Yes, you can configure team role permissions for associates and clerks, and share structured PDF cause lists or case summaries with clients."
         },
         {
-          q: t("faq.q7") || "Does it support native Urdu and Nastaliq typography?",
-          a: t("faq.a7") || "Yes! Peshify features native Urdu Nastaliq typography with right-to-left (RTL) mirroring across all screens and documents."
+          q: "Does DiaryLex support multiple court jurisdictions and tribunals?",
+          a: "Yes! DiaryLex is built to handle Supreme Courts, Appellate Benches, Commercial Divisions, District Courts, and Arbitration Tribunals with jurisdiction-specific case dockets."
         },
       ]
     },
     {
-      category: isRTL ? "پلان اور ارلی ایکسس" : "Pricing & Access",
+      category: "Pricing & Access",
       questions: [
         {
           q: t("faq.q8") || "Are there any limits on cases or documents?",
@@ -88,7 +87,7 @@ export default function FAQPage() {
       ]
     },
     {
-      category: isRTL ? "رازداری اور سیکیورٹی" : "Security & Privacy",
+      category: "Security & Privacy",
       questions: [
         {
           q: t("faq.q11") || "Will my chamber's data stay confidential?",
@@ -100,7 +99,7 @@ export default function FAQPage() {
         },
         {
           q: t("faq.q13") || "What support is available if I need assistance?",
-          a: t("faq.a13") || "We provide direct WhatsApp support (+92 341 7359571) and email support for all Pakistani advocates and chambers."
+          a: t("faq.a13") || "We provide direct support via WhatsApp, email (support@diarylex.com), and our global help center."
         },
         {
           q: t("faq.q14") || "Can I export my chamber data at any time?",
@@ -140,20 +139,18 @@ export default function FAQPage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-amber-500/10 via-primary/15 to-transparent blur-3xl pointer-events-none" />
         </div>
 
-        <div className={`${CONTAINER} relative z-10 max-w-3xl mx-auto space-y-4`}>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20 shadow-xs">
+        <div className={`${CONTAINER} relative z-10 max-w-3xl mx-auto space-y-4 animate-fade-in-up`}>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20 shadow-xs animate-float-subtle">
             <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
-            <span>{isRTL ? "چیمبر نالج بیس" : "Chamber Knowledge Base & FAQ"}</span>
+            <span>Chamber Knowledge Base &amp; FAQ</span>
           </div>
 
           <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
-            {isRTL ? "اکثر پوچھے جانے والے سوالات" : "Frequently Asked Questions"}
+            Frequently Asked Questions
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed">
-            {isRTL
-              ? "کاز لسٹ، پیشی ڈائری، واٹس ایپ الرٹس اور ڈیٹا سیکیورٹی سے متعلق تمام معلومات حاصل کریں۔"
-              : "Find immediate answers regarding daily cause lists, diary alerts, pricing, and attorney data security."}
+            Find immediate answers regarding daily cause lists, diary alerts, pricing, and attorney data security.
           </p>
 
           {/* Search Bar */}
@@ -162,7 +159,7 @@ export default function FAQPage() {
               <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
               <input
                 type="text"
-                placeholder={isRTL ? "سوال تلاش کریں..." : "Search questions by topic, feature, or keyword..."}
+                placeholder="Search questions by topic, feature, or keyword..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full bg-card/80 border border-white/10 focus:border-amber-400/50 focus:ring-2 focus:ring-amber-400/20 py-3.5 ps-11 pe-10 text-sm text-white placeholder:text-slate-500 rounded-2xl transition-all shadow-lg outline-none backdrop-blur-md"
@@ -171,7 +168,7 @@ export default function FAQPage() {
                 <button
                   type="button"
                   onClick={() => setSearch("")}
-                  className="absolute end-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
+                  className="absolute end-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1 transition-transform duration-200 hover:scale-110 active:scale-90"
                   aria-label="Clear search"
                 >
                   <X className="w-4 h-4" />
@@ -189,9 +186,9 @@ export default function FAQPage() {
                   key={cat}
                   type="button"
                   onClick={() => setSelectedCat(cat)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 min-h-[36px] ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 min-h-[36px] btn-tactile ${
                     active
-                      ? "bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20"
+                      ? "bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20 scale-105"
                       : "bg-white/[0.05] text-slate-300 border border-white/10 hover:bg-white/[0.1] hover:text-white"
                   }`}
                 >
@@ -210,19 +207,17 @@ export default function FAQPage() {
             <div className="text-center py-16 rounded-2xl border border-white/10 bg-white/[0.02] p-8">
               <HelpCircle className="w-12 h-12 text-slate-500 mx-auto mb-3" />
               <h3 className="text-lg font-bold text-white mb-1">
-                {isRTL ? "کوئی سوال نہیں ملا" : "No matching questions found"}
+                No matching questions found
               </h3>
               <p className="text-xs text-slate-400 mb-4">
-                {isRTL
-                  ? "براہ کرم کوئی دوسرا لفظ تلاش کریں یا براہ راست سپورٹ سے رابطہ کریں۔"
-                  : `We couldn't find any questions matching "${search}".`}
+                We couldn&apos;t find any questions matching &ldquo;{search}&rdquo;.
               </p>
               <button
                 type="button"
                 onClick={() => { setSearch(""); setSelectedCat("All"); }}
                 className="btn-secondary text-xs px-4 py-2"
               >
-                {isRTL ? "تمام سوالات دیکھیں" : "Clear filters"}
+                Clear filters
               </button>
             </div>
           ) : (
@@ -286,29 +281,27 @@ export default function FAQPage() {
               <MessageCircle className="w-6 h-6" strokeWidth={1.75} />
             </div>
             <h3 className="font-heading font-bold text-xl text-white">
-              {isRTL ? "کیا آپ کے پاس کوئی اور سوال ہے؟" : "Still Have Questions About Setup?"}
+              Still Have Questions About Setup?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
-              {isRTL
-                ? "ہماری چیمبر سپورٹ ٹیم 24 گھنٹے واٹس ایپ پر وکلاء اور چیمبرز کے سوالات کے جوابات دینے کے لیے حاضر ہے۔"
-                : "Our chamber onboarding team is ready on WhatsApp 24/7 to walk counsel through migration, multi-associate setup, and daily cause list automation."}
+              Our chamber onboarding team is ready on WhatsApp 24/7 to walk counsel through migration, multi-associate setup, and daily cause list automation.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <a
-                href={whatsappLink("Assalam-o-Alaikum, I have a question regarding Peshify.")}
+                href={whatsappLink("Hello, I have a question regarding DiaryLex.")}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-primary min-h-[44px] px-6 py-2.5 text-xs font-semibold rounded-xl inline-flex items-center gap-2"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>{isRTL ? "واٹس ایپ سپورٹ سے بات کریں" : "Chat on WhatsApp"}</span>
+                <span>Chat on WhatsApp</span>
               </a>
               <Link
                 href="/contact"
                 className="btn-secondary min-h-[44px] px-5 py-2.5 text-xs font-semibold rounded-xl bg-white/5 border-white/10 text-white hover:bg-white/10 inline-flex items-center gap-2"
               >
                 <Mail className="w-4 h-4 text-amber-400" />
-                <span>{isRTL ? "رابطہ صفحہ کھولیں" : "Contact Chamber Office"}</span>
+                <span>Contact Chamber Office</span>
               </Link>
             </div>
           </div>

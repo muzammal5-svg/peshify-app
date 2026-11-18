@@ -1,5 +1,5 @@
 {
-  "name": "peshify-app",
+  "name": "diarylex-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -26,6 +26,7 @@
     "@capacitor/app": "^6.0.1",
     "@capacitor/camera": "^6.0.1",
     "@capacitor/core": "^6.1.2",
+    "@capacitor/device": "^6.0.3",
     "@capacitor/filesystem": "^6.0.1",
     "@capacitor/haptics": "^6.0.1",
     "@capacitor/ios": "^6.2.2",

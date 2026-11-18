@@ -1,15 +1,18 @@
 /**
- * Brand constants for Peshify.
+ * Brand constants for DiaryLex.
+ * International legal case management, court docketing, and hearing diary.
  * All colours reference the Tailwind tokens — import from here, never hardcode.
  */
 
 export const BRAND = {
-  name:        "Peshify",
-  shortName:   "Peshify",
-  tagline:     "Advocates & Legal Consultants",
-  timezone:    "Asia/Karachi",
+  name:        "DiaryLex",
+  shortName:   "DiaryLex",
+  legalName:   "DiaryLex Technologies Ltd.",
+  domain:      "diarylex.com",
+  tagline:     "Intelligent Case Management & Court Hearing Diary for Modern Law Practices",
+  timezone:    "UTC",
   dateFormat:  "dd MMM yyyy",   // date-fns format token
-  dateLocale:  "en-PK",
+  dateLocale:  "en-US",
 
   colors: {
     gold:      "#8A6414",

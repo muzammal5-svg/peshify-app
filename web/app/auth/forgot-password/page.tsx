@@ -9,8 +9,7 @@ import { Logo } from "@/components/shared/Logo";
 import { LangSwitcher } from "@/components/shared/LangSwitcher";
 
 export default function ForgotPasswordPage() {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === "ur";
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -136,7 +135,7 @@ export default function ForgotPasswordPage() {
 
       {/* Footer */}
       <footer className="w-full max-w-7xl mx-auto px-4 py-4 text-center text-xs text-slate-500">
-        &copy; {new Date().getFullYear()} Peshify (Pvt) Ltd.
+        &copy; {new Date().getFullYear()} DiaryLex Technologies Ltd.
       </footer>
     </div>
   );

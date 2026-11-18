@@ -109,14 +109,12 @@ const config: Config = {
       },
 
       fontFamily: {
-        heading:   ["Syne", "var(--font-display)", "sans-serif"],
-        display:   ["Syne", "sans-serif"],
-        body:      ["DM Sans", "var(--font-sans)", "system-ui", "sans-serif"],
-        sans:      ["DM Sans", "system-ui", "sans-serif"],
-        cormorant: ["Syne", "sans-serif"],
-        jakarta:   ["DM Sans", "sans-serif"],
-        inter:     ["DM Sans", "sans-serif"],
-        urdu:      ["Noto Nastaliq Urdu", "Noto Sans Arabic", "serif"],
+        heading:   ['"Plus Jakarta Sans"', "system-ui", "-apple-system", "sans-serif"],
+        display:   ['"Plus Jakarta Sans"', "system-ui", "-apple-system", "sans-serif"],
+        body:      ["Inter", '"Plus Jakarta Sans"', "system-ui", "-apple-system", "sans-serif"],
+        sans:      ["Inter", '"Plus Jakarta Sans"', "system-ui", "-apple-system", "sans-serif"],
+        jakarta:   ['"Plus Jakarta Sans"', "system-ui", "sans-serif"],
+        inter:     ["Inter", "system-ui", "sans-serif"],
         mono:      ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
 
@@ -211,6 +209,12 @@ const config: Config = {
         "float-slow": { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
         "drawer-in": { "0%": { transform: "translateX(-28px)", opacity: "0" }, "100%": { transform: "translateX(0)", opacity: "1" } },
         "sheen": { "0%": { transform: "translateX(-120%)" }, "100%": { transform: "translateX(120%)" } },
+        "fade-in-up": { "0%": { opacity: "0", transform: "translateY(16px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        "fade-in-down": { "0%": { opacity: "0", transform: "translateY(-16px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        "scale-in": { "0%": { opacity: "0", transform: "scale(0.95)" }, "100%": { opacity: "1", transform: "scale(1)" } },
+        "float": { "0%,100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-6px)" } },
+        "pulse-slow": { "0%,100%": { opacity: "1" }, "50%": { opacity: "0.45" } },
+        "shimmer-sweep": { "0%": { backgroundPosition: "-200% 0" }, "100%": { backgroundPosition: "200% 0" } },
       },
       animation: {
         "slide-up":   "slide-up 0.25s ease-out",
@@ -228,6 +232,12 @@ const config: Config = {
         "float-slow": "float-slow 6s ease-in-out infinite",
         "drawer-in": "drawer-in 0.28s cubic-bezier(0.16,1,0.3,1)",
         sheen:        "sheen 2.4s ease-in-out infinite",
+        "fade-in-up": "fade-in-up 0.5s cubic-bezier(0.16,1,0.3,1) forwards",
+        "fade-in-down": "fade-in-down 0.4s cubic-bezier(0.16,1,0.3,1) forwards",
+        "scale-in":   "scale-in 0.35s cubic-bezier(0.16,1,0.3,1) forwards",
+        "float":      "float 4s ease-in-out infinite",
+        "pulse-slow": "pulse-slow 3s ease-in-out infinite",
+        "shimmer-sweep": "shimmer-sweep 2.5s ease-in-out infinite",
       },
 
       zIndex: {

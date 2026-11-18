@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,13 +6,11 @@
 
 /* ─── Modern B2B SaaS Design System Tokens ───────────────────────────────── */
 :root, [data-theme="dark"], .dark {
-  --font-display:    'Syne', sans-serif;
-  --font-sans:       'DM Sans', system-ui, sans-serif;
-  --font-inter:      'DM Sans', system-ui, sans-serif;
-  --font-jakarta:    'DM Sans', system-ui, sans-serif;
-  --font-playfair:   'Syne', sans-serif;
-  --font-cormorant:  'Syne', sans-serif;
-  --font-noto-urdu:  'Noto Nastaliq Urdu', serif;
+  --font-display:    'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans:       'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-inter:      'Inter', system-ui, sans-serif;
+  --font-jakarta:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-heading:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
   /* Dark Canvas & Surfaces (Obsidian Matte) */
   --background:      240 10% 4%;       /* #090A0F */
@@ -501,8 +499,150 @@ button, a, [role="button"] {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
-/* Shimmer */
-.shimmer { background: linear-gradient(90deg, #111111 25%, #171717 50%, #111111 75%); background-size: 200% 100%; animation: shimmer 1.6s linear infinite; }
+/* ─── Global Smooth Scroll & Motion Polish ───────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Scroll-Driven Reveal System ─────────────────────────────────────── */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for sibling reveal items */
+.reveal-stagger > *:nth-child(1) { transition-delay: 60ms; }
+.reveal-stagger > *:nth-child(2) { transition-delay: 120ms; }
+.reveal-stagger > *:nth-child(3) { transition-delay: 180ms; }
+.reveal-stagger > *:nth-child(4) { transition-delay: 240ms; }
+.reveal-stagger > *:nth-child(5) { transition-delay: 300ms; }
+.reveal-stagger > *:nth-child(6) { transition-delay: 360ms; }
+
+/* ─── Interactive Card & Button Hover Elevate ─────────────────────────── */
+.card-hover-elevate {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+.card-hover-elevate:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 20px -4px rgba(59, 130, 246, 0.15);
+}
+
+.card-hover-subtle {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover-subtle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.6);
+}
+
+/* Button tactile micro-interactions */
+.btn-tactile {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-tactile:hover {
+  transform: translateY(-1.5px);
+}
+.btn-tactile:active {
+  transform: translateY(0.5px) scale(0.98);
+}
+
+/* Button Sheen Sweep */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.btn-sheen::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: none;
+}
+.btn-sheen:hover::after {
+  left: 140%;
+  transition: left 0.75s ease-in-out;
+}
+
+/* ─── Animated Shimmering Text Gradient ───────────────────────────────── */
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #93c5fd 45%, #f59e0b 80%, #ffffff 100%);
+  background-size: 250% auto;
+  animation: gradient-flow 7s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Floating & Glow Pulses ─────────────────────────────────────────── */
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float-subtle {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(0.95); opacity: 0; }
+}
+
+.pulse-ring-emerald {
+  position: relative;
+}
+.pulse-ring-emerald::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.4);
+  animation: pulse-ring 2.2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Reduced motion override */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .card-hover-elevate:hover,
+  .card-hover-subtle:hover,
+  .btn-tactile:hover {
+    transform: none !important;
+  }
+  .animate-float-subtle,
+  .animate-gradient-text {
+    animation: none !important;
+  }
+}
+
 
 /* Staggered fade-in for list children */
 .stagger-children > * { animation: fade-in .2s ease-out both; }

@@ -43,7 +43,7 @@ export default function PrivacyPage() {
               Privacy Policy
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Last Updated: October 2026 &bull; Compliant with attorney-client confidentiality and data privacy standards under the laws of the Islamic Republic of Pakistan.
+              Last Updated: October 2026 &bull; Compliant with international attorney-client confidentiality and legal data privacy standards.
             </p>
           </div>
 
@@ -54,12 +54,12 @@ export default function PrivacyPage() {
             {/* Questions / Chamber Inquiries Box */}
             <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/[0.03] p-6 rounded-2xl border border-white/5">
               <div>
-                <h4 className="text-sm font-bold text-white mb-1">Have questions about your chamber&apos;s data privacy?</h4>
+                <h4 className="text-sm font-bold text-white mb-1">Have questions about your firm&apos;s data privacy?</h4>
                 <p className="text-xs text-slate-400">Our compliance team is available 24/7 to address any data protection concerns.</p>
               </div>
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <a
-                  href={whatsappLink("Assalam-o-Alaikum, I have a question regarding Peshify Privacy Policy.")}
+                  href={whatsappLink("Hello, I have a question regarding DiaryLex Privacy Policy.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary text-xs py-2.5 px-4 min-h-[44px] rounded-xl inline-flex items-center gap-2 justify-center"

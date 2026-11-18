@@ -21,6 +21,10 @@ import { PageLoader }       from "@/components/ui/LoadingSpinner";
 import { PK_CITY_OPTIONS }  from "@/lib/cities";
 import { formatCnic, normalisePhone } from "@/lib/phone";
 import { checkDuplicates, useClient, useUpdateClient } from "@/hooks/useClients";
+import { useRoleGuard }     from "@/hooks/useRoleGuard";
+import { useAuth }          from "@/providers/AuthProvider";
+import { DealFormSection, type DealFormValues } from "@/components/ledger/DealFormSection";
+import { ledgerRpc }        from "@/lib/supabase/ledger";
 import { useToast }         from "@/components/ui/Toast";
 import { clientStep1Schema, type ClientStep1Data } from "@/components/clients/clientSchema";
 import { useState, useCallback } from "react";
@@ -34,6 +38,18 @@ function EditClientPage() {
 
   const { data: client, isLoading, isError, refetch } = useClient(id || null);
   const updateClient = useUpdateClient(id);
+  const { profile } = useAuth();
+  const { can } = useRoleGuard();
+
+  const [dealForm, setDealForm] = useState<DealFormValues>({
+    enabled: false,
+    title: "",
+    agreedAmount: "",
+    advanceReceived: "",
+    paymentMethod: "cash",
+    caseId: "",
+    notes: "",
+  });
 
   const [dupWarning, setDupWarning] = useState<string | null>(null);
   const [dupCheckError, setDupCheckError] = useState<string | null>(null);
@@ -101,6 +117,52 @@ function EditClientPage() {
         address:             data.address || null,
         city:                data.city || null,
       });
+
+      // Optional Fee / Deal creation
+      if (
+        can("fees:edit") &&
+        dealForm.enabled &&
+        dealForm.agreedAmount !== "" &&
+        Number(dealForm.agreedAmount) > 0 &&
+        profile?.firm_id
+      ) {
+        try {
+          const dealTitle =
+            dealForm.title.trim() || `${data.full_name} Legal Representation`;
+          const createdDeal = await ledgerRpc.createDeal({
+            firm_id: profile.firm_id,
+            client_id: id,
+            case_id: dealForm.caseId || null,
+            title: dealTitle,
+            agreed_amount: Number(dealForm.agreedAmount),
+            notes: dealForm.notes || null,
+            created_by: profile.id,
+          });
+
+          if (
+            dealForm.advanceReceived !== "" &&
+            Number(dealForm.advanceReceived) > 0
+          ) {
+            await ledgerRpc.createPayment({
+              firm_id: profile.firm_id,
+              deal_id: createdDeal.id,
+              client_id: id,
+              amount: Number(dealForm.advanceReceived),
+              method: dealForm.paymentMethod,
+              notes: "Initial advance received upon retainer agreement",
+              created_by: profile.id,
+            });
+          }
+        } catch (dealErr: any) {
+          console.error("[ledger] deal creation on client edit failed:", dealErr);
+          toast.error(
+            "Client updated, but fee deal could not be recorded",
+            dealErr?.message ||
+              "You can add the fee agreement anytime from the client's Fees tab."
+          );
+        }
+      }
+
       toast.success(t("profile.saved"), `${data.full_name} updated.`);
       router.push(`/clients/view?id=${id}`);
     } catch (err: unknown) {
@@ -119,7 +181,7 @@ function EditClientPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
 
             <Input label={t("clients.name")} required error={errors.full_name?.message}
-              placeholder="e.g. Muhammad Aslam Khan or فاطمہ بی بی" {...register("full_name")} />
+              placeholder="e.g. Alexander Vance or Jane Doe" {...register("full_name")} />
 
             <Input label={t("clients.fatherHusbandName")} error={errors.father_husband_name?.message}
               {...register("father_husband_name")} />
@@ -171,6 +233,16 @@ function EditClientPage() {
               {...register("city")} />
 
             <Textarea label={t("clients.address")} rows={2} {...register("address")} />
+
+            {/* Optional Fee / Deal Details Accordion */}
+            {can("fees:edit") && (
+              <DealFormSection
+                values={dealForm}
+                onChange={(updates) =>
+                  setDealForm((prev) => ({ ...prev, ...updates }))
+                }
+              />
+            )}
 
             <div className="flex gap-3 pt-2">
               <Button type="button" variant="secondary" onClick={() => router.back()} className="flex-1">

@@ -14,7 +14,7 @@ export default function ErrorPage({
 }) {
   useEffect(() => {
     // Log error to console or error monitor
-    console.error("Peshify runtime error:", error);
+    console.error("DiaryLex runtime error:", error);
   }, [error]);
 
   return (
@@ -70,7 +70,7 @@ export default function ErrorPage({
       </main>
 
       <footer className="w-full max-w-7xl mx-auto px-4 py-5 text-center text-xs text-slate-500">
-        &copy; {new Date().getFullYear()} Peshify (Pvt) Ltd. All rights reserved.
+        &copy; {new Date().getFullYear()} DiaryLex Technologies Ltd. All rights reserved.
       </footer>
     </div>
   );

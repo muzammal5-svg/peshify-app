@@ -43,7 +43,7 @@ export default function TermsPage() {
               Terms of Service
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Last Updated: October 2026 &bull; Governing service agreement between Peshify Legal CMS and subscriber advocates, legal practitioners, and firms.
+              Last Updated: October 2026 &bull; Governing service agreement between DiaryLex Legal CMS and subscriber advocates, legal practitioners, and firms.
             </p>
           </div>
 
@@ -54,12 +54,12 @@ export default function TermsPage() {
             {/* Questions / Chamber Inquiries Box */}
             <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/[0.03] p-6 rounded-2xl border border-white/5">
               <div>
-                <h4 className="text-sm font-bold text-white mb-1">Need clarification on chamber terms or billing agreements?</h4>
-                <p className="text-xs text-slate-400">Our legal ops team is ready to assist your chamber onboarding.</p>
+                <h4 className="text-sm font-bold text-white mb-1">Need clarification on firm terms or billing agreements?</h4>
+                <p className="text-xs text-slate-400">Our legal ops team is ready to assist your firm onboarding.</p>
               </div>
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <a
-                  href={whatsappLink("Assalam-o-Alaikum, I have a question regarding Peshify Terms of Service.")}
+                  href={whatsappLink("Hello, I have a question regarding DiaryLex Terms of Service.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary text-xs py-2.5 px-4 min-h-[44px] rounded-xl inline-flex items-center gap-2 justify-center"

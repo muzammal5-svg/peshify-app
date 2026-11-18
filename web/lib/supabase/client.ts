@@ -15,7 +15,7 @@ const supabaseAnon = IS_SUPABASE_CONFIGURED ? rawAnon : "placeholder-anon-key";
 
 if (typeof window !== "undefined" && !IS_SUPABASE_CONFIGURED) {
   console.warn(
-    "[Peshify] Supabase not configured — copy .env.local.example → .env.local " +
+    "[DiaryLex] Supabase not configured — copy .env.local.example → .env.local " +
     "and fill in NEXT_PUBLIC_SUPABASE_URL + NEXT_PUBLIC_SUPABASE_ANON_KEY"
   );
 }
@@ -34,7 +34,7 @@ export const supabase = createClient<Database>(
       detectSessionInUrl: false,  // static export — handle redirects manually
     },
     global: {
-      headers: { "x-app-name": "peshify-case-management" },
+      headers: { "x-app-name": "diarylex-case-management" },
     },
   }
 );

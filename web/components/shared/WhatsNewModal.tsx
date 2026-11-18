@@ -25,8 +25,8 @@ export function WhatsNewModal({ open, onClose }: WhatsNewModalProps) {
     },
     {
       icon: Globe,
-      title: "Native Urdu (Nastaliq RTL) Support",
-      desc: "Seamless one-tap language switching with mirror layouts, right-to-left alignment, and specialized Pakistani court terminology.",
+      title: "Native Multilingual & RTL Support",
+      desc: "Seamless one-tap language switching with mirror layouts, right-to-left alignment, and specialized court terminology.",
       tag: "Localization",
     },
     {
@@ -47,13 +47,13 @@ export function WhatsNewModal({ open, onClose }: WhatsNewModalProps) {
     <Modal
       open={open}
       onClose={onClose}
-      title="What's New in Peshify v2.1"
+      title="What's New in DiaryLex v2.1"
       size="md"
     >
       <div className="space-y-4 pt-1">
         <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 text-xs text-primary font-medium">
           <Sparkles className="w-4 h-4 shrink-0 text-amber-500" strokeWidth={1.75} />
-          <span>Production Launch Edition &bull; Built exclusively for Pakistani advocates</span>
+          <span>Production Launch Edition &bull; Intelligent case management for counsel worldwide</span>
         </div>
 
         <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">

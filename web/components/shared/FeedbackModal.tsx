@@ -30,13 +30,13 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
     setLoading(true);
     // Persist to localStorage or mock dispatch
     try {
-      const existing = JSON.parse(localStorage.getItem("peshify_feedback") || "[]");
+      const existing = JSON.parse(localStorage.getItem("diarylex_feedback") || "[]");
       existing.push({
         category,
         message,
         timestamp: new Date().toISOString(),
       });
-      localStorage.setItem("peshify_feedback", JSON.stringify(existing));
+      localStorage.setItem("diarylex_feedback", JSON.stringify(existing));
     } catch {}
 
     setTimeout(() => {
@@ -64,7 +64,7 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
           </div>
           <h3 className="text-base font-semibold text-foreground">Thank You for Your Feedback!</h3>
           <p className="text-xs text-muted-foreground max-w-xs mx-auto">
-            Your suggestion helps us refine Peshify for Pakistani advocates across all courts.
+            Your suggestion helps us refine DiaryLex for litigation advocates and counsel across all courts.
           </p>
         </div>
       ) : (

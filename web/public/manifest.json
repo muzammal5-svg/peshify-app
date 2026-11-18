@@ -1,7 +1,7 @@
 {
-  "name": "Peshify",
-  "short_name": "Peshify",
-  "description": "Peshify — Law Practice & Case Management Platform",
+  "name": "DiaryLex",
+  "short_name": "DiaryLex",
+  "description": "DiaryLex — Intelligent Legal Case Management & Court Hearing Diary",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

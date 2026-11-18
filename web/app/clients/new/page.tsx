@@ -26,6 +26,9 @@ import { useQueryClient }   from "@tanstack/react-query";
 import { PK_CITY_OPTIONS }  from "@/lib/cities";
 import { formatCnic, normalisePhone } from "@/lib/phone";
 import { checkDuplicates }  from "@/hooks/useClients";
+import { DealFormSection, type DealFormValues } from "@/components/ledger/DealFormSection";
+import { ledgerRpc }         from "@/lib/supabase/ledger";
+import { useRoleGuard }      from "@/hooks/useRoleGuard";
 import {
   clientStep1Schema, ClientStep1Data, CLIENT_DRAFT_KEY,
 } from "@/components/clients/clientSchema";
@@ -49,6 +52,17 @@ function AddClientPage() {
   const [pendingFiles,  setPendingFiles]  = useState<PendingFile[]>([]);
   const [dupWarning,    setDupWarning]    = useState<string | null>(null);
   const [dupCheckError, setDupCheckError] = useState<string | null>(null);
+
+  const { can } = useRoleGuard();
+  const [dealForm, setDealForm] = useState<DealFormValues>({
+    enabled: false,
+    title: "",
+    agreedAmount: "",
+    advanceReceived: "",
+    paymentMethod: "cash",
+    caseId: "",
+    notes: "",
+  });
 
   // ── Form ──────────────────────────────────────────────────────────────────
   const {
@@ -140,15 +154,61 @@ function AddClientPage() {
 
       if (error) throw error;
 
-      setCreatedId((row as { id: string }).id);
+      const newClientId = (row as { id: string }).id;
+      setCreatedId(newClientId);
       localStorage.removeItem(CLIENT_DRAFT_KEY);
       qc.invalidateQueries({ queryKey: ["clients"] });
       qc.invalidateQueries({ queryKey: ["dashboard-counts"] });
+
+      // Optional Fee / Deal creation
+      if (
+        can("fees:edit") &&
+        dealForm.enabled &&
+        dealForm.agreedAmount !== "" &&
+        Number(dealForm.agreedAmount) > 0
+      ) {
+        try {
+          const dealTitle =
+            dealForm.title.trim() || `${data.full_name} Legal Representation`;
+          const createdDeal = await ledgerRpc.createDeal({
+            firm_id: firmId,
+            client_id: newClientId,
+            case_id: dealForm.caseId || null,
+            title: dealTitle,
+            agreed_amount: Number(dealForm.agreedAmount),
+            notes: dealForm.notes || null,
+            created_by: userId,
+          });
+
+          if (
+            dealForm.advanceReceived !== "" &&
+            Number(dealForm.advanceReceived) > 0
+          ) {
+            await ledgerRpc.createPayment({
+              firm_id: firmId,
+              deal_id: createdDeal.id,
+              client_id: newClientId,
+              amount: Number(dealForm.advanceReceived),
+              method: dealForm.paymentMethod,
+              notes: "Initial advance received upon retainer agreement",
+              created_by: userId,
+            });
+          }
+        } catch (dealErr: any) {
+          console.error("[ledger] deal creation on client add failed:", dealErr);
+          toast.error(
+            "Client saved, but fee deal could not be recorded",
+            dealErr?.message ||
+              "You can add the fee agreement anytime from the client's Fees tab."
+          );
+        }
+      }
+
       toast.success(t("clients.new"), `${data.full_name} added.`);
 
       // If no pending docs, go to profile; else go to step 2
       if (pendingFiles.length === 0) {
-        router.push(`/clients/view?id=${(row as { id: string }).id}`);
+        router.push(`/clients/view?id=${newClientId}`);
       } else {
         setStep(1);
       }
@@ -304,6 +364,16 @@ function AddClientPage() {
                 placeholder={t("clients.addressPlaceholder")}
                 {...register("address")}
               />
+
+              {/* Optional Fee / Deal Details Accordion */}
+              {can("fees:edit") && (
+                <DealFormSection
+                  values={dealForm}
+                  onChange={(updates) =>
+                    setDealForm((prev) => ({ ...prev, ...updates }))
+                  }
+                />
+              )}
 
               {/* Actions */}
               <div className="flex gap-3 pt-2">
