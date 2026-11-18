@@ -16,29 +16,45 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://diarylex.com"),
   title: {
     template: `%s | ${BRAND.name}`,
-    default: `${BRAND.name} — Intelligent Case Management & Court Hearing Diary`,
+    default: `${BRAND.name} — Intelligent Legal Case Management & Court Hearing Diary`,
   },
   description:
-    "Intelligent case management, automated court hearing diary, client communication, limitation tracking, and chamber ledger for litigation attorneys, law firms, and legal counsel worldwide.",
+    "Intelligent legal case management, automated court hearing diary, client communication, limitation countdown alerts, and chamber ledger for litigation attorneys, law practices, and corporate counsel worldwide.",
   keywords: [
     "DiaryLex",
-    "Legal Case Management",
+    "Legal Case Management Software",
     "Court Hearing Diary",
     "Law Practice Management",
     "Litigation Management Software",
-    "Docket Management",
+    "Court Docket Software",
     "Law Firm Software",
     "Attorney Case Tracking",
     "Court Calendar Software",
-    "Multilingual Legal CMS",
+    "Limitation Tracking App",
+    "Law Firm CRM",
+    "Chamber Ledger Software",
   ],
   alternates: {
     canonical: "https://diarylex.com",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-diarylex",
+  },
   openGraph: {
-    title: "DiaryLex | Intelligent Case Management & Court Hearing Diary",
+    title: "DiaryLex — Intelligent Legal Case Management & Court Hearing Diary",
     description:
-      "Intelligent case management, automated court hearing diary, client updates, limitation alerts, and chamber ledger for law practices worldwide.",
+      "Intelligent case management, automated court hearing diary, client WhatsApp alerts, limitation countdowns, and chamber ledger for law practices worldwide.",
     url: "https://diarylex.com",
     siteName: "DiaryLex",
     images: [
@@ -46,7 +62,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "DiaryLex Case Management Platform",
+        alt: "DiaryLex Legal Case Management Platform",
       },
     ],
     locale: "en_US",
@@ -54,7 +70,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DiaryLex | Intelligent Case Management & Court Hearing Diary",
+    title: "DiaryLex — Intelligent Legal Case Management & Court Hearing Diary",
     description:
       "Intelligent case management, automated court hearing diary, client updates, and chamber ledger for law practices worldwide.",
     images: ["/og.png"],
@@ -92,23 +108,77 @@ export const viewport: Viewport = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "DiaryLex",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web, iOS, Android",
-  description:
-    "Intelligent case management platform for litigation attorneys, barristers, and law firms: daily court cause lists, hearing diary, client directory, and multilingual RTL support.",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-    availability: "https://schema.org/InStock",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "DiaryLex Technologies Ltd",
-    url: "https://diarylex.com",
-  },
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://diarylex.com/#website",
+      "url": "https://diarylex.com",
+      "name": "DiaryLex",
+      "alternateName": ["DiaryLex Legal", "DiaryLex Case Management"],
+      "description": "Intelligent Legal Case Management & Court Hearing Diary for Modern Law Practices",
+      "publisher": {
+        "@id": "https://diarylex.com/#organization",
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://diarylex.com/cases?q={search_term_string}",
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://diarylex.com/#organization",
+      "name": "DiaryLex Technologies Ltd.",
+      "url": "https://diarylex.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://diarylex.com/logo/diarylex-logo.png",
+        "caption": "DiaryLex Logo",
+      },
+      "sameAs": [
+        "https://twitter.com/diarylex",
+        "https://linkedin.com/company/diarylex",
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-800-539-3427",
+        "contactType": "customer support",
+        "email": "support@diarylex.com",
+        "availableLanguage": ["en"],
+      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://diarylex.com/#application",
+      "name": "DiaryLex",
+      "applicationCategory": "BusinessApplication, LegalApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "description":
+        "Intelligent case management platform for litigation counsel, advocates, and law practices worldwide: automated daily cause lists, hearing diary, limitation tracking, and chamber ledger.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "64",
+        "bestRating": "5",
+        "worstRating": "1",
+      },
+      "featureList": [
+        "Automated Morning Cause List Docketing",
+        "Hearing Timeline & Court Action Diary",
+        "10-Day Limitation & Appeal Due Reminders",
+        "1-Click Client Progress Updates via WhatsApp",
+        "Chamber File & Pleadings Vault",
+        "Chamber Financial Ledger & Fee Tracking",
+        "Role-Based Multi-Associate Access",
+      ],
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

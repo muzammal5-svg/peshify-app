@@ -1,3 +1,30 @@
+# robots.txt for https://diarylex.com
 User-agent: *
 Allow: /
+Allow: /features
+Allow: /pricing
+Allow: /faq
+Allow: /contact
+Allow: /register
+Allow: /auth/sign-in
+Allow: /help
+Allow: /terms
+Allow: /privacy
+Allow: /refund-policy
+
+# Disallow authenticated application dashboards & internal APIs from crawl budget waste
+Disallow: /admin/
+Disallow: /cases/
+Disallow: /clients/
+Disallow: /cause-list/
+Disallow: /reminders/
+Disallow: /settings/
+Disallow: /notifications/
+Disallow: /documents/
+Disallow: /profile/
+Disallow: /billing/
+Disallow: /hearings/
+Disallow: /design-system/
+
+# XML Sitemap
 Sitemap: https://diarylex.com/sitemap.xml
