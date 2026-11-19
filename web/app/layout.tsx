@@ -141,7 +141,7 @@ const jsonLd = {
       ],
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+1-800-539-3427",
+        "telephone": "+92-332-3055502",
         "contactType": "customer support",
         "email": "support@diarylex.com",
         "availableLanguage": ["en"],

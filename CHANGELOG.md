@@ -4,7 +4,47 @@ This changelog records all design refinements, architectural upgrades, and bug f
 
 ---
 
-## [2.3.0] - Universal SaaS Design Alignment (Features, FAQ, Contact, Help & Legal Pages)
+## [2.4.0] - International Law Chamber Suite, Calendar Sync, Global Search & WhatsApp Automation
+
+### 🌍 Global & Internationalization Expansion
+- **International Registration ([web/components/marketing/InternationalLocationFields.tsx](file:///d:/peshify-app/web/components/marketing/InternationalLocationFields.tsx)):**
+  - Replaced restrictive Pakistan-only location constraints with a comprehensive Country selector supporting 50+ global jurisdictions (UAE, UK, USA, Saudi Arabia, Canada, Qatar, India, etc.).
+  - Made district and tehsil optional so international advocates can register seamlessly with just City, State/Province, and Country.
+  - Updated phone normalization to accept all E.164 international country dial codes (`+971`, `+44`, `+1`, `+92`, `00...`).
+- **Instant Registration API ([web/app/api/auth/register/route.ts](file:///d:/peshify-app/web/app/api/auth/register/route.ts)):**
+  - Bypassed email confirmation roadblock using Supabase admin `createUser` with `email_confirm: true`. Advocates can register in under 30 seconds and start practicing immediately.
+
+### 📅 Calendar & Schedule Integrations
+- **Google Calendar & iCal Export ([web/lib/calendarExport.ts](file:///d:/peshify-app/web/lib/calendarExport.ts), [web/components/shared/CalendarExportButton.tsx](file:///d:/peshify-app/web/components/shared/CalendarExportButton.tsx)):**
+  - Integrated 1-click calendar sync directly into Cause List, Dashboard, and Case Timeline.
+  - Automatically generates Google Calendar add links and downloadable `.ics` files for Apple Calendar and Microsoft Outlook.
+
+### 🔍 Global Search (Cmd+K / Ctrl+K)
+- **Instant Practice Search ([web/components/shared/GlobalSearchModal.tsx](file:///d:/peshify-app/web/components/shared/GlobalSearchModal.tsx), [web/hooks/useGlobalSearch.ts](file:///d:/peshify-app/web/hooks/useGlobalSearch.ts)):**
+  - Added global keyboard shortcut listener (`Ctrl+K` / `⌘K`) accessible anywhere in the app.
+  - Real-time debounced search indexing across litigation cases (parties, case reference, court) and clients (name, phone, CNIC/ID).
+  - Wired into DesktopTopBar with keyboard shortcut hint badge.
+
+### 📲 WhatsApp Client Communication Automation
+- **Hearing Date & Notice Sharing ([web/lib/clientShare.ts](file:///d:/peshify-app/web/lib/clientShare.ts), [web/components/shared/HearingShareModal.tsx](file:///d:/peshify-app/web/components/shared/HearingShareModal.tsx)):**
+  - 1-click legal notice generation in both Urdu and English with court date, bench, and proceedings.
+  - Integrated into Cause List table and cards, Update Hearing sheet ("Save & WhatsApp"), and Case detail header.
+- **Document WhatsApp Sharing ([web/components/shared/DocumentShareModal.tsx](file:///d:/peshify-app/web/components/shared/DocumentShareModal.tsx)):**
+  - Advocates can share uploaded case pleadings and orders with clients via WhatsApp with secure 7-day download links.
+
+### 📄 Court Case Brief PDF Export
+- **One-Page Case Summary PDF ([web/app/cases/view/page.tsx](file:///d:/peshify-app/web/app/cases/view/page.tsx)):**
+  - Added "Case Brief (PDF)" action button generating formatted summaries with parties, case info, client details, and past 15 hearings for courtroom appearances.
+
+### 💳 Billing & Chamber Management
+- **Full Subscription & Billing Dashboard ([web/app/billing/page.tsx](file:///d:/peshify-app/web/app/billing/page.tsx)):**
+  - Replaced empty redirect with a full chamber tier overview displaying Chamber Pro early access, seat quotas, data privacy, and invoice history.
+- **Tab-Switch Auto-Reload Fix:**
+  - Disabled aggressive window focus refetches in QueryProvider (`refetchOnWindowFocus: false`) and optimized AuthProvider token refresh listeners to eliminate flickering loaders when advocates switch between browser tabs or WhatsApp Web.
+- **Helpline & Account Number Update:**
+  - Updated official WhatsApp helpline and Easypaisa payment account number across the app to `+92 332 3055502`.
+
+---
 
 ### ✨ Marketing & Public Routes Overhaul
 - **Features Page ([web/app/features/page.tsx](file:///d:/peshify-app/web/app/features/page.tsx)):**
@@ -50,7 +90,7 @@ This changelog records all design refinements, architectural upgrades, and bug f
   - **Brand & Chamber Mission:** Clear statement of purpose and Pakistani advocate focus.
   - **Chamber Operations:** Links to Cause Lists, Diary, WhatsApp Notices, Urdu RTL, and Invoicing.
   - **Court Coverage:** Supreme Court, Lahore, Islamabad, Sindh, Peshawar & Quetta High Courts, and District Judiciary.
-  - **Chamber Support:** One-tap WhatsApp helpline (+92 341 7359571), direct phone, and chamber email.
+  - **Chamber Support:** One-tap WhatsApp helpline (+92 332 3055502), direct phone, and chamber email.
 - **Attorney Data Protection Pledge:** Integrated a dedicated pledge banner detailing client privilege and PostgreSQL RLS multi-tenant data segregation.
 - **Accessible Tap Targets:** Elevated bottom bar legal links to `min-h-[44px]` with flex wrap protection.
 

@@ -9,13 +9,14 @@ export function stripPhone(value: string): string {
   return value.replace(/[^\d+]/g, "");
 }
 
-/** Normalise to E.164 (+92XXXXXXXXXX) */
+/** Normalise to E.164 (+[country][number]) */
 export function normalisePhone(value: string): string {
   const stripped = stripPhone(value);
-  if (stripped.startsWith("+92")) return stripped;
+  if (stripped.startsWith("+")) return stripped;
+  if (stripped.startsWith("00")) return `+${stripped.slice(2)}`;
   if (stripped.startsWith("92"))  return `+${stripped}`;
   if (stripped.startsWith("0"))   return `+92${stripped.slice(1)}`;
-  return stripped; // unknown format — store as-is
+  return stripped;
 }
 
 /** Display as 0300-1234567 */

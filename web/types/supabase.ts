@@ -1378,7 +1378,7 @@ export type Client = Tables<"clients">
 export type CaseType = Tables<"case_types">
 export type Court = Tables<"courts">
 export type Case = Tables<"cases"> & {
-  client?: Pick<Client, "id" | "full_name" | "phone" | "cnic" | "city"> | null
+  client?: Pick<Client, "id" | "full_name" | "phone" | "whatsapp" | "cnic" | "city"> | null
   case_type?: Pick<CaseType, "id" | "name" | "requires_offence"> | null
   assigned_lawyer?: Pick<Profile, "id" | "full_name" | "role"> | null
 }

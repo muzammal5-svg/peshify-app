@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation }   from "react-i18next";
 import { useForm }          from "react-hook-form";
 import { zodResolver }      from "@hookform/resolvers/zod";
 import { z }                from "zod";
-import { CalendarPlus }     from "lucide-react";
+import { CalendarPlus, MessageSquare }     from "lucide-react";
 
 import { BottomSheet, Modal } from "@/components/ui/Modal";
 import { Input }              from "@/components/ui/Input";
@@ -16,6 +16,8 @@ import { MutatingButton }     from "@/components/shared/MutatingButton";
 import { useToast }           from "@/components/ui/Toast";
 import { useUpdateHearing }   from "@/hooks/useHearings";
 import { supabaseRaw }        from "@/lib/supabase/client";
+import { HearingShareModal }  from "@/components/shared/HearingShareModal";
+import type { HearingShareData } from "@/lib/clientShare";
 import type { CauseListRow }  from "@/types/supabase";
 
 const schema = z.object({
@@ -50,6 +52,8 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
     [currentHearingDate]
   );
 
+  const [shareData, setShareData] = useState<HearingShareData | null>(null);
+
   const {
     register, handleSubmit, reset,
     formState: { errors, isSubmitting },
@@ -64,7 +68,7 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
     });
   }, [row, reset]);
 
-  async function onSubmit(data: FormData) {
+  async function handleSave(data: FormData, shouldShare = false) {
     if (!row?.case_id || !row?.firm_id) return;
     try {
       if (row.hearing_id) {
@@ -93,10 +97,32 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
         if (error) throw error;
       }
       toast.success(t("common.updated"), t("common.newHearingRow"));
-      onClose();
+
+      if (shouldShare) {
+        const payload: HearingShareData = {
+          clientName: row.client_name,
+          clientPhone: row.client_phone,
+          plaintiff: row.plaintiff_name,
+          defendant: row.defendant_name,
+          caseRef: row.case_ref_no,
+          courtName: data.court_change || row.hearing_court_no || row.case_court_no,
+          judgeName: data.judge_change || row.hearing_judge || row.case_judge,
+          nextDate: data.next_date,
+          nextProceeding: data.next_proceeding,
+          currentProceeding: data.current_proceeding,
+        };
+        setShareData(payload);
+        onClose();
+      } else {
+        onClose();
+      }
     } catch (err: unknown) {
       toast.error(t("common.error"), err instanceof Error ? err.message : t("common.saveFailed"));
     }
+  }
+
+  function onSubmit(data: FormData) {
+    return handleSave(data, false);
   }
 
   const isOpen = !!row;
@@ -160,17 +186,28 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
         {t("common.hearingUpdateNote")}
       </p>
 
-      <div className="flex gap-3">
-        <Button type="button" variant="secondary" onClick={onClose} className="flex-1">
+      <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
+        <Button type="button" variant="secondary" onClick={onClose} className="sm:w-24">
           {t("common.cancel")}
         </Button>
         <MutatingButton
-          type="submit"
+          type="button"
+          onClick={handleSubmit((d) => handleSave(d, false))}
           loading={isSubmitting || update.isPending}
           leftIcon={<CalendarPlus className="w-4 h-4" />}
+          variant="secondary"
           className="flex-1"
         >
-          {t("common.saveUpdate")}
+          {t("common.saveUpdate") || "Save"}
+        </MutatingButton>
+        <MutatingButton
+          type="button"
+          onClick={handleSubmit((d) => handleSave(d, true))}
+          loading={isSubmitting || update.isPending}
+          leftIcon={<MessageSquare className="w-4 h-4" />}
+          className="flex-1 bg-[#1F7A4D] hover:bg-[#1A6640] text-white border-0 shadow-sm"
+        >
+          {t("hearings.saveAndShareWhatsApp") || "Save & WhatsApp"}
         </MutatingButton>
       </div>
     </form>
@@ -199,6 +236,15 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
       >
         {formContent}
       </Modal>
+
+      {/* Share Next Date via WhatsApp Modal */}
+      {shareData && (
+        <HearingShareModal
+          open={!!shareData}
+          onClose={() => setShareData(null)}
+          data={shareData}
+        />
+      )}
     </>
   );
 }

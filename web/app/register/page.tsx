@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/Button";
 import { FloatingField } from "@/components/billing/FloatingField";
 import { PublicHeader } from "@/components/marketing/PublicHeader";
 import { PublicFooter } from "@/components/marketing/PublicFooter";
-import { PakistanLocationFields, type LocationValues } from "@/components/marketing/PakistanLocationFields";
+import { InternationalLocationFields, type LocationValues } from "@/components/marketing/InternationalLocationFields";
 import { Logo } from "@/components/shared/Logo";
 
 function RegisterForm() {
@@ -43,11 +43,10 @@ function RegisterForm() {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [locationValues, setLocationValues] = useState<LocationValues>({
+    country: "Pakistan",
     city: "",
-    district: "",
-    tehsil: "",
-    location: "",
     province: "",
+    location: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -58,8 +57,7 @@ function RegisterForm() {
   const firmValid     = firmName.trim().length >= 2;
   const nameValid     = fullName.trim().length >= 2;
   const cityValid     = locationValues.city.trim().length >= 2;
-  const districtValid = locationValues.district.trim().length >= 2;
-  const tehsilValid   = locationValues.tehsil.trim().length >= 2;
+  const countryValid  = (locationValues.country || "").trim().length >= 1;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -71,8 +69,7 @@ function RegisterForm() {
       !emailValid ||
       !passwordValid ||
       !cityValid ||
-      !districtValid ||
-      !tehsilValid
+      !countryValid
     ) {
       return;
     }
@@ -80,45 +77,43 @@ function RegisterForm() {
     setLoading(true);
     setError("");
 
-    // 1. Try instant registration via Edge Function (bypasses Supabase SMTP email rate limits)
+    // 1. Instant registration via internal API (automatically confirms email so advocates can start immediately)
     let registrationSuccess = false;
-    let fallbackToStandard = false;
 
     try {
-      const { data: edgeData, error: edgeErr } = await supabase.functions.invoke("register-firm", {
-        body: {
+      const resp = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           email,
           password,
           full_name: fullName,
           phone,
           firm_name: firmName,
+          country: locationValues.country,
           city: locationValues.city,
-          district: locationValues.district,
-          tehsil: locationValues.tehsil,
-          location: locationValues.location,
           province: locationValues.province,
-        },
+          location: locationValues.location || locationValues.country,
+        }),
       });
 
-      if (edgeErr) {
-        const errMsg = edgeErr.message || "";
-        if (errMsg.toLowerCase().includes("already") || errMsg.toLowerCase().includes("registered")) {
-          setError("An account with this email already exists. Please sign in.");
+      const resData = await resp.json();
+      if (!resp.ok) {
+        if (resp.status === 409 || resData?.error?.toLowerCase().includes("already")) {
+          setError(t("auth.alreadyRegistered") || "An account with this email already exists. Please sign in.");
           setLoading(false);
           return;
         }
-        fallbackToStandard = true;
-      } else if (edgeData?.user) {
+        // Try fallback to standard signUp if internal API route is somehow disabled
+      } else if (resData?.success) {
         registrationSuccess = true;
-      } else {
-        fallbackToStandard = true;
       }
     } catch {
-      fallbackToStandard = true;
+      // Network or runtime fallback
     }
 
-    // 2. Fallback to standard signUp only if edge function was unreachable
-    if (!registrationSuccess && fallbackToStandard) {
+    // 2. Fallback only if internal API was unreachable
+    if (!registrationSuccess) {
       const { data, error: signUpErr } = await supabase.auth.signUp({
         email,
         password,
@@ -127,10 +122,9 @@ function RegisterForm() {
             full_name: fullName,
             phone,
             firm_name: firmName,
+            country: locationValues.country,
             city: locationValues.city,
-            district: locationValues.district,
-            tehsil: locationValues.tehsil,
-            location: locationValues.location,
+            location: locationValues.location || locationValues.country,
             province: locationValues.province,
           },
         },
@@ -164,10 +158,8 @@ function RegisterForm() {
       phone,
       {
         city: locationValues.city,
-        district: locationValues.district,
-        tehsil: locationValues.tehsil,
-        location: locationValues.location,
         province: locationValues.province,
+        location: locationValues.location || locationValues.country,
       }
     );
     if (rpcErr) {
@@ -271,8 +263,8 @@ function RegisterForm() {
                 error={touched && !firmValid ? t("marketing.regFirmNameRequired") : undefined}
               />
 
-              {/* Pakistan City / District / Tehsil / Location fields */}
-              <PakistanLocationFields
+              {/* International Country, City & State/Province fields */}
+              <InternationalLocationFields
                 values={locationValues}
                 onChange={setLocationValues}
                 touched={touched}

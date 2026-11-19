@@ -6,6 +6,7 @@ import { Sidebar }         from "./Sidebar";
 import { BottomNav }       from "./BottomNav";
 import { MobileHeader }    from "./MobileHeader";
 import { DesktopTopBar }   from "./DesktopTopBar";
+import { GlobalSearchModal } from "@/components/shared/GlobalSearchModal";
 import { cn }              from "@/lib/utils";
 
 interface AppShellProps {
@@ -29,6 +30,7 @@ export function AppShell({
 }: AppShellProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -38,6 +40,15 @@ export function AppShell({
         setSidebarCollapsed(JSON.parse(saved));
       } catch {}
     }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const handleToggleCollapse = () => {
@@ -87,6 +98,7 @@ export function AppShell({
               title={pageTitle}
               subtitle={pageSubtitle}
               actions={headerActions}
+              onOpenSearch={() => setSearchOpen(true)}
             />
           )}
           <div className="animate-slide-down">
@@ -94,6 +106,9 @@ export function AppShell({
           </div>
         </div>
       </main>
+
+      {/* ── Global Search Modal (⌘K / Ctrl+K) ── */}
+      <GlobalSearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {/* ── Mobile bottom nav ── */}
       <BottomNav />

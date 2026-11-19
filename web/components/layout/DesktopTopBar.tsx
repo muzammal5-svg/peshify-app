@@ -25,12 +25,13 @@ interface DesktopTopBarProps {
   title?: string;
   subtitle?: string;
   actions?: React.ReactNode;
+  onOpenSearch?: () => void;
 }
 
 /**
  * Desktop-only top bar with dynamic theme support, feedback and what's new changelog.
  */
-export function DesktopTopBar({ title, subtitle, actions }: DesktopTopBarProps) {
+export function DesktopTopBar({ title, subtitle, actions, onOpenSearch }: DesktopTopBarProps) {
   const { t } = useTranslation();
   const { profile, firm, unreadCount, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -67,25 +68,22 @@ export function DesktopTopBar({ title, subtitle, actions }: DesktopTopBarProps) 
               )}
             </div>
 
-            {/* Center: Search bar */}
+            {/* Center: Global Search trigger button */}
             <div className="flex-1 max-w-xs mx-4">
-              <div
-                className={cn(
-                  "relative flex items-center px-3.5 py-1.5 bg-secondary border border-border/80 rounded-lg transition-all duration-200",
-                  searchFocused
-                    ? "border-primary ring-1 ring-primary/40 bg-card shadow-xs"
-                    : "hover:border-border-strong"
-                )}
+              <button
+                type="button"
+                onClick={onOpenSearch}
+                className="w-full relative flex items-center justify-between px-3.5 py-1.5 bg-secondary/80 hover:bg-secondary border border-border/80 hover:border-primary/50 rounded-lg transition-all duration-200 text-start group shadow-2xs"
+                title="Search cases, clients (Ctrl+K / ⌘K)"
               >
-                <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" strokeWidth={1.75} />
-                <input
-                  type="text"
-                  placeholder={t("common.search") || "Search cases, cause lists..."}
-                  onFocus={() => setSearchFocused(true)}
-                  onBlur={() => setSearchFocused(false)}
-                  className="flex-1 ms-2 bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none text-sm"
-                />
-              </div>
+                <div className="flex items-center gap-2 text-muted-foreground group-hover:text-foreground text-sm min-w-0">
+                  <Search className="w-4 h-4 flex-shrink-0 text-muted-foreground group-hover:text-primary transition-colors" strokeWidth={1.75} />
+                  <span className="truncate text-xs sm:text-sm">{t("common.search") || "Search cases, clients..."}</span>
+                </div>
+                <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-medium text-muted-foreground bg-card border border-border rounded">
+                  ⌘K
+                </kbd>
+              </button>
             </div>
 
             {/* Right: Actions and user menu */}

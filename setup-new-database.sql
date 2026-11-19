@@ -3163,7 +3163,7 @@ ON CONFLICT (code) DO NOTHING;
 INSERT INTO public.payment_accounts (method, account_title, account_number, bank_name, instructions, sort_order) VALUES
   ('bank_transfer', 'MZM Associates', '14870010155786580019', 'Allied Bank', 'Transfer and share transaction ID', 1),
   ('jazzcash', 'MZM Associates', '03261929571', NULL, 'Send to JazzCash number', 2),
-  ('easypaisa', 'MZM Associates', '03417359571', NULL, 'Send to Easypaisa number', 3)
+  ('easypaisa', 'MZM Associates', '03323055502', NULL, 'Send to Easypaisa number', 3)
 ON CONFLICT DO NOTHING;
 
 -- Storage bucket for payment slips (create if not exists) - handled via storage API; RLS below assumes bucket 'payment-slips'
@@ -3423,7 +3423,7 @@ CREATE POLICY "users insert own custom reminders" ON public.reminders FOR INSERT
 -- -----------------------------------------------------------------------------
 -- Migration: 20261021050000_update_payment_accounts.sql
 -- -----------------------------------------------------------------------------
-UPDATE public.payment_accounts SET account_number = '03261929571', account_title = 'MZM Associates' WHERE method = 'jazzcash'; UPDATE public.payment_accounts SET account_number = '03417359571', account_title = 'MZM Associates' WHERE method = 'easypaisa'; UPDATE public.payment_accounts SET account_number = '14870010155786580019', account_title = 'MZM Associates', bank_name = 'Allied Bank' WHERE method = 'bank_transfer';
+UPDATE public.payment_accounts SET account_number = '03261929571', account_title = 'MZM Associates' WHERE method = 'jazzcash'; UPDATE public.payment_accounts SET account_number = '03323055502', account_title = 'MZM Associates' WHERE method = 'easypaisa'; UPDATE public.payment_accounts SET account_number = '14870010155786580019', account_title = 'MZM Associates', bank_name = 'Allied Bank' WHERE method = 'bank_transfer';
 
 
 -- -----------------------------------------------------------------------------

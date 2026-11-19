@@ -47,7 +47,7 @@
     "invalidOtp": "غلط یا میعاد ختم OTP۔",
     "networkError": "نیٹ ورک خرابی۔ کنکشن چیک کریں۔",
     "emailPlaceholder": "counsel@diarylex.com",
-    "phonePlaceholder": "+1 (800) 539-3427"
+    "phonePlaceholder": "+92 332 3055502"
   },
   "dashboard": {
     "greeting": "{{time}} بخیر، {{name}}",

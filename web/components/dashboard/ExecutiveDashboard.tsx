@@ -27,6 +27,9 @@ import { fmtDate, todayKarachi, isUrdu, textDir } from "@/lib/utils";
 import { toZonedTime } from "date-fns-tz";
 import { BRAND } from "@/lib/brand";
 import { whatsappLink } from "@/lib/siteConfig";
+import { HearingShareModal } from "@/components/shared/HearingShareModal";
+import { CalendarExportButton } from "@/components/shared/CalendarExportButton";
+import type { HearingShareData } from "@/lib/clientShare";
 
 function getTimeOfDay(t: (k: string) => string): string {
   const hour = toZonedTime(new Date(), BRAND.timezone).getHours();
@@ -52,6 +55,7 @@ export function ExecutiveDashboard() {
   const recentClients = data?.recentClients ?? [];
   const recentPayments = data?.recentPayments ?? [];
   const counts = data?.counts;
+  const [shareHearing, setShareHearing] = useState<any | null>(null);
 
   return (
     <div className="space-y-6 md:space-y-8 pb-10">
@@ -286,13 +290,35 @@ export function ExecutiveDashboard() {
                           <HearingStatusBadge status={h.case_status ?? "running"} />
                         </td>
                         <td className="py-3 px-3 text-end">
-                          <Link
-                            href={`/cases/view?id=${h.case_id}`}
-                            className="inline-flex items-center justify-center p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors min-w-[36px] min-h-[36px]"
-                            title="Open Case File"
-                          >
-                            <ArrowUpRight className="w-4 h-4 rtl:rotate-90" strokeWidth={1.75} />
-                          </Link>
+                          <div className="flex items-center justify-end gap-1">
+                            <button
+                              type="button"
+                              onClick={() => setShareHearing(h)}
+                              className="inline-flex items-center justify-center p-2 rounded-lg text-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-400 transition-colors min-w-[36px] min-h-[36px]"
+                              title="Share Hearing with Client on WhatsApp"
+                            >
+                              <MessageSquare className="w-4 h-4" strokeWidth={1.75} />
+                            </button>
+                            <CalendarExportButton
+                              hearing={{
+                                hearing_date: h.hearing_date ?? "",
+                                next_date: h.next_date,
+                                case_ref_no: h.case_ref_no,
+                                plaintiff_name: h.plaintiff_name,
+                                defendant_name: h.defendant_name,
+                                court_no: h.hearing_court_no ?? undefined,
+                                judge_name: h.hearing_judge ?? undefined,
+                                client_name: h.client_name ?? undefined,
+                              }}
+                            />
+                            <Link
+                              href={`/cases/view?id=${h.case_id}`}
+                              className="inline-flex items-center justify-center p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors min-w-[36px] min-h-[36px]"
+                              title="Open Case File"
+                            >
+                              <ArrowUpRight className="w-4 h-4 rtl:rotate-90" strokeWidth={1.75} />
+                            </Link>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -332,10 +358,36 @@ export function ExecutiveDashboard() {
                         <Gavel className="w-3.5 h-3.5 text-muted-foreground" strokeWidth={1.75} />
                         {h.hearing_court_no ? `Court ${h.hearing_court_no}` : "Court Room TBD"}
                       </span>
-                      <span className="text-primary font-medium flex items-center gap-1">
-                        <span>View File</span>
-                        <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" strokeWidth={1.75} />
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setShareHearing(h);
+                          }}
+                          className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300"
+                        >
+                          <MessageSquare className="w-3 h-3" />
+                          <span>WhatsApp</span>
+                        </button>
+                        <CalendarExportButton
+                          hearing={{
+                            hearing_date: h.hearing_date ?? "",
+                            next_date: h.next_date,
+                            case_ref_no: h.case_ref_no,
+                            plaintiff_name: h.plaintiff_name,
+                            defendant_name: h.defendant_name,
+                            court_no: h.hearing_court_no ?? undefined,
+                            judge_name: h.hearing_judge ?? undefined,
+                            client_name: h.client_name ?? undefined,
+                          }}
+                        />
+                        <span className="text-primary font-medium flex items-center gap-1">
+                          <span>View</span>
+                          <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" strokeWidth={1.75} />
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 );
@@ -683,6 +735,27 @@ export function ExecutiveDashboard() {
           </a>
         </div>
       </section>
+
+      {/* Share Hearing Modal */}
+      {shareHearing && (
+        <HearingShareModal
+          open={!!shareHearing}
+          onClose={() => setShareHearing(null)}
+          data={{
+            clientName: shareHearing.client_name,
+            clientPhone: shareHearing.client_phone,
+            plaintiff: shareHearing.plaintiff_name,
+            defendant: shareHearing.defendant_name,
+            caseRef: shareHearing.case_ref_no,
+            courtName: shareHearing.hearing_court_no,
+            judgeName: shareHearing.hearing_judge,
+            hearingDate: shareHearing.hearing_date,
+            nextDate: shareHearing.next_date,
+            nextProceeding: shareHearing.next_proceeding,
+            currentProceeding: shareHearing.current_proceeding,
+          }}
+        />
+      )}
     </div>
   );
 }

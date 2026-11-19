@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link                  from "next/link";
 import { useTranslation }    from "react-i18next";
-import { Edit2, ChevronRight, ChevronLeft, Gavel, CalendarPlus, Calendar } from "lucide-react";
+import { Edit2, ChevronRight, ChevronLeft, Gavel, CalendarPlus, Calendar, MessageSquare } from "lucide-react";
 
 import { Card }              from "@/components/ui/Card";
 import { Badge }             from "@/components/ui/Badge";
@@ -14,17 +14,20 @@ import { Button }            from "@/components/ui/Button";
 import { useMutationLock }   from "@/components/shared/MutatingButton";
 import { UpdateHearingSheet } from "./UpdateHearingSheet";
 import { QuickEditSheet }    from "./QuickEditSheet";
+import { HearingShareModal } from "@/components/shared/HearingShareModal";
+import { CalendarExportButton } from "@/components/shared/CalendarExportButton";
 import { useCauseList, type CauseListFilter } from "@/hooks/useHearings";
 import { fmtDate, isUrdu }   from "@/lib/utils";
 import type { CauseListRow } from "@/types/supabase";
 
 // ─── Mobile card ──────────────────────────────────────────────────────────────
 function CauseCard({
-  row, onQuickEdit, onUpdateHearing,
+  row, onQuickEdit, onUpdateHearing, onShareWhatsApp,
 }: {
   row: CauseListRow;
   onQuickEdit?: (r: CauseListRow) => void;
   onUpdateHearing?: (r: CauseListRow) => void;
+  onShareWhatsApp?: (r: CauseListRow) => void;
 }) {
   const { t } = useTranslation();
   const { lock } = useMutationLock();
@@ -41,7 +44,30 @@ function CauseCard({
             <Badge variant="neutral" size="sm">{row.case_type_name}</Badge>
           </div>
         </div>
-        <div className="flex gap-1">
+        <div className="flex gap-1 items-center">
+          {onShareWhatsApp && (
+            <button
+              type="button"
+              onClick={() => onShareWhatsApp(row)}
+              className="w-7 h-7 flex items-center justify-center rounded-lg text-emerald-500 hover:bg-emerald-500/10 transition-colors"
+              title="Share next date via WhatsApp"
+              aria-label="Share next date via WhatsApp"
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+            </button>
+          )}
+          <CalendarExportButton
+            hearing={{
+              hearing_date: row.hearing_date ?? "",
+              next_date: row.next_date,
+              case_ref_no: row.case_ref_no,
+              plaintiff_name: row.plaintiff_name,
+              defendant_name: row.defendant_name,
+              court_no: row.hearing_court_no ?? undefined,
+              judge_name: row.hearing_judge ?? undefined,
+              client_name: row.client_name ?? undefined,
+            }}
+          />
           {onQuickEdit && (
             <button onClick={() => onQuickEdit(row)} {...lock}
               className="w-7 h-7 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-primary transition-colors disabled:opacity-40"
@@ -114,11 +140,12 @@ function CauseCard({
 
 // ─── Desktop table row ────────────────────────────────────────────────────────
 function TableRow({
-  row, onQuickEdit, onUpdateHearing,
+  row, onQuickEdit, onUpdateHearing, onShareWhatsApp,
 }: {
   row: CauseListRow;
   onQuickEdit?: (r: CauseListRow) => void;
   onUpdateHearing?: (r: CauseListRow) => void;
+  onShareWhatsApp?: (r: CauseListRow) => void;
 }) {
   const { t } = useTranslation();
   const { lock } = useMutationLock();
@@ -177,6 +204,29 @@ function TableRow({
       </td>
       <td className="px-3.5 py-2.5">
         <div className="flex items-center gap-1.5 justify-end">
+          {onShareWhatsApp && (
+            <button
+              type="button"
+              onClick={() => onShareWhatsApp(row)}
+              className="w-7 h-7 flex items-center justify-center rounded-lg text-emerald-500 hover:bg-emerald-500/10 transition-colors"
+              title="Share next date with client on WhatsApp"
+              aria-label="Share next date with client on WhatsApp"
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+            </button>
+          )}
+          <CalendarExportButton
+            hearing={{
+              hearing_date: row.hearing_date ?? "",
+              next_date: row.next_date,
+              case_ref_no: row.case_ref_no,
+              plaintiff_name: row.plaintiff_name,
+              defendant_name: row.defendant_name,
+              court_no: row.hearing_court_no ?? undefined,
+              judge_name: row.hearing_judge ?? undefined,
+              client_name: row.client_name ?? undefined,
+            }}
+          />
           {onQuickEdit && (
             <button onClick={() => onQuickEdit(row)} {...lock}
               className="w-7 h-7 flex items-center justify-center rounded-lg text-muted-foreground hover:text-primary hover:bg-muted transition-colors disabled:opacity-40"
@@ -262,6 +312,7 @@ export function CauseListView({
 
   const [quickEditRow,   setQuickEditRow]   = useState<CauseListRow | null>(null);
   const [updateHearingRow, setUpdateHearingRow] = useState<CauseListRow | null>(null);
+  const [shareRow, setShareRow] = useState<CauseListRow | null>(null);
   const autoOpenedCaseId = useRef<string | null>(null);
 
   useEffect(() => {
@@ -306,6 +357,7 @@ export function CauseListView({
             row={row}
             onQuickEdit={showQuickEdit ? setQuickEditRow : undefined}
             onUpdateHearing={showUpdateHearing ? setUpdateHearingRow : undefined}
+            onShareWhatsApp={setShareRow}
           />
         ))}
       </div>
@@ -329,6 +381,7 @@ export function CauseListView({
                 row={row}
                 onQuickEdit={showQuickEdit ? setQuickEditRow : undefined}
                 onUpdateHearing={showUpdateHearing ? setUpdateHearingRow : undefined}
+                onShareWhatsApp={setShareRow}
               />
             ))}
           </tbody>
@@ -337,7 +390,7 @@ export function CauseListView({
 
       <Pagination page={page} totalPages={totalPages} onChange={p => onPageChange?.(p)} />
 
-      {/* Sheets */}
+      {/* Sheets & Modals */}
       <QuickEditSheet
         row={quickEditRow}
         onClose={() => setQuickEditRow(null)}
@@ -346,6 +399,25 @@ export function CauseListView({
         row={updateHearingRow}
         onClose={() => setUpdateHearingRow(null)}
       />
+      {shareRow && (
+        <HearingShareModal
+          open={!!shareRow}
+          onClose={() => setShareRow(null)}
+          data={{
+            clientName: shareRow.client_name,
+            clientPhone: shareRow.client_phone,
+            plaintiff: shareRow.plaintiff_name,
+            defendant: shareRow.defendant_name,
+            caseRef: shareRow.case_ref_no,
+            courtName: shareRow.hearing_court_no || shareRow.case_court_no,
+            judgeName: shareRow.hearing_judge || shareRow.case_judge,
+            hearingDate: shareRow.hearing_date,
+            nextDate: shareRow.next_date,
+            nextProceeding: shareRow.next_proceeding,
+            currentProceeding: shareRow.current_proceeding,
+          }}
+        />
+      )}
     </div>
   );
 }

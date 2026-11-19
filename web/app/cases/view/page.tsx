@@ -7,7 +7,7 @@ import Link                           from "next/link";
 import {
   Edit, MoreVertical, Trash2, CheckSquare, RefreshCw,
   CalendarPlus, ChevronRight, User, Gavel, Plus,
-  FileText, Send, Clock, Activity, Wallet,
+  FileText, Send, Clock, Activity, Wallet, MessageSquare,
 } from "lucide-react";
 
 import { AppShell }            from "@/components/layout/AppShell";
@@ -32,6 +32,10 @@ import { ReopenCaseModal }     from "@/components/cases/ReopenCaseModal";
 import { PageLoader }          from "@/components/ui/LoadingSpinner";
 import { QueryErrorState }     from "@/components/ui/QueryErrorState";
 import { fmtDate, isUrdu, textDir } from "@/lib/utils";
+import { HearingShareModal } from "@/components/shared/HearingShareModal";
+import { CalendarExportButton } from "@/components/shared/CalendarExportButton";
+import { exportCaseSummaryPdf } from "@/lib/exportPdf";
+import type { HearingShareData } from "@/lib/clientShare";
 import type { Hearing, CaseActivityLog } from "@/types/supabase";
 
 // ─── Activity tab ─────────────────────────────────────────────────────────────
@@ -86,8 +90,9 @@ function ActivityTab({ caseId }: { caseId: string }) {
 }
 
 // ─── Hearing timeline ─────────────────────────────────────────────────────────
-function HearingTimeline({ caseId }: { caseId: string }) {
+function HearingTimeline({ caseId, caseData }: { caseId: string; caseData?: any }) {
   const { t } = useTranslation();
+  const [shareData, setShareData] = useState<HearingShareData | null>(null);
   const { data: hearings, isLoading, isError, refetch } = useCaseHearings(caseId);
   if (isLoading) return <div className="space-y-3">{[1,2,3].map(i=><SkeletonCard key={i}/>)}</div>;
   if (isError) return <QueryErrorState onRetry={() => void refetch()} />;
@@ -96,34 +101,88 @@ function HearingTimeline({ caseId }: { caseId: string }) {
       action={<Link href={`/cases/running?updateCaseId=${caseId}`}><Button size="sm" leftIcon={<Plus className="w-4 h-4"/>}>{t("cases.new")}</Button></Link>}
     />
   );
+
+  function handleShare(h: Hearing) {
+    setShareData({
+      clientName: caseData?.client?.full_name,
+      clientPhone: caseData?.client?.whatsapp || caseData?.client?.phone,
+      plaintiff: caseData?.plaintiff_name,
+      defendant: caseData?.defendant_name,
+      caseRef: caseData?.case_ref_no,
+      courtName: caseData?.court_no,
+      judgeName: h.judge_name || caseData?.judge_name,
+      hearingDate: h.hearing_date,
+      nextDate: h.next_date,
+      nextProceeding: h.next_proceeding,
+      currentProceeding: h.current_proceeding,
+    });
+  }
+
   return (
-    <div className="space-y-3">
-      {(hearings as Hearing[]).map((h, idx) => (
-        <div key={h.id} className="flex gap-3">
-          <div className="flex flex-col items-center">
-            <div className={`w-3 h-3 rounded-full border-2 mt-1.5 flex-shrink-0 ${idx === 0 ? "border-indigo-500 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]" : "border-zinc-700 bg-[#0F1117]"}`} />
-            {idx < hearings.length - 1 && <div className="w-0.5 bg-zinc-800 flex-1 my-1" />}
-          </div>
-          <Card className="flex-1 mb-0">
-            <div className="flex items-start justify-between gap-2">
-              <div>
-                <p className="text-sm font-semibold text-zinc-100">{fmtDate(h.hearing_date)}</p>
-                {h.serial_no && <span className="text-xs text-indigo-400 font-mono">#{h.serial_no}</span>}
-              </div>
-              {idx === 0 && <Badge variant="info" size="sm">{t("common.update")}</Badge>}
+    <>
+      <div className="space-y-3">
+        {(hearings as Hearing[]).map((h, idx) => (
+          <div key={h.id} className="flex gap-3">
+            <div className="flex flex-col items-center">
+              <div className={`w-3 h-3 rounded-full border-2 mt-1.5 flex-shrink-0 ${idx === 0 ? "border-indigo-500 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]" : "border-zinc-700 bg-[#0F1117]"}`} />
+              {idx < hearings.length - 1 && <div className="w-0.5 bg-zinc-800 flex-1 my-1" />}
             </div>
-            {h.current_proceeding && <p className="text-xs text-zinc-300 mt-1.5">{h.current_proceeding}</p>}
-            {h.next_date && (
-              <div className="mt-2 pt-2 border-t border-white/[0.08] flex items-center gap-1.5 text-xs text-zinc-400">
-                <CalendarPlus className="w-3.5 h-3.5 text-indigo-400" />
-                {t("hearings.nextDate")}: <strong className="text-zinc-100">{fmtDate(h.next_date)}</strong>
-                {h.next_proceeding && <span> — {h.next_proceeding}</span>}
+            <Card className="flex-1 mb-0">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <p className="text-sm font-semibold text-zinc-100">{fmtDate(h.hearing_date)}</p>
+                  {h.serial_no && <span className="text-xs text-indigo-400 font-mono">#{h.serial_no}</span>}
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {idx === 0 && <Badge variant="info" size="sm">{t("common.update")}</Badge>}
+                  {h.next_date && (
+                    <button
+                      type="button"
+                      onClick={() => handleShare(h)}
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 transition-colors"
+                      title="Share with client on WhatsApp"
+                    >
+                      <MessageSquare className="w-3 h-3" />
+                      <span>WhatsApp</span>
+                    </button>
+                  )}
+                  <CalendarExportButton
+                    hearing={{
+                      hearing_date: h.hearing_date,
+                      next_date: h.next_date,
+                      case_ref_no: caseData?.case_ref_no,
+                      plaintiff_name: caseData?.plaintiff_name,
+                      defendant_name: caseData?.defendant_name,
+                      court_no: h.court_no || caseData?.court_no,
+                      judge_name: h.judge_name || caseData?.judge_name,
+                      client_name: caseData?.client?.full_name,
+                    }}
+                  />
+                </div>
               </div>
-            )}
-          </Card>
-        </div>
-      ))}
-    </div>
+              {h.current_proceeding && <p className="text-xs text-zinc-300 mt-1.5">{h.current_proceeding}</p>}
+              {h.next_date && (
+                <div className="mt-2 pt-2 border-t border-white/[0.08] flex items-center justify-between gap-1.5 text-xs text-zinc-400 flex-wrap">
+                  <div className="flex items-center gap-1.5">
+                    <CalendarPlus className="w-3.5 h-3.5 text-indigo-400" />
+                    {t("hearings.nextDate")}: <strong className="text-zinc-100">{fmtDate(h.next_date)}</strong>
+                    {h.next_proceeding && <span> — {h.next_proceeding}</span>}
+                  </div>
+                </div>
+              )}
+            </Card>
+          </div>
+        ))}
+      </div>
+
+      {shareData && (
+        <HearingShareModal
+          open={!!shareData}
+          onClose={() => setShareData(null)}
+          data={shareData}
+        />
+      )}
+    </>
   );
 }
 
@@ -384,13 +443,55 @@ function CaseActionsMenu({
 // ─── Main page ────────────────────────────────────────────────────────────────
 function CaseViewPage() {
   const { t }    = useTranslation();
+  const toast    = useToast();
   const params   = useSearchParams();
   const id       = params.get("id");
   const { canWrite } = useRoleGuard();
+  const { firm } = useAuth();
 
   const { data: c, isLoading, isError, refetch } = useCase(id);
+  const { data: hearingsData } = useCaseHearings(id);
   const [decidedOpen, setDecidedOpen] = useState(false);
   const [reopenOpen,  setReopenOpen]  = useState(false);
+  const [headerShareOpen, setHeaderShareOpen] = useState(false);
+  const [exportingPdf, setExportingPdf] = useState(false);
+
+  const handleExportBrief = async () => {
+    if (!c) return;
+    setExportingPdf(true);
+    try {
+      const recent = (hearingsData || []).slice(0, 15).map((h) => ({
+        hearing_date: h.hearing_date,
+        current_proceeding: h.current_proceeding || undefined,
+        next_date: h.next_date || undefined,
+        judge_name: h.judge_name || undefined,
+      }));
+
+      await exportCaseSummaryPdf({
+        firmName: firm?.name,
+        firmLogoUrl: firm?.logo_url,
+        caseRefNo: c.case_ref_no || "CASE",
+        plaintiffName: c.plaintiff_name,
+        defendantName: c.defendant_name,
+        caseType: c.case_type?.name,
+        courtNo: c.court_no || undefined,
+        judgeName: c.judge_name || undefined,
+        status: c.status,
+        clientName: c.client?.full_name,
+        clientPhone: c.client?.phone || c.client?.whatsapp || undefined,
+        clientCnic: c.client?.cnic || undefined,
+        hearings: recent,
+      });
+      toast.success("Case Brief PDF downloaded successfully!");
+    } catch (err: unknown) {
+      toast.error(
+        "Failed to generate PDF: " +
+          (err instanceof Error ? err.message : "Unknown error")
+      );
+    } finally {
+      setExportingPdf(false);
+    }
+  };
 
   if (isLoading) return <AppShell showBack><PageLoader /></AppShell>;
   if (isError) return <AppShell showBack><QueryErrorState onRetry={() => void refetch()} /></AppShell>;
@@ -434,6 +535,38 @@ function CaseViewPage() {
                 </Badge>
                 {isDecided && c.outcome && <OutcomeBadge outcome={c.outcome} />}
               </div>
+
+              {/* Quick Advocate Client Action Bar */}
+              {c.client && (
+                <div className="mt-3 pt-2.5 border-t border-border/40 flex items-center gap-2 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => setHeaderShareOpen(true)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#1F7A4D]/15 hover:bg-[#1F7A4D]/25 text-emerald-400 border border-emerald-500/25 transition-all"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>WhatsApp پر پیشی / نوٹس بھیجیں</span>
+                  </button>
+                  <button
+                    type="button"
+                    disabled={exportingPdf}
+                    onClick={handleExportBrief}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/25 transition-all disabled:opacity-50"
+                    title="Download complete Case Brief PDF for court or client"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>{exportingPdf ? "Generating PDF..." : "Case Brief (PDF)"}</span>
+                  </button>
+                  {c.client.phone && (
+                    <a
+                      href={`tel:${c.client.phone.replace(/[^0-9+]/g, "")}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground bg-muted/40 hover:bg-muted border border-border/60 transition-colors"
+                    >
+                      <span>📞 {c.client.phone}</span>
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
             <div className="hidden md:flex gap-2 flex-shrink-0">
               {canWrite && (
@@ -461,7 +594,7 @@ function CaseViewPage() {
             <OverviewTab caseId={c.id} />
           </TabPanel>
           <TabPanel value="hearings">
-            <HearingTimeline caseId={c.id} />
+            <HearingTimeline caseId={c.id} caseData={c} />
           </TabPanel>
           <TabPanel value="documents">
             <DocumentsModule caseId={c.id} />
@@ -484,6 +617,22 @@ function CaseViewPage() {
         caseId={c.id} caseRef={c.case_ref_no || "—"}
         open={reopenOpen} onClose={() => setReopenOpen(false)}
       />
+
+      {headerShareOpen && (
+        <HearingShareModal
+          open={headerShareOpen}
+          onClose={() => setHeaderShareOpen(false)}
+          data={{
+            clientName: c.client?.full_name,
+            clientPhone: c.client?.whatsapp || c.client?.phone,
+            plaintiff: c.plaintiff_name,
+            defendant: c.defendant_name,
+            caseRef: c.case_ref_no,
+            courtName: c.court_no,
+            judgeName: c.judge_name,
+          }}
+        />
+      )}
     </AppShell>
   );
 }

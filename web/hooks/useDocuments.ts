@@ -31,7 +31,7 @@ export function useDocuments(filter: DocsFilter) {
     queryFn: async () => {
       let q = db.documents()
         .select(
-          "*, client:clients(id,full_name), case:cases(id,case_ref_no,plaintiff_name,defendant_name,case_type:case_types(id,name))"
+          "*, client:clients(id,full_name,phone,whatsapp), case:cases(id,case_ref_no,plaintiff_name,defendant_name,case_type:case_types(id,name))"
         )
         .order("created_at", { ascending: false });
 
@@ -128,11 +128,11 @@ export function useDeleteDocument() {
   });
 }
 
-/** Returns a signed URL (60 min) for a private document */
-export async function getDocumentUrl(filePath: string): Promise<string | null> {
+/** Returns a signed URL (default 7 days for sharing) for a private document */
+export async function getDocumentUrl(filePath: string, expiresIn = 60 * 60 * 24 * 7): Promise<string | null> {
   const { data, error } = await supabase.storage
     .from("documents")
-    .createSignedUrl(filePath, 60 * 60);
+    .createSignedUrl(filePath, expiresIn);
   if (error) { console.error("[doc url]", error.message); return null; }
   return data.signedUrl;
 }

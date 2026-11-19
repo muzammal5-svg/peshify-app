@@ -84,7 +84,7 @@ export function useCase(id: string | null) {
         .select(`
           *,
           case_type:case_types(id,name,requires_offence),
-          client:clients(id,full_name,phone,cnic,city),
+          client:clients(id,full_name,phone,whatsapp,cnic,city),
           assigned_lawyer:profiles!cases_assigned_to_fkey(id,full_name,role)
         `)
         .eq("id", id!)

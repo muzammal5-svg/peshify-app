@@ -6,12 +6,15 @@ import { useTranslation }  from "react-i18next";
 import {
   FileText, Download, Trash2, Eye,
   File as FileIcon, Image as ImageIcon,
+  MessageSquare,
 } from "lucide-react";
 import { useDocuments, useDeleteDocument, getDocumentUrl } from "@/hooks/useDocuments";
 import { SkeletonCard }    from "@/components/ui/Skeleton";
 import { EmptyState }      from "@/components/ui/EmptyState";
 import { QueryErrorState } from "@/components/ui/QueryErrorState";
 import { ConfirmDialog }   from "@/components/ui/Modal";
+import { DocumentShareModal } from "@/components/shared/DocumentShareModal";
+import { type DocumentShareData } from "@/lib/clientShare";
 import { useToast }        from "@/components/ui/Toast";
 import { useRoleGuard }    from "@/hooks/useRoleGuard";
 import { useMutationLock } from "@/components/shared/MutatingButton";
@@ -90,6 +93,28 @@ export function DocumentList({
   const [confirmDoc, setConfirmDoc] = useState<Document | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewMime, setPreviewMime] = useState<string | null>(null);
+  const [shareData, setShareData] = useState<DocumentShareData | null>(null);
+
+  async function handleShare(doc: any) {
+    const url = await getDocumentUrl(doc.file_path, 60 * 60 * 24 * 7);
+    if (!url) {
+      toast.error(t("common.error"), t("common.downloadLinkError") || "Could not generate share link");
+      return;
+    }
+    const clientName = doc.client?.full_name;
+    const clientPhone = doc.client?.whatsapp || doc.client?.phone;
+    const caseTitle = doc.case ? `${doc.case.plaintiff_name} vs ${doc.case.defendant_name}` : undefined;
+    const caseRef = doc.case?.case_ref_no;
+
+    setShareData({
+      documentName: doc.name,
+      documentUrl: url,
+      clientName,
+      clientPhone,
+      caseTitle,
+      caseRef,
+    });
+  }
 
   async function handleDownload(doc: Document) {
     const url = await getDocumentUrl(doc.file_path);
@@ -183,6 +208,15 @@ export function DocumentList({
                   <Eye className="w-4 h-4" />
                 </button>
               )}
+              {/* Share via WhatsApp / Copy */}
+              <button
+                onClick={() => handleShare(doc)}
+                aria-label={t("common.share") || "Share"}
+                title={t("common.share") || "Share with client via WhatsApp"}
+                className="w-8 h-8 flex items-center justify-center rounded-none text-emerald-400 hover:bg-emerald-500/10 hover:text-emerald-300 transition-colors"
+              >
+                <MessageSquare className="w-4 h-4" />
+              </button>
               {/* Download */}
               <button
                 onClick={() => handleDownload(doc)}
@@ -225,6 +259,15 @@ export function DocumentList({
           url={previewUrl}
           mime={previewMime}
           onClose={() => { setPreviewUrl(null); setPreviewMime(null); }}
+        />
+      )}
+
+      {/* WhatsApp / Document Share Modal */}
+      {shareData && (
+        <DocumentShareModal
+          open={!!shareData}
+          onClose={() => setShareData(null)}
+          data={shareData}
         />
       )}
     </>

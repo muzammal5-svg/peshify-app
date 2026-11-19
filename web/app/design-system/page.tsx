@@ -1,5 +1,6 @@
 "use client";
 
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { Search, Plus, Download, Trash2, Eye, Edit } from "lucide-react";
 
@@ -48,6 +49,10 @@ const TABLE_DATA = [
 ];
 
 export default function DesignSystemPage() {
+  if (process.env.NODE_ENV === "production") {
+    redirect("/");
+  }
+
   const toast = useToast();
 
   const [modalOpen,   setModalOpen]   = useState(false);

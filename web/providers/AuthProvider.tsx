@@ -62,10 +62,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [deviceLimitReached, setDeviceLimitReached] = useState(false);
   const [activeLimitDevices, setActiveLimitDevices] = useState<ActiveDeviceSummary[]>([]);
   const lastHeartbeatTimeRef = useRef<number>(0);
+  const profileRef = useRef<Profile | null>(null);
 
   // ── Fetch profile row ────────────────────────────────────────────────────
-  const fetchProfile = useCallback(async (userId: string) => {
-    setProfileLoading(true);
+  const fetchProfile = useCallback(async (userId: string, silent: boolean = false) => {
+    if (!silent && !profileRef.current) {
+      setProfileLoading(true);
+    }
     try {
       const { data, error } = await supabase
         .from("profiles")
@@ -76,6 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!data) throw new Error("The signed-in user has no profile.");
       const profileData = data as import("@/types/supabase").Profile | null;
       if (profileData) {
+        profileRef.current = profileData;
         setProfile(profileData);
         const { data: firmData, error: firmError } = await supabase
           .from("firms")
@@ -86,11 +90,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setFirm((firmData as import("@/types/supabase").Firm | null) ?? null);
       }
     } catch (error) {
-      setProfile(null);
-      setFirm(null);
+      if (!silent) {
+        profileRef.current = null;
+        setProfile(null);
+        setFirm(null);
+      }
       throw error;
     } finally {
-      setProfileLoading(false);
+      if (!silent) {
+        setProfileLoading(false);
+      }
     }
   }, []);
 
@@ -264,18 +273,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     })();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, newSession) => {
+      (event, newSession) => {
         setSession(newSession);
         setUser(newSession?.user ?? null);
         if (newSession?.user) {
-          setProfileLoading(true);
+          const hasExistingProfile = !!profileRef.current;
+          // Only show loading spinner on fresh sign-in, not background token refreshes or tab switches
+          if (!hasExistingProfile && event !== "TOKEN_REFRESHED") {
+            setProfileLoading(true);
+          }
           setLoading(false);
-          void fetchProfile(newSession.user.id)
+          void fetchProfile(newSession.user.id, hasExistingProfile)
             .then(refreshCounts)
             .then(() => registerDeviceToken(newSession.user.id))
             .then(() => registerCurrentDevice())
             .catch(error => console.error("[auth] profile load:", error));
         } else {
+          profileRef.current = null;
           setProfile(null);
           setFirm(null);
           setUnreadCount(0);
@@ -290,7 +304,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe();
   }, [fetchProfile, refreshCounts, registerDeviceToken, registerCurrentDevice]);
 
-  // ── Poll heartbeat & check on window focus ────────────────────────────────
+  // ── Poll heartbeat periodically (every 5 minutes in background) ────────────
   useEffect(() => {
     if (!user || !IS_SUPABASE_CONFIGURED) return;
 
@@ -299,18 +313,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       void performHeartbeat();
     }, 5 * 60 * 1000);
 
-    // Check heartbeat on window focus / visibility change
-    const onFocus = () => {
-      void performHeartbeat();
-    };
-
-    window.addEventListener("focus", onFocus);
-    document.addEventListener("visibilitychange", onFocus);
-
     return () => {
       clearInterval(intervalId);
-      window.removeEventListener("focus", onFocus);
-      document.removeEventListener("visibilitychange", onFocus);
     };
   }, [user, performHeartbeat]);
 
