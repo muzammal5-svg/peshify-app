@@ -297,11 +297,6 @@ p  { color: hsl(var(--muted-foreground)); line-height: 1.7; }
   outline-offset: 2px;
 }
 
-/* ─── Touch targets ─────────────────────────────────────────────────────────── */
-button, a, [role="button"] {
-  min-height: 44px;
-  min-width: 44px;
-}
 
 /* ─── Modern SaaS Components ─────────────────────────────────────────── */
 @layer components {

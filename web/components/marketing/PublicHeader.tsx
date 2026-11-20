@@ -263,7 +263,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
             {user ? (
               <Link
                 href="/dashboard/"
-                className="btn-secondary min-h-[42px] h-10 px-4 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-2 rounded-xl btn-tactile"
+                className="btn-secondary h-9 px-4 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-2 rounded-lg btn-tactile"
               >
                 {t("marketing.goToDashboard") || "Go to Dashboard"}
                 <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
@@ -272,13 +272,13 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
               <>
                 <Link
                   href="/auth/sign-in/"
-                  className="inline-flex items-center justify-center min-h-[42px] h-10 px-4 text-xs font-semibold uppercase tracking-[0.08em] text-[#EDE8E0] border border-[rgba(237,232,224,0.22)] hover:border-[#EDE8E0] hover:text-white rounded-xl transition-all duration-200 btn-tactile whitespace-nowrap"
+                  className="inline-flex items-center justify-center h-9 px-4 text-xs font-semibold uppercase tracking-[0.08em] text-[#EDE8E0] border border-[rgba(237,232,224,0.22)] hover:border-[#EDE8E0] hover:text-white rounded-lg transition-all duration-200 btn-tactile whitespace-nowrap"
                 >
                   {t("marketing.signIn") || "Sign In"}
                 </Link>
                 <Link
                   href="/register/"
-                  className="inline-flex items-center justify-center gap-1.5 min-h-[42px] h-10 px-5 text-xs font-bold uppercase tracking-[0.08em] bg-[#EDE8E0] text-[#050505] hover:bg-white rounded-xl transition-all duration-200 shadow-xs btn-tactile btn-sheen whitespace-nowrap"
+                  className="inline-flex items-center justify-center gap-1.5 h-9 px-4 text-xs font-bold uppercase tracking-[0.08em] bg-[#EDE8E0] text-[#050505] hover:bg-white rounded-lg transition-all duration-200 shadow-xs btn-tactile btn-sheen whitespace-nowrap"
                 >
                   {t("marketing.signUp") || "Sign Up"}
                   <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" aria-hidden="true" />
@@ -291,7 +291,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
           <div className="flex lg:hidden items-center gap-2">
             <button
               type="button"
-              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl border border-[rgba(237,232,224,0.18)] text-[#EDE8E0] transition-colors duration-200 hover:bg-white/10 focus-visible:outline-none"
+              className="w-10 h-10 flex items-center justify-center rounded-lg border border-[rgba(237,232,224,0.18)] text-[#EDE8E0] transition-colors duration-200 hover:bg-white/10 focus-visible:outline-none"
               onClick={() => setOpen(true)}
               aria-label={t("marketing.menu") || "Menu"}
               aria-expanded={open}
@@ -323,7 +323,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="w-10 h-10 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl text-[#9A958C] hover:text-[#EDE8E0] hover:bg-white/10 transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-lg text-[#9A958C] hover:text-[#EDE8E0] hover:bg-white/10 transition-colors"
                 aria-label={t("marketing.close") || "Close"}
               >
                 <X className="h-5 w-5" aria-hidden="true" />
