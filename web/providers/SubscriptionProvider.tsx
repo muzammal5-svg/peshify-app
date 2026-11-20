@@ -40,7 +40,7 @@ const freeFullAccessValue: SubscriptionValue = {
 const SubscriptionContext = createContext<SubscriptionValue>(freeFullAccessValue);
 
 /**
- * 100% Free Full Access — all paywalls, restrictions, and plan locks neutralized.
+ * Free Early Access — all paywalls, restrictions, and plan locks neutralized.
  */
 export function SubscriptionProvider({ children }: { children: ReactNode }) {
   const value = useMemo<SubscriptionValue>(() => freeFullAccessValue, []);

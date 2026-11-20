@@ -428,7 +428,7 @@ export default function FeaturesPage() {
               Transparent Practice Plans
             </h2>
             <p className="text-sm sm:text-base text-slate-300">
-              All litigation tools, cause lists, and client alerts are 100% free during early access.
+              Core litigation tools, cause lists, and client alerts are free during Early Access.
             </p>
           </div>
 
@@ -501,7 +501,7 @@ export default function FeaturesPage() {
               href="/register/"
               className="btn-primary min-w-[220px] py-3.5 text-sm font-semibold rounded-xl shadow-lg hover:shadow-xl"
             >
-              <span>Create Free Chamber Account</span>
+              <span>Start Free Early Access</span>
               <ArrowRight className="w-4 h-4 ms-2 rtl:rotate-180" />
             </Link>
             <Link

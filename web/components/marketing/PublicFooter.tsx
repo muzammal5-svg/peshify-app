@@ -175,10 +175,10 @@ export function PublicFooter() {
             <div className="p-3 rounded-xl bg-amber-400/10 border border-amber-400/20 text-xs text-amber-200 mt-2">
               <span className="font-semibold text-amber-300 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                100% Free During Early Access
+                Free During Early Access
               </span>
               <p className="text-[11px] text-slate-300 mt-1 leading-snug">
-                All litigation tools, cause lists, and client alerts are free for advocates and law practices worldwide.
+                Core litigation tools, cause lists, and client alerts are free for advocates during early access.
               </p>
             </div>
           </div>

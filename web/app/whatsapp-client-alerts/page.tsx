@@ -104,6 +104,14 @@ const jsonLd = {
             "text": "Yes. While DiaryLex provides structured legal templates in English and Urdu, you can edit and personalize any message before sending.",
           },
         },
+        {
+          "@type": "Question",
+          "name": "Are there message limits for WhatsApp client alerts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WhatsApp client alerts are included during Early Access (fair-use limits may apply). TODO: confirm with owner on exact message quotas or delivery limits.",
+          },
+        },
       ],
     },
   ],
@@ -380,6 +388,12 @@ export default function WhatsAppClientAlertsPage() {
                   Yes. While DiaryLex provides structured legal templates in English and Urdu, you can edit and personalize any message before sending.
                 </p>
               </div>
+              <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
+                <h3 className="font-bold text-white text-sm">Are there message limits for WhatsApp client alerts?</h3>
+                <p className="text-zinc-300 leading-relaxed">
+                  WhatsApp client alerts are included during Early Access (fair-use limits may apply). (TODO: confirm with owner on exact message quotas or delivery limits).
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -391,14 +405,14 @@ export default function WhatsAppClientAlertsPage() {
               Delight Your Clients With Modern Court Updates
             </h2>
             <p className="text-sm text-zinc-300 mb-8 leading-relaxed">
-              Equip your chamber with instant WhatsApp case progress notifications. Free during early advocate beta.
+              WhatsApp client alerts included during Early Access (fair-use limits may apply). TODO: confirm with owner on exact message limits.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/register/"
                 className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl"
               >
-                <span>Create Free Chamber Account</span>
+                <span>Start Free Early Access</span>
                 <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
               </Link>
               <Link

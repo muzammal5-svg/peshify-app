@@ -31,8 +31,16 @@ export function Landing() {
 
   const FAQS = [
     {
-      q: "Is DiaryLex completely free during the early access period?",
-      a: "Yes. During our early access launch, DiaryLex is 100% free with unrestricted access for litigation counsel, advocates, and law practices worldwide. No credit card required, no trial expiration, and no hidden charges. Early legal practices will receive lifetime discounts on future premium tier upgrades.",
+      q: "Is DiaryLex really free?",
+      a: "Yes. During our Early Access launch, DiaryLex is free for litigation counsel, advocates, and law practices worldwide. No credit card is required. You get full access to court hearing diaries, daily cause lists, limitation tracking, and client WhatsApp alerts.",
+    },
+    {
+      q: "Will DiaryLex always be free?",
+      a: "DiaryLex is free during Early Access. Paid subscription plans for growing firms may be introduced later, and early users will receive advance notice before any paid plans begin.",
+    },
+    {
+      q: "Will my data stay safe if pricing changes?",
+      a: "Yes. You retain total ownership and legal privilege over all your files and proceedings. Your data is isolated per chamber and protected under database Row-Level Security. (TODO: confirm with owner regarding full database export capabilities).",
     },
     {
       q: "Does DiaryLex support multiple court hierarchies and jurisdictions?",
@@ -48,7 +56,7 @@ export function Landing() {
     },
     {
       q: "Who owns our law firm's legal data?",
-      a: "You retain 100% ownership and legal privilege over all your files, client lists, and case proceedings. Your data is isolated per firm, encrypted in transit and at rest, and can be exported at any time in standard formats.",
+      a: "You retain 100% ownership and legal privilege over all your files, client lists, and case proceedings. Your data is isolated per firm, encrypted in transit and at rest, and can be exported at any time in standard formats. (TODO: confirm with owner regarding full database export capabilities).",
     },
   ];
 
@@ -442,7 +450,7 @@ export function Landing() {
               Free Early Access for Legal Chambers
             </h2>
             <p className="text-sm md:text-base text-zinc-400">
-              We are currently in active beta rollout. Advocates joining now enjoy full, unrestricted access without fees. Paid tiers will launch later with grandfathered benefits.
+              We are currently in Early Access rollout. Advocates joining now enjoy full access to core litigation tools free during early access. Paid subscription plans for growing firms will be announced later, and early users will be notified in advance.
             </p>
           </div>
 
@@ -489,7 +497,7 @@ export function Landing() {
                   href="/register/"
                   className="btn-primary btn-sheen btn-tactile w-full py-3.5 text-sm font-semibold rounded-xl block text-center shadow-lg hover:shadow-2xl hover:shadow-primary/25"
                 >
-                  Join Early Advocate Beta (Free)
+                  Get Early Access (Free)
                 </Link>
               </div>
             </div>

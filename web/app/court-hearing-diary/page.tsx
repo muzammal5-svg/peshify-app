@@ -160,7 +160,7 @@ export default function CourtHearingDiaryPage() {
                   href="/register/"
                   className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl text-center shadow-lg hover:shadow-2xl hover:shadow-primary/25"
                 >
-                  <span>Start Free Court Diary</span>
+                  <span>Start Free Early Access</span>
                   <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
                 </Link>
                 <Link
@@ -380,7 +380,7 @@ export default function CourtHearingDiaryPage() {
                   <div className="col-span-5 sm:col-span-6 font-medium text-white">Historical Record Retention</div>
                   <div className="col-span-3 sm:col-span-3 text-zinc-400">Damaged, lost, or waterlogged</div>
                   <div className="col-span-4 sm:col-span-3 text-emerald-400 font-semibold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Lifetime Encrypted Vault
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Secure Cloud Encrypted Vault
                   </div>
                 </div>
               </div>
@@ -490,7 +490,7 @@ export default function CourtHearingDiaryPage() {
                 href="/register/"
                 className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl"
               >
-                <span>Create Free Chamber Account</span>
+                <span>Start Free Early Access</span>
                 <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
               </Link>
               <Link

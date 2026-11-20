@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pricing & Early Access — Transparent Plans for Law Practices",
+  title: "Pricing & Early Access | DiaryLex Law Software",
   description:
-    "Explore DiaryLex practice tiers. Transparent plans with 100% free early access: unlimited cases, court cause lists, hearing diary alerts, and associate seats.",
+    "Explore DiaryLex practice plans. Free during Early Access with full litigation case management, court hearing diary alerts, and chamber accounts.",
   keywords: [
     "Legal Software Pricing",
     "Law Practice Management Cost",
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
     "Court Diary Pricing",
   ],
   alternates: {
-    canonical: "https://diarylex.com/pricing",
+    canonical: "https://diarylex.com/pricing/",
   },
   openGraph: {
-    title: "Pricing — DiaryLex Legal Case Management Platform",
+    title: "Pricing & Early Access | DiaryLex",
     description:
-      "Transparent practice plans with 100% free early access for litigation advocates and law firms.",
-    url: "https://diarylex.com/pricing",
+      "Explore practice plans. Free during Early Access for litigation advocates and law firms.",
+    url: "https://diarylex.com/pricing/",
     siteName: "DiaryLex",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "DiaryLex Pricing" }],
     type: "website",
@@ -35,25 +35,26 @@ const pricingLd = {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://diarylex.com",
+          "item": "https://diarylex.com/",
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Pricing",
-          "item": "https://diarylex.com/pricing",
+          "item": "https://diarylex.com/pricing/",
         },
       ],
     },
     {
       "@type": "Product",
       "name": "DiaryLex Early Access Subscription",
-      "description": "Unlimited litigation case management, automated daily cause lists, hearing diaries, and chamber ledger.",
+      "description": "Litigation case management, automated daily cause lists, hearing diaries, and chamber ledger.",
       "image": "https://diarylex.com/og.png",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD",
+        "description": "Free during early access",
         "availability": "https://schema.org/InStock",
       },
     },

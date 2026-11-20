@@ -261,14 +261,14 @@ export default function TrackLimitationPeriodsArticle() {
                 Never Miss a Limitation Deadline Again
               </h3>
               <p className="text-xs sm:text-sm text-zinc-300 max-w-xl mx-auto leading-relaxed">
-                Activate DiaryLex automated limitation countdown timers for your chamber briefs. 100% free during early beta.
+                Activate DiaryLex automated limitation countdown timers for your chamber briefs. Free during Early Access.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
                 <Link
                   href="/register/"
                   className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[200px] py-3 text-xs font-semibold rounded-xl"
                 >
-                  <span>Start Free Limitation Tracker</span>
+                  <span>Start Free Early Access</span>
                   <ArrowRight className="w-3.5 h-3.5 ms-2 inline rtl:rotate-180" />
                 </Link>
                 <Link

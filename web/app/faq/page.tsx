@@ -43,8 +43,12 @@ const FAQ_DATA: FAQItem[] = [
         a: "DiaryLex is built for solo counsel, chamber associates, senior advocates, and law partnerships managing active litigation cases, court dockets, hearing diaries, and clients.",
       },
       {
-        q: "Is DiaryLex really free during early access?",
-        a: "Yes! DiaryLex is 100% free with unrestricted access to all features during our global early access rollout. No credit card, no trial expiration, and no hidden fees.",
+        q: "Is DiaryLex really free?",
+        a: "Yes, during Early Access DiaryLex is free for all users. You get access to court hearing diaries, daily cause lists, limitation tracking, and client WhatsApp alerts with no credit card required.",
+      },
+      {
+        q: "Will DiaryLex always be free?",
+        a: "DiaryLex is free during Early Access. Paid subscription plans for growing law firms may be introduced later. Early users will receive advance notice before any paid plans begin.",
       },
       {
         q: "Does DiaryLex support multiple court jurisdictions?",
@@ -81,8 +85,12 @@ const FAQ_DATA: FAQItem[] = [
         a: "Yes. All legal files, client notes, and case records are protected by attorney-client privilege standards and isolated via PostgreSQL Row-Level Security (RLS). One chamber cannot view another's data.",
       },
       {
+        q: "Will my data stay safe if pricing changes?",
+        a: "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and reports. (TODO: confirm with owner regarding full database export capabilities).",
+      },
+      {
         q: "How is data protected against loss or hardware failure?",
-        a: "All case dockets and documents are stored in secure cloud storage with automated daily backups and full export capabilities to PDF and CSV.",
+        a: "All case dockets and documents are stored in secure cloud storage with automated daily backups and export capabilities for cause lists and summaries.",
       },
       {
         q: "Can I export my cases and hearing history at any time?",
@@ -195,7 +203,7 @@ export default function FAQPage() {
                 href="/register/"
                 className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl"
               >
-                <span>Create Free Chamber Account</span>
+                <span>Start Free Early Access</span>
                 <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
               </Link>
               <Link

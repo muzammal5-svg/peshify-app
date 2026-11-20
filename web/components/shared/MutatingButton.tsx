@@ -4,7 +4,7 @@ import { Button, type ButtonProps } from "@/components/ui/Button";
 export type LockProps = { disabled?: boolean; "aria-disabled"?: boolean; title?: string };
 
 /**
- * 100% Free Full Access — mutation controls are permanently enabled for all users.
+ * Free Early Access — mutation controls are active for all users.
  */
 export function useMutationLock() {
   return { canMutate: true, lock: {} as LockProps, renewTooltip: "" };

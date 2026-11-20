@@ -401,14 +401,14 @@ export default function ChamberLedgerPage() {
               Take Command of Chamber Accounting
             </h2>
             <p className="text-sm text-zinc-300 mb-8 leading-relaxed">
-              Equip your law firm with clear retainer ledgers and expense tracking. Start free today.
+              Equip your law firm with clear retainer ledgers and expense tracking. Free during Early Access.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/register/"
                 className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl"
               >
-                <span>Create Free Chamber Account</span>
+                <span>Start Free Early Access</span>
                 <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
               </Link>
               <Link

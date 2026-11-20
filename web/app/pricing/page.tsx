@@ -16,9 +16,9 @@ import { PublicFooter } from "@/components/marketing/PublicFooter";
 import { FloatingWhatsApp } from "@/components/marketing/FloatingWhatsApp";
 
 export const metadata: Metadata = {
-  title: "Affordable Pricing Plans for Lawyers",
+  title: "DiaryLex Pricing | Free Early Access",
   description:
-    "Simple, transparent pricing for solo advocates, chambers, and law firms. Start free with full court hearing diary and case management features.",
+    "Start free during Early Access with full litigation case management, court hearing diary alerts, limitation tracking, and chamber ledger.",
   keywords: [
     "law firm software pricing",
     "court hearing diary cost",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     canonical: "https://diarylex.com/pricing/",
   },
   openGraph: {
-    title: "Affordable Pricing Plans for Lawyers | DiaryLex",
+    title: "DiaryLex Pricing | Free Early Access",
     description:
       "Start free with full litigation management, court hearing diary, limitation countdowns, and chamber ledger.",
     url: "https://diarylex.com/pricing/",
@@ -55,8 +55,9 @@ const jsonLd = {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD",
+        "description": "Free during early access",
         "availability": "https://schema.org/InStock",
-        "category": "Early Advocate Beta - 100% Free",
+        "category": "Early Advocate Access - Free",
       },
     },
     {
@@ -81,26 +82,26 @@ const jsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Is DiaryLex genuinely free during early access?",
+          "name": "Is DiaryLex really free?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes! DiaryLex is 100% free with unrestricted access to all court hearing diary tools, automated cause lists, limitation tracking, and WhatsApp client alerts during our rollout.",
+            "text": "Yes, DiaryLex is free for all users during our Early Access rollout. You get full access to court hearing diary tools, automated cause lists, limitation tracking, and WhatsApp client alerts without entering a credit card.",
           },
         },
         {
           "@type": "Question",
-          "name": "Do I need to enter credit card details to sign up?",
+          "name": "Will DiaryLex always be free?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No credit card or payment information is required to create your chamber account and start managing cases.",
+            "text": "DiaryLex is free during Early Access. Paid plans for growing firms will be announced later. Early users will receive advance notice before any paid plans begin.",
           },
         },
         {
           "@type": "Question",
-          "name": "What happens to my data if pricing changes in the future?",
+          "name": "Will my data stay safe if pricing changes?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "All early beta advocates receive grandfathered benefits. Furthermore, your data is always 100% yours and can be exported at any time to PDF and CSV formats without restriction.",
+            "text": "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and reports. (TODO: confirm with owner regarding full database export capabilities).",
           },
         },
       ],
@@ -140,13 +141,13 @@ export default function PricingPage() {
             <div className="max-w-3xl mx-auto text-center space-y-5">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/20 text-xs font-semibold text-amber-300">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Transparent &amp; Accessible Practice Software</span>
+                <span>Transparent Practice Software</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                Simple, Predictable Plans for Modern Law Chambers
+                Free Early Access
               </h1>
               <p className="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-2xl mx-auto">
-                Start completely free with full access to daily cause lists, limitation tracking, and client WhatsApp alerts. No credit card required.
+                DiaryLex is free for all litigation counsel, advocates, and law chambers while in Early Access. Experience full court cause lists, hearing diary alerts, and limitation tracking with no credit card required.
               </p>
             </div>
           </div>
@@ -155,38 +156,38 @@ export default function PricingPage() {
         {/* Pricing Cards Grid */}
         <section className="py-20 md:py-28 border-b border-white/[0.08]">
           <div className={CONTAINER}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
-              {/* Plan 1: Early Beta (Active) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+              {/* Card 1: Active Free Early Access */}
               <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-amber-400/[0.08] via-card to-card border-2 border-amber-400/40 relative shadow-2xl flex flex-col justify-between">
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-amber-400 text-black text-[11px] font-bold uppercase tracking-wider shadow-sm">
-                  Most Popular &bull; Free Now
+                  Active Now &bull; $0
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
                     <Scale className="w-5 h-5 text-amber-400" />
-                    <h2 className="text-xl font-bold text-white">Early Advocate Beta</h2>
+                    <h2 className="text-xl font-bold text-white">Full Platform Early Access</h2>
                   </div>
                   <p className="text-xs text-zinc-300 leading-relaxed">
-                    Unrestricted full access for litigation advocates participating in our global rollout.
+                    DiaryLex is free for all users while in early access. Enjoy full core features for litigation advocates and chamber teams.
                   </p>
                   <div className="pt-2 pb-4 border-b border-white/[0.08]">
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-extrabold text-white font-mono">$0</span>
-                      <span className="text-xs text-zinc-400">/ completely free</span>
+                      <span className="text-xs text-zinc-400">/ free during early access</span>
                     </div>
                     <span className="text-[11px] text-emerald-400 font-semibold block mt-1">
-                      No credit card required
+                      No credit card or payment required
                     </span>
                   </div>
 
                   <ul className="space-y-3 text-xs text-zinc-300 pt-2">
                     <li className="flex items-center gap-2.5">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Unlimited active case dockets &amp; briefs</span>
+                      <span>Active litigation case dockets &amp; brief tracking</span>
                     </li>
                     <li className="flex items-center gap-2.5">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Automated daily cause list board</span>
+                      <span>Automated daily court cause list generation</span>
                     </li>
                     <li className="flex items-center gap-2.5">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -194,15 +195,15 @@ export default function PricingPage() {
                     </li>
                     <li className="flex items-center gap-2.5">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>1-Click client updates via WhatsApp</span>
+                      <span>1-Click WhatsApp client updates (fair-use limits apply)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Chamber financial ledger &amp; expense tracking</span>
+                      <span>Chamber financial ledger &amp; expense disbursement tracking</span>
                     </li>
                     <li className="flex items-center gap-2.5">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Export case summaries &amp; hearing lists to PDF</span>
+                      <span>Export daily cause lists &amp; case summaries to PDF</span>
                     </li>
                   </ul>
                 </div>
@@ -212,47 +213,54 @@ export default function PricingPage() {
                     href="/register/"
                     className="btn-primary btn-sheen btn-tactile w-full py-3.5 text-sm font-semibold rounded-xl text-center block shadow-lg hover:shadow-2xl hover:shadow-primary/25"
                   >
-                    Join Free Early Beta
+                    Get Early Access (Free)
                   </Link>
                 </div>
               </div>
 
-              {/* Plan 2: Solo Advocate Pro */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-card border border-white/[0.08] flex flex-col justify-between">
+              {/* Card 2: Coming Soon - Paid Plans for Growing Firms */}
+              <div className="p-6 sm:p-8 rounded-2xl bg-card border border-white/[0.08] flex flex-col justify-between relative">
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-blue-400" />
-                    <h2 className="text-xl font-bold text-white">Solo Advocate Pro</h2>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Building className="w-5 h-5 text-blue-400" />
+                      <h2 className="text-xl font-bold text-white">Paid Plans for Growing Firms</h2>
+                    </div>
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">
+                      Coming Soon
+                    </span>
                   </div>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
-                    Designed for independent litigation counsel requiring advanced custom reports.
+                  <p className="text-xs text-zinc-300 leading-relaxed">
+                    Paid plans for growing firms will be announced later. Early users will be notified in advance.
                   </p>
                   <div className="pt-2 pb-4 border-b border-white/[0.08]">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-extrabold text-white font-mono">$19</span>
-                      <span className="text-xs text-zinc-400">/ mo [Future Tier]</span>
+                      <span className="text-3xl font-extrabold text-white font-mono">Coming Soon</span>
                     </div>
-                    <span className="text-[11px] text-amber-400 font-semibold block mt-1">
-                      Free during Early Advocate Beta
+                    <span className="text-[11px] text-amber-300 font-semibold block mt-1">
+                      Early users will receive advance notice before any paid plans begin.
                     </span>
                   </div>
 
-                  <ul className="space-y-3 text-xs text-zinc-300 pt-2">
+                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] text-xs text-zinc-300 space-y-1.5">
+                    <span className="font-semibold text-white block">Early Adopter Guarantee:</span>
+                    <p className="text-[11px] text-zinc-400 leading-relaxed">
+                      You will never be automatically charged. We will provide at least 30 days of advance notice before any subscription tiers take effect.
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3 text-xs text-zinc-400 pt-2">
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Everything in Early Advocate Beta</span>
+                      <Check className="w-4 h-4 text-blue-400 shrink-0" />
+                      <span>Custom chamber letterhead &amp; formal reporting</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Custom chamber letterhead PDF reports</span>
+                      <Check className="w-4 h-4 text-blue-400 shrink-0" />
+                      <span>Multi-associate role permissions &amp; branch delegation</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>SMS &amp; Email automated client notifications</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Priority support via WhatsApp Chamber Helpdesk</span>
+                      <Check className="w-4 h-4 text-blue-400 shrink-0" />
+                      <span>Priority onboarding assistance for litigation teams</span>
                     </li>
                   </ul>
                 </div>
@@ -263,56 +271,6 @@ export default function PricingPage() {
                     className="btn-secondary btn-tactile w-full py-3.5 text-sm font-semibold rounded-xl text-center block bg-white/[0.05] border-white/[0.12] text-zinc-200 hover:text-white"
                   >
                     Start Free (Early Access)
-                  </Link>
-                </div>
-              </div>
-
-              {/* Plan 3: Chamber & Firm */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-card border border-white/[0.08] flex flex-col justify-between">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Building className="w-5 h-5 text-emerald-400" />
-                    <h2 className="text-xl font-bold text-white">Chamber Partnership</h2>
-                  </div>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
-                    For multi-lawyer practices, partner chambers, and corporate litigation firms.
-                  </p>
-                  <div className="pt-2 pb-4 border-b border-white/[0.08]">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-extrabold text-white font-mono">$49</span>
-                      <span className="text-xs text-zinc-400">/ mo [Future Tier]</span>
-                    </div>
-                    <span className="text-[11px] text-amber-400 font-semibold block mt-1">
-                      Free during Early Advocate Beta
-                    </span>
-                  </div>
-
-                  <ul className="space-y-3 text-xs text-zinc-300 pt-2">
-                    <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Everything in Solo Advocate Pro</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Multi-associate role permissions &amp; delegation</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Centralized chamber financial ledger &amp; audit trail</span>
-                    </li>
-                    <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Dedicated chamber onboarding concierge</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="pt-8">
-                  <Link
-                    href="/contact/"
-                    className="btn-secondary btn-tactile w-full py-3.5 text-sm font-semibold rounded-xl text-center block bg-white/[0.05] border-white/[0.12] text-zinc-200 hover:text-white"
-                  >
-                    Contact for Firm Setup
                   </Link>
                 </div>
               </div>
@@ -330,21 +288,21 @@ export default function PricingPage() {
 
             <div className="max-w-2xl mx-auto space-y-3 text-xs">
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
-                <h3 className="font-bold text-white text-sm">Is DiaryLex genuinely free during early access?</h3>
+                <h3 className="font-bold text-white text-sm">Is DiaryLex really free?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  Yes! DiaryLex is 100% free with unrestricted access to all court hearing diary tools, automated cause lists, limitation tracking, and WhatsApp client alerts during our rollout.
+                  Yes, DiaryLex is free for all users during our Early Access rollout. You get full access to court hearing diary tools, automated cause lists, limitation tracking, and WhatsApp client alerts without entering a credit card.
                 </p>
               </div>
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
-                <h3 className="font-bold text-white text-sm">Do I need to enter credit card details to sign up?</h3>
+                <h3 className="font-bold text-white text-sm">Will DiaryLex always be free?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  No credit card or payment information is required to create your chamber account and start managing cases.
+                  DiaryLex is free during Early Access. Paid plans for growing firms will be announced later. Early users will receive advance notice before any paid plans begin.
                 </p>
               </div>
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
-                <h3 className="font-bold text-white text-sm">What happens to my data if pricing changes in the future?</h3>
+                <h3 className="font-bold text-white text-sm">Will my data stay safe if pricing changes?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  All early beta advocates receive grandfathered benefits. Furthermore, your data is always 100% yours and can be exported at any time to PDF and CSV formats without restriction.
+                  Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and reports. (TODO: confirm with owner regarding full database export capabilities).
                 </p>
               </div>
             </div>
@@ -365,7 +323,7 @@ export default function PricingPage() {
                 href="/register/"
                 className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl"
               >
-                <span>Create Free Chamber Account</span>
+                <span>Start Free Early Access</span>
                 <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
               </Link>
               <Link

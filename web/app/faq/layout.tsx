@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions — Legal Case Management & Court Diary",
+  title: "Frequently Asked Questions | DiaryLex",
   description:
-    "Get answers about DiaryLex: daily cause list automation, court hearing diaries, limitation tracking, multi-associate chamber access, data confidentiality, and pricing.",
+    "Get answers about DiaryLex: daily cause list automation, court hearing diaries, limitation tracking, client WhatsApp updates, and early access.",
   keywords: [
     "Legal Tech FAQ",
     "Court Diary FAQ",
@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     "DiaryLex Support",
   ],
   alternates: {
-    canonical: "https://diarylex.com/faq",
+    canonical: "https://diarylex.com/faq/",
   },
   openGraph: {
     title: "FAQ — DiaryLex Legal Case Management Platform",
     description:
       "Answers about automated cause lists, hearing reminders, client alerts, data privacy, and early access.",
-    url: "https://diarylex.com/faq",
+    url: "https://diarylex.com/faq/",
     siteName: "DiaryLex",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "DiaryLex FAQ" }],
     type: "website",
@@ -36,13 +36,13 @@ const faqPageLd = {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://diarylex.com",
+          "item": "https://diarylex.com/",
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "FAQ",
-          "item": "https://diarylex.com/faq",
+          "item": "https://diarylex.com/faq/",
         },
       ],
     },
@@ -68,10 +68,26 @@ const faqPageLd = {
         },
         {
           "@type": "Question",
-          "name": "Is DiaryLex free during early access?",
+          "name": "Is DiaryLex really free?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes! DiaryLex is 100% free with unrestricted access to all features during our global early access rollout. No credit card, no trial expiration, and no hidden fees.",
+            "text": "Yes, during Early Access DiaryLex is free for all users. You get access to court hearing diaries, daily cause lists, limitation tracking, and client WhatsApp alerts with no credit card required.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Will DiaryLex always be free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DiaryLex is free during Early Access. Paid subscription plans for growing law firms may be introduced later. Early users will receive advance notice before any paid plans begin.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Will my data stay safe if pricing changes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and reports. (TODO: confirm with owner regarding full database export capabilities).",
           },
         },
         {
@@ -95,7 +111,7 @@ const faqPageLd = {
           "name": "Will my chamber's data stay confidential and secure?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "All legal files, client notes, and case records are protected by attorney-client privilege standards, encrypted with TLS 1.3 and AES-256, and isolated via PostgreSQL Row-Level Security (RLS).",
+            "text": "All legal files, client notes, and case records are protected by attorney-client privilege standards and isolated via PostgreSQL Row-Level Security (RLS).",
           },
         },
         {

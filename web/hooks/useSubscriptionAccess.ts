@@ -4,7 +4,7 @@ import { useSubscriptionGate, type SubState } from "@/providers/SubscriptionProv
 export type { SubState };
 
 /**
- * 100% Free Full Access — all users have active, unblocked access to all features.
+ * Free Early Access — all users have active, unblocked access to all features.
  */
 export function useSubscriptionAccess() {
   return useSubscriptionGate();

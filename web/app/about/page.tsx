@@ -20,7 +20,7 @@ import { FloatingWhatsApp } from "@/components/marketing/FloatingWhatsApp";
 export const metadata: Metadata = {
   title: "About Us | Mission & Chamber Security",
   description:
-    "DiaryLex empowers litigation counsel, advocates, and law chambers with intelligent case management, automated cause lists, and confidential record security.",
+    "DiaryLex empowers litigation counsel, advocates, and law chambers with smart case management, automated cause lists, and confidential record security.",
   keywords: [
     "about DiaryLex",
     "legal tech Pakistan",
@@ -164,8 +164,8 @@ export default function AboutPage() {
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-white block text-sm">Free Early Beta Accessibility</strong>
-                      <span>All litigation features, cause boards, and client tools are free during early access so solo advocates and junior counsel have the same advantages as large corporate firms.</span>
+                      <strong className="text-white block text-sm">Free Early Access Program</strong>
+                      <span>Core litigation features, cause boards, and client tools are free during Early Access so solo advocates and junior counsel have modern advantages. Paid plans for growing chambers will be announced with advance notice.</span>
                     </div>
                   </li>
                 </ul>
@@ -295,7 +295,7 @@ export default function AboutPage() {
                 href="/register/"
                 className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl"
               >
-                <span>Create Free Chamber Account</span>
+                <span>Start Free Early Access</span>
                 <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
               </Link>
               <Link

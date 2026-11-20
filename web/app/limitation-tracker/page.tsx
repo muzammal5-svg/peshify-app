@@ -418,14 +418,14 @@ export default function LimitationTrackerPage() {
               Protect Your Clients From Limitation Expiration
             </h2>
             <p className="text-sm text-zinc-300 mb-8 leading-relaxed">
-              Equip your chamber with the limitation tracking platform built specifically for litigation attorneys. Free during early advocate beta.
+              Equip your chamber with the limitation tracking platform built specifically for litigation attorneys. Free during Early Access.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/register/"
                 className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl"
               >
-                <span>Create Free Chamber Account</span>
+                <span>Start Free Early Access</span>
                 <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
               </Link>
               <Link

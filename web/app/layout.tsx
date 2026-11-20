@@ -161,6 +161,7 @@ const jsonLd = {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD",
+        "description": "Free during early access",
         "availability": "https://schema.org/InStock",
       },
       "featureList": [

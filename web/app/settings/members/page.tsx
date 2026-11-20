@@ -195,7 +195,7 @@ function MembersView() {
             </div>
           </div>
           <Badge variant="gold" size="sm">
-            Unlimited Free Access
+            Free Early Access
           </Badge>
         </div>
       </Card>

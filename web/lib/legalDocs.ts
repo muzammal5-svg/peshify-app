@@ -40,6 +40,11 @@ export const LEGAL_DOCS: Record<
         titleKey: "legal.termsS4Title",
         bodyKeys: ["legal.termsEthical"],
       },
+      {
+        id:       "terms-5",
+        titleKey: "legal.termsS5Title",
+        bodyKeys: ["legal.termsEarlyAccess"],
+      },
     ],
   },
 
