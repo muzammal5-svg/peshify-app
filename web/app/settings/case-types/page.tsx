@@ -105,7 +105,7 @@ function CaseTypesAdmin() {
               <input type="checkbox" checked={newOffence}
                 onChange={e => setNewOffence(e.target.checked)}
                 className="w-4 h-4 accent-gold rounded" />
-              <span className="text-sm text-navy">{t("common.requiresOffence")}</span>
+              <span className="text-sm text-foreground">{t("common.requiresOffence")}</span>
             </label>
             <div className="flex gap-2">
               <MutatingButton size="sm" onClick={handleAdd} loading={createType.isPending}

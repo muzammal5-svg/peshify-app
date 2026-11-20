@@ -89,7 +89,7 @@ const config: Config = {
         },
         // Deep Navy (#0B1B3A) brand palette
         navy: {
-          DEFAULT: "#0B1B3A",
+          DEFAULT: "var(--color-navy, hsl(var(--foreground)))",
           50:  "#F0F4FA",
           100: "#DDE7F5",
           200: "#B8CEEB",

@@ -46,17 +46,17 @@ function FilterPill({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all duration-150 min-h-[36px]",
+        "flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all duration-150 min-h-[36px]",
         active
-          ? "bg-navy-900 text-white border-navy-900 shadow-xs"
-          : "bg-surface text-navy-600 border-navy-200 hover:text-navy-900 hover:border-navy-300 hover:bg-navy-50"
+          ? "bg-primary text-primary-foreground border-primary shadow-xs"
+          : "bg-secondary/40 text-muted-foreground border-border hover:text-foreground hover:bg-secondary/80"
       )}
     >
       <span>{label}</span>
       {count !== undefined && (
         <span className={cn(
-          "text-[10px] font-semibold rounded-full px-1.5 py-0.5 leading-none",
-          active ? "bg-white/20 text-white" : "bg-navy-100 text-navy-700"
+          "text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none",
+          active ? "bg-white/20 text-white" : "bg-muted text-muted-foreground"
         )}>
           {count}
         </span>
@@ -239,7 +239,7 @@ function ClientsPage() {
                   header: t("clients.name"),
                   render: (c) => (
                     <span
-                      className="font-medium text-navy"
+                      className="font-semibold text-foreground group-hover:text-primary transition-colors"
                       dir={textDir(c.full_name)}
                       lang={isUrdu(c.full_name) ? "ur" : undefined}
                     >
@@ -251,7 +251,7 @@ function ClientsPage() {
                   key: "cnic",
                   header: t("clients.cnic"),
                   render: (c) => (
-                    <span className="font-mono text-xs text-navy-400">
+                    <span className="font-mono text-xs text-muted-foreground">
                       {c.cnic ?? "—"}
                     </span>
                   ),
@@ -260,7 +260,7 @@ function ClientsPage() {
                   key: "phone",
                   header: t("clients.phone"),
                   render: (c) => (
-                    <span className="text-sm text-navy-400">
+                    <span className="text-sm text-foreground/80 font-mono">
                       {c.phone ? formatPhoneDisplay(c.phone) : "—"}
                     </span>
                   ),
@@ -268,7 +268,7 @@ function ClientsPage() {
                 {
                   key: "city",
                   header: t("clients.city"),
-                  render: (c) => <span className="text-sm text-navy-400">{c.city ?? "—"}</span>,
+                  render: (c) => <span className="text-sm text-muted-foreground">{c.city ?? "—"}</span>,
                 },
                 {
                   key: "cases",
@@ -319,7 +319,7 @@ function ClientsPage() {
 function CaseCountCell({ clientId }: { clientId: string }) {
   const { t } = useTranslation();
   const { data } = useClientCaseCounts(clientId);
-  if (!data) return <span className="text-navy-400 text-xs">—</span>;
+  if (!data) return <span className="text-muted-foreground text-xs">—</span>;
   return (
     <div className="flex items-center gap-1.5">
       {data.running > 0 && (
@@ -328,7 +328,7 @@ function CaseCountCell({ clientId }: { clientId: string }) {
       {data.decided > 0 && (
         <Badge variant="neutral" size="sm">{data.decided} {t("cases.decided")}</Badge>
       )}
-      {data.total === 0 && <span className="text-navy-400 text-xs">{t("common.noData")}</span>}
+      {data.total === 0 && <span className="text-muted-foreground text-xs">{t("common.noData")}</span>}
     </div>
   );
 }

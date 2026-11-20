@@ -125,8 +125,8 @@ function NotificationsPage() {
                 onClick={() => setFilter(item.value)}
                 className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-150 min-h-[36px] ${
                   filter === item.value
-                    ? "border-navy-900 bg-navy-900 text-white shadow-xs"
-                    : "border-navy-200 bg-surface text-navy-600 hover:text-navy-900 hover:border-navy-300 hover:bg-navy-50"
+                    ? "border-primary bg-primary text-primary-foreground shadow-xs"
+                    : "border-border bg-secondary/40 text-muted-foreground hover:text-foreground hover:bg-secondary/70"
                 }`}
               >{t(item.label)}</button>
             ))}

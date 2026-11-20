@@ -85,11 +85,11 @@ function MorePage() {
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-navy truncate">{profile?.full_name ?? "—"}</p>
-              <p className="text-xs text-navy-400 truncate">{profile?.email ?? ""}</p>
+              <p className="font-semibold text-foreground truncate">{profile?.full_name ?? "—"}</p>
+              <p className="text-xs text-muted-foreground truncate">{profile?.email ?? ""}</p>
               {profile?.role && <RoleBadge role={profile.role} className="mt-1" />}
             </div>
-            <div className="flex items-center gap-1 text-navy-400 flex-shrink-0">
+            <div className="flex items-center gap-1 text-muted-foreground flex-shrink-0">
               <User className="w-4 h-4" />
               <ChevronRight className="w-4 h-4" />
             </div>
@@ -101,16 +101,16 @@ function MorePage() {
           {menuItems.map((item) => {
             const Inner = (
               <div className="flex items-center gap-3.5 px-4 py-4">
-                <div className="w-8 h-8 rounded-lg bg-navy-50 flex items-center justify-center flex-shrink-0">
-                  <item.icon className={`w-4 h-4 ${item.danger ? "text-danger" : "text-navy-400"}`} />
+                <div className="w-8 h-8 rounded-lg bg-secondary/40 border border-border/50 flex items-center justify-center flex-shrink-0">
+                  <item.icon className={`w-4 h-4 ${item.danger ? "text-danger" : "text-muted-foreground"}`} />
                 </div>
-                <span className={`flex-1 text-sm font-medium ${item.danger ? "text-danger" : "text-navy"}`}>
+                <span className={`flex-1 text-sm font-medium ${item.danger ? "text-danger" : "text-foreground"}`}>
                   {item.label}
                 </span>
                 {item.badge && item.badge > 0 ? (
                   <Badge variant="danger" size="sm">{item.badge > 99 ? "99+" : item.badge}</Badge>
                 ) : (
-                  <ChevronRight className="w-4 h-4 text-navy-400" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
                 )}
               </div>
             );

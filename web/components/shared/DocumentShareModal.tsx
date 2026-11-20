@@ -175,40 +175,43 @@ export function DocumentShareModal({ open, onClose, data }: DocumentShareModalPr
           <button
             type="button"
             onClick={handleSendWhatsApp}
-            className="btn-primary flex-1 min-h-[44px] rounded-xl flex items-center justify-center gap-2 text-xs font-semibold bg-[#1F7A4D] hover:bg-[#1A6640] text-white"
+            className="btn-primary flex-1 min-h-[44px] rounded-xl flex items-center justify-center gap-2 text-xs font-semibold bg-[#1F7A4D] hover:bg-[#1A6640] text-white shadow-sm"
           >
             <MessageSquare className="w-4 h-4 fill-white" />
             <span>{lang === "ur" ? "واٹس ایپ پر بھیجیں" : "Send on WhatsApp"}</span>
           </button>
 
-          <button
-            type="button"
-            onClick={handleCopyLinkOnly}
-            className="btn-secondary min-h-[44px] px-3.5 rounded-xl flex items-center justify-center gap-1.5 text-xs font-semibold"
-            title="Copy download link"
-          >
-            {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Link2 className="w-4 h-4" />}
-            <span>{copiedLink ? (lang === "ur" ? "لنک کاپی ہو گیا" : "Link Copied") : (lang === "ur" ? "صرف لنک کاپی" : "Copy Link")}</span>
-          </button>
+          <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+            <button
+              type="button"
+              onClick={handleCopyLinkOnly}
+              className="btn-secondary flex-1 sm:flex-none min-h-[44px] px-3.5 rounded-xl flex items-center justify-center gap-1.5 text-xs font-semibold"
+              title="Copy download link"
+            >
+              {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Link2 className="w-4 h-4" />}
+              <span>{copiedLink ? (lang === "ur" ? "لنک کاپی ہو گیا" : "Link Copied") : (lang === "ur" ? "صرف لنک کاپی" : "Copy Link")}</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={handleCopyFullMessage}
-            className="btn-ghost min-h-[44px] px-3.5 rounded-xl flex items-center justify-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
-            title="Copy message text"
-          >
-            {copiedMessage ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
-            <span>{copiedMessage ? "Copied" : (lang === "ur" ? "پیغام کاپی" : "Copy Text")}</span>
-          </button>
+            <button
+              type="button"
+              onClick={handleCopyFullMessage}
+              className="btn-secondary flex-1 sm:flex-none min-h-[44px] px-3.5 rounded-xl flex items-center justify-center gap-1.5 text-xs font-semibold"
+              title="Copy message text"
+            >
+              {copiedMessage ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+              <span>{copiedMessage ? "Copied" : (lang === "ur" ? "پیغام کاپی" : "Copy Text")}</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={handleNativeShare}
-            className="btn-ghost min-h-[44px] px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
-            title="Share"
-          >
-            <Share2 className="w-4 h-4" />
-          </button>
+            <button
+              type="button"
+              onClick={handleNativeShare}
+              className="btn-ghost min-h-[44px] px-3 rounded-xl flex items-center justify-center gap-1.5 text-xs text-muted-foreground hover:text-foreground border border-border/60 hover:bg-muted/40"
+              title="Share"
+              aria-label="Share"
+            >
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
     </Modal>

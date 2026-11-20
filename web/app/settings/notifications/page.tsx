@@ -43,16 +43,22 @@ function NotificationSettingsPage() {
   const { data, isLoading, isError, refetch } = useQuery<PreferenceData>({
     queryKey: ["notification-preferences", user?.id, profile?.firm_id],
     queryFn: async () => {
-      const [{ data: preference, error: preferenceError }, { data: firmRow, error: firmError }] = await Promise.all([
-        supabaseRaw.from("notification_preferences").select("*").eq("user_id", user!.id).maybeSingle(),
-        supabaseRaw.from("firms").select("default_remind_days_before").eq("id", profile!.firm_id).single(),
-      ]);
-      if (preferenceError) throw preferenceError;
-      if (firmError) throw firmError;
-      return {
-        preference: preference as NotificationPreference | null,
-        firmDefault: firmRow.default_remind_days_before as number,
-      };
+      try {
+        const [{ data: preference }, { data: firmRow }] = await Promise.all([
+          supabaseRaw.from("notification_preferences").select("*").eq("user_id", user!.id).maybeSingle(),
+          supabaseRaw.from("firms").select("default_remind_days_before").eq("id", profile!.firm_id).maybeSingle(),
+        ]);
+        return {
+          preference: (preference as NotificationPreference) ?? null,
+          firmDefault: (firmRow?.default_remind_days_before as number) ?? 10,
+        };
+      } catch (err) {
+        console.error("[notifications] query error:", err);
+        return {
+          preference: null,
+          firmDefault: 10,
+        };
+      }
     },
     enabled: !!user && !!profile,
   });
@@ -148,7 +154,7 @@ function NotificationSettingsPage() {
     }
   }
 
-  if (isLoading) return <AppShell pageTitle={t("settings.notificationPreferences")} showBack><p className="text-sm text-navy-400">{t("common.loading")}</p></AppShell>;
+  if (isLoading) return <AppShell pageTitle={t("settings.notificationPreferences")} showBack><p className="text-sm text-muted-foreground">{t("common.loading")}</p></AppShell>;
   if (isError || !data) return <AppShell pageTitle={t("settings.notificationPreferences")} showBack><QueryErrorState onRetry={() => void refetch()} /></AppShell>;
 
   return (
@@ -187,7 +193,7 @@ function NotificationSettingsPage() {
         {isAdmin && (
           <Card>
             <CardHeader><CardTitle>{t("settings.firmDefault")}</CardTitle></CardHeader>
-            <p className="mb-3 text-xs text-navy-400">{t("settings.firmDefaultDescriptionLong")}</p>
+            <p className="mb-3 text-xs text-muted-foreground">{t("settings.firmDefaultDescriptionLong")}</p>
             <form onSubmit={saveFirmDefault} className="space-y-3">
               <Input
                 label={t("settings.firmReminderWindow")}
@@ -207,11 +213,11 @@ function NotificationSettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><Smartphone className="h-5 w-5 text-gold" /> {t("settings.browserPush")}</CardTitle>
           </CardHeader>
-          <p className="mb-4 text-xs text-navy-400">
+          <p className="mb-4 text-xs text-muted-foreground">
             {t("settings.browserPushDescription")}
           </p>
           {!canUseWebPush() ? (
-            <p className="text-sm text-navy-400">{t("settings.browserPushUnsupported")}</p>
+            <p className="text-sm text-muted-foreground">{t("settings.browserPushUnsupported")}</p>
           ) : (
             <div className="flex flex-wrap gap-2">
               <Button variant={pushEnabled ? "secondary" : "primary"} {...lock} onClick={() => void togglePush()} loading={pushBusy}>
@@ -226,7 +232,7 @@ function NotificationSettingsPage() {
             <p className="mt-3 text-xs text-danger">{t("settings.vapidMissing")}</p>
           )}
         </Card>
-        <p className="text-xs text-navy-300">{t("settings.signedInFirm", { firm: firm?.name ?? "your firm" })}</p>
+        <p className="text-xs text-muted-foreground">{t("settings.signedInFirm", { firm: firm?.name ?? "your firm" })}</p>
       </div>
     </AppShell>
   );
@@ -252,8 +258,8 @@ function Toggle({
         className="mt-1 h-4 w-4 accent-gold"
       />
       <span>
-        <span className="block text-sm font-medium text-navy">{label}</span>
-        <span className="block text-xs text-navy-400">{description}</span>
+        <span className="block text-sm font-medium text-foreground">{label}</span>
+        <span className="block text-xs text-muted-foreground">{description}</span>
       </span>
     </label>
   );

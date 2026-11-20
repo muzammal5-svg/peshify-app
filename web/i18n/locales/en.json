@@ -143,7 +143,8 @@
     "nextDate": "Next Date",
     "judge": "Judge",
     "courtNo": "Court No.",
-    "scheduledToday": "cases listed for today"
+    "scheduledToday": "cases listed for today",
+    "saveAndShareWhatsApp": "Save & WhatsApp"
   },
   "causeList": {
     "noHearingsToExport": "No hearings to export.",

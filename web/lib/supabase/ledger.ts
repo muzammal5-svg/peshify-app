@@ -42,69 +42,89 @@ export const ledgerRpc = {
    * Fetch summarized deals for a specific client.
    */
   async getClientDeals(clientId: string): Promise<DealSummary[]> {
-    const { data, error } = await ledgerDb
-      .dealsSummary()
-      .select("*")
-      .eq("client_id", clientId)
-      .order("created_at", { ascending: false });
+    try {
+      const { data, error } = await ledgerDb
+        .dealsSummary()
+        .select("*")
+        .eq("client_id", clientId)
+        .order("created_at", { ascending: false });
 
-    if (error) {
-      console.error("[ledger] getClientDeals error:", error);
-      throw error;
+      if (error) {
+        console.error("[ledger] getClientDeals error:", error);
+        return [];
+      }
+
+      return (data as DealSummary[]) ?? [];
+    } catch (e) {
+      console.error("[ledger] getClientDeals unexpected error:", e);
+      return [];
     }
-
-    return (data as DealSummary[]) ?? [];
   },
 
   /**
    * Fetch summarized deal for a specific case (if linked).
    */
   async getCaseDeal(caseId: string): Promise<DealSummary | null> {
-    const { data, error } = await ledgerDb
-      .dealsSummary()
-      .select("*")
-      .eq("case_id", caseId)
-      .maybeSingle();
+    try {
+      const { data, error } = await ledgerDb
+        .dealsSummary()
+        .select("*")
+        .eq("case_id", caseId)
+        .maybeSingle();
 
-    if (error) {
-      console.error("[ledger] getCaseDeal error:", error);
+      if (error) {
+        console.error("[ledger] getCaseDeal error:", error);
+        return null;
+      }
+
+      return (data as DealSummary | null) ?? null;
+    } catch (e) {
+      console.error("[ledger] getCaseDeal unexpected error:", e);
       return null;
     }
-
-    return (data as DealSummary | null) ?? null;
   },
 
   /**
    * Fetch payments for a deal or client.
    */
   async getPayments(params: { dealId?: string; clientId?: string }): Promise<ClientPayment[]> {
-    let q = ledgerDb.payments().select("*").order("payment_date", { ascending: false }).order("created_at", { ascending: false });
-    if (params.dealId) q = q.eq("deal_id", params.dealId);
-    if (params.clientId) q = q.eq("client_id", params.clientId);
+    try {
+      let q = ledgerDb.payments().select("*").order("payment_date", { ascending: false }).order("created_at", { ascending: false });
+      if (params.dealId) q = q.eq("deal_id", params.dealId);
+      if (params.clientId) q = q.eq("client_id", params.clientId);
 
-    const { data, error } = await q;
-    if (error) {
-      console.error("[ledger] getPayments error:", error);
-      throw error;
+      const { data, error } = await q;
+      if (error) {
+        console.error("[ledger] getPayments error:", error);
+        return [];
+      }
+
+      return (data as ClientPayment[]) ?? [];
+    } catch (e) {
+      console.error("[ledger] getPayments unexpected error:", e);
+      return [];
     }
-
-    return (data as ClientPayment[]) ?? [];
   },
 
   /**
    * Fetch expenses for a deal or firm.
    */
   async getExpenses(params: { dealId?: string }): Promise<ChamberExpense[]> {
-    let q = ledgerDb.expenses().select("*").order("expense_date", { ascending: false }).order("created_at", { ascending: false });
-    if (params.dealId) q = q.eq("deal_id", params.dealId);
+    try {
+      let q = ledgerDb.expenses().select("*").order("expense_date", { ascending: false }).order("created_at", { ascending: false });
+      if (params.dealId) q = q.eq("deal_id", params.dealId);
 
-    const { data, error } = await q;
-    if (error) {
-      console.error("[ledger] getExpenses error:", error);
-      throw error;
+      const { data, error } = await q;
+      if (error) {
+        console.error("[ledger] getExpenses error:", error);
+        return [];
+      }
+
+      return (data as ChamberExpense[]) ?? [];
+    } catch (e) {
+      console.error("[ledger] getExpenses unexpected error:", e);
+      return [];
     }
-
-    return (data as ChamberExpense[]) ?? [];
   },
 
   /**

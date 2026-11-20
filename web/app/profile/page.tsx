@@ -172,12 +172,12 @@ function ProfilePage() {
             />
           </div>
           <div className="text-center">
-            <p className="font-heading font-bold text-navy text-xl">{profile?.full_name}</p>
-            <p className="text-sm text-navy-500 mt-0.5">{profile?.email}</p>
+            <p className="font-heading font-bold text-foreground text-xl">{profile?.full_name}</p>
+            <p className="text-sm text-muted-foreground mt-0.5">{profile?.email}</p>
             <div className="flex items-center justify-center gap-2 mt-1.5">
               {profile?.role && <RoleBadge role={profile.role} />}
               {firm && (
-                <span className="text-xs text-navy-500 font-medium">{firm.name}</span>
+                <span className="text-xs text-muted-foreground font-medium">{firm.name}</span>
               )}
             </div>
           </div>
@@ -240,7 +240,7 @@ function ProfilePage() {
                 type="button"
                 aria-label={showCurrent ? t("auth.hidePassword") : t("auth.showPassword")}
                 onClick={() => setShowCurrent(v => !v)}
-                className="absolute end-3 bottom-2.5 text-navy-400 hover:text-navy"
+                className="absolute end-3 bottom-2.5 text-muted-foreground hover:text-foreground"
               >
                 {showCurrent ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -258,7 +258,7 @@ function ProfilePage() {
                 type="button"
                 aria-label={showNew ? t("auth.hidePassword") : t("auth.showPassword")}
                 onClick={() => setShowNew(v => !v)}
-                className="absolute end-3 bottom-2.5 text-navy-400 hover:text-navy"
+                className="absolute end-3 bottom-2.5 text-muted-foreground hover:text-foreground"
               >
                 {showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>

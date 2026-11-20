@@ -589,8 +589,8 @@ function AdminDashboard() {
                     onClick={() => { setPaymentFilter(st); setPaymentPage(1); }}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                       paymentFilter === st
-                        ? "bg-navy-900 text-white shadow-xs"
-                        : "bg-surface text-navy-600 hover:text-navy-900 border border-navy-200"
+                        ? "bg-primary text-primary-foreground shadow-xs"
+                        : "bg-secondary/40 text-muted-foreground hover:text-foreground border border-border"
                     }`}
                   >
                     {st}
@@ -606,7 +606,7 @@ function AdminDashboard() {
                   placeholder="Search firm or ref no..."
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setPaymentPage(1); }}
-                  className="w-full ps-9 pe-3 py-1.5 text-xs text-navy-900 rounded-xl border border-navy-200 bg-surface placeholder:text-navy-400 focus:outline-none focus:border-navy-900"
+                  className="w-full ps-9 pe-3 py-1.5 text-xs text-foreground rounded-xl border border-border bg-card placeholder:text-muted-foreground focus:outline-none focus:border-primary"
                 />
               </div>
             </div>
@@ -774,8 +774,8 @@ function AdminDashboard() {
                     onClick={() => { setFirmFilter(st); setFirmPage(1); }}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                       firmFilter === st
-                        ? "bg-navy-900 text-white shadow-xs"
-                        : "bg-surface text-navy-600 hover:text-navy-900 border border-navy-200"
+                        ? "bg-primary text-primary-foreground shadow-xs"
+                        : "bg-secondary/40 text-muted-foreground hover:text-foreground border border-border"
                     }`}
                   >
                     {st}
@@ -790,7 +790,7 @@ function AdminDashboard() {
                   placeholder="Search firm, email, phone..."
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setFirmPage(1); }}
-                  className="w-full ps-9 pe-3 py-1.5 text-xs text-navy-900 rounded-xl border border-navy-200 bg-surface placeholder:text-navy-400 focus:outline-none focus:border-navy-900"
+                  className="w-full ps-9 pe-3 py-1.5 text-xs text-foreground rounded-xl border border-border bg-card placeholder:text-muted-foreground focus:outline-none focus:border-primary"
                 />
               </div>
             </div>
@@ -1358,20 +1358,20 @@ function AdminDashboard() {
               required
             />
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-navy-900">Instructions for Subscribers</label>
+              <label className="text-xs font-semibold text-foreground">Instructions for Subscribers</label>
               <textarea
                 value={editAccount.instructions || ""}
                 onChange={(e) => setEditAccount({ ...editAccount, instructions: e.target.value })}
                 rows={3}
-                className="w-full text-xs text-navy-900 p-2.5 rounded-xl border border-navy-200 bg-surface placeholder:text-navy-400 focus:outline-none focus:border-navy-900"
+                className="w-full text-xs text-foreground p-2.5 rounded-xl border border-border bg-card placeholder:text-muted-foreground focus:outline-none focus:border-primary"
               />
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-navy-900">
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-foreground">
               <input
                 type="checkbox"
                 checked={editAccount.is_active}
                 onChange={(e) => setEditAccount({ ...editAccount, is_active: e.target.checked })}
-                className="rounded border-navy-300 text-gold focus:ring-gold"
+                className="rounded border-border text-gold focus:ring-gold"
               />
               <span>Enable this payment method for checkout</span>
             </label>

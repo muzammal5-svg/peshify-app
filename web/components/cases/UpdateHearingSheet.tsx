@@ -147,7 +147,7 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
       />
 
       <Textarea
-        label={`${t("hearings.currentProceeding")} *`}
+        label={t("hearings.currentProceeding")}
         rows={3}
         placeholder={t("common.currentProceedingPlaceholder")}
         error={errors.current_proceeding?.message}
@@ -156,7 +156,7 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
       />
 
       <DatePicker
-        label={`${t("hearings.nextDate")} *`}
+        label={t("hearings.nextDate")}
         error={errors.next_date?.message}
         required
         {...register("next_date")}
@@ -186,29 +186,31 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
         {t("common.hearingUpdateNote")}
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
-        <Button type="button" variant="secondary" onClick={onClose} className="sm:w-24">
+      <div className="flex flex-col-reverse sm:flex-row gap-2.5 pt-3 border-t border-border/40">
+        <Button type="button" variant="secondary" onClick={onClose} className="w-full sm:w-auto px-4">
           {t("common.cancel")}
         </Button>
-        <MutatingButton
-          type="button"
-          onClick={handleSubmit((d) => handleSave(d, false))}
-          loading={isSubmitting || update.isPending}
-          leftIcon={<CalendarPlus className="w-4 h-4" />}
-          variant="secondary"
-          className="flex-1"
-        >
-          {t("common.saveUpdate") || "Save"}
-        </MutatingButton>
-        <MutatingButton
-          type="button"
-          onClick={handleSubmit((d) => handleSave(d, true))}
-          loading={isSubmitting || update.isPending}
-          leftIcon={<MessageSquare className="w-4 h-4" />}
-          className="flex-1 bg-[#1F7A4D] hover:bg-[#1A6640] text-white border-0 shadow-sm"
-        >
-          {t("hearings.saveAndShareWhatsApp") || "Save & WhatsApp"}
-        </MutatingButton>
+        <div className="flex-1 flex flex-col sm:flex-row gap-2">
+          <MutatingButton
+            type="button"
+            onClick={handleSubmit((d) => handleSave(d, false))}
+            loading={isSubmitting || update.isPending}
+            leftIcon={<CalendarPlus className="w-4 h-4 shrink-0" />}
+            variant="secondary"
+            className="flex-1 justify-center whitespace-nowrap text-xs sm:text-sm min-h-[42px]"
+          >
+            {t("common.saveUpdate") || "Save Update"}
+          </MutatingButton>
+          <MutatingButton
+            type="button"
+            onClick={handleSubmit((d) => handleSave(d, true))}
+            loading={isSubmitting || update.isPending}
+            leftIcon={<MessageSquare className="w-4 h-4 shrink-0" />}
+            className="flex-1 justify-center whitespace-nowrap text-xs sm:text-sm bg-[#1F7A4D] hover:bg-[#1A6640] text-white border-0 shadow-sm min-h-[42px]"
+          >
+            {t("hearings.saveAndShareWhatsApp") || "Save & WhatsApp"}
+          </MutatingButton>
+        </div>
       </div>
     </form>
   );

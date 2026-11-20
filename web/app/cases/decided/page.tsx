@@ -162,18 +162,18 @@ function DecidedCasesPage() {
                     <Card hover className="flex items-start gap-3">
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-mono text-gold-700 font-semibold">{c.case_ref_no || "—"}</p>
-                        <p className="text-sm font-medium text-navy-900 mt-0.5 line-clamp-2 break-words"
+                        <p className="text-sm font-medium text-foreground mt-0.5 line-clamp-2 break-words"
                           dir={isUrdu(c.plaintiff_name) ? "rtl" : "ltr"}>
-                          {c.plaintiff_name} <span className="text-navy-400 text-xs">{t("cases.vs")}</span> {c.defendant_name}
+                          {c.plaintiff_name} <span className="text-muted-foreground text-xs">{t("cases.vs")}</span> {c.defendant_name}
                         </p>
                         <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
                           {c.outcome && <OutcomeBadge outcome={c.outcome} />}
                           {c.decision_date && (
-                            <span className="text-xs text-navy-500">{fmtDate(c.decision_date)}</span>
+                            <span className="text-xs text-muted-foreground">{fmtDate(c.decision_date)}</span>
                           )}
                         </div>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-navy-400 flex-shrink-0 mt-1" />
+                      <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-1" />
                     </Card>
                   </Link>
                 ))}
@@ -199,9 +199,9 @@ function DecidedCasesPage() {
                     key: "parties",
                     header: t("common.parties"),
                     render: c => (
-                      <span className="text-sm font-medium text-navy-900 break-words"
+                      <span className="text-sm font-medium text-foreground break-words"
                         dir={isUrdu(c.plaintiff_name) ? "rtl" : "ltr"}>
-                        {c.plaintiff_name} <span className="text-navy-400 text-xs">{t("cases.vs")}</span> {c.defendant_name}
+                        {c.plaintiff_name} <span className="text-muted-foreground text-xs">{t("cases.vs")}</span> {c.defendant_name}
                       </span>
                     ),
                   },
@@ -214,20 +214,20 @@ function DecidedCasesPage() {
                   {
                     key: "outcome",
                     header: t("cases.outcome"),
-                    render: c => c.outcome ? <OutcomeBadge outcome={c.outcome} /> : <span className="text-navy-400 text-xs">—</span>,
+                    render: c => c.outcome ? <OutcomeBadge outcome={c.outcome} /> : <span className="text-muted-foreground text-xs">—</span>,
                     width: "110px",
                   },
                   {
                     key: "decided",
                     header: t("cases.decidedDate"),
-                    render: c => <span className="text-xs text-navy-500">{c.decision_date ? fmtDate(c.decision_date) : "—"}</span>,
+                    render: c => <span className="text-xs text-muted-foreground">{c.decision_date ? fmtDate(c.decision_date) : "—"}</span>,
                     width: "110px",
                   },
                   {
                     key: "client",
                     header: t("clients.title"),
                     render: c => (
-                      <span className="text-xs text-navy-600 truncate max-w-[140px] inline-block" dir={textDir(c.client?.full_name ?? "")}>
+                      <span className="text-xs text-muted-foreground truncate max-w-[140px] inline-block" dir={textDir(c.client?.full_name ?? "")}>
                         {c.client?.full_name ?? "—"}
                       </span>
                     ),
