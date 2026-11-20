@@ -38,7 +38,7 @@ function Pagination({ page, total, pageSize, onChange }: {
   return (
     <div className="flex items-center justify-center gap-2 mt-6">
       <Button size="sm" variant="secondary" disabled={page === 1} onClick={() => onChange(page - 1)}>← {t("common.previousPage")}</Button>
-      <span className="text-sm text-navy-400">{page} / {totalPages}</span>
+      <span className="text-sm text-muted-foreground">{page} / {totalPages}</span>
       <Button size="sm" variant="secondary" disabled={page === totalPages} onClick={() => onChange(page + 1)}>{t("common.nextPage")} →</Button>
     </div>
   );
@@ -141,7 +141,7 @@ function DecidedCasesPage() {
 
         {/* Count */}
         {!isLoading && data && (
-          <p className="text-xs text-navy-500">
+          <p className="text-xs text-muted-foreground">
             {t("common.decidedCount", { total: data.total, count: data.total === 1 ? 1 : 2 })}
             {debouncedSearch && ` ${t("common.searching", { search: debouncedSearch })}`}
           </p>

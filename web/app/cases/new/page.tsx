@@ -343,8 +343,8 @@ function NewCasePage() {
 
         {/* ── First Hearing ── */}
         <Card>
-          <h2 className="text-xs font-semibold text-navy-500 uppercase tracking-wider mb-3">
-            {t("cases.firstHearing")} <span className="text-navy-400 font-normal">({t("common.optional")})</span>
+          <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+            {t("cases.firstHearing")} <span className="text-muted-foreground/75 font-normal">({t("common.optional")})</span>
           </h2>
           <div className="space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
@@ -365,7 +365,7 @@ function NewCasePage() {
               placeholder={t("common.nextProceedingPlaceholder")}
               {...register("next_proceeding")}
             />
-            <p className="text-xs text-navy-400">
+            <p className="text-xs text-muted-foreground">
               {t("common.reminderAutoNote")}
             </p>
           </div>

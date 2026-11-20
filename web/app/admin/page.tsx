@@ -428,29 +428,29 @@ function AdminDashboard() {
   }, [events, eventsPage]);
 
   return (
-    <div className="min-h-screen bg-mesh-surface pb-16">
+    <div className="min-h-screen bg-background text-foreground pb-16">
       {/* Top Header */}
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-900/90 text-white shadow-xl shadow-slate-950/30 backdrop-blur-lg">
+      <header className="sticky top-0 z-20 border-b border-border bg-card/90 text-foreground shadow-sm backdrop-blur-lg">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-gold-cta shadow-gold ring-1 ring-gold-300/40">
-              <ShieldCheck className="h-5 w-5 text-navy-900" aria-hidden="true" />
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+              <ShieldCheck className="h-5 w-5" aria-hidden="true" />
             </span>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-heading text-lg font-bold text-white">DiaryLex Admin</span>
+                <span className="font-heading text-lg font-bold text-foreground">DiaryLex Admin</span>
                 <Badge variant="gold" size="sm" className="font-semibold uppercase text-[10px]">
                   Super Admin
                 </Badge>
               </div>
-              <p className="hidden text-xs text-white/60 sm:block">Chamber Management Control Center</p>
+              <p className="hidden text-xs text-muted-foreground sm:block">Chamber Management Control Center</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-white/80 transition-all duration-200 hover:border-gold-400/60 hover:bg-gold-400/10 hover:text-gold-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
+              className="flex items-center gap-1.5 rounded-lg border border-border bg-secondary/40 px-3 py-1.5 text-xs text-foreground transition-all duration-200 hover:bg-secondary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Back to App</span>
@@ -460,65 +460,65 @@ function AdminDashboard() {
               size="sm"
               onClick={() => void fetchData()}
               disabled={loading}
-              className="text-white hover:bg-white/10"
+              className="text-foreground hover:bg-secondary"
               title="Refresh Data"
             >
               <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
             </Button>
           </div>
         </div>
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-gold-400/60 to-transparent" aria-hidden="true" />
+        <div className="h-px w-full bg-border" aria-hidden="true" />
       </header>
 
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
         {/* Metric Highlights */}
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <Card className="glass-card p-4">
+          <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted">Pending Payments</p>
-                <p className="mt-1 font-heading text-2xl font-bold text-navy">{metrics.pendingCount}</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Pending Payments</p>
+                <p className="mt-1 font-heading text-2xl font-bold text-foreground">{metrics.pendingCount}</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/15 text-amber-500">
                 <Clock className="h-5 w-5" aria-hidden="true" />
               </div>
             </div>
           </Card>
 
-          <Card className="glass-card p-4">
+          <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted">Active Firms</p>
-                <p className="mt-1 font-heading text-2xl font-bold text-navy">{metrics.activeFirmsCount}</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Active Firms</p>
+                <p className="mt-1 font-heading text-2xl font-bold text-foreground">{metrics.activeFirmsCount}</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-500">
                 <Building2 className="h-5 w-5" aria-hidden="true" />
               </div>
             </div>
           </Card>
 
-          <Card className="glass-card p-4">
+          <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted">New Firms</p>
-                <p className="mt-1 font-heading text-2xl font-bold text-navy">{metrics.trialingFirmsCount}</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">New Firms</p>
+                <p className="mt-1 font-heading text-2xl font-bold text-foreground">{metrics.trialingFirmsCount}</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-sky-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/15 text-sky-500">
                 <Users className="h-5 w-5" aria-hidden="true" />
               </div>
             </div>
           </Card>
 
-          <Card className="glass-card p-4">
+          <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted">Verified Revenue</p>
-                <p className="mt-1 font-heading text-2xl font-bold text-gold-700">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Verified Revenue</p>
+                <p className="mt-1 font-heading text-2xl font-bold text-primary">
                   Rs {metrics.totalRevenue.toLocaleString()}
                 </p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-100 text-gold-700">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
                 <Wallet className="h-5 w-5" aria-hidden="true" />
               </div>
             </div>
@@ -527,7 +527,7 @@ function AdminDashboard() {
 
         {/* Tab Navigation */}
         <div
-          className="scrollbar-hide flex items-center gap-1 overflow-x-auto rounded-2xl border border-slate-200/80 bg-white/80 p-1.5 shadow-sm backdrop-blur-md"
+          className="scrollbar-hide flex items-center gap-1 overflow-x-auto rounded-2xl border border-border bg-card p-1.5 shadow-sm"
           role="tablist"
           aria-label="Admin sections"
         >
@@ -555,10 +555,10 @@ function AdminDashboard() {
                   setFirmPage(1);
                   setEventsPage(1);
                 }}
-                className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-200 ease-in-out active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
+                className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-200 ease-in-out active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                   isActive
-                    ? "bg-navy-800 text-white shadow-md"
-                    : "text-muted hover:bg-white hover:text-navy"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
                 }`}
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
@@ -566,7 +566,7 @@ function AdminDashboard() {
                 {tab.count > 0 && (
                   <span
                     className={`rounded-full px-1.5 py-0.5 text-[11px] font-bold leading-none ${
-                      isActive ? "bg-gold-cta text-navy-900" : "bg-navy-50 text-navy-500"
+                      isActive ? "bg-primary-foreground text-primary" : "bg-secondary text-muted-foreground"
                     }`}
                   >
                     {tab.count}
@@ -651,7 +651,7 @@ function AdminDashboard() {
 
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h4 className="font-semibold text-navy text-sm">{p.firm_name}</h4>
+                          <h4 className="font-semibold text-foreground text-sm">{p.firm_name}</h4>
                           <Badge
                             variant={
                               p.status === "verified" ? "success" : p.status === "rejected" ? "danger" : "warning"
@@ -660,20 +660,20 @@ function AdminDashboard() {
                           >
                             {p.status}
                           </Badge>
-                          <span className="text-xs text-muted font-medium bg-navy-50 px-2 py-0.5 rounded">
+                          <span className="text-xs text-muted-foreground font-medium bg-secondary px-2 py-0.5 rounded">
                             {p.method.replace("_", " ")}
                           </span>
                         </div>
 
-                        <div className="mt-1 text-xs text-muted flex flex-wrap gap-x-4 gap-y-1">
+                        <div className="mt-1 text-xs text-muted-foreground flex flex-wrap gap-x-4 gap-y-1">
                           <span>
-                            Plan: <strong className="text-navy">{p.plan_name}</strong>
+                            Plan: <strong className="text-foreground">{p.plan_name}</strong>
                           </span>
                           <span>
-                            Ref / TID: <strong className="font-mono text-navy">{p.reference_no}</strong>
+                            Ref / TID: <strong className="font-mono text-foreground">{p.reference_no}</strong>
                           </span>
                           <span>
-                            Amount: <strong className="text-gold font-bold">Rs {Number(p.amount_pkr).toLocaleString()}</strong>
+                            Amount: <strong className="text-primary font-bold">Rs {Number(p.amount_pkr).toLocaleString()}</strong>
                           </span>
                           <span>Date: {new Date(p.created_at).toLocaleDateString()}</span>
                         </div>
@@ -742,7 +742,7 @@ function AdminDashboard() {
                       >
                         <ChevronLeft className="w-3.5 h-3.5" />
                       </Button>
-                      <span className="font-medium text-navy px-1">
+                      <span className="font-medium text-foreground px-1">
                         {paymentPage} / {totalPaymentPages}
                       </span>
                       <Button
@@ -818,13 +818,13 @@ function AdminDashboard() {
                   return (
                     <Card key={f.id} className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-navy/10 text-navy flex items-center justify-center font-heading font-bold text-base shrink-0">
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-heading font-bold text-base shrink-0">
                           {f.name.charAt(0)}
                         </div>
 
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h4 className="font-semibold text-navy text-sm">{f.name}</h4>
+                            <h4 className="font-semibold text-foreground text-sm">{f.name}</h4>
                             {sub ? (
                               <Badge
                                 variant={
@@ -843,20 +843,20 @@ function AdminDashboard() {
                             ) : (
                               <Badge variant="neutral" size="sm">No sub</Badge>
                             )}
-                            <span className="text-xs text-muted">
+                            <span className="text-xs text-muted-foreground">
                               Plan: <strong>{f.plan?.name || "None"}</strong>
                             </span>
                           </div>
 
-                          <div className="mt-1 text-xs text-muted flex flex-wrap gap-x-4 gap-y-1">
-                            <span>Owner: <strong className="text-navy">{f.owner_name}</strong> ({f.owner_email})</span>
+                          <div className="mt-1 text-xs text-muted-foreground flex flex-wrap gap-x-4 gap-y-1">
+                            <span>Owner: <strong className="text-foreground">{f.owner_name}</strong> ({f.owner_email})</span>
                             {f.phone && <span>Phone: {f.phone}</span>}
                             <span>
-                              Seats: <strong className="text-navy">{f.seats_used} / {f.plan?.max_users || 5}</strong>
+                              Seats: <strong className="text-foreground">{f.seats_used} / {f.plan?.max_users || 5}</strong>
                             </span>
                             {sub?.ends_at && (
                               <span>
-                                Expiry: <strong className="text-navy">{new Date(sub.ends_at).toLocaleDateString()}</strong>
+                                Expiry: <strong className="text-foreground">{new Date(sub.ends_at).toLocaleDateString()}</strong>
                               </span>
                             )}
                           </div>
@@ -917,7 +917,7 @@ function AdminDashboard() {
                       >
                         <ChevronLeft className="w-3.5 h-3.5" />
                       </Button>
-                      <span className="font-medium text-navy px-1">
+                      <span className="font-medium text-foreground px-1">
                         {firmPage} / {totalFirmPages}
                       </span>
                       <Button
@@ -942,8 +942,8 @@ function AdminDashboard() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-base font-bold text-navy">SaaS Subscription Plans</h3>
-                <p className="text-xs text-muted">Configure pricing, durations, and seat capacities visible on the landing page and checkout.</p>
+                <h3 className="text-base font-bold text-foreground">SaaS Subscription Plans</h3>
+                <p className="text-xs text-muted-foreground">Configure pricing, durations, and seat capacities visible on the landing page and checkout.</p>
               </div>
             </div>
 
@@ -952,21 +952,21 @@ function AdminDashboard() {
                 <Card key={pl.id} className="p-6 flex flex-col justify-between relative overflow-hidden">
                   <div>
                     <div className="flex items-center justify-between">
-                      <h4 className="font-heading font-bold text-lg text-navy">{pl.name}</h4>
+                      <h4 className="font-heading font-bold text-lg text-foreground">{pl.name}</h4>
                       <Badge variant={pl.is_active ? "success" : "neutral"} size="sm">
                         {pl.is_active ? "Active" : "Inactive"}
                       </Badge>
                     </div>
-                    <p className="text-xs text-muted font-mono mt-0.5">Code: {pl.code}</p>
+                    <p className="text-xs text-muted-foreground font-mono mt-0.5">Code: {pl.code}</p>
 
                     <div className="mt-4">
-                      <p className="text-3xl font-bold text-navy font-heading">
+                      <p className="text-3xl font-bold text-foreground font-heading">
                         Rs {Number(pl.price_pkr).toLocaleString()}
                       </p>
-                      <p className="text-xs text-muted mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         Duration: <strong>{pl.duration_months} month(s)</strong>
                       </p>
-                      <p className="text-xs text-muted">
+                      <p className="text-xs text-muted-foreground">
                         Max Seats: <strong>{pl.max_users} users</strong> (1 Owner + Lawyers + Clerks)
                       </p>
                     </div>
@@ -993,9 +993,9 @@ function AdminDashboard() {
         {activeTab === "accounts" && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-base font-bold text-navy">Subscriber Payment Receiving Accounts</h3>
-              <p className="text-xs text-muted">
-                These account details and instructions are shown to firm owners on the <code className="bg-navy-50 px-1 py-0.5 rounded">/billing</code> screen when submitting payments.
+              <h3 className="text-base font-bold text-foreground">Subscriber Payment Receiving Accounts</h3>
+              <p className="text-xs text-muted-foreground">
+                These account details and instructions are shown to firm owners on the <code className="bg-secondary px-1 py-0.5 rounded text-foreground">/billing</code> screen when submitting payments.
               </p>
             </div>
 
@@ -1005,8 +1005,8 @@ function AdminDashboard() {
                   <div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Wallet className="w-4 h-4 text-gold" />
-                        <h4 className="font-bold text-navy text-sm uppercase tracking-wider">
+                        <Wallet className="w-4 h-4 text-primary" />
+                        <h4 className="font-bold text-foreground text-sm uppercase tracking-wider">
                           {acc.method.replace("_", " ")}
                         </h4>
                       </div>
@@ -1018,22 +1018,22 @@ function AdminDashboard() {
                     <div className="mt-4 space-y-2 text-xs">
                       {acc.bank_name && (
                         <div>
-                          <span className="text-muted block">Bank Name:</span>
-                          <strong className="text-navy">{acc.bank_name}</strong>
+                          <span className="text-muted-foreground block">Bank Name:</span>
+                          <strong className="text-foreground">{acc.bank_name}</strong>
                         </div>
                       )}
                       <div>
-                        <span className="text-muted block">Account Title:</span>
-                        <strong className="text-navy">{acc.account_title}</strong>
+                        <span className="text-muted-foreground block">Account Title:</span>
+                        <strong className="text-foreground">{acc.account_title}</strong>
                       </div>
                       <div>
-                        <span className="text-muted block">Account / Mobile Number:</span>
-                        <strong className="font-mono text-gold text-sm">{acc.account_number}</strong>
+                        <span className="text-muted-foreground block">Account / Mobile Number:</span>
+                        <strong className="font-mono text-primary text-sm">{acc.account_number}</strong>
                       </div>
                       {acc.instructions && (
                         <div className="pt-2">
-                          <span className="text-muted block">Instructions:</span>
-                          <p className="text-navy/80 italic">{acc.instructions}</p>
+                          <span className="text-muted-foreground block">Instructions:</span>
+                          <p className="text-muted-foreground italic">{acc.instructions}</p>
                         </div>
                       )}
                     </div>
@@ -1060,9 +1060,9 @@ function AdminDashboard() {
         {activeTab === "settings" && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-base font-bold text-navy">Global SaaS System Variables</h3>
-              <p className="text-xs text-muted">
-                Runtime configuration values stored in <code className="bg-navy-50 px-1 py-0.5 rounded">public.app_settings</code>.
+              <h3 className="text-base font-bold text-foreground">Global SaaS System Variables</h3>
+              <p className="text-xs text-muted-foreground">
+                Runtime configuration values stored in <code className="bg-secondary px-1 py-0.5 rounded text-foreground">public.app_settings</code>.
               </p>
             </div>
 
@@ -1070,11 +1070,11 @@ function AdminDashboard() {
               {settings.map((s) => (
                 <Card key={s.key} className="p-4 flex flex-col justify-between">
                   <div>
-                    <span className="text-xs font-mono text-muted uppercase tracking-wider block">{s.key}</span>
-                    <p className="text-lg font-bold text-navy font-mono mt-1 break-all">
+                    <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider block">{s.key}</span>
+                    <p className="text-lg font-bold text-foreground font-mono mt-1 break-all">
                       {typeof s.value === "object" ? JSON.stringify(s.value) : String(s.value)}
                     </p>
-                    <p className="text-[10px] text-muted mt-2">
+                    <p className="text-[10px] text-muted-foreground mt-2">
                       Last modified: {new Date(s.updated_at).toLocaleString()}
                     </p>
                   </div>
@@ -1100,8 +1100,8 @@ function AdminDashboard() {
         {activeTab === "audit" && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-base font-bold text-navy">Audit & Billing Events</h3>
-              <p className="text-xs text-muted">Immutable log of system billing events and notifications.</p>
+              <h3 className="text-base font-bold text-foreground">Audit & Billing Events</h3>
+              <p className="text-xs text-muted-foreground">Immutable log of system billing events and notifications.</p>
             </div>
 
             {events.length === 0 ? (
@@ -1112,7 +1112,7 @@ function AdminDashboard() {
               <Card className="overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-start text-xs">
-                    <thead className="bg-navy-50 text-navy font-semibold uppercase text-[10px] tracking-wider border-b border-border">
+                    <thead className="bg-secondary/40 text-muted-foreground font-semibold uppercase text-[10px] tracking-wider border-b border-border">
                       <tr>
                         <th className="px-4 py-3 text-start">Timestamp</th>
                         <th className="px-4 py-3 text-start">Event Type</th>
@@ -1122,17 +1122,17 @@ function AdminDashboard() {
                     </thead>
                     <tbody className="divide-y divide-border">
                       {paginatedEvents.map((ev) => (
-                        <tr key={ev.id} className="hover:bg-offwhite transition-colors">
-                          <td className="px-4 py-2.5 text-muted whitespace-nowrap">
+                        <tr key={ev.id} className="hover:bg-secondary/30 transition-colors">
+                          <td className="px-4 py-2.5 text-muted-foreground whitespace-nowrap">
                             {new Date(ev.created_at).toLocaleString()}
                           </td>
-                          <td className="px-4 py-2.5 font-bold text-navy whitespace-nowrap">
-                            <span className="bg-navy/10 px-2 py-0.5 rounded text-[11px] font-mono">
+                          <td className="px-4 py-2.5 font-bold text-foreground whitespace-nowrap">
+                            <span className="bg-secondary px-2 py-0.5 rounded text-[11px] font-mono text-primary">
                               {ev.event_type}
                             </span>
                           </td>
-                          <td className="px-4 py-2.5 font-mono text-muted whitespace-nowrap">{ev.firm_id}</td>
-                          <td className="px-4 py-2.5 font-mono text-[11px] text-navy/80 max-w-xs truncate">
+                          <td className="px-4 py-2.5 font-mono text-muted-foreground whitespace-nowrap">{ev.firm_id}</td>
+                          <td className="px-4 py-2.5 font-mono text-[11px] text-muted-foreground max-w-xs truncate">
                             {JSON.stringify(ev.payload)}
                           </td>
                         </tr>
@@ -1142,7 +1142,7 @@ function AdminDashboard() {
                 </div>
 
                 {totalEventsPages > 1 && (
-                  <div className="flex items-center justify-between p-3 text-xs text-muted border-t border-slate-200">
+                  <div className="flex items-center justify-between p-3 text-xs text-muted-foreground border-t border-border">
                     <span>
                       Showing {(eventsPage - 1) * EVENTS_PER_PAGE + 1} to {Math.min(eventsPage * EVENTS_PER_PAGE, events.length)} of {events.length} events
                     </span>
@@ -1156,7 +1156,7 @@ function AdminDashboard() {
                       >
                         <ChevronLeft className="w-3.5 h-3.5" />
                       </Button>
-                      <span className="font-medium text-navy px-1">
+                      <span className="font-medium text-foreground px-1">
                         {eventsPage} / {totalEventsPages}
                       </span>
                       <Button
@@ -1185,7 +1185,7 @@ function AdminDashboard() {
           title="Payment Deposit Receipt"
         >
           <div className="space-y-4">
-            <div className="max-h-[70vh] overflow-auto rounded-lg border border-border flex items-center justify-center bg-navy-50 p-2">
+            <div className="max-h-[70vh] overflow-auto rounded-lg border border-border flex items-center justify-center bg-card p-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={slipUrl} alt="Deposit Slip Receipt" className="max-w-full h-auto rounded object-contain" />
             </div>
@@ -1307,7 +1307,7 @@ function AdminDashboard() {
               max={100}
               required
             />
-            <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-navy">
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-foreground">
               <input
                 type="checkbox"
                 checked={editPlan.is_active}
@@ -1396,7 +1396,7 @@ function AdminDashboard() {
         >
           <form onSubmit={handleSaveSetting} className="space-y-4">
             <p className="text-xs text-muted">
-              Enter the new value for <code className="font-mono bg-navy-50 px-1 py-0.5 rounded">{editSetting.key}</code>:
+              Enter the new value for <code className="font-mono bg-secondary px-1 py-0.5 rounded text-foreground">{editSetting.key}</code>:
             </p>
             <Input
               label="Value"

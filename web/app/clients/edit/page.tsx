@@ -190,7 +190,7 @@ function EditClientPage() {
             <div className="space-y-1.5">
               <label className="label">
                 {t("clients.cnic")}
-                <span className="text-navy-400 font-normal text-xs ms-1">({t("common.optional")})</span>
+                <span className="text-muted-foreground font-normal text-xs ms-1">({t("common.optional")})</span>
               </label>
               <input
                 type="text" inputMode="numeric"
@@ -208,9 +208,9 @@ function EditClientPage() {
               {...register("phone", { onBlur: runDupCheck })} />
 
             <label className="flex items-center gap-2.5 cursor-pointer select-none">
-              <input type="checkbox" className="w-4 h-4 rounded border-navy-200 accent-gold"
+              <input type="checkbox" className="w-4 h-4 rounded border-border accent-primary cursor-pointer"
                 {...register("whatsapp_same")} />
-              <span className="text-sm text-navy">{t("clients.whatsapp")} {t("clients.sameAsPhone")}</span>
+              <span className="text-sm text-foreground">{t("clients.whatsapp")} {t("clients.sameAsPhone")}</span>
             </label>
 
             {!whatsappSame && (
