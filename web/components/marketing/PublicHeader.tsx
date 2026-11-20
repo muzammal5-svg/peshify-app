@@ -120,17 +120,17 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
             : "bg-[#050505]/85 backdrop-blur-sm border-b border-[rgba(237,232,224,0.08)]"
         )}
       >
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-[76px] flex items-center justify-between gap-4 safe-top">
+        <div className="relative max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-[76px] flex items-center justify-between safe-top">
           {/* Brand Logo (Left) */}
-          <div className="flex items-center shrink-0">
+          <div className="flex items-center shrink-0 z-10">
             <Link href="/" className="flex items-center gap-3 group" aria-label={t("brand.name") || "DiaryLex"}>
               <Logo size="sm" variant="full" inverted />
             </Link>
           </div>
 
-          {/* Desktop Navigation Links (Center, safely bounded without overlap) */}
+          {/* Desktop Navigation Links (Dead-center of the entire screen & container) */}
           <nav
-            className="hidden lg:flex items-center justify-center gap-1 xl:gap-2 flex-1 px-2"
+            className="hidden lg:flex items-center justify-center gap-1 xl:gap-2 absolute left-1/2 -translate-x-1/2 pointer-events-auto"
             aria-label={t("common.mainNavigation") || "Main Navigation"}
           >
             {/* Features Dropdown Menu */}
@@ -145,7 +145,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
                 onClick={() => setFeaturesOpen((prev) => !prev)}
                 aria-expanded={featuresOpen}
                 className={cn(
-                  "relative px-3 py-2 text-[11.5px] uppercase tracking-[0.08em] transition-colors duration-200 select-none whitespace-nowrap inline-flex items-center gap-1.5 rounded-lg",
+                  "relative inline-flex items-center justify-center h-9 px-3.5 text-[11.5px] uppercase tracking-[0.08em] transition-colors duration-200 select-none whitespace-nowrap gap-1.5 rounded-lg",
                   isFeatureActive || featuresOpen
                     ? "text-[#EDE8E0] font-semibold bg-white/[0.04]"
                     : "text-[#C8C2B8] font-medium hover:text-[#EDE8E0] hover:bg-white/[0.04]"
@@ -160,15 +160,15 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
                 />
                 {isFeatureActive && (
                   <span
-                    className="absolute bottom-0 inset-x-3 h-[1.5px] bg-[#EDE8E0] shadow-[0_0_8px_rgba(237,232,224,0.6)]"
+                    className="absolute bottom-0 inset-x-3.5 h-[1.5px] bg-[#EDE8E0] shadow-[0_0_8px_rgba(237,232,224,0.6)]"
                     aria-hidden="true"
                   />
                 )}
               </button>
 
-              {/* Dropdown Card */}
+              {/* Dropdown Card (Centered beneath Features trigger) */}
               {featuresOpen && (
-                <div className="absolute top-full left-0 w-[420px] pt-2 z-50 animate-fade-in-down">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[400px] pt-2 z-50 animate-fade-in-down">
                   <div className="rounded-2xl border border-white/10 bg-[#0A0E18]/95 backdrop-blur-xl p-3 shadow-2xl space-y-1">
                     <div className="px-3 py-1.5 border-b border-white/[0.06] flex items-center justify-between">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
@@ -232,7 +232,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
               )}
             </div>
 
-            {/* Standard Nav Items */}
+            {/* Standard Nav Items with Identical Height & Baseline */}
             {MAIN_NAV.map((n) => {
               const active = pathname === n.href || (n.href !== "/" && pathname?.startsWith(n.href));
               return (
@@ -240,7 +240,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
                   key={n.href}
                   href={n.href}
                   className={cn(
-                    "relative px-3 py-2 text-[11.5px] uppercase tracking-[0.08em] transition-colors duration-200 select-none whitespace-nowrap rounded-lg",
+                    "relative inline-flex items-center justify-center h-9 px-3.5 text-[11.5px] uppercase tracking-[0.08em] transition-colors duration-200 select-none whitespace-nowrap rounded-lg",
                     active
                       ? "text-[#EDE8E0] font-semibold bg-white/[0.04]"
                       : "text-[#C8C2B8] font-medium hover:text-[#EDE8E0] hover:bg-white/[0.04]"
@@ -249,7 +249,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
                   {n.label}
                   {active && (
                     <span
-                      className="absolute bottom-0 inset-x-3 h-[1.5px] bg-[#EDE8E0] shadow-[0_0_8px_rgba(237,232,224,0.6)]"
+                      className="absolute bottom-0 inset-x-3.5 h-[1.5px] bg-[#EDE8E0] shadow-[0_0_8px_rgba(237,232,224,0.6)]"
                       aria-hidden="true"
                     />
                   )}
@@ -258,8 +258,8 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
             })}
           </nav>
 
-          {/* Desktop Actions (Right, shrink-0 prevents truncation) */}
-          <div className="hidden lg:flex items-center gap-2.5 shrink-0">
+          {/* Desktop Actions (Right) */}
+          <div className="hidden lg:flex items-center gap-2.5 shrink-0 z-10">
             {user ? (
               <Link
                 href="/dashboard/"
