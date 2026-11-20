@@ -1,8 +1,16 @@
-export async function fetchHearingFilterOptions(client) {
+export async function fetchHearingFilterOptions(client, firmId, isSuper) {
   try {
+    let causeListQ = client.from("v_cause_list").select("hearing_court_no,hearing_judge,case_type_id,case_type_name").limit(1000);
+    let caseTypesQ = client.from("case_types").select("id,name").order("name");
+
+    if (firmId && !isSuper) {
+      causeListQ = causeListQ.eq("firm_id", firmId);
+      caseTypesQ = caseTypesQ.eq("firm_id", firmId);
+    }
+
     const [causeListRes, caseTypesRes] = await Promise.all([
-      client.from("v_cause_list").select("hearing_court_no,hearing_judge,case_type_id,case_type_name").limit(1000),
-      client.from("case_types").select("id,name").order("name"),
+      causeListQ,
+      caseTypesQ,
     ]);
 
     const rows = causeListRes.data ?? [];

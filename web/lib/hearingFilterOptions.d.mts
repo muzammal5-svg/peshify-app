@@ -14,4 +14,6 @@ export interface HearingFilterOptions {
 
 export function fetchHearingFilterOptions(
   client: SupabaseClient<Database>,
+  firmId?: string | null,
+  isSuper?: boolean,
 ): Promise<HearingFilterOptions>;

@@ -58,6 +58,7 @@ export function useClients(filter: ClientsFilter = {}) {
         totalPages: Math.ceil((count ?? 0) / pageSize),
       };
     },
+    enabled: !!firmId || isSuper,
     staleTime: 1000 * 60,
     placeholderData: (prev) => prev,
   });
@@ -81,7 +82,7 @@ export function useClient(id: string | null) {
       if (error) throw error;
       return data as Client;
     },
-    enabled: !!id,
+    enabled: !!id && (!!firmId || isSuper),
     staleTime: 1000 * 60 * 2,
   });
 }
@@ -119,7 +120,7 @@ export function useClientCaseCounts(clientId: string | null) {
         total:   (running.count ?? 0) + (decided.count ?? 0),
       };
     },
-    enabled: !!clientId,
+    enabled: !!clientId && (!!firmId || isSuper),
     staleTime: 1000 * 60 * 5,
   });
 }

@@ -12,6 +12,7 @@ import { QueryErrorState }   from "@/components/ui/QueryErrorState";
 import { SkeletonCard }      from "@/components/ui/Skeleton";
 import { Button }            from "@/components/ui/Button";
 import { useMutationLock }   from "@/components/shared/MutatingButton";
+import { useAuth }           from "@/providers/AuthProvider";
 import { UpdateHearingSheet } from "./UpdateHearingSheet";
 import { QuickEditSheet }    from "./QuickEditSheet";
 import { HearingShareModal } from "@/components/shared/HearingShareModal";
@@ -308,6 +309,7 @@ export function CauseListView({
   className,
 }: CauseListViewProps) {
   const { t } = useTranslation();
+  const { firm } = useAuth();
   const { data, isLoading, isError, refetch } = useCauseList(filter);
 
   const [quickEditRow,   setQuickEditRow]   = useState<CauseListRow | null>(null);
@@ -415,6 +417,7 @@ export function CauseListView({
             nextDate: shareRow.next_date,
             nextProceeding: shareRow.next_proceeding,
             currentProceeding: shareRow.current_proceeding,
+            chamberName: firm?.name || undefined,
           }}
         />
       )}

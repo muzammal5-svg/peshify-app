@@ -14,6 +14,7 @@ import { Textarea }           from "@/components/ui/Textarea";
 import { Button }             from "@/components/ui/Button";
 import { MutatingButton }     from "@/components/shared/MutatingButton";
 import { useToast }           from "@/components/ui/Toast";
+import { useAuth }            from "@/providers/AuthProvider";
 import { useUpdateHearing }   from "@/hooks/useHearings";
 import { supabaseRaw }        from "@/lib/supabase/client";
 import { HearingShareModal }  from "@/components/shared/HearingShareModal";
@@ -42,6 +43,7 @@ interface UpdateHearingSheetProps {
 export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
   const { t }       = useTranslation();
   const toast       = useToast();
+  const { firm }    = useAuth();
   const update      = useUpdateHearing();
   const currentHearingDate = row?.hearing_date;
   const formSchema = useMemo(
@@ -110,6 +112,7 @@ export function UpdateHearingSheet({ row, onClose }: UpdateHearingSheetProps) {
           nextDate: data.next_date,
           nextProceeding: data.next_proceeding,
           currentProceeding: data.current_proceeding,
+          chamberName: firm?.name || undefined,
         };
         setShareData(payload);
         onClose();

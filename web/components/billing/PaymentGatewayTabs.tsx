@@ -112,7 +112,7 @@ export function PaymentGatewayTabs({
               <span
                 className={cn(
                   "text-[11px] font-semibold transition-colors duration-200",
-                  isActive ? "text-navy" : "text-muted group-hover:text-navy"
+                  isActive ? "text-foreground font-bold" : "text-muted-foreground group-hover:text-foreground"
                 )}
               >
                 {t(g.labelKey)}
@@ -123,48 +123,48 @@ export function PaymentGatewayTabs({
       </div>
 
       {/* Account details */}
-      <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
-        <div className="flex items-center gap-2 border-b border-slate-200/80 bg-slate-50/70 px-4 py-3">
-          <Landmark className="h-4 w-4 text-gold" aria-hidden="true" />
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-navy-600">
+      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <div className="flex items-center gap-2 border-b border-border bg-secondary/30 px-4 py-3">
+          <Landmark className="h-4 w-4 text-primary" aria-hidden="true" />
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
             {t("billing.paymentInstructions")}
           </p>
-          <span className="ms-auto rounded-full bg-navy-800 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-gold-300">
+          <span className="ms-auto rounded-full bg-secondary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-foreground border border-border">
             {t(active.labelKey)}
           </span>
         </div>
 
         {activeAccounts.length === 0 ? (
-          <p className="px-4 py-6 text-center text-xs text-muted">
+          <p className="px-4 py-6 text-center text-xs text-muted-foreground">
             {t("billing.noAccountConfigured")}
           </p>
         ) : (
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-border">
             {activeAccounts.map((acc) => (
               <li key={acc.id} className="space-y-3 px-4 py-4">
                 <div className="grid gap-3 sm:grid-cols-2">
                   {acc.bank_name && (
                     <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                         {t("billing.bankName")}
                       </p>
-                      <p className="mt-0.5 text-sm font-semibold text-navy">{acc.bank_name}</p>
+                      <p className="mt-0.5 text-sm font-semibold text-foreground">{acc.bank_name}</p>
                     </div>
                   )}
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                       {t("billing.accountTitle")}
                     </p>
-                    <p className="mt-0.5 text-sm font-semibold text-navy">{acc.account_title}</p>
+                    <p className="mt-0.5 text-sm font-semibold text-foreground">{acc.account_title}</p>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gold-300/50 bg-gold-50/60 px-3.5 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 px-3.5 py-3">
                   <div className="min-w-0">
-                    <p className="text-[10px] font-semibold uppercase tracking-wider text-gold-800/80">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                       {t("billing.accountNumber")}
                     </p>
-                    <p className="mt-0.5 break-all font-mono text-sm font-bold text-navy">
+                    <p className="mt-0.5 break-all font-mono text-sm font-bold text-foreground">
                       {acc.account_number}
                     </p>
                   </div>
@@ -173,10 +173,10 @@ export function PaymentGatewayTabs({
                     onClick={() => handleCopy(acc.id, acc.account_number, acc.account_number)}
                     className={cn(
                       "inline-flex h-10 shrink-0 items-center gap-2 rounded-lg px-3.5 text-xs font-bold transition-all duration-200 ease-in-out active:scale-[0.98]",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                       copiedId === acc.id
                         ? "bg-success text-white shadow-sm"
-                        : "bg-gold-cta text-navy-900 shadow-gold hover:shadow-glow-gold"
+                        : "bg-primary text-primary-foreground shadow-sm hover:opacity-90"
                     )}
                   >
                     {copiedId === acc.id
@@ -187,8 +187,8 @@ export function PaymentGatewayTabs({
                 </div>
 
                 {acc.instructions && (
-                  <p className="flex items-start gap-2 rounded-lg bg-slate-50 px-3 py-2 text-[11px] italic leading-relaxed text-navy-700">
-                    <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-navy-400" aria-hidden="true" />
+                  <p className="flex items-start gap-2 rounded-lg bg-secondary/40 px-3 py-2 text-[11px] italic leading-relaxed text-muted-foreground">
+                    <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
                     {acc.instructions}
                   </p>
                 )}

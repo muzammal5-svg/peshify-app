@@ -2,18 +2,30 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { db, insert, update, supabaseRaw } from "@/lib/supabase/client";
+import { useAuth } from "@/providers/AuthProvider";
 import type { CaseType } from "@/types/supabase";
 
 export function useCaseTypes() {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   return useQuery({
-    queryKey: ["case-types"],
+    queryKey: ["case-types", firmId],
     queryFn: async () => {
-      const { data, error } = await db.caseTypes()
+      let q = db.caseTypes()
         .select("*")
         .order("name", { ascending: true });
+
+      if (firmId && !isSuper) {
+        q = q.eq("firm_id", firmId);
+      }
+
+      const { data, error } = await q;
       if (error) throw error;
       return (data as CaseType[]) ?? [];
     },
+    enabled: !!firmId || isSuper,
     staleTime: 1000 * 60 * 10,
   });
 }

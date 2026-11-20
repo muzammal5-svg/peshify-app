@@ -220,10 +220,10 @@ export function DocumentUploader({
         title={canMutate ? undefined : renewTooltip}
         onKeyDown={e => canMutate && e.key === "Enter" && fileRef.current?.click()}
       >
-        <Upload className="w-8 h-8 text-navy-400" />
+        <Upload className="w-8 h-8 text-muted-foreground" />
         <div className="text-center">
-          <p className="text-sm font-medium text-navy">{t("documents.upload")}</p>
-          <p className="text-xs text-navy-400 mt-0.5">{t("common.fileTypeHint")}</p>
+          <p className="text-sm font-semibold text-foreground">{t("documents.upload")}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">{t("common.fileTypeHint")}</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -317,9 +317,9 @@ export function DocumentUploader({
 
                 {/* Progress bar */}
                 {entry.status === "uploading" && (
-                  <div className="h-1 bg-navy-100 rounded-full mt-1 overflow-hidden">
+                  <div className="h-1 bg-muted rounded-full mt-1 overflow-hidden">
                     <div
-                      className="h-full bg-gold rounded-full transition-all duration-300"
+                      className="h-full bg-primary rounded-full transition-all duration-300"
                       style={{ width: `${entry.progress}%` }}
                     />
                   </div>
@@ -336,7 +336,7 @@ export function DocumentUploader({
                   </p>
                 )}
                 {entry.status === "pending" && (
-                  <p className="text-[10px] text-navy-400 mt-0.5">{formatFileSize(entry.file.size)}</p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">{formatFileSize(entry.file.size)}</p>
                 )}
               </div>
 
@@ -345,7 +345,7 @@ export function DocumentUploader({
                 type="button"
                 onClick={() => removeEntry(entry.id)}
                 aria-label={t("common.remove")}
-                className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-navy-100 transition-colors text-navy-400 hover:text-danger flex-shrink-0"
+                className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-danger flex-shrink-0"
               >
                 <X className="w-3.5 h-3.5" />
               </button>

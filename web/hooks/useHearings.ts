@@ -188,9 +188,14 @@ export function useUpdateHearing() {
 // ─── Distinct filter values (for dropdowns) ───────────────────────────────────
 
 export function useCauseListFilterOptions() {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   return useQuery({
-    queryKey: ["cause-list-filter-options"],
-    queryFn: () => fetchHearingFilterOptions(supabaseRaw),
+    queryKey: ["cause-list-filter-options", firmId],
+    queryFn: () => fetchHearingFilterOptions(supabaseRaw, firmId, isSuper),
+    enabled: !!firmId || isSuper,
     staleTime: 1000 * 60 * 10,
   });
 }

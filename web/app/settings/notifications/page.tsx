@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/Input";
 import { QueryErrorState } from "@/components/ui/QueryErrorState";
 import { useMutationLock } from "@/components/shared/MutatingButton";
 import { useToast } from "@/components/ui/Toast";
+import { PageLoader } from "@/components/ui/LoadingSpinner";
 import { useAuth } from "@/providers/AuthProvider";
 import { canUseWebPush, disableWebPush, enableWebPush, getWebPushSubscriptionEndpoint, sendTestPush } from "@/lib/push";
 import { supabaseRaw } from "@/lib/supabase/client";
@@ -154,8 +155,22 @@ function NotificationSettingsPage() {
     }
   }
 
-  if (isLoading) return <AppShell pageTitle={t("settings.notificationPreferences")} showBack><p className="text-sm text-muted-foreground">{t("common.loading")}</p></AppShell>;
-  if (isError || !data) return <AppShell pageTitle={t("settings.notificationPreferences")} showBack><QueryErrorState onRetry={() => void refetch()} /></AppShell>;
+  if (isLoading || !profile || !data) {
+    if (isError) {
+      return (
+        <AppShell pageTitle={t("settings.notificationPreferences")} showBack>
+          <QueryErrorState onRetry={() => void refetch()} />
+        </AppShell>
+      );
+    }
+    return (
+      <AppShell pageTitle={t("settings.notificationPreferences")} showBack>
+        <div className="flex items-center justify-center py-16">
+          <PageLoader />
+        </div>
+      </AppShell>
+    );
+  }
 
   return (
     <AppShell pageTitle={t("settings.notificationPreferences")} showBack>

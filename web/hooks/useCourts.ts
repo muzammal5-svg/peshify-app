@@ -2,18 +2,30 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { db, insert, supabaseRaw } from "@/lib/supabase/client";
+import { useAuth } from "@/providers/AuthProvider";
 import type { Court } from "@/types/supabase";
 
 export function useCourts() {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   return useQuery({
-    queryKey: ["courts"],
+    queryKey: ["courts", firmId],
     queryFn: async () => {
-      const { data, error } = await db.courts()
+      let q = db.courts()
         .select("*")
         .order("name", { ascending: true });
+
+      if (firmId && !isSuper) {
+        q = q.eq("firm_id", firmId);
+      }
+
+      const { data, error } = await q;
       if (error) throw error;
       return (data as Court[]) ?? [];
     },
+    enabled: !!firmId || isSuper,
     staleTime: 1000 * 60 * 10,
   });
 }

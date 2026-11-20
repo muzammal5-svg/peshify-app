@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useCallback } from "react";
+import { Suspense, useState, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter }   from "next/navigation";
 import { useTranslation }               from "react-i18next";
 import { useForm, Controller }          from "react-hook-form";
@@ -84,6 +84,13 @@ function NewCasePage() {
     },
   });
 
+  useEffect(() => {
+    if (prefilledClient && !selectedClient) {
+      setSelectedClient(prefilledClient);
+      setValue("client_id", prefilledClient.id, { shouldValidate: true });
+    }
+  }, [prefilledClient, selectedClient, setValue]);
+
   const caseTypeId    = watch("case_type_id");
   const selectedType  = caseTypes.find(ct => ct.id === caseTypeId);
   const needsOffence  = selectedType?.requires_offence ?? false;
@@ -129,6 +136,18 @@ function NewCasePage() {
         customColsText.length > 0 ? customColsText.join("\n") : "",
       ].filter(Boolean).join("\n\n");
 
+      const hasFirstHearing = Boolean(
+        data.serial_no?.trim() || data.next_date?.trim() || data.next_proceeding?.trim()
+      );
+
+      const firstHearingPayload = hasFirstHearing
+        ? {
+            serial_no:       data.serial_no?.trim()       || undefined,
+            next_date:       data.next_date               || undefined,
+            next_proceeding: data.next_proceeding?.trim() || undefined,
+          }
+        : undefined;
+
       const newCase = await createCase.mutateAsync({
         firm_id:        firmId,
         client_id:      data.client_id,
@@ -136,23 +155,22 @@ function NewCasePage() {
         plaintiff_name: data.plaintiff_name.trim(),
         defendant_name: data.defendant_name.trim(),
         From:   data.From,
-        judge_name:     data.judge_name   || undefined,
-        court_no:       data.court_no     || undefined,
+        judge_name:     data.judge_name?.trim()   || undefined,
+        court_no:       data.court_no?.trim()     || undefined,
         case_type_id:   data.case_type_id,
-        offence:        needsOffence ? (data.offence || undefined) : undefined,
+        offence:        needsOffence ? (data.offence?.trim() || undefined) : undefined,
         description:    combinedDescription || undefined,
         assigned_to:    userId,
         created_by:     userId,
-        first_hearing: {
-          serial_no:       data.serial_no       || undefined,
-          next_date:       data.next_date        || undefined,
-          next_proceeding: data.next_proceeding  || undefined,
-        },
+        first_hearing:  firstHearingPayload,
       });
       toast.success(t("cases.new"), refNo ? `${refNo} created.` : "Case created.");
       router.push(`/cases/view?id=${newCase.id}`);
     } catch (err: unknown) {
-      toast.error(t("common.error"), err instanceof Error ? err.message : "Failed to save.");
+      const msg =
+        (err as { message?: string })?.message ||
+        (err instanceof Error ? err.message : "Failed to save.");
+      toast.error(t("common.error"), msg);
     }
   }
 

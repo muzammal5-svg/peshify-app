@@ -114,19 +114,19 @@ export function ReceiptDropzone({
               ) : isPdf ? (
                 <FileText className="h-7 w-7 text-rose-500" aria-hidden="true" />
               ) : (
-                <FileImage className="h-7 w-7 text-navy-400" aria-hidden="true" />
+                <FileImage className="h-7 w-7 text-muted-foreground" aria-hidden="true" />
               )}
             </div>
 
             <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-1.5 truncate text-sm font-semibold text-navy">
+              <p className="flex items-center gap-1.5 truncate text-sm font-semibold text-foreground">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-success" aria-hidden="true" />
                 {file.name}
               </p>
-              <p className="mt-0.5 text-xs text-muted">
+              <p className="mt-0.5 text-xs text-muted-foreground">
                 {sizeLabel} · {t("billing.fileReady")}
               </p>
-              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
                 <div className="h-full w-full rounded-full bg-emerald-500" />
               </div>
             </div>
@@ -135,7 +135,7 @@ export function ReceiptDropzone({
               type="button"
               onClick={clear}
               aria-label={t("billing.clearFile")}
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-navy-400 transition-all duration-200 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold active:scale-[0.98]"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-200 hover:border-danger hover:bg-danger/10 hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.98]"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -144,23 +144,23 @@ export function ReceiptDropzone({
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
-            className="group flex w-full flex-col items-center gap-2.5 px-6 py-9 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gold"
+            className="group flex w-full flex-col items-center gap-2.5 px-6 py-9 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
           >
             <span
               className={cn(
                 "grid h-14 w-14 place-items-center rounded-2xl transition-all duration-300",
                 dragging
-                  ? "scale-110 bg-gold-cta text-navy-900 shadow-glow-gold"
-                  : "bg-navy-800 text-gold-300 group-hover:scale-105"
+                  ? "scale-110 bg-primary text-primary-foreground shadow-sm"
+                  : "bg-secondary text-primary group-hover:scale-105 border border-border"
               )}
               aria-hidden="true"
             >
               <UploadCloud className="h-6 w-6" />
             </span>
-            <span className="text-sm font-semibold text-navy">{text}</span>
-            <span className="text-xs text-muted">{hintText}</span>
-            <span className="mt-1 inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-[11px] font-semibold text-navy-600 shadow-sm ring-1 ring-slate-200">
-              <ImageIcon className="h-3.5 w-3.5 text-gold" aria-hidden="true" />
+            <span className="text-sm font-semibold text-foreground">{text}</span>
+            <span className="text-xs text-muted-foreground">{hintText}</span>
+            <span className="mt-1 inline-flex items-center gap-1.5 rounded-lg bg-card px-3 py-1.5 text-[11px] font-semibold text-muted-foreground shadow-sm border border-border">
+              <ImageIcon className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
               {t("billing.browseFiles")}
             </span>
           </button>

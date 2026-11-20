@@ -29,8 +29,8 @@ export default function ImportantFormsPage() {
             </span>
           </div>
         ) : (
-          <div className="mb-4 flex items-center gap-2.5 px-4 py-2.5 bg-navy-50/70 border border-border rounded-xl text-xs text-navy-600">
-            <Info className="w-4 h-4 flex-shrink-0 text-navy-400" />
+          <div className="mb-4 flex items-center gap-2.5 px-4 py-2.5 bg-secondary/40 border border-border rounded-xl text-xs text-muted-foreground">
+            <Info className="w-4 h-4 flex-shrink-0 text-muted-foreground" />
             <span>
               All authenticated members can view and download official court templates below.
             </span>

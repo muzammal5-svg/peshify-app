@@ -82,7 +82,7 @@ function Pagination({
       >
         ← {t("common.previousPage")}
       </Button>
-      <span className="text-sm text-navy-400">
+      <span className="text-sm text-muted-foreground">
         {page} / {totalPages}
       </span>
       <Button
@@ -175,7 +175,7 @@ function ClientsPage() {
 
         {/* ── Result count ── */}
         {!isLoading && data && (
-          <p className="text-xs text-navy-400">
+          <p className="text-xs text-muted-foreground">
             {data.total} {data.total === 1 ? t("common.client") : t("common.clients")} {t("common.found")}
             {search && ` for "${search}"`}
           </p>

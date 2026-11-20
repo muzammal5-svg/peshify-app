@@ -44,7 +44,7 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
       <div className={cn("flex flex-col gap-1.5", containerClassName)}>
         <div className="relative">
           {leftIcon && (
-            <span className="pointer-events-none absolute start-3.5 top-1/2 -translate-y-1/2 text-navy-400 flex items-center justify-center w-5 h-5" aria-hidden="true">
+            <span className="pointer-events-none absolute start-3.5 top-1/2 -translate-y-1/2 text-muted-foreground flex items-center justify-center w-5 h-5" aria-hidden="true">
               {leftIcon}
             </span>
           )}
@@ -96,7 +96,7 @@ export const FloatingField = forwardRef<HTMLInputElement, FloatingFieldProps>(
             {error}
           </p>
         ) : hint ? (
-          <p id={`${inputId}-hint`} className="text-xs text-navy-400">{hint}</p>
+          <p id={`${inputId}-hint`} className="text-xs text-muted-foreground">{hint}</p>
         ) : null}
       </div>
     );

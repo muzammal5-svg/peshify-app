@@ -753,6 +753,7 @@ export function ExecutiveDashboard() {
             nextDate: shareHearing.next_date,
             nextProceeding: shareHearing.next_proceeding,
             currentProceeding: shareHearing.current_proceeding,
+            chamberName: firm?.name || undefined,
           }}
         />
       )}

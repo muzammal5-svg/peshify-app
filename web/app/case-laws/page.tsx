@@ -14,7 +14,7 @@ export default function CaseLawsPage() {
         pageTitle={t("caseLaws.title")}
         headerActions={
           <button
-            className="ml-2 h-9 px-3 text-sm text-navy-400 hover:text-navy transition-colors"
+            className="ml-2 h-9 px-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
             aria-label={t("caseLaws.title")}
           >
             <BookOpen className="w-4 h-4" />

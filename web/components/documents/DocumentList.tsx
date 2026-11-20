@@ -36,17 +36,17 @@ interface DocumentListProps {
 }
 
 function DocIcon({ mime }: { mime: string | null }) {
-  if (!mime) return <FileIcon className="w-5 h-5 text-navy-400" />;
+  if (!mime) return <FileIcon className="w-5 h-5 text-muted-foreground" />;
   if (mime.startsWith("image/"))       return <ImageIcon className="w-5 h-5 text-blue-500" />;
   if (mime === "application/pdf")      return <FileText  className="w-5 h-5 text-red-500" />;
-  return <FileIcon className="w-5 h-5 text-navy-400" />;
+  return <FileIcon className="w-5 h-5 text-muted-foreground" />;
 }
 
 function DocPreviewModal({ url, mime, onClose }: { url: string; mime: string | null; onClose: () => void }) {
   const { t } = useTranslation();
   return (
     <div
-      className="fixed inset-0 z-[80] bg-navy/80 flex items-center justify-center p-4"
+      className="fixed inset-0 z-[80] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
       onClick={onClose}
       role="dialog"
       aria-label={t("common.view")}
