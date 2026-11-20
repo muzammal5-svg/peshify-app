@@ -1,312 +1,213 @@
-"use client";
-
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  ChevronDown, Search, HelpCircle, MessageCircle, Mail,
-  ArrowRight, Sparkles, X, ShieldCheck
-} from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ChevronRight, HelpCircle, Sparkles, ArrowRight } from "lucide-react";
 import { PublicHeader } from "@/components/marketing/PublicHeader";
 import { PublicFooter } from "@/components/marketing/PublicFooter";
 import { FloatingWhatsApp } from "@/components/marketing/FloatingWhatsApp";
-import { Reveal } from "@/components/marketing/Reveal";
-import { whatsappLink, SITE } from "@/lib/siteConfig";
-import Link from "next/link";
+import { FAQClient, type FAQItem } from "@/components/marketing/FAQClient";
+
+export const metadata: Metadata = {
+  title: "Frequently Asked Questions",
+  description:
+    "Find answers to common questions about DiaryLex legal case management software, court hearing diary, client alerts, security, and chamber onboarding.",
+  keywords: [
+    "court hearing diary software FAQ",
+    "legal practice management questions",
+    "advocate case diary app help",
+    "wakeel case diary app Pakistan",
+    "DiaryLex help",
+  ],
+  alternates: {
+    canonical: "https://diarylex.com/faq/",
+  },
+  openGraph: {
+    title: "Frequently Asked Questions | DiaryLex Legal Software",
+    description:
+      "Clear answers about DiaryLex onboarding, courtroom cause lists, limitation tracking, and chamber confidentiality.",
+    url: "https://diarylex.com/faq/",
+    siteName: "DiaryLex",
+    type: "website",
+  },
+};
+
+const FAQ_DATA: FAQItem[] = [
+  {
+    category: "General",
+    questions: [
+      {
+        q: "What is DiaryLex?",
+        a: "DiaryLex is an intelligent case management and court hearing diary platform engineered for litigation attorneys, advocates, barristers, and law firms across global court hierarchies.",
+      },
+      {
+        q: "Who can use DiaryLex?",
+        a: "DiaryLex is built for solo counsel, chamber associates, senior advocates, and law partnerships managing active litigation cases, court dockets, hearing diaries, and clients.",
+      },
+      {
+        q: "Is DiaryLex really free during early access?",
+        a: "Yes! DiaryLex is 100% free with unrestricted access to all features during our global early access rollout. No credit card, no trial expiration, and no hidden fees.",
+      },
+      {
+        q: "Does DiaryLex support multiple court jurisdictions?",
+        a: "Yes! DiaryLex supports Apex & Supreme Courts, High Courts (Principal Seats and Circuit Benches), District & Sessions Courts, Civil Courts, and Specialized Tribunals.",
+      },
+    ],
+  },
+  {
+    category: "Features & Workflows",
+    questions: [
+      {
+        q: "How does the daily cause list feature work?",
+        a: "DiaryLex compiles your practice's daily court fixtures into an automated hearing list sorted by case number, court, judge, and hearing stage.",
+      },
+      {
+        q: "How do WhatsApp client notifications work?",
+        a: "With a single click from any case or hearing entry, DiaryLex formats professional court progress notices and opens WhatsApp ready to review and send to your client.",
+      },
+      {
+        q: "How does the limitation countdown timer alert lawyers?",
+        a: "DiaryLex tracks statutory filing deadlines (e.g., 30, 60, or 90 days for civil revisions and appeals) and triggers multi-tier countdown alerts at 10-day, 5-day, and 24-hour milestones.",
+      },
+      {
+        q: "Can I manage court filing fee disbursements and client retainers?",
+        a: "Yes. The chamber ledger module logs client retainer balances, court fee stamp expenses, and associate fee disbursements tied directly to case files.",
+      },
+    ],
+  },
+  {
+    category: "Security & Confidentiality",
+    questions: [
+      {
+        q: "Will my chamber's case records stay confidential?",
+        a: "Yes. All legal files, client notes, and case records are protected by attorney-client privilege standards and isolated via PostgreSQL Row-Level Security (RLS). One chamber cannot view another's data.",
+      },
+      {
+        q: "How is data protected against loss or hardware failure?",
+        a: "All case dockets and documents are stored in secure cloud storage with automated daily backups and full export capabilities to PDF and CSV.",
+      },
+      {
+        q: "Can I export my cases and hearing history at any time?",
+        a: "Yes. You have total ownership of your data. You can download chamber cause lists, case summaries, and client financial ledgers at any time without restriction.",
+      },
+    ],
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "@id": "https://diarylex.com/faq/#faq",
+      "url": "https://diarylex.com/faq/",
+      "mainEntity": FAQ_DATA.flatMap((cat) =>
+        cat.questions.map((q) => ({
+          "@type": "Question",
+          "name": q.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": q.a,
+          },
+        }))
+      ),
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://diarylex.com/",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FAQ",
+          "item": "https://diarylex.com/faq/",
+        },
+      ],
+    },
+  ],
+};
 
 const CONTAINER = "max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8";
-const SECTION = "py-16 md:py-24";
-
-interface FAQItem {
-  category: string;
-  questions: Array<{
-    q: string;
-    a: string;
-  }>;
-}
 
 export default function FAQPage() {
-  const { t } = useTranslation();
-  const [search, setSearch] = useState("");
-  const [selectedCat, setSelectedCat] = useState<string>("All");
-  const [openId, setOpenId] = useState<string | null>("0-0");
-
-  const faqs: FAQItem[] = [
-    {
-      category: "General",
-      questions: [
-        {
-          q: t("faq.q1") || "What is DiaryLex?",
-          a: t("faq.a1") || "DiaryLex is an intelligent case management and court hearing diary platform engineered for litigation attorneys, advocates, barristers, and law firms across global court hierarchies."
-        },
-        {
-          q: t("faq.q2") || "Who can use DiaryLex?",
-          a: t("faq.a2") || "DiaryLex is built for solo counsel, chamber associates, senior advocates, and law partnerships managing active litigation cases, court dockets, hearing diaries, and clients."
-        },
-        {
-          q: t("faq.q3") || "Is DiaryLex really free during early access?",
-          a: t("faq.a3") || "Yes! DiaryLex is 100% free with unrestricted access to all features during our global early access rollout. No credit card, no trial expiration, and no hidden fees."
-        },
-      ]
-    },
-    {
-      category: "Features",
-      questions: [
-        {
-          q: t("faq.q4") || "How does the daily cause list feature work?",
-          a: t("faq.a4") || "DiaryLex compiles your practice's daily court fixtures into an automated hearing list sorted by case number, court, judge, and hearing stage."
-        },
-        {
-          q: t("faq.q5") || "How do WhatsApp client notifications work?",
-          a: t("faq.a5") || "With a single click from any case or hearing entry, DiaryLex formats professional court progress notices and sends them directly to your client via WhatsApp or email."
-        },
-        {
-          q: t("faq.q6") || "Can clients or associates view case details?",
-          a: t("faq.a6") || "Yes, you can configure team role permissions for associates and clerks, and share structured PDF cause lists or case summaries with clients."
-        },
-        {
-          q: "Does DiaryLex support multiple court jurisdictions and tribunals?",
-          a: "Yes! DiaryLex is built to handle Supreme Courts, Appellate Benches, Commercial Divisions, District Courts, and Arbitration Tribunals with jurisdiction-specific case dockets."
-        },
-      ]
-    },
-    {
-      category: "Pricing & Access",
-      questions: [
-        {
-          q: t("faq.q8") || "Are there any limits on cases or documents?",
-          a: t("faq.a8") || "None. Early access advocates enjoy unlimited cases, cause lists, hearings, pleadings, and client directories with zero restrictions."
-        },
-        {
-          q: t("faq.q9") || "Can multiple advocates from the same chamber share a firm account?",
-          a: t("faq.a9") || "Yes! You can invite partners, associates, and chamber clerks to your firm with separate login credentials and role-based permissions."
-        },
-        {
-          q: t("faq.q10") || "Do I need to submit payment receipts or credit card details?",
-          a: t("faq.a10") || "No. There are no credit card prompts or paywalls. Simply sign up and your chamber account is ready to use immediately."
-        },
-      ]
-    },
-    {
-      category: "Security & Privacy",
-      questions: [
-        {
-          q: t("faq.q11") || "Will my chamber's data stay confidential?",
-          a: t("faq.a11") || "Absolutely. All legal files, client notes, and case records are protected by attorney-client privilege standards and isolated via PostgreSQL Row-Level Security."
-        },
-        {
-          q: t("faq.q12") || "How is data protected against loss or hardware failure?",
-          a: t("faq.a12") || "All data is encrypted in transit (TLS 1.3) and at rest (AES-256), with automated daily multi-region cloud backups."
-        },
-        {
-          q: t("faq.q13") || "What support is available if I need assistance?",
-          a: t("faq.a13") || "We provide direct support via WhatsApp, email (support@diarylex.com), and our global help center."
-        },
-        {
-          q: t("faq.q14") || "Can I export my chamber data at any time?",
-          a: t("faq.a14") || "Yes. You retain 100% data ownership and can export your cause lists, client lists, and case files at any time."
-        },
-      ]
-    }
-  ];
-
-  const categories = ["All", ...faqs.map(f => f.category)];
-
-  const filteredFaqs = faqs.map(item => ({
-    ...item,
-    questions: item.questions.filter(q => {
-      const matchesSearch = !search ||
-        q.q.toLowerCase().includes(search.toLowerCase()) ||
-        q.a.toLowerCase().includes(search.toLowerCase());
-      const matchesCategory = selectedCat === "All" || item.category === selectedCat;
-      return matchesSearch && matchesCategory;
-    })
-  })).filter(item => item.questions.length > 0);
-
   return (
-    <div className="min-h-dvh bg-[#070A12] text-[#EDE8E0] selection:bg-primary/30 selection:text-white overflow-x-clip font-sans">
-      <PublicHeader overDark />
+    <div className="min-h-screen bg-[#050505] text-[#EDE8E0] selection:bg-amber-400/20 selection:text-amber-200">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PublicHeader />
 
-      {/* ── HERO ── */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 text-center overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
-          <div
-            className="absolute inset-0 opacity-[0.05]"
-            style={{
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)`,
-              backgroundSize: "48px 48px",
-            }}
-          />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-amber-500/10 via-primary/15 to-transparent blur-3xl pointer-events-none" />
-        </div>
-
-        <div className={`${CONTAINER} relative z-10 max-w-3xl mx-auto space-y-4 animate-fade-in-up`}>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-amber-300 border border-amber-400/20 shadow-xs animate-float-subtle">
-            <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
-            <span>Chamber Knowledge Base &amp; FAQ</span>
+      <main>
+        {/* Breadcrumb Bar */}
+        <section className="border-b border-white/[0.08] bg-black/40 py-3 text-xs text-zinc-400">
+          <div className={CONTAINER}>
+            <nav className="flex items-center gap-2" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-amber-300 transition-colors">
+                Home
+              </Link>
+              <ChevronRight className="h-3 w-3" />
+              <span className="text-zinc-200 font-medium">FAQ</span>
+            </nav>
           </div>
+        </section>
 
-          <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
-            Frequently Asked Questions
-          </h1>
-
-          <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed">
-            Find immediate answers regarding daily cause lists, diary alerts, pricing, and attorney data security.
-          </p>
-
-          {/* Search Bar */}
-          <div className="pt-4 max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute start-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search questions by topic, feature, or keyword..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-card/80 border border-white/10 focus:border-amber-400/50 focus:ring-2 focus:ring-amber-400/20 py-3.5 ps-11 pe-10 text-sm text-white placeholder:text-slate-500 rounded-2xl transition-all shadow-lg outline-none backdrop-blur-md"
-              />
-              {search && (
-                <button
-                  type="button"
-                  onClick={() => setSearch("")}
-                  className="absolute end-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1 transition-transform duration-200 hover:scale-110 active:scale-90"
-                  aria-label="Clear search"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Category Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-            {categories.map((cat) => {
-              const active = selectedCat === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedCat(cat)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 min-h-[36px] btn-tactile ${
-                    active
-                      ? "bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20 scale-105"
-                      : "bg-white/[0.05] text-slate-300 border border-white/10 hover:bg-white/[0.1] hover:text-white"
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FAQS ACCORDION ── */}
-      <section className={SECTION}>
-        <div className={`${CONTAINER} max-w-3xl`}>
-          {filteredFaqs.length === 0 ? (
-            <div className="text-center py-16 rounded-2xl border border-white/10 bg-white/[0.02] p-8">
-              <HelpCircle className="w-12 h-12 text-slate-500 mx-auto mb-3" />
-              <h3 className="text-lg font-bold text-white mb-1">
-                No matching questions found
-              </h3>
-              <p className="text-xs text-slate-400 mb-4">
-                We couldn&apos;t find any questions matching &ldquo;{search}&rdquo;.
+        {/* Hero Section */}
+        <section className="relative pt-16 pb-16 md:pt-24 md:pb-20 overflow-hidden bg-gradient-to-b from-[#0B1526] via-[#060B14] to-[#050505] border-b border-white/[0.08]">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-56 bg-amber-500/10 blur-[120px] pointer-events-none" />
+          <div className={CONTAINER}>
+            <div className="max-w-3xl mx-auto text-center space-y-4">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/20 text-xs font-semibold text-amber-300">
+                <HelpCircle className="w-3.5 h-3.5" />
+                <span>Knowledgebase &amp; Support</span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                Frequently Asked Questions
+              </h1>
+              <p className="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-2xl mx-auto">
+                Everything you need to know about DiaryLex court hearing diary software, cause list automation, limitation alerts, and chamber security.
               </p>
-              <button
-                type="button"
-                onClick={() => { setSearch(""); setSelectedCat("All"); }}
-                className="btn-secondary text-xs px-4 py-2"
-              >
-                Clear filters
-              </button>
             </div>
-          ) : (
-            <div className="space-y-10">
-              {filteredFaqs.map((category, catIdx) => (
-                <div key={catIdx} className="space-y-4">
-                  <h2 className="font-heading text-lg font-bold uppercase tracking-wider text-amber-300 pb-2 border-b border-white/10 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-400" />
-                    <span>{category.category}</span>
-                  </h2>
+          </div>
+        </section>
 
-                  <div className="space-y-3">
-                    {category.questions.map((faq, idx) => {
-                      const id = `${catIdx}-${idx}`;
-                      const isOpen = openId === id;
+        {/* Content Section */}
+        <section className="py-16 md:py-24 border-b border-white/[0.08]">
+          <div className={CONTAINER}>
+            <FAQClient faqs={FAQ_DATA} />
+          </div>
+        </section>
 
-                      return (
-                        <div
-                          key={idx}
-                          className={`rounded-2xl border transition-all duration-200 overflow-hidden shadow-sm ${
-                            isOpen
-                              ? "border-amber-400/30 bg-gradient-to-b from-white/[0.05] to-white/[0.02]"
-                              : "border-white/10 bg-gradient-to-b from-white/[0.03] to-white/[0.01] hover:border-white/20"
-                          }`}
-                        >
-                          <button
-                            type="button"
-                            onClick={() => setOpenId(isOpen ? null : id)}
-                            className="w-full p-5 sm:p-6 text-start flex items-center justify-between gap-4 transition-colors hover:bg-white/[0.02]"
-                            aria-expanded={isOpen}
-                          >
-                            <span className="font-semibold text-sm sm:text-base text-white leading-snug">
-                              {faq.q}
-                            </span>
-                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isOpen ? "bg-amber-400/10 text-amber-300" : "bg-white/5 text-slate-400"}`}>
-                              <ChevronDown
-                                className={`w-4 h-4 transition-transform duration-200 ${
-                                  isOpen ? "rotate-180" : ""
-                                }`}
-                              />
-                            </div>
-                          </button>
-
-                          {isOpen && (
-                            <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-sm text-slate-300 border-t border-white/10 pt-4 leading-relaxed bg-black/10">
-                              {faq.a}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* ── STILL HAVE QUESTIONS BANNER ── */}
-          <div className="mt-16 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#0B1B3A] via-[#0E234A] to-[#081329] border border-amber-400/20 text-center shadow-xl space-y-4">
-            <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-300 flex items-center justify-center mx-auto">
-              <MessageCircle className="w-6 h-6" strokeWidth={1.75} />
-            </div>
-            <h3 className="font-heading font-bold text-xl text-white">
-              Still Have Questions About Setup?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
-              Our chamber onboarding team is ready on WhatsApp 24/7 to walk counsel through migration, multi-associate setup, and daily cause list automation.
+        {/* CTA Banner */}
+        <section className="py-20 text-center bg-gradient-to-b from-[#080E1C] to-[#04060C]">
+          <div className={`${CONTAINER} max-w-2xl`}>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Ready to Upgrade Your Chamber?
+            </h2>
+            <p className="text-sm text-zinc-300 mb-8 leading-relaxed">
+              Create your free chamber account and add your active court cases in minutes.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <a
-                href={whatsappLink("Hello, I have a question regarding DiaryLex.")}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-primary min-h-[44px] px-6 py-2.5 text-xs font-semibold rounded-xl inline-flex items-center gap-2"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>Chat on WhatsApp</span>
-              </a>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
-                href="/contact"
-                className="btn-secondary min-h-[44px] px-5 py-2.5 text-xs font-semibold rounded-xl bg-white/5 border-white/10 text-white hover:bg-white/10 inline-flex items-center gap-2"
+                href="/register/"
+                className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[220px] py-3.5 text-sm font-semibold rounded-xl"
               >
-                <Mail className="w-4 h-4 text-amber-400" />
-                <span>Contact Chamber Office</span>
+                <span>Create Free Chamber Account</span>
+                <ArrowRight className="w-4 h-4 ms-2 inline rtl:rotate-180" />
+              </Link>
+              <Link
+                href="/features/"
+                className="btn-secondary btn-tactile w-full sm:w-auto min-w-[160px] py-3.5 text-sm font-semibold rounded-xl bg-card border-white/[0.12] text-zinc-200 hover:text-white"
+              >
+                <span>Explore Features</span>
               </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <PublicFooter />
       <FloatingWhatsApp />

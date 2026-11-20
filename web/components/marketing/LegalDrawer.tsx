@@ -204,7 +204,7 @@ export function LegalDrawer({ open, doc, onClose }: LegalDrawerProps) {
             <div className="mt-10 flex items-center justify-between gap-3 border border-[rgba(237,232,224,0.12)] bg-[#111111] p-4">
               <p className="text-xs font-medium text-[#9A958C]">{t("legal.drawerCta")}</p>
               <a
-                href="/contact"
+                href="/contact/"
                 onClick={onClose}
                 className="btn-primary py-2 px-4 text-[10px]"
               >

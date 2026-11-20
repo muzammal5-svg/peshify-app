@@ -27,7 +27,7 @@ export function Logo({ size = "md", variant = "full", className, inverted = fals
     return (
       <div data-variant={variant} className={cn("inline-flex items-center select-none flex-shrink-0", className)}>
         <Image
-          src={isLightText ? "/logo/diarylex-logo-white-text.png" : "/logo/diarylex-logo-transparent.png"}
+          src={isLightText ? "/logo/diarylex-logo-white-text.webp" : "/logo/diarylex-logo-transparent.webp"}
           alt={t("brand.name") || "DiaryLex"}
           width={s.dim * 3}
           height={Math.round(s.dim * 1.8)}
@@ -42,7 +42,7 @@ export function Logo({ size = "md", variant = "full", className, inverted = fals
     return (
       <div data-variant={variant} className={cn("inline-flex items-center select-none flex-shrink-0", className)}>
         <Image
-          src="/logo/app-icon.png"
+          src="/logo/app-icon.webp"
           alt={t("brand.name") || "DiaryLex"}
           width={s.dim}
           height={s.dim}
@@ -56,7 +56,7 @@ export function Logo({ size = "md", variant = "full", className, inverted = fals
   return (
     <div data-variant={variant} className={cn("inline-flex items-center gap-3 select-none flex-shrink-0", className)}>
       <Image
-        src="/logo/app-icon.png"
+        src="/logo/app-icon.webp"
         alt={t("brand.name") || "DiaryLex"}
         width={s.dim}
         height={s.dim}

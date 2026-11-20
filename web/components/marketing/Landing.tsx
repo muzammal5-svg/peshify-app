@@ -108,7 +108,7 @@ export function Landing() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-12 w-full max-w-md mx-auto animate-fade-in-up [animation-delay:250ms]">
             <Link
-              href="/register"
+              href="/register/"
               className="btn-primary btn-sheen btn-tactile w-full sm:w-auto min-w-[200px] py-3.5 text-sm font-semibold rounded-xl shadow-lg hover:shadow-2xl hover:shadow-primary/25 transition-all"
             >
               <span>Join Early Advocate Beta</span>
@@ -116,7 +116,7 @@ export function Landing() {
             </Link>
 
             <Link
-              href="/features"
+              href="/features/"
               className="btn-secondary btn-tactile w-full sm:w-auto min-w-[160px] py-3.5 text-sm font-semibold rounded-xl bg-card/60 border-white/[0.12] text-zinc-200 hover:text-white hover:bg-card transition-all"
             >
               <span>Explore Features</span>
@@ -227,7 +227,7 @@ export function Landing() {
                   View scheduled hearings across High Courts and District Benches. Filter by bench, court room, or judge. Easily update hearing status to Running, Pending, Adjourned, or Decided with next date recording.
                 </p>
                 <div className="pt-2">
-                  <Link href="/register" className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline">
+                  <Link href="/register/" className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline">
                     <span>Try Cause List In Early Access</span>
                     <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                   </Link>
@@ -288,7 +288,7 @@ export function Landing() {
                   From Supreme Courts and High Benches to Commercial Divisions and International Arbitration Tribunals. Structure complex litigation matters with limitation calendars, courtroom benchmarks, and automated hearing transitions.
                 </p>
                 <div className="pt-2">
-                  <Link href="/features" className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline">
+                  <Link href="/features/" className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline">
                     <span>Explore Platform Capabilities</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -486,7 +486,7 @@ export function Landing() {
 
               <div className="pt-6">
                 <Link
-                  href="/register"
+                  href="/register/"
                   className="btn-primary btn-sheen btn-tactile w-full py-3.5 text-sm font-semibold rounded-xl block text-center shadow-lg hover:shadow-2xl hover:shadow-primary/25"
                 >
                   Join Early Advocate Beta (Free)
@@ -562,14 +562,14 @@ export function Landing() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
             <Link
-              href="/register"
+              href="/register/"
               className="btn-primary btn-sheen btn-tactile min-w-[220px] py-3.5 text-sm font-semibold rounded-xl shadow-lg hover:shadow-2xl hover:shadow-primary/25"
             >
               <span>Create Free Chamber Account</span>
               <ArrowRight className="w-4 h-4 ms-2 rtl:rotate-180" />
             </Link>
             <Link
-              href="/contact"
+              href="/contact/"
               className="btn-secondary btn-tactile min-w-[160px] py-3.5 text-sm font-semibold rounded-xl bg-card border-white/[0.12] text-zinc-200 hover:text-white"
             >
               <span>Contact Chamber Support</span>

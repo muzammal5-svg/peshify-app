@@ -8,7 +8,7 @@ export interface NavItem {
 
 /** Bottom nav slots (mobile) — exactly 5 */
 export const BOTTOM_NAV: NavItem[] = [
-  { key: "home",      href: "/",            icon: "Home",          mobileVisible: true, sidebarSection: "main" },
+  { key: "home",      href: "/dashboard",   icon: "Home",          mobileVisible: true, sidebarSection: "main" },
   { key: "causeList", href: "/cause-list",  icon: "Calendar",      mobileVisible: true, sidebarSection: "main" },
   { key: "cases",     href: "/cases",       icon: "Briefcase",     mobileVisible: true, sidebarSection: "main" },
   { key: "clients",   href: "/clients",     icon: "Users",         mobileVisible: true, sidebarSection: "main" },
@@ -17,7 +17,7 @@ export const BOTTOM_NAV: NavItem[] = [
 
 /** Full sidebar item list (desktop) */
 export const SIDEBAR_NAV: NavItem[] = [
-  { key: "home",          href: "/",               icon: "LayoutDashboard", mobileVisible: false, sidebarSection: "main" },
+  { key: "home",          href: "/dashboard",      icon: "LayoutDashboard", mobileVisible: false, sidebarSection: "main" },
   { key: "causeList",     href: "/cause-list",     icon: "Calendar",        mobileVisible: false, sidebarSection: "main" },
   { key: "cases",         href: "/cases",          icon: "Briefcase",       mobileVisible: false, sidebarSection: "main" },
   { key: "runningCases",  href: "/cases/running",  icon: "List",            mobileVisible: false, sidebarSection: "main" },

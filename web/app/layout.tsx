@@ -16,26 +16,26 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://diarylex.com"),
   title: {
     template: `%s | ${BRAND.name}`,
-    default: `${BRAND.name} — Intelligent Legal Case Management & Court Hearing Diary`,
+    default: "Court Hearing Diary & Case Management Software | DiaryLex",
   },
   description:
-    "Intelligent legal case management, automated court hearing diary, client communication, limitation countdown alerts, and chamber ledger for litigation attorneys, law practices, and corporate counsel worldwide.",
+    "Legal case management software & court hearing diary for lawyers: track court dates, limitation countdowns, client WhatsApp alerts, and chamber accounts.",
   keywords: [
+    "court hearing diary software",
+    "legal case management software Pakistan",
+    "lawyer case diary app",
+    "law firm software Pakistan",
+    "limitation period tracker for lawyers",
+    "chamber ledger software",
+    "advocate case management app",
+    "court cause list tracker",
+    "client WhatsApp alerts for lawyers",
+    "wakeel case diary app",
+    "court date reminder app for lawyers",
     "DiaryLex",
-    "Legal Case Management Software",
-    "Court Hearing Diary",
-    "Law Practice Management",
-    "Litigation Management Software",
-    "Court Docket Software",
-    "Law Firm Software",
-    "Attorney Case Tracking",
-    "Court Calendar Software",
-    "Limitation Tracking App",
-    "Law Firm CRM",
-    "Chamber Ledger Software",
   ],
   alternates: {
-    canonical: "https://diarylex.com",
+    canonical: "https://diarylex.com/",
   },
   robots: {
     index: true,
@@ -52,10 +52,10 @@ export const metadata: Metadata = {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-diarylex",
   },
   openGraph: {
-    title: "DiaryLex — Intelligent Legal Case Management & Court Hearing Diary",
+    title: "Court Hearing Diary & Case Management Software | DiaryLex",
     description:
-      "Intelligent case management, automated court hearing diary, client WhatsApp alerts, limitation countdowns, and chamber ledger for law practices worldwide.",
-    url: "https://diarylex.com",
+      "Legal case management software & court hearing diary for lawyers: track court dates, limitation countdowns, client WhatsApp alerts, and chamber accounts.",
+    url: "https://diarylex.com/",
     siteName: "DiaryLex",
     images: [
       {
@@ -70,9 +70,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DiaryLex — Intelligent Legal Case Management & Court Hearing Diary",
+    title: "Court Hearing Diary & Case Management Software | DiaryLex",
     description:
-      "Intelligent case management, automated court hearing diary, client updates, and chamber ledger for law practices worldwide.",
+      "Legal case management software & court hearing diary for lawyers: track court dates, limitation countdowns, client WhatsApp alerts, and chamber accounts.",
     images: ["/og.png"],
   },
   manifest: "/manifest.json",
@@ -112,7 +112,7 @@ const jsonLd = {
     {
       "@type": "WebSite",
       "@id": "https://diarylex.com/#website",
-      "url": "https://diarylex.com",
+      "url": "https://diarylex.com/",
       "name": "DiaryLex",
       "alternateName": ["DiaryLex Legal", "DiaryLex Case Management"],
       "description": "Intelligent Legal Case Management & Court Hearing Diary for Modern Law Practices",
@@ -121,7 +121,7 @@ const jsonLd = {
       },
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://diarylex.com/cases?q={search_term_string}",
+        "target": "https://diarylex.com/cases/?q={search_term_string}",
         "query-input": "required name=search_term_string",
       },
     },
@@ -129,10 +129,10 @@ const jsonLd = {
       "@type": "Organization",
       "@id": "https://diarylex.com/#organization",
       "name": "DiaryLex Technologies Ltd.",
-      "url": "https://diarylex.com",
+      "url": "https://diarylex.com/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://diarylex.com/logo/diarylex-logo.png",
+        "url": "https://diarylex.com/logo/diarylex-logo.webp",
         "caption": "DiaryLex Logo",
       },
       "sameAs": [
@@ -151,7 +151,9 @@ const jsonLd = {
       "@type": "SoftwareApplication",
       "@id": "https://diarylex.com/#application",
       "name": "DiaryLex",
+      "url": "https://diarylex.com/",
       "applicationCategory": "BusinessApplication, LegalApplication",
+      "applicationSubCategory": "Legal Practice Management",
       "operatingSystem": "Web, iOS, Android",
       "description":
         "Intelligent case management platform for litigation counsel, advocates, and law practices worldwide: automated daily cause lists, hearing diary, limitation tracking, and chamber ledger.",
@@ -161,13 +163,6 @@ const jsonLd = {
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "64",
-        "bestRating": "5",
-        "worstRating": "1",
-      },
       "featureList": [
         "Automated Morning Cause List Docketing",
         "Hearing Timeline & Court Action Diary",
@@ -176,6 +171,18 @@ const jsonLd = {
         "Chamber File & Pleadings Vault",
         "Chamber Financial Ledger & Fee Tracking",
         "Role-Based Multi-Associate Access",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://diarylex.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://diarylex.com/",
+        },
       ],
     },
   ],

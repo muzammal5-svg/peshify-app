@@ -1,18 +1,26 @@
 # robots.txt for https://diarylex.com
 User-agent: *
 Allow: /
-Allow: /features
-Allow: /pricing
-Allow: /faq
-Allow: /contact
-Allow: /register
-Allow: /auth/sign-in
-Allow: /help
-Allow: /terms
-Allow: /privacy
-Allow: /refund-policy
+Allow: /features/
+Allow: /pricing/
+Allow: /faq/
+Allow: /about/
+Allow: /contact/
+Allow: /court-hearing-diary/
+Allow: /limitation-tracker/
+Allow: /chamber-ledger/
+Allow: /whatsapp-client-alerts/
+Allow: /blog/
+Allow: /blog/*
+Allow: /register/
+Allow: /auth/sign-in/
+Allow: /help/
+Allow: /terms/
+Allow: /privacy/
+Allow: /refund-policy/
 
 # Disallow authenticated application dashboards & internal APIs from crawl budget waste
+Disallow: /dashboard/
 Disallow: /admin/
 Disallow: /cases/
 Disallow: /clients/

@@ -55,7 +55,7 @@ export function PublicFooter() {
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[11px] font-medium text-emerald-300 border border-emerald-400/20">
                 <Lock className="w-3 h-3 text-emerald-400" strokeWidth={1.75} />
-                <span>TLS 1.3 &bull; Chamber RLS</span>
+                <span>Chamber RLS &bull; Tenant Isolation</span>
               </span>
             </div>
           </div>
@@ -67,33 +67,33 @@ export function PublicFooter() {
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-300">
               <li>
-                <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link href="/court-hearing-diary/" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>Automated Daily Cause List</span>
+                  <span>Court Hearing Diary</span>
                 </Link>
               </li>
               <li>
-                <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link href="/limitation-tracker/" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>Hearing Diary & Limitation Alerts</span>
+                  <span>Limitation Tracker</span>
                 </Link>
               </li>
               <li>
-                <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link href="/whatsapp-client-alerts/" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>WhatsApp & Email Client Notices</span>
+                  <span>WhatsApp Client Alerts</span>
                 </Link>
               </li>
               <li>
-                <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link href="/chamber-ledger/" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>Court Dockets & Hearing Diary</span>
+                  <span>Chamber Ledger & Billing</span>
                 </Link>
               </li>
               <li>
-                <Link href="/features" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link href="/features/" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  <span>Fee Ledger & Client Invoicing</span>
+                  <span>All Features Overview</span>
                 </Link>
               </li>
             </ul>
@@ -201,7 +201,7 @@ export function PublicFooter() {
             </div>
           </div>
           <Link
-            href="/privacy"
+            href="/privacy/"
             className="text-xs font-semibold text-amber-400 hover:text-amber-300 underline underline-offset-4 shrink-0 p-2 min-h-[44px] flex items-center"
           >
             Read Security Policy &rarr;
@@ -217,16 +217,22 @@ export function PublicFooter() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-1">
-            <Link href="/privacy" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
+            <Link href="/about/" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
+              About
+            </Link>
+            <Link href="/blog/" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
+              Blog
+            </Link>
+            <Link href="/privacy/" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
               {t("legal.privacyTitle") || "Privacy"}
             </Link>
-            <Link href="/terms" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
+            <Link href="/terms/" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
               {t("legal.termsTitle") || "Terms"}
             </Link>
-            <Link href="/refund-policy" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
+            <Link href="/refund-policy/" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
               {t("legal.refundTitle") || "Refund Policy"}
             </Link>
-            <Link href="/contact" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
+            <Link href="/contact/" className="hover:text-white transition-colors py-2 px-1 min-h-[44px] flex items-center">
               {t("marketing.navContact") || "Contact"}
             </Link>
           </div>

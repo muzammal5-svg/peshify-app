@@ -83,7 +83,7 @@ export default function SignInPage() {
       } else {
         if (rememberMe) localStorage.setItem("peshify_remember_email", email);
         else localStorage.removeItem("peshify_remember_email");
-        router.replace("/");
+        router.replace("/dashboard/");
       }
     } catch {
       setError(t("auth.networkError"));
@@ -121,7 +121,7 @@ export default function SignInPage() {
     try {
       const { error: err } = await supabase.auth.verifyOtp({ phone, token: otp, type: "sms" });
       if (err) setError(t("auth.invalidOtp"));
-      else router.replace("/");
+      else router.replace("/dashboard/");
     } catch {
       setError(t("auth.networkError"));
     } finally {

@@ -167,7 +167,7 @@ function RegisterForm() {
       setLoading(false);
       return;
     }
-    router.replace("/");
+    router.replace("/dashboard/");
   }
 
   const benefits = [

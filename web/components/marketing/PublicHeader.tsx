@@ -39,10 +39,15 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
   }, [open]);
 
   const NAV = [
-    { href: "/",         label: t("nav.home") },
-    { href: "/features", label: t("marketing.navFeatures") },
-    { href: "/faq",      label: t("marketing.navFaq") },
-    { href: "/contact",  label: t("marketing.navContact") },
+    { href: "/",                          label: t("nav.home") || "Home" },
+    { href: "/features/",                 label: t("marketing.navFeatures") || "Features" },
+    { href: "/court-hearing-diary/",      label: "Hearing Diary" },
+    { href: "/limitation-tracker/",       label: "Limitation" },
+    { href: "/about/",                    label: "About" },
+    { href: "/blog/",                     label: "Blog" },
+    { href: "/pricing/",                  label: "Pricing" },
+    { href: "/faq/",                      label: t("marketing.navFaq") || "FAQ" },
+    { href: "/contact/",                  label: t("marketing.navContact") || "Contact" },
   ];
 
   return (
@@ -108,7 +113,7 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
 
             {user ? (
               <Link
-                href="/"
+                href="/dashboard/"
                 className="btn-secondary min-h-[44px] h-11 px-4 text-xs font-semibold whitespace-nowrap inline-flex items-center gap-2 rounded-xl btn-tactile"
               >
                 {t("marketing.goToDashboard")}
@@ -117,13 +122,13 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
             ) : (
               <>
                 <Link
-                  href="/auth/sign-in"
+                  href="/auth/sign-in/"
                   className="inline-flex items-center justify-center min-h-[44px] h-11 px-4 text-xs font-semibold uppercase tracking-[0.10em] text-[#EDE8E0] border border-[rgba(237,232,224,0.22)] hover:border-[#EDE8E0] hover:text-white rounded-xl transition-all duration-200 btn-tactile"
                 >
                   {t("marketing.signIn")}
                 </Link>
                 <Link
-                  href="/register"
+                  href="/register/"
                   className="inline-flex items-center justify-center gap-1.5 min-h-[44px] h-11 px-5 text-xs font-bold uppercase tracking-[0.10em] bg-[#EDE8E0] text-[#050505] hover:bg-white rounded-xl transition-all duration-200 shadow-xs btn-tactile btn-sheen"
                 >
                   {t("marketing.signUp")}
@@ -209,16 +214,16 @@ export function PublicHeader({ overDark = false }: PublicHeaderProps) {
                 <span>{SITE.phone}</span>
               </a>
               {user ? (
-                <Link href="/" onClick={() => setOpen(false)} className="btn-secondary w-full text-center">
+                <Link href="/dashboard/" onClick={() => setOpen(false)} className="btn-secondary w-full text-center">
                   {t("marketing.goToDashboard")}
                 </Link>
               ) : (
                 <>
-                  <Link href="/auth/sign-in" onClick={() => setOpen(false)} className="btn-secondary w-full text-center">
+                  <Link href="/auth/sign-in/" onClick={() => setOpen(false)} className="btn-secondary w-full text-center">
                     {t("marketing.signIn")}
                   </Link>
                   <Link
-                    href="/register"
+                    href="/register/"
                     onClick={() => setOpen(false)}
                     className="btn-primary w-full text-center flex items-center justify-center gap-2"
                   >
