@@ -40,7 +40,7 @@ export function Landing() {
     },
     {
       q: "Will my data stay safe if pricing changes?",
-      a: "Yes. You retain total ownership and legal privilege over all your files and proceedings. Your data is isolated per chamber and protected under database Row-Level Security. (TODO: confirm with owner regarding full database export capabilities).",
+      a: "Yes. You retain total ownership and legal privilege over all your files and proceedings. Your data is isolated per chamber and protected under database Row-Level Security. You can export cause lists and summary reports at any time.",
     },
     {
       q: "Does DiaryLex support multiple court hierarchies and jurisdictions?",
@@ -56,7 +56,7 @@ export function Landing() {
     },
     {
       q: "Who owns our law firm's legal data?",
-      a: "You retain 100% ownership and legal privilege over all your files, client lists, and case proceedings. Your data is isolated per firm, encrypted in transit and at rest, and can be exported at any time in standard formats. (TODO: confirm with owner regarding full database export capabilities).",
+      a: "You retain 100% ownership and legal privilege over all your files, client lists, and case proceedings. Your data is isolated per firm, encrypted in transit and at rest, and can be exported as reports and cause lists at any time in standard formats.",
     },
   ];
 

@@ -18,15 +18,15 @@ import { PublicFooter } from "@/components/marketing/PublicFooter";
 import { FloatingWhatsApp } from "@/components/marketing/FloatingWhatsApp";
 
 export const metadata: Metadata = {
-  title: "Court Limitation Period & Appeal Tracker",
+  title: "Court Limitation Period & Appeal Deadline Tracker",
   description:
-    "Track court appeal deadlines, review petitions, and statutory limitation countdowns with automated reminders. Never miss a limitation deadline.",
+    "Track court appeal deadlines and filing dates with automated countdown reminders. Set custom milestone alerts for litigation matters.",
   keywords: [
     "limitation period tracker for lawyers",
-    "appeal deadline calculator",
+    "appeal deadline tracker",
     "court limitation software",
     "legal deadline alerts",
-    "statutory limitation tracker",
+    "statutory deadline reminders",
     "advocate case management app",
   ],
   alternates: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Court Limitation Period & Appeal Deadline Tracker | DiaryLex",
     description:
-      "Automated limitation countdown timers, appeal deadlines, and revision alerts for litigation lawyers.",
+      "Set deadline countdown alerts, track appeal filing dates, and get milestone alerts for litigation matters.",
     url: "https://diarylex.com/limitation-tracker/",
     siteName: "DiaryLex",
     type: "website",
@@ -52,7 +52,7 @@ const jsonLd = {
       "operatingSystem": "Web, iOS, Android",
       "url": "https://diarylex.com/limitation-tracker/",
       "description":
-        "Automated statutory limitation period calculator and countdown alerts for civil appeals, criminal revisions, and constitutional petitions.",
+        "Deadline countdown alerts and filing reminder system for litigation counsel. Set critical appeal dates, filing cutoffs, and milestone alerts.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -81,26 +81,26 @@ const jsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How does the limitation tracker protect lawyers against missed deadlines?",
+          "name": "How does the limitation deadline reminder protect lawyers against missed deadlines?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "When a case is decided or an adverse order is passed, DiaryLex prompts counsel to set the statutory limitation deadline (e.g., 30, 60, or 90 days). The system initiates a countdown timer and delivers proactive alerts 10 days, 5 days, and 24 hours prior to expiration.",
+            "text": "Counsel records the target filing or appeal deadline. DiaryLex displays a real-time countdown timer on the chamber dashboard and delivers proactive visual alerts as the deadline approaches.",
           },
         },
         {
           "@type": "Question",
-          "name": "Does DiaryLex account for certified copy application periods?",
+          "name": "Can I track certified copy delivery periods?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Counsel can record the certified copy application date and receipt date to calculate Section 12 Limitation Act exclusions, ensuring exact calculation of the remaining filing days.",
+            "text": "Yes. Once you receive certified copies and determine your effective filing deadline, you can record that target date in DiaryLex with custom advance milestone alerts.",
           },
         },
         {
           "@type": "Question",
-          "name": "Can chamber associates receive limitation deadline alerts?",
+          "name": "Can chamber associates receive deadline reminders?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Limitation alerts appear on the chamber dashboard cause board and can be sent as automated reminders to assigned junior advocates, filing clerks, and senior partners.",
+            "text": "Yes. Limitation and filing deadline reminders appear prominently on the chamber dashboard cause board and reminder list for assigned associates.",
           },
         },
       ],
@@ -147,10 +147,10 @@ export default function LimitationTrackerPage() {
                 <span>Zero Missed Appeals &amp; Statutory Deadlines</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                Limitation Period Tracker for Litigation Lawyers
+                Limitation Period &amp; Deadline Tracker for Lawyers
               </h1>
               <p className="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-2xl mx-auto">
-                Statutory limitation is unforgiving. DiaryLex calculates appeal deadlines, tracks certified copy delivery dates, and triggers automated countdown alerts before the limitation clock runs out.
+                Statutory limitation is unforgiving. DiaryLex provides deadline reminders and countdown alerts that you configure, keeping your chamber ahead of critical court filing cutoffs.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-3">
                 <Link
@@ -191,11 +191,11 @@ export default function LimitationTrackerPage() {
                   <div className="p-4 rounded-xl bg-red-950/20 border border-red-500/30 flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white text-sm">First Appeal from Order (FAO) 94/2024</span>
+                        <span className="font-bold text-white text-sm">Appellate Division Notice of Appeal</span>
                         <span className="text-red-400 font-semibold">• 4 Days Remaining</span>
                       </div>
                       <p className="text-[11px] text-zinc-400">
-                        Order passed: 22 Oct 2024 • Target: High Court Division Bench • Expiration: 25 Nov 2024
+                        Order passed: 22 Oct 2024 • Target: Appellate Court • Expiration: 25 Nov 2024
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -208,11 +208,11 @@ export default function LimitationTrackerPage() {
                   <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-500/30 flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white text-sm">Civil Revision Petition (Sec 115 CPC)</span>
+                        <span className="font-bold text-white text-sm">Civil Revision &amp; Stay Petition</span>
                         <span className="text-amber-300 font-semibold">• 14 Days Remaining</span>
                       </div>
                       <p className="text-[11px] text-zinc-400">
-                        District Judge decree passed: 01 Nov 2024 • Certified Copy received: 10 Nov 2024
+                        Decree passed: 01 Nov 2024 • Certified copy received • Effective filing cutoff: 25 Nov 2024
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -225,11 +225,11 @@ export default function LimitationTrackerPage() {
                   <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white text-sm">Supreme Court Civil Petition for Leave to Appeal (CPLA)</span>
+                        <span className="font-bold text-white text-sm">Petition for Leave to Appeal</span>
                         <span className="text-emerald-400 font-semibold">• 48 Days Remaining</span>
                       </div>
                       <p className="text-[11px] text-zinc-400">
-                        High Court judgment passed: 12 Nov 2024 • 60-day limitation window active
+                        Judgment passed: 12 Nov 2024 • 60-day limitation window active
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -249,13 +249,13 @@ export default function LimitationTrackerPage() {
           <div className={CONTAINER}>
             <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-                Limitation Law Intelligence
+                Limitation &amp; Deadline Protection
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
-                How DiaryLex Protects Your Practice From Limitation Dismissals
+                How DiaryLex Keeps Your Practice Ahead of Filing Deadlines
               </h2>
               <p className="text-sm text-zinc-400 leading-relaxed">
-                Under limitation statutes worldwide, even a single day of delay requires strict Section 5 condonation applications. DiaryLex ensures counsel is alerted well before drafting deadlines.
+                Under court procedural rules, missing a limitation deadline can compromise an entire case. DiaryLex provides proactive countdown reminders that counsel configures for each matter.
               </p>
             </div>
 
@@ -264,14 +264,14 @@ export default function LimitationTrackerPage() {
                 <div className="w-10 h-10 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center">
                   <Clock className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Automated Countdown Engines</h3>
+                <h3 className="text-lg font-bold text-white">Custom Deadline Countdown Timers</h3>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Select your action type — High Court Appeal (30 days), Supreme Court CPLA (60 or 90 days), or Review Petition (30 days). The system instantly calculates the exact last filing date.
+                  Enter your statutory filing or appeal due date. The system tracks days remaining with live countdown badges so your chamber never misses a filing cutoff.
                 </p>
                 <ul className="space-y-2 text-xs text-zinc-400 pt-2 border-t border-white/[0.06]">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Preset limitation templates for civil and criminal law</span>
+                    <span>Configure custom appeal, revision, and review due dates</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -284,18 +284,18 @@ export default function LimitationTrackerPage() {
                 <div className="w-10 h-10 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center">
                   <FileCheck className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Certified Copy Time Exclusion</h3>
+                <h3 className="text-lg font-bold text-white">Time-Sensitive Case Docketing</h3>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Log the day you applied for certified copies and the day they were delivered. DiaryLex automatically deducts qualifying days under Section 12 to provide the true legal deadline.
+                  Log court order dates and effective filing deadlines once certified copies or orders are received. Keep all limitation milestones attached to the case docket.
                 </p>
                 <ul className="space-y-2 text-xs text-zinc-400 pt-2 border-t border-white/[0.06]">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Record copying agency receipt and dispatch slips</span>
+                    <span>Attach deadline notes and target dates to case files</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Export mathematical deduction sheets for pleadings</span>
+                    <span>Clear visibility across partners, associates, and clerks</span>
                   </li>
                 </ul>
               </div>
@@ -304,18 +304,18 @@ export default function LimitationTrackerPage() {
                 <div className="w-10 h-10 rounded-xl bg-blue-400/10 text-blue-400 flex items-center justify-center">
                   <Bell className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Multi-Tier Escalation Alerts</h3>
+                <h3 className="text-lg font-bold text-white">Multi-Tier Milestone Alerts</h3>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Reminders are dispatched at 10-day, 5-day, and 24-hour milestones. If an associate hasn&apos;t marked the appeal as drafted, the senior partner is immediately notified.
+                  Reminders trigger at 10-day, 5-day, and 24-hour milestones on your dashboard and cause board so counsel has ample time to finalize drafts.
                 </p>
                 <ul className="space-y-2 text-xs text-zinc-400 pt-2 border-t border-white/[0.06]">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Dashboard cause banner reminders</span>
+                    <span>Dashboard cause board deadline alerts</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Optional WhatsApp urgent alerts for counsel</span>
+                    <span>Proactive advance notice for the whole litigation team</span>
                   </li>
                 </ul>
               </div>
@@ -390,21 +390,21 @@ export default function LimitationTrackerPage() {
 
             <div className="max-w-2xl mx-auto space-y-3 text-xs">
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
-                <h3 className="font-bold text-white text-sm">How does the limitation tracker protect lawyers against missed deadlines?</h3>
+                <h3 className="font-bold text-white text-sm">How does the limitation deadline reminder protect lawyers against missed deadlines?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  When a case is decided or an adverse order is passed, DiaryLex prompts counsel to set the statutory limitation deadline (e.g., 30, 60, or 90 days). The system initiates a countdown timer and delivers proactive alerts 10 days, 5 days, and 24 hours prior to expiration.
+                  Counsel records the target filing or appeal deadline. DiaryLex displays a real-time countdown timer on the chamber dashboard and delivers proactive visual alerts as the deadline approaches.
                 </p>
               </div>
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
-                <h3 className="font-bold text-white text-sm">Does DiaryLex account for certified copy application periods?</h3>
+                <h3 className="font-bold text-white text-sm">Can I track certified copy delivery periods?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  Yes. Counsel can record the certified copy application date and receipt date to calculate Section 12 Limitation Act exclusions, ensuring exact calculation of the remaining filing days.
+                  Yes. Once you receive certified copies and determine your effective filing deadline, you can record that target date in DiaryLex with custom advance milestone alerts.
                 </p>
               </div>
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
-                <h3 className="font-bold text-white text-sm">Can chamber associates receive limitation deadline alerts?</h3>
+                <h3 className="font-bold text-white text-sm">Can chamber associates receive deadline reminders?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  Yes. Limitation alerts appear on the chamber dashboard cause board and can be sent as automated reminders to assigned junior advocates, filing clerks, and senior partners.
+                  Yes. Limitation and filing deadline reminders appear prominently on the chamber dashboard cause board and reminder list for assigned associates.
                 </p>
               </div>
             </div>

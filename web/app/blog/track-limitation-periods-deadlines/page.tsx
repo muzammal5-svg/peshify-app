@@ -141,6 +141,14 @@ export default function TrackLimitationPeriodsArticle() {
 
             {/* Article Content */}
             <div className="prose prose-invert prose-amber max-w-none space-y-6 text-sm sm:text-base text-zinc-300 leading-relaxed">
+              {/* Jurisdiction Note */}
+              <div className="not-prose mb-8 p-4 rounded-xl bg-amber-400/[0.08] border border-amber-400/20 text-xs sm:text-sm text-amber-200/90 flex items-start gap-3">
+                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Note:</strong> This article covers limitation rules in Pakistan and is general information, not legal advice.
+                </span>
+              </div>
+
               <p>
                 In the practice of law, there are few disasters more devastating to an advocate than having a meritorious appeal or civil revision petition dismissed at the threshold solely on the grounds of being barred by limitation.
               </p>

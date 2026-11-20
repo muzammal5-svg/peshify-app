@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import { Mail, ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 import { supabase, IS_SUPABASE_CONFIGURED } from "@/lib/supabase/client";
 import { Logo } from "@/components/shared/Logo";
-import { LangSwitcher } from "@/components/shared/LangSwitcher";
 
 export default function ForgotPasswordPage() {
   const { t } = useTranslation();
@@ -40,9 +39,6 @@ export default function ForgotPasswordPage() {
         <Link href="/" className="flex items-center gap-2 min-h-[44px]">
           <Logo size="md" variant="full" inverted />
         </Link>
-        <div className="flex items-center gap-3">
-          <LangSwitcher className="min-h-[44px]" />
-        </div>
       </header>
 
       {/* Main Container */}

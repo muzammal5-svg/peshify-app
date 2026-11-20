@@ -190,15 +190,15 @@ export default function ChamberLedgerPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] space-y-1">
                     <span className="text-[11px] text-zinc-400">Agreed Legal Fee</span>
-                    <p className="text-lg font-bold text-white font-mono">PKR 350,000</p>
+                    <p className="text-lg font-bold text-white font-mono">$35,000</p>
                   </div>
                   <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] space-y-1">
                     <span className="text-[11px] text-zinc-400">Retainer Received</span>
-                    <p className="text-lg font-bold text-emerald-400 font-mono">PKR 250,000</p>
+                    <p className="text-lg font-bold text-emerald-400 font-mono">$25,000</p>
                   </div>
                   <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] space-y-1">
                     <span className="text-[11px] text-zinc-400">Remaining Balance</span>
-                    <p className="text-lg font-bold text-amber-300 font-mono">PKR 100,000</p>
+                    <p className="text-lg font-bold text-amber-300 font-mono">$10,000</p>
                   </div>
                 </div>
 
@@ -212,14 +212,14 @@ export default function ChamberLedgerPage() {
                       <span className="font-semibold text-white block">Initial Filing Retainer Payment</span>
                       <span className="text-[11px] text-zinc-400">Direct Bank Transfer • Receipt #0104</span>
                     </div>
-                    <span className="font-mono text-emerald-400 font-semibold">+ PKR 250,000</span>
+                    <span className="font-mono text-emerald-400 font-semibold">+ $25,000</span>
                   </div>
                   <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.04] flex items-center justify-between">
                     <div>
                       <span className="font-semibold text-white block">Court Fee Stamp &amp; Process Vouchers</span>
-                      <span className="text-[11px] text-zinc-400">High Court Treasury Receipt #9841</span>
+                      <span className="text-[11px] text-zinc-400">Treasury Voucher Receipt #9841</span>
                     </div>
-                    <span className="font-mono text-zinc-300">- PKR 15,200</span>
+                    <span className="font-mono text-zinc-300">- $1,520</span>
                   </div>
                 </div>
               </div>

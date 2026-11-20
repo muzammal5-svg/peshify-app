@@ -643,7 +643,7 @@ export function ExecutiveDashboard() {
           {ledgerSummary.debtors && ledgerSummary.debtors.length > 0 && (
             <div className="pt-2 space-y-2.5">
               <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground px-1">
-                Highest Balance Clients (بقایا جات لسٹ)
+                Highest Balance Clients
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                 {ledgerSummary.debtors.map((d) => (

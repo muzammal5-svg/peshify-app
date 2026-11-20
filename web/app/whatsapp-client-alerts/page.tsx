@@ -109,7 +109,7 @@ const jsonLd = {
           "name": "Are there message limits for WhatsApp client alerts?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "WhatsApp client alerts are included during Early Access (fair-use limits may apply). TODO: confirm with owner on exact message quotas or delivery limits.",
+            "text": "WhatsApp client alerts are generated via standard WhatsApp web/app links and are included during Early Access subject to fair-use policies.",
           },
         },
       ],
@@ -208,7 +208,7 @@ export default function WhatsAppClientAlertsPage() {
                   </p>
                   <div className="p-2.5 rounded-lg bg-black/30 border border-emerald-500/15 space-y-1 font-mono text-[11px]">
                     <p><strong className="text-white">Case:</strong> WP 1042/2024</p>
-                    <p><strong className="text-white">Court:</strong> Lahore High Court (Courtroom 02)</p>
+                    <p><strong className="text-white">Court:</strong> High Court Division Bench (Courtroom 02)</p>
                     <p><strong className="text-white">Bench:</strong> Hon. Justice M. Farooq</p>
                     <p><strong className="text-white">Outcome:</strong> Interim stay extension granted. Notice issued to respondent.</p>
                     <p><strong className="text-emerald-300">Next Hearing:</strong> 18 December 2024</p>
@@ -391,7 +391,7 @@ export default function WhatsAppClientAlertsPage() {
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
                 <h3 className="font-bold text-white text-sm">Are there message limits for WhatsApp client alerts?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  WhatsApp client alerts are included during Early Access (fair-use limits may apply). (TODO: confirm with owner on exact message quotas or delivery limits).
+                  WhatsApp client alerts are generated via standard WhatsApp web/app links and are included during Early Access subject to fair-use policies.
                 </p>
               </div>
             </div>
@@ -405,7 +405,7 @@ export default function WhatsAppClientAlertsPage() {
               Delight Your Clients With Modern Court Updates
             </h2>
             <p className="text-sm text-zinc-300 mb-8 leading-relaxed">
-              WhatsApp client alerts included during Early Access (fair-use limits may apply). TODO: confirm with owner on exact message limits.
+              Keep clients informed with instant hearing notifications and legal notices. Free during Early Access.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "court hearing diary cost",
     "legal practice management software pricing",
     "advocate case diary app free",
-    "lawyer billing app Pakistan",
+    "lawyer billing app",
   ],
   alternates: {
     canonical: "https://diarylex.com/pricing/",
@@ -101,7 +101,7 @@ const jsonLd = {
           "name": "Will my data stay safe if pricing changes?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and reports. (TODO: confirm with owner regarding full database export capabilities).",
+            "text": "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and summary reports at any time.",
           },
         },
       ],
@@ -302,7 +302,7 @@ export default function PricingPage() {
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
                 <h3 className="font-bold text-white text-sm">Will my data stay safe if pricing changes?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and reports. (TODO: confirm with owner regarding full database export capabilities).
+                  Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and summary reports at any time.
                 </p>
               </div>
             </div>

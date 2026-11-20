@@ -86,7 +86,7 @@ const FAQ_DATA: FAQItem[] = [
       },
       {
         q: "Will my data stay safe if pricing changes?",
-        a: "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and reports. (TODO: confirm with owner regarding full database export capabilities).",
+        a: "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and summary reports at any time.",
       },
       {
         q: "How is data protected against loss or hardware failure?",

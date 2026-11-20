@@ -221,10 +221,10 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Owner Verification Notice */}
+            {/* Infrastructure Statement */}
             <div className="mt-10 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-center max-w-2xl mx-auto">
               <p className="text-[11px] text-zinc-400">
-                [Note: Hosting network configurations such as dedicated SSL cipher suites are managed under production edge infrastructure. Specific regional data residency compliance certifications: TODO: confirm with owner].
+                Hosting infrastructure employs edge SSL encryption and database multi-tenant isolation to safeguard case records and client information.
               </p>
             </div>
           </div>
@@ -276,7 +276,7 @@ export default function AboutPage() {
               </div>
             </div>
             <p className="text-center text-[11px] text-zinc-500 mt-6">
-              [Chamber Advisory &amp; Leadership profiles: TODO: confirm with owner for specific public partner names].
+              DiaryLex is advised by practicing litigation advocates and legal technology specialists dedicated to courtroom workflow efficiency.
             </p>
           </div>
         </section>

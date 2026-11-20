@@ -105,13 +105,13 @@ export default function FeaturesPage() {
     {
       icon: Clock,
       title: "Limitation & Appeal Countdown",
-      desc: "Set statutory limitation rules for civil appeals, criminal revisions, and review petitions. Multi-tier alerts at 10-day, 5-day, and 1-day milestones.",
+      desc: "Record critical appeal deadlines and filing dates. Get countdown alerts at 10-day, 5-day, and 1-day milestones so your chamber stays ahead of court cutoffs.",
       link: "/limitation-tracker/",
       linkText: "Explore Limitation Tracker",
       benefits: [
-        "Section 12 certified copy exclusion calculation",
-        "High Court & Supreme Court deadline timers",
-        "Proactive reminders for counsel & associates",
+        "Custom statutory filing countdown timers",
+        "Appellate and revision deadline reminders",
+        "Proactive alerts on chamber cause board",
         "Color-coded urgency status badges",
       ],
     },
@@ -298,7 +298,7 @@ export default function FeaturesPage() {
                   Limitation Tracker
                 </h3>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  Statutory appeal deadlines, Section 12 certified copy deduction &amp; alerts.
+                  Court filing countdown timers, appeal deadlines &amp; milestone alerts.
                 </p>
               </div>
               <div className="pt-3 text-[11px] font-semibold text-amber-400 flex items-center gap-1">

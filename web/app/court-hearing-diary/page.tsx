@@ -179,7 +179,7 @@ export default function CourtHearingDiaryPage() {
                   <div>
                     <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-amber-400" />
-                      Daily Cause List • Lahore High Court & District Benches
+                      Daily Cause List • High Court &amp; District Benches
                     </h2>
                     <p className="text-xs text-zinc-400">
                       Showing 4 active fixtures scheduled for hearing today

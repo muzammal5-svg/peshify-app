@@ -15,7 +15,6 @@ import {
   Lock,
 } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
-import { LangSwitcher } from "@/components/shared/LangSwitcher";
 import { SITE, whatsappLink, phoneLink } from "@/lib/siteConfig";
 
 export function PublicFooter() {

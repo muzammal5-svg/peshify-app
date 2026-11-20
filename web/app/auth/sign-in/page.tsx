@@ -21,7 +21,6 @@ import {
 } from "lucide-react";
 import { supabase, IS_SUPABASE_CONFIGURED } from "@/lib/supabase/client";
 import { Logo } from "@/components/shared/Logo";
-import { LangSwitcher } from "@/components/shared/LangSwitcher";
 import { cn } from "@/lib/utils";
 
 const OTP_ENABLED = process.env.NEXT_PUBLIC_OTP_ENABLED === "true";

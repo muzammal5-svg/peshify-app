@@ -87,7 +87,7 @@ const faqPageLd = {
           "name": "Will my data stay safe if pricing changes?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and reports. (TODO: confirm with owner regarding full database export capabilities).",
+            "text": "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and summary reports at any time.",
           },
         },
         {

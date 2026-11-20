@@ -545,7 +545,7 @@ function CaseViewPage() {
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#1F7A4D]/15 hover:bg-[#1F7A4D]/25 text-emerald-400 border border-emerald-500/25 transition-all"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
-                    <span>WhatsApp پر پیشی / نوٹس بھیجیں</span>
+                    <span>Send WhatsApp Hearing Notice</span>
                   </button>
                   <button
                     type="button"

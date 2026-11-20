@@ -30,7 +30,6 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
 import { toast } from "@/components/ui/Toast";
-import { LangSwitcher } from "@/components/shared/LangSwitcher";
 import { useRoleGuard } from "@/hooks/useRoleGuard";
 import { useAuth } from "@/providers/AuthProvider";
 import { useTheme } from "@/providers/ThemeProvider";
@@ -178,14 +177,6 @@ function SettingsPage() {
               </div>
             </div>
           </Card>
-        </section>
-
-        {/* Language */}
-        <section>
-          <p className="text-xs font-semibold uppercase tracking-wider text-navy-500 mb-2 px-1 flex items-center gap-1">
-            <Globe className="w-3.5 h-3.5 text-navy-400" /> {t("settings.language")}
-          </p>
-          <LangSwitcher />
         </section>
 
         {/* Admin config */}

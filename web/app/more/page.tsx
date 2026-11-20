@@ -12,7 +12,6 @@ import { RouteGuard }  from "@/components/shared/RouteGuard";
 import { Card }        from "@/components/ui/Card";
 import { Badge }       from "@/components/ui/Badge";
 import { RoleBadge }   from "@/components/ui/Badge";
-import { LangSwitcher } from "@/components/shared/LangSwitcher";
 import { useAuth }     from "@/providers/AuthProvider";
 import { ConfirmDialog } from "@/components/ui/Modal";
 import { useState }    from "react";
@@ -126,14 +125,6 @@ function MorePage() {
             );
           })}
         </Card>
-
-        {/* ── Language switcher ── */}
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-[#9A958C] mb-2 px-1">
-            {t("settings.language")}
-          </p>
-          <LangSwitcher className="w-full" />
-        </div>
 
         {/* ── Logout ── */}
         <button

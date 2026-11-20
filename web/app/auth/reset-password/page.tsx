@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { Eye, EyeOff, CheckCircle2, Lock, AlertCircle, ArrowLeft } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { Logo } from "@/components/shared/Logo";
-import { LangSwitcher } from "@/components/shared/LangSwitcher";
 
 export default function ResetPasswordPage() {
   const { t } = useTranslation();
@@ -62,9 +61,6 @@ export default function ResetPasswordPage() {
         <Link href="/" className="flex items-center gap-2 min-h-[44px]">
           <Logo size="md" variant="full" inverted />
         </Link>
-        <div className="flex items-center gap-3">
-          <LangSwitcher className="min-h-[44px]" />
-        </div>
       </header>
 
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
