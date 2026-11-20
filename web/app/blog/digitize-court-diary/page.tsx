@@ -198,7 +198,7 @@ export default function DigitizeCourtDiaryArticle() {
               <div className="p-5 rounded-2xl bg-card border border-white/10 my-6 space-y-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-amber-400 block">Pro Chamber Tip</span>
                 <p className="text-xs sm:text-sm text-zinc-300">
-                  When choosing legal software, prioritize platforms with robust multi-tenant data isolation. DiaryLex enforces PostgreSQL Row-Level Security (RLS) to guarantee that no competing advocate or external third party can ever view your chamber dockets.
+                  When choosing legal software, prioritize platforms with reliable chamber data separation. DiaryLex enforces chamber-level access controls to ensure your chamber dockets remain accessible only to your authorized members.
                 </p>
               </div>
 

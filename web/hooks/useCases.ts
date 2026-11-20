@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { db, insert, update, supabaseRaw } from "@/lib/supabase/client";
 import { todayKarachi } from "@/lib/utils";
+import { useAuth } from "@/providers/AuthProvider";
 import type { Case, CaseStatus, CaseOutcome, CaseNote } from "@/types/supabase";
 
 // ─── List / filter ────────────────────────────────────────────────────────────
@@ -27,11 +28,15 @@ export function useCases(filter: CasesFilter = {}) {
     status = "all", search = "", clientId, caseId, outcome = "",
     decisionYear = "", caseTypeId, courtNo = "", page = 1, pageSize = PAGE_SIZE,
   } = filter;
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   const from = (page - 1) * pageSize;
   const to   = from + pageSize - 1;
 
   return useQuery({
-    queryKey: ["cases", status, search, clientId, caseId, outcome, decisionYear, caseTypeId, courtNo, page, pageSize],
+    queryKey: ["cases", status, search, clientId, caseId, outcome, decisionYear, caseTypeId, courtNo, page, pageSize, firmId],
     queryFn: async () => {
       let q = db.cases()
         .select(
@@ -41,6 +46,10 @@ export function useCases(filter: CasesFilter = {}) {
         .is("deleted_at", null)
         .order("created_at", { ascending: false })
         .range(from, to);
+
+      if (firmId && !isSuper) {
+        q = q.eq("firm_id", firmId);
+      }
 
       if (status !== "all") q = q.eq("status", status);
       if (clientId)          q = q.eq("client_id", clientId);
@@ -77,10 +86,14 @@ export function useCases(filter: CasesFilter = {}) {
 // ─── Single case ─────────────────────────────────────────────────────────────
 
 export function useCase(id: string | null) {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   return useQuery({
-    queryKey: ["case", id],
+    queryKey: ["case", id, firmId],
     queryFn: async () => {
-      const { data, error } = await db.cases()
+      let q = db.cases()
         .select(`
           *,
           case_type:case_types(id,name,requires_offence),
@@ -88,8 +101,13 @@ export function useCase(id: string | null) {
           assigned_lawyer:profiles!cases_assigned_to_fkey(id,full_name,role)
         `)
         .eq("id", id!)
-        .is("deleted_at", null)
-        .single();
+        .is("deleted_at", null);
+
+      if (firmId && !isSuper) {
+        q = q.eq("firm_id", firmId);
+      }
+
+      const { data, error } = await q.single();
       if (error) throw error;
       return data as Case;
     },
@@ -101,13 +119,22 @@ export function useCase(id: string | null) {
 // ─── Hearings for a case ──────────────────────────────────────────────────────
 
 export function useCaseHearings(caseId: string | null) {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   return useQuery({
-    queryKey: ["case-hearings", caseId],
+    queryKey: ["case-hearings", caseId, firmId],
     queryFn: async () => {
-      const { data, error } = await db.hearings()
+      let q = db.hearings()
         .select("*")
-        .eq("case_id", caseId!)
-        .order("hearing_date", { ascending: false });
+        .eq("case_id", caseId!);
+
+      if (firmId && !isSuper) {
+        q = q.eq("firm_id", firmId);
+      }
+
+      const { data, error } = await q.order("hearing_date", { ascending: false });
       if (error) throw error;
       return data ?? [];
     },

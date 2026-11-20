@@ -151,7 +151,7 @@ export default function AboutPage() {
                     <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-white block text-sm">Attorney-Client Privilege Above All</strong>
-                      <span>Your case files, pleadings, and client notes are never mined, sold, or shared with third parties. Multi-tenant Row-Level Security ensures total chamber isolation.</span>
+                      <span>Your case files, pleadings, and client notes are never mined, sold, or shared with third parties. Chamber-level access controls keep each firm&apos;s workspace separate.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -194,9 +194,9 @@ export default function AboutPage() {
                 <div className="w-10 h-10 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center">
                   <Lock className="w-5 h-5" />
                 </div>
-                <h3 className="text-base font-bold text-white">Database Row-Level Security (RLS)</h3>
+                <h3 className="text-base font-bold text-white">Chamber-Level Access Controls</h3>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Every query executed against the PostgreSQL database validates the active lawyer or chamber identifier at the kernel level. It is architecturally impossible for one advocate to view another chamber&apos;s clients or dockets.
+                  Access controls validate chamber identifiers for each request, keeping your chamber&apos;s clients, dockets, and files private to your authorized members.
                 </p>
               </div>
 
@@ -224,7 +224,7 @@ export default function AboutPage() {
             {/* Infrastructure Statement */}
             <div className="mt-10 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-center max-w-2xl mx-auto">
               <p className="text-[11px] text-zinc-400">
-                Hosting infrastructure employs edge SSL encryption and database multi-tenant isolation to safeguard case records and client information.
+                Hosting infrastructure employs SSL encryption and chamber-level access controls to safeguard case records and client information.
               </p>
             </div>
           </div>
@@ -257,10 +257,10 @@ export default function AboutPage() {
                 <div className="w-16 h-16 mx-auto rounded-full bg-blue-400/10 text-blue-300 flex items-center justify-center font-bold text-lg border border-blue-400/20">
                   SE
                 </div>
-                <h3 className="font-bold text-white text-sm">Systems Architecture &amp; RLS</h3>
+                <h3 className="font-bold text-white text-sm">Systems &amp; Database Architecture</h3>
                 <p className="text-[11px] text-blue-400 font-medium">Enterprise Software Engineering</p>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  Specializes in high-security multi-tenant PostgreSQL architecture and real-time offline synchronization.
+                  Specializes in reliable database architecture, chamber data management, and real-time offline synchronization.
                 </p>
               </div>
 

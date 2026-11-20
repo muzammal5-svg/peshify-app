@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { db, supabaseRaw } from "@/lib/supabase/client";
 import { fetchHearingFilterOptions } from "@/lib/hearingFilterOptions.mjs";
+import { useAuth } from "@/providers/AuthProvider";
 import type { CauseListRow, Hearing } from "@/types/supabase";
 import type { TablesUpdate } from "@/types/supabase";
 
@@ -33,6 +34,10 @@ export interface CauseListFilter {
 const PAGE_SIZE = 25;
 
 export function useCauseList(filter: CauseListFilter = {}) {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   const {
     date,
     status,
@@ -55,12 +60,16 @@ export function useCauseList(filter: CauseListFilter = {}) {
   const to   = from + pageSize - 1;
 
   return useQuery({
-    queryKey: ["cause-list", filter],
+    queryKey: ["cause-list", filter, firmId],
     queryFn: async () => {
       let q = db.causeList()
         .select("*", { count: "exact" })
         .order(sortBy, { ascending: sortDir === "asc", nullsFirst: false })
         .range(from, to);
+
+      if (firmId && !isSuper) {
+        q = q.eq("firm_id", firmId);
+      }
 
       // Date filter — show cases whose hearing_date OR next_date matches the selected date
       if (date !== null && date !== undefined) {

@@ -10,14 +10,14 @@ import { SITE, whatsappLink } from "@/lib/siteConfig";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Read the DiaryLex Privacy Policy: how we protect attorney-client confidentiality, secure court records, and maintain multi-tenant data isolation.",
+    "Read the DiaryLex Privacy Policy: how we protect attorney-client confidentiality, secure court records, and maintain chamber-level data protection.",
   alternates: {
     canonical: "https://diarylex.com/privacy/",
   },
   openGraph: {
     title: "Privacy Policy | DiaryLex Legal Software",
     description:
-      "Our commitment to attorney-client privilege, strict data segregation, and PostgreSQL Row-Level Security.",
+      "Our commitment to attorney-client privilege, data protection, and chamber-level access controls.",
     url: "https://diarylex.com/privacy/",
     siteName: "DiaryLex",
     type: "website",

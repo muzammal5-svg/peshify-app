@@ -227,7 +227,7 @@ function RegisterForm() {
             <div className="relative z-10 mt-8 pt-6 border-t border-white/10 flex items-center gap-2 text-xs text-slate-400">
               <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" aria-hidden="true" />
               <span>
-                Chamber-grade confidentiality: TLS 1.3 encryption and dedicated advocate data ownership.
+                Chamber-grade confidentiality: chamber-level access controls and dedicated advocate data ownership.
               </span>
             </div>
           </aside>

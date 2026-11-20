@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { db }       from "@/lib/supabase/client";
 import { todayKarachi } from "@/lib/utils";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface DashboardCounts {
   todayHearings:   number;
@@ -13,16 +14,26 @@ interface DashboardCounts {
   unreadNotifications: number;
 }
 
-async function fetchCounts(): Promise<DashboardCounts> {
+async function fetchCounts(firmId?: string, isSuper?: boolean): Promise<DashboardCounts> {
   const today = todayKarachi();
 
+  let hQ = db.hearings().select("id", { count: "exact", head: true }).eq("hearing_date", today);
+  let rcQ = db.cases().select("id",    { count: "exact", head: true }).eq("status", "running");
+  let dcQ = db.cases().select("id",    { count: "exact", head: true }).eq("status", "decided");
+  let clQ = db.clients().select("id",  { count: "exact", head: true }).eq("is_active", true);
+  let remQ = db.reminders().select("id",{ count: "exact", head: true }).eq("status", "upcoming");
+  let notQ = db.notifications().select("id", { count: "exact", head: true }).eq("is_read", false);
+
+  if (firmId && !isSuper) {
+    hQ = hQ.eq("firm_id", firmId);
+    rcQ = rcQ.eq("firm_id", firmId);
+    dcQ = dcQ.eq("firm_id", firmId);
+    clQ = clQ.eq("firm_id", firmId);
+    remQ = remQ.eq("firm_id", firmId);
+  }
+
   const [today_, running, decided, clients, reminders, notifs] = await Promise.all([
-    db.hearings().select("id", { count: "exact", head: true }).eq("hearing_date", today),
-    db.cases().select("id",    { count: "exact", head: true }).eq("status", "running"),
-    db.cases().select("id",    { count: "exact", head: true }).eq("status", "decided"),
-    db.clients().select("id",  { count: "exact", head: true }).eq("is_active", true),
-    db.reminders().select("id",{ count: "exact", head: true }).eq("status", "upcoming"),
-    db.notifications().select("id", { count: "exact", head: true }).eq("is_read", false),
+    hQ, rcQ, dcQ, clQ, remQ, notQ,
   ]);
 
   const failed = [today_, running, decided, clients, reminders, notifs].find(result => result.error);
@@ -39,9 +50,13 @@ async function fetchCounts(): Promise<DashboardCounts> {
 }
 
 export function useDashboardCounts() {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   return useQuery({
-    queryKey: ["dashboard-counts"],
-    queryFn:  fetchCounts,
+    queryKey: ["dashboard-counts", firmId],
+    queryFn:  () => fetchCounts(firmId, isSuper),
     staleTime: 1000 * 60 * 2,  // 2 min
     retry: 1,
   });

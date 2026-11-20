@@ -84,7 +84,7 @@ const jsonLd = {
           "name": "How does the chamber ledger keep advocate finances separate and private?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Every financial entry, retainer agreement, and expense voucher in DiaryLex is secured by PostgreSQL Row-Level Security (RLS). No other advocate, chamber, or external user can access your fee structures or financial transactions.",
+            "text": "Every financial entry, retainer agreement, and expense voucher in DiaryLex is protected by chamber-level access controls, keeping your fee structures and accounts private to your firm.",
           },
         },
         {
@@ -287,9 +287,9 @@ export default function ChamberLedgerPage() {
                 <div className="w-10 h-10 rounded-xl bg-blue-400/10 text-blue-400 flex items-center justify-center">
                   <Lock className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Strict Multi-Tenant Confidentiality</h3>
+                <h3 className="text-lg font-bold text-white">Chamber Data Confidentiality</h3>
                 <p className="text-xs text-zinc-300 leading-relaxed">
-                  Financial numbers are strictly confidential. DiaryLex enforces PostgreSQL Row-Level Security (RLS) so chamber ledgers are completely invisible to any other account.
+                  Financial numbers are strictly confidential. DiaryLex enforces chamber-level access controls so chamber ledgers are kept separate between firms.
                 </p>
                 <ul className="space-y-2 text-xs text-zinc-400 pt-2 border-t border-white/[0.06]">
                   <li className="flex items-center gap-2">
@@ -375,7 +375,7 @@ export default function ChamberLedgerPage() {
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
                 <h3 className="font-bold text-white text-sm">How does the chamber ledger keep advocate finances separate and private?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  Every financial entry, retainer agreement, and expense voucher in DiaryLex is secured by PostgreSQL Row-Level Security (RLS). No other advocate, chamber, or external user can access your fee structures or financial transactions.
+                  Every financial entry, retainer agreement, and expense voucher in DiaryLex is protected by chamber-level access controls, keeping your fee structures and accounts private to your firm.
                 </p>
               </div>
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">

@@ -219,7 +219,7 @@ export default function WhyLawyersUseWhatsAppArticle() {
                 A common concern among senior practitioners is whether cloud software exposes client contact databases to third-party telemarketers.
               </p>
               <p>
-                DiaryLex guarantees strict confidentiality. Client contact numbers are secured by PostgreSQL Row-Level Security (RLS) and are never shared, sold, or accessible to external entities. Furthermore, DiaryLex does not require installing invasive third-party WhatsApp bots that violate WhatsApp terms of service — messages are dispatched directly through your own authorized WhatsApp session.
+                DiaryLex prioritizes chamber confidentiality. Client contact numbers are protected by chamber-level access controls and are never shared or sold. Furthermore, DiaryLex does not require installing invasive third-party WhatsApp bots that violate WhatsApp terms of service — messages are dispatched directly through your own authorized WhatsApp session.
               </p>
 
               <h2 className="text-xl sm:text-2xl font-bold text-white pt-6">

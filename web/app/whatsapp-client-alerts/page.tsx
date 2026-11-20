@@ -93,7 +93,7 @@ const jsonLd = {
           "name": "Does DiaryLex share my client contact numbers with external parties?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Never. Client phone numbers and confidential case records are protected by PostgreSQL Row-Level Security (RLS). DiaryLex never sells, transfers, or shares lawyer or client contact information.",
+            "text": "Never. Client phone numbers and confidential case records are protected by chamber-level access controls. DiaryLex never sells, transfers, or shares lawyer or client contact information.",
           },
         },
         {
@@ -379,7 +379,7 @@ export default function WhatsAppClientAlertsPage() {
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">
                 <h3 className="font-bold text-white text-sm">Does DiaryLex share my client contact numbers with external parties?</h3>
                 <p className="text-zinc-300 leading-relaxed">
-                  Never. Client phone numbers and confidential case records are protected by PostgreSQL Row-Level Security (RLS). DiaryLex never sells, transfers, or shares lawyer or client contact information.
+                  Never. Client phone numbers and confidential case records are protected by chamber-level access controls. DiaryLex never sells, transfers, or shares lawyer or client contact information.
                 </p>
               </div>
               <div className="p-5 rounded-xl bg-card border border-white/[0.08] space-y-2">

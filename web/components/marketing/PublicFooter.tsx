@@ -54,7 +54,7 @@ export function PublicFooter() {
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[11px] font-medium text-emerald-300 border border-emerald-400/20">
                 <Lock className="w-3 h-3 text-emerald-400" strokeWidth={1.75} />
-                <span>Chamber RLS &bull; Tenant Isolation</span>
+                <span>Chamber Privacy &bull; Access Controls</span>
               </span>
             </div>
           </div>
@@ -195,7 +195,7 @@ export function PublicFooter() {
                 Attorney-Client Privilege & Strict Data Segregation
               </h5>
               <p className="text-xs text-slate-400 leading-relaxed mt-0.5 max-w-3xl">
-                DiaryLex never sells, monetizes, or shares your case records, pleadings, or client contacts. PostgreSQL Row-Level Security (RLS) ensures total multi-tenant isolation.
+                DiaryLex never sells, monetizes, or shares your case records, pleadings, or client contacts. Chamber-level access controls keep each firm&apos;s workspace separate.
               </p>
             </div>
           </div>

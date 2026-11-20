@@ -37,8 +37,8 @@ export function WhatsNewModal({ open, onClose }: WhatsNewModalProps) {
     },
     {
       icon: Shield,
-      title: "Bank-Grade Encryption & Chamber RLS",
-      desc: "Row-Level Security (RLS) guarantees absolute chamber privacy. Your client files, orders, and diary remain strictly yours.",
+      title: "Chamber Privacy & Access Controls",
+      desc: "Chamber-level access controls keep your workspace private. Your client files, orders, and diary remain strictly yours.",
       tag: "Security",
     },
   ];

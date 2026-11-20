@@ -138,7 +138,7 @@ export default function FeaturesPage() {
         "Case-linked retainer balance tracking",
         "Out-of-pocket court expense vouchers",
         "Instant client billing statement PDF",
-        "PostgreSQL RLS multi-tenant protection",
+        "Chamber-level access controls",
       ],
     },
     {
@@ -149,7 +149,7 @@ export default function FeaturesPage() {
         "Centralized case repository per brief",
         "Pleadings draft & vakalatnama storage",
         "Instant search across running & decided cases",
-        "Firm-level folder & permissions isolation",
+        "Firm-level folder & permission controls",
       ],
     },
     {
@@ -165,10 +165,10 @@ export default function FeaturesPage() {
     },
     {
       icon: Lock,
-      title: "Strict Chamber Data Isolation",
-      desc: "Engineered around attorney-client privilege. PostgreSQL Row-Level Security (RLS) ensures complete multi-tenant isolation.",
+      title: "Chamber Data Separation",
+      desc: "Engineered around attorney-client privilege with chamber-level access controls to keep each firm's matters separate.",
       benefits: [
-        "Kernel-level data boundary enforcement",
+        "Database boundary and access enforcement",
         "Private authenticated cloud storage",
         "Complete data export to PDF and CSV",
         "Encrypted backups and audit trails",

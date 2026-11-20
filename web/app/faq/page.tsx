@@ -82,11 +82,11 @@ const FAQ_DATA: FAQItem[] = [
     questions: [
       {
         q: "Will my chamber's case records stay confidential?",
-        a: "Yes. All legal files, client notes, and case records are protected by attorney-client privilege standards and isolated via PostgreSQL Row-Level Security (RLS). One chamber cannot view another's data.",
+        a: "Yes. All legal files, client notes, and case records are protected under attorney-client privilege standards with chamber-level access controls keeping each firm's data separate.",
       },
       {
         q: "Will my data stay safe if pricing changes?",
-        a: "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with database-level isolation. You can export cause lists and summary reports at any time.",
+        a: "Yes. Your case dockets and chamber records remain strictly your property and are protected under attorney-client confidentiality with chamber-level access controls. You can export cause lists and summary reports at any time.",
       },
       {
         q: "How is data protected against loss or hardware failure?",

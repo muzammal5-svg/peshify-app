@@ -218,13 +218,13 @@ export default function ManagingChamberAccountsArticle() {
               </p>
 
               <h2 className="text-xl sm:text-2xl font-bold text-white pt-6">
-                Multi-Tenant Confidentiality in Law Firm Accounting
+                Chamber Confidentiality in Law Firm Accounting
               </h2>
               <p>
                 Unlike generic commercial accounting software, law firm ledgers require strict attorney-client privilege protection. Financial figures must never be visible to third parties, and inside a firm, partners must be able to restrict associate permissions so junior lawyers only access the briefs assigned to them.
               </p>
               <p>
-                DiaryLex implements PostgreSQL Row-Level Security (RLS) to enforce absolute multi-tenant isolation, ensuring that every financial figure and retainer balance remains strictly confidential.
+                DiaryLex implements chamber-level access controls to ensure that financial figures and retainer balances remain private to your chamber.
               </p>
 
               <h2 className="text-xl sm:text-2xl font-bold text-white pt-6">

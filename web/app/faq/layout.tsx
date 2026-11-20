@@ -111,7 +111,7 @@ const faqPageLd = {
           "name": "Will my chamber's data stay confidential and secure?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "All legal files, client notes, and case records are protected by attorney-client privilege standards and isolated via PostgreSQL Row-Level Security (RLS).",
+            "text": "All legal files, client notes, and case records are protected by attorney-client privilege standards and chamber-level access controls.",
           },
         },
         {

@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { db, update, insert, supabaseRaw } from "@/lib/supabase/client";
 import { normalisePhone } from "@/lib/phone";
+import { useAuth } from "@/providers/AuthProvider";
 import type { Client } from "@/types/supabase";
 
 // ─── List / search ────────────────────────────────────────────────────────────
@@ -18,16 +19,24 @@ const DEFAULT_PAGE_SIZE = 20;
 
 export function useClients(filter: ClientsFilter = {}) {
   const { search = "", isActive = null, page = 1, pageSize = DEFAULT_PAGE_SIZE } = filter;
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   const from = (page - 1) * pageSize;
   const to   = from + pageSize - 1;
 
   return useQuery({
-    queryKey: ["clients", search, isActive, page, pageSize],
+    queryKey: ["clients", search, isActive, page, pageSize, firmId],
     queryFn: async () => {
       let q = db.clients()
         .select("*", { count: "exact" })
         .order("full_name", { ascending: true })
         .range(from, to);
+
+      if (firmId && !isSuper) {
+        q = q.eq("firm_id", firmId);
+      }
 
       if (isActive !== null) q = q.eq("is_active", isActive);
 
@@ -57,13 +66,18 @@ export function useClients(filter: ClientsFilter = {}) {
 // ─── Single client ────────────────────────────────────────────────────────────
 
 export function useClient(id: string | null) {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   return useQuery({
-    queryKey: ["client", id],
+    queryKey: ["client", id, firmId],
     queryFn: async () => {
-      const { data, error } = await db.clients()
-        .select("*")
-        .eq("id", id!)
-        .single();
+      let q = db.clients().select("*").eq("id", id!);
+      if (firmId && !isSuper) {
+        q = q.eq("firm_id", firmId);
+      }
+      const { data, error } = await q.single();
       if (error) throw error;
       return data as Client;
     },
@@ -75,19 +89,28 @@ export function useClient(id: string | null) {
 // ─── Case counts for a client ─────────────────────────────────────────────────
 
 export function useClientCaseCounts(clientId: string | null) {
+  const { profile } = useAuth();
+  const firmId = profile?.firm_id;
+  const isSuper = profile?.role === "super_admin";
+
   return useQuery({
-    queryKey: ["client-case-counts", clientId],
+    queryKey: ["client-case-counts", clientId, firmId],
     queryFn: async () => {
-      const [running, decided] = await Promise.all([
-        db.cases()
-          .select("id", { count: "exact", head: true })
-          .eq("client_id", clientId!)
-          .eq("status", "running"),
-        db.cases()
-          .select("id", { count: "exact", head: true })
-          .eq("client_id", clientId!)
-          .eq("status", "decided"),
-      ]);
+      let runQ = db.cases()
+        .select("id", { count: "exact", head: true })
+        .eq("client_id", clientId!)
+        .eq("status", "running");
+      let decQ = db.cases()
+        .select("id", { count: "exact", head: true })
+        .eq("client_id", clientId!)
+        .eq("status", "decided");
+
+      if (firmId && !isSuper) {
+        runQ = runQ.eq("firm_id", firmId);
+        decQ = decQ.eq("firm_id", firmId);
+      }
+
+      const [running, decided] = await Promise.all([runQ, decQ]);
       if (running.error) throw running.error;
       if (decided.error) throw decided.error;
       return {

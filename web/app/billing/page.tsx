@@ -98,7 +98,7 @@ export default function BillingPage() {
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">Data Privacy</p>
-                  <p className="text-sm font-bold text-foreground">Dedicated RLS Isolation</p>
+                  <p className="text-sm font-bold text-foreground">Chamber Access Controls</p>
                 </div>
               </div>
             </div>

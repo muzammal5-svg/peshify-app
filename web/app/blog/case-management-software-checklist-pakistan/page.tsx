@@ -223,7 +223,7 @@ export default function CaseManagementChecklistPakistanArticle() {
                 Under the Canons of Professional Conduct and Etiquette of the Pakistan Bar Council, an advocate is strictly bound to preserve client confidences.
               </p>
               <p>
-                Ensure that the software vendor uses database-level Row-Level Security (RLS) so your dockets and pleadings are completely isolated from other law firms. Never use platforms that monetize user data or share advocate registers.
+                Ensure that the software vendor uses chamber-level access controls so your dockets and pleadings are kept separate from other law firms. Never use platforms that monetize user data or share advocate registers.
               </p>
 
               <h2 className="text-xl sm:text-2xl font-bold text-white pt-6">

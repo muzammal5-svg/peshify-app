@@ -147,7 +147,7 @@ export default function SignInPage() {
     {
       icon: ShieldCheck,
       title: "Chamber-Grade Data Privacy",
-      desc: "Strict access controls, TLS 1.3 encryption, and complete multi-tenant isolation",
+      desc: "Chamber-level access controls and dedicated advocate data ownership",
     },
   ];
 
